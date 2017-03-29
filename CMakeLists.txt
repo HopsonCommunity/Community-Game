@@ -6,19 +6,19 @@ project(Community-Game)
 
 # Make your header file accessible to the compiler
 include_directories(include)
-include_directories(dependencies/SFML/include)
+include_directories(SFML/include)
 
 add_definitions(-DSFML_STATIC)
 
 # Add all files from the source/ folder to CMake
 file(GLOB SRC
-    "source/*.cpp"
+    "src/*.cpp"
 )
 
 set(SFML_BUILD_DOC OFF CACHE BOOL "" FORCE)
 set(SFML_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
-add_subdirectory(dependencies/SFML)
+add_subdirectory(SFML)
 
 # Define the executable
 add_executable(Community-Game ${SRC})
