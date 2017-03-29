@@ -1,5 +1,15 @@
 #include <iostream>
 #include <cstdlib>
+/*
+This project is maintained by the  Community on Hopson97's Discord server.
+The people who are currently working together on this are:
+    KiddieD,
+    Esscoder,
+    ans66f,
+    DCubix,
+    DarkCart,
+    RagingRabbit
+*/
 
 int main()
 {
