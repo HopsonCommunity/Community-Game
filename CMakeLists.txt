@@ -6,9 +6,9 @@ project(Community-Game)
 
 # Make your header file accessible to the compiler
 include_directories(include)
-include_directories(dependencies/sfml/include)
 
-add_definitions(-DSFML_STATIC)
+# CMake Modules
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 
 # Add all files from the source/ folder to CMake
 file(GLOB SRC
@@ -16,14 +16,14 @@ file(GLOB SRC
 )
 
 # Use SFML
-set(SFML_BUILD_DOC OFF CACHE BOOL "" FORCE)
-set(SFML_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
-add_subdirectory(dependencies/sfml)
+find_package(SFML REQUIRED system window graphics network audio)
+if(SFML_FOUND)
+    include_directories(${SFML_INCLUDE_DIR})
+    target_link_libraries(${PROJECT_NAME} ${SFML_LIBRARIES})
+endif()
 
 # Define the executable
 add_executable(Community-Game ${SRC})
-target_link_libraries(Community-Game sfml-graphics sfml-window sfml-system)
 
 # Enable C++ 11
 set_target_properties(Community-Game PROPERTIES
