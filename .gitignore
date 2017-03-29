@@ -23,11 +23,19 @@ bld/
 # Visual Studio 2015 cache/options directory
 .vs/
 
+Debug/
+Release/
+Win32/
+Community-Game.dir/
+build/
+
+
 # Visual Studio profiler
 *.psess
 *.vsp
 *.vspx
 *.sap
+
 
 *.dll
 *.a
