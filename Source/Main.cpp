@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cstdlib>
+#include <SFML\Graphics.hpp>
+
 /*
 This project is maintained by the  Community on Hopson97's Discord server.
 The people who are currently working together on this are:
@@ -8,14 +10,30 @@ The people who are currently working together on this are:
     ans66f,
     DCubix,
     DarkCart,
-    RagingRabbit
+    RagingRabbit,
+    kaizi99,
+    Pol_hp
 */
 
 int main()
 {
-    std::cout << "Hello there, coders!" << std::endl;
-    std::cout << "This is the community project" << std::endl;
-    std::cout << "Don't forget that you can always ask others about their \nintents on the Discord server!" << std::endl;
+	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+	sf::CircleShape shape(100.f);
+	shape.setFillColor(sf::Color::Green);
 
-    return EXIT_SUCCESS;
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+
+		window.clear();
+		window.draw(shape);
+		window.display();
+	}
+
+	return EXIT_SUCCESS;
 }
