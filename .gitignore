@@ -1,13 +1,27 @@
 *.layout
 *.depend
-*.cbp
-
 
 bin/
 obj/
+.vs/
+Debug/
+Release/
 
 *.dll
+*.lib
+*.a
 *.zip
 *.7z
-Source/Main.exe
-Source/Main.o
+*.exe
+*.o
+*.obj
+*.pdb
+*.ilk
+
+*.log
+*.iobj
+*.tlog
+*.idb
+*.ipch
+*.db
+*.opendb
