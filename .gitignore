@@ -6,6 +6,9 @@ obj/
 .vs/
 Debug/
 Release/
+Win32/
+Community-Game.dir/
+build/
 
 *.dll
 *.lib
