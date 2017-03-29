@@ -9,3 +9,5 @@ obj/
 *.dll
 *.zip
 *.7z
+Source/Main.exe
+Source/Main.o
