@@ -8,9 +8,12 @@ project(Community-Game)
 include_directories(include)
 
 # Add all files from the source/ folder to CMake
-file(GLOB SRC
+file(GLOB_RECURSE SRC
     "src/*.cpp"
+    "src/*.h"
+    "src/*.hpp" 
 )
+
 # Define the executable
 add_executable(${PROJECT_NAME} ${SRC})
 
