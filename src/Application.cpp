@@ -12,25 +12,25 @@ void Application::runMainLoop()
 {
     sf::Clock gameTimer;
 
-	while (m_window.isOpen())
-	{
-	    m_window.clear();
+    while (m_window.isOpen())
+    {
+        m_window.clear();
 
-		sf::Event e;
-		while (m_window.pollEvent(e))
-		{
-			if (e.type == sf::Event::Closed)
+        sf::Event e;
+        while (m_window.pollEvent(e))
+        {
+            if (e.type == sf::Event::Closed)
             {
-				m_window.close();
+                m_window.close();
             }
-		}
+        }
 
         m_states.back()->input  ();
         m_states.back()->update ();
         m_states.back()->draw   ();
 
-		m_window.display();
-	}
+        m_window.display();
+    }
 }
 
 void Application::pushState(std::unique_ptr<State::SBase> state)
