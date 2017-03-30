@@ -4,7 +4,7 @@
 #include <vector>
 #include <SFML\Graphics.hpp>
 
-
+#include "util/Types.h"
 #include "states/State_Base.h"
 
 class Application
