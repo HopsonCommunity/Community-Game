@@ -5,7 +5,6 @@
 #include <SFML\Graphics.hpp>
 
 #include "util/Types.h"
-
 #include "states/State_Base.h"
 
 class Application
@@ -19,11 +18,7 @@ class Application
         void popState   ();
 
     private:
-		uint m_framesPerSecond, m_updatesPerSecond;
-		float m_frameTime;
+        sf::RenderWindow m_window;
 
-		sf::RenderWindow m_window;
-
-		bool m_running = 1;
-		std::vector<std::unique_ptr<State::SBase>> m_states;
+        std::vector<std::unique_ptr<State::SBase>> m_states;
 };
