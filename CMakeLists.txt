@@ -9,7 +9,12 @@ include_directories(include)
 
 # Add all files from the source/ folder to CMake
 file(GLOB SRC
-    "src/*.cpp"
+    "src/*.cpp",
+    "src/*.h",
+    "src/states/*.cpp",
+    "src/states/*.h",
+    "src/util/*.cpp",
+    "src/util/*.h"
 )
 # Define the executable
 add_executable(${PROJECT_NAME} ${SRC})
