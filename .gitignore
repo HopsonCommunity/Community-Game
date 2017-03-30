@@ -21,11 +21,6 @@ bld/
 [Ll]og/
 [Dd]ependencies/
 
-# Visual Studio project files
-*.sln
-*.vcxproj
-*.vcxproj.filters
-
 # Visual Studio 2015 cache/options directory
 .vs/
 
