@@ -9,7 +9,7 @@ namespace State
     class SPlaying : public SBase
     {
         public:
-            SPlaying(Application& app);
+            SPlaying(Application* app);
 
             void input  () override;
             void update () override;
