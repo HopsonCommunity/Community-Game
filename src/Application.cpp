@@ -4,18 +4,22 @@
 
 #include <iostream>
 
-Application::Application(std::string&& name)
-	: m_window({ 800, 600 }, std::move(name))
+Application::Application(const String& name, const WindowSettings& settings)
+	: m_title(name), m_windowSettings(settings), m_window({ settings.width, settings.height }, std::move(name), settings.fullscreen ? sf::Style::Fullscreen : sf::Style::Default)
 {
+	m_window.setVerticalSyncEnabled(settings.vsync);
+
 	pushState(std::make_unique<State::SPlaying>(this));
 }
 
-void Application::runMainLoop()
+void Application::start()
 {
+	m_running = true;
+
 	sf::Clock clock;
 	float timer = 0.0f;
 	sf::Time time = clock.getElapsedTime();
-	float upTimer = time.asMilliseconds();
+	float upTimer = (float)time.asMilliseconds();
 	float upTick = 1000.0f / 60.0f;
 	uint frames = 0;
 	uint updates = 0;
@@ -24,19 +28,15 @@ void Application::runMainLoop()
 		m_window.clear();
 		sf::Event e;
 		while (m_window.pollEvent(e))
-		{
 			if (e.type == sf::Event::Closed)
-			{
 				m_window.close();
-			}
-		}
 
 		//Runs 60 times a second
 		time = clock.getElapsedTime();
-		float now = time.asMilliseconds();
+		float now = (float)time.asMilliseconds();
 		if (now - upTimer > upTick)
 		{
-			m_states.back()->update();
+			onUpdate();
 			updates++;
 			upTimer += upTick;
 		}
@@ -44,10 +44,10 @@ void Application::runMainLoop()
 		//Runs as fast as possible
 		{
 			sf::Clock frametime;
-			m_states.back()->draw();
+			onRender();
 			frames++;
 			time = frametime.getElapsedTime();
-			m_frameTime = time.asMilliseconds();
+			m_frameTime = (float)time.asMilliseconds();
 			// std::cout << m_frameTime << " ms" << std::endl;
 		}
 
@@ -58,7 +58,7 @@ void Application::runMainLoop()
 			timer += 1.0f;
 			m_framesPerSecond = frames;
 			m_updatesPerSecond = updates;
-			std::cout << m_framesPerSecond << " fps, " << m_updatesPerSecond << " ups" << std::endl;
+			onTick();
 			frames = 0;
 			updates = 0;
 		}
@@ -66,6 +66,25 @@ void Application::runMainLoop()
 		if (!m_window.isOpen())
 			m_running = false;
 	}
+}
+
+void Application::onUpdate()
+{
+	m_states.back()->update();
+	m_states.back()->input();
+}
+
+void Application::onRender()
+{
+	m_states.back()->draw();
+}
+
+void Application::onTick()
+{
+	std::cout << m_framesPerSecond << " fps, " << m_updatesPerSecond << " ups" << std::endl;
+	
+	// Testing VSync
+	setVSync(!m_windowSettings.vsync);
 }
 
 void Application::pushState(std::unique_ptr<State::SBase> state)
@@ -76,4 +95,16 @@ void Application::pushState(std::unique_ptr<State::SBase> state)
 void Application::popState()
 {
 	m_states.pop_back();
+}
+
+void Application::setVSync(bool enabled)
+{
+	m_windowSettings.vsync = enabled;
+	m_window.setVerticalSyncEnabled(enabled);
+}
+
+void Application::setWindowTitle(const String& title)
+{
+	m_title = title;
+	m_window.setTitle(title);
 }
