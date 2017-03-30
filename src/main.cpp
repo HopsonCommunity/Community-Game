@@ -1,13 +1,9 @@
-#include <iostream>
-#include <cstdlib>
-#include <SFML\Graphics.hpp>
-
 #include "Application.h"
 
 int main()
 {
-	Application app("Community Game");
-	app.runMainLoop();
+	Application app("Community Game", { 800, 600, true, VSYNC_DISABLED });
+	app.start();
 
 	return EXIT_SUCCESS;
 }
@@ -23,5 +19,6 @@ The people who are currently working together on this are:
     DarkCart,
     RagingRabbit,
     kaizi99,
-    Pol_hp
+    Pol_hp,
+	Repertoi-e
 */
