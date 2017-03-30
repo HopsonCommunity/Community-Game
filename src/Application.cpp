@@ -7,7 +7,7 @@
 Application::Application(std::string&& name)
 	: m_window({ 800, 600 }, std::move(name))
 {
-	pushState(std::make_unique<State::SPlaying>(*this));
+	pushState(std::make_unique<State::SPlaying>(this));
 }
 
 void Application::runMainLoop()
