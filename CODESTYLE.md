@@ -23,7 +23,7 @@ private:
   ...
 };
 ```
-* Don't use the / (dir symbol) inverted, it can cause errors on Linux, correct use:
+* Don't use the \, it can cause errors on Linux, correct use:
 ```C++
 #include <SFML/Graphics.hpp>
 ```
