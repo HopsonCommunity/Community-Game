@@ -9,8 +9,8 @@
 
 #include "states/State_Base.h"
 
-#define VSYNC_ENABLED  1
-#define VSYNC_DISABLED 0
+constexpr bool VSYNC_ENABLED  = true;
+constexpr bool VSYNC_DISABLED = false;
 
 class Application
 {

@@ -21,7 +21,7 @@ namespace
 
 int main() try
 {
-	Application app("Community Game", { 800, 600, true, VSYNC_DISABLED });
+	Application app("Community Game", {800, 600, true, VSYNC_DISABLED});
 	app.start();
 
 	return EXIT_SUCCESS;
