@@ -54,12 +54,11 @@ void Application::start()
         }
 
         //Runs as fast as possible
-        {
-            frames++;
-            sf::Clock frametime;
-            onRender();
-            m_frameTime = float(frametime.getElapsedTime().asMilliseconds());
-        }
+        frames++;
+        sf::Clock frametime;
+        onRender();
+        m_frameTime = float(frametime.getElapsedTime().asMilliseconds());
+
 
         // Runs each second
         if (clock.getElapsedTime().asSeconds() - timer > 1.0f)
