@@ -5,19 +5,21 @@
 #include <iostream>
 
 Application::Application(std::string&& name, const WindowSettings& settings)
-: m_title(name)
+: m_title(std::move(name))
 , m_windowSettings(settings)
-, m_window({settings.width, settings.height}, std::move(name), settings.fullscreen ? sf::Style::Fullscreen : sf::Style::Default)
 {
-	m_window.setVerticalSyncEnabled(settings.vsync);
+    auto style  = settings.isFullscreen ? sf::Style::Fullscreen : sf::Style::Default;
+    auto width  = settings.width;
+    auto height = settings.height;
+
+    m_window.create({width, height}, m_title, style);
+	m_window.setVerticalSyncEnabled(settings.isVsyncEnabled);
 
 	pushState(std::make_unique<State::SPlaying>(this));
 }
 
 void Application::start()
 {
-	m_running = true;
-
 	sf::Clock clock;
 	float timer = 0.0f;
 	float upTimer = float(clock.getElapsedTime().asMilliseconds());
@@ -25,7 +27,7 @@ void Application::start()
 	uint frames = 0;
 	uint updates = 0;
 
-	while (m_running)
+	while (m_isRunning)
 	{
 		m_window.clear();
 		sf::Event e;
@@ -61,7 +63,7 @@ void Application::start()
 		}
 		m_window.display();
 		if (!m_window.isOpen())
-			m_running = false;
+			m_isRunning = false;
 	}
 }
 
@@ -105,12 +107,12 @@ void Application::popState()
 
 void Application::setVSync(bool enabled)
 {
-	m_windowSettings.vsync = enabled;
+	m_windowSettings.isVsyncEnabled = enabled;
 	m_window.setVerticalSyncEnabled(enabled);
 }
 
-void Application::setWindowTitle(const std::string& title)
+void Application::setWindowTitle(std::string&& title)
 {
-	m_title = title;
-	m_window.setTitle(title);
+	m_title = std::move(title);
+	m_window.setTitle(m_title);
 }
