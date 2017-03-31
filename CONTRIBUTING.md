@@ -28,7 +28,10 @@ or look it up on the GitHub UI. In your shell, enter
 
 `git clone --recursive <fork-URL>`
 
-Git should now download the fork.
+Git should now download the fork. After it downloaded, change the the current
+directory to the repository's root:
+
+`cd Community-Game`
 
 There is only a slight problem now: How can we update our fork if someone makes
 a change to the main repository?
