@@ -4,20 +4,23 @@
 #include <vector>
 #include <cstdlib>
 
-#include "Types.h"
+// Should fix gcc compiler errors
+#include <cstring>
 
-/*
+#include "Types.h"
 
 typedef std::string String;
 
-constexpr int STRINGFORMAT_BUFFER_SIZE 10 * 1024;
+constexpr int STRINGFORMAT_BUFFER_SIZE = 10 * 1024;
 
-class StringFormat
-{
-public:
+namespace StringFormat {
+
+	static char* s_buffer = new char[STRINGFORMAT_BUFFER_SIZE];;
+
 	template<typename T>
 	static String Hex(const T& input)
 	{
+		// Tell me if memset still gives compiler error @Hopson
 		memset(s_buffer, 0, STRINGFORMAT_BUFFER_SIZE);
 		sprintf(s_buffer, "%02x", input);
 		return String(s_buffer);
@@ -32,8 +35,6 @@ public:
 		return String(s_buffer);
 	}
 
-	// Not in line with method name case convention but lowercase 'float' conflicts with the primitive type 'float'
-	// If that's too much of a problem rename to formatFloat or sth..
 	static String Float(const float input, uint places = 2)
 	{
 		memset(s_buffer, 0, STRINGFORMAT_BUFFER_SIZE);
@@ -46,8 +47,6 @@ public:
 	{
 		return std::to_string(input);
 	}
-private:
-	static char* s_buffer;
 };
 
 std::vector<String> splitString(const String& string, const String& delimiters);
@@ -71,4 +70,7 @@ bool startsWith(const String& string, const String& start);
 int32 nextInt(const String& string);
 
 
-*/
+
+
+
+

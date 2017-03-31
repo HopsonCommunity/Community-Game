@@ -1,9 +1,6 @@
 #include "String.h"
 
-/*
 #include <cctype>
-
-char* StringFormat::s_buffer = new char[STRINGFORMAT_BUFFER_SIZE];
 
 std::vector<String> splitString(const String& string, const String& delimiters)
 {
@@ -134,4 +131,3 @@ int32 nextInt(const String& string)
 	return -1;
 }
 
-*/
