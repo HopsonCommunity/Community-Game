@@ -28,6 +28,7 @@ public:
 	void onUpdate();
 	void onRender();
 	void onTick();
+	void onEvent(sf::Event& event);
 
 	void pushState(std::unique_ptr<State::SBase> state);
 	void popState();

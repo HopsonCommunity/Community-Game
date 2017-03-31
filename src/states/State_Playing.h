@@ -11,10 +11,10 @@ namespace State
         public:
             SPlaying(Application* app);
 
-            void input  () override;
-            void update () override;
-            void draw   () override;
-
+            void render() override;
+            void update() override;
+            void tick() override;
+			void event(sf::Event& event) override;
         private:
             Application* m_pApplication;
     };
