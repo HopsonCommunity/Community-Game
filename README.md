@@ -1,7 +1,7 @@
 # Community-Game
 Made by my subscribers :) - Matthew Hopson
 
-This project is a project maintained by MattHopson's subscriber community/server
+This project is a project maintained by Matt Hopson's subscriber community/server
 and is an attempt at making a brand-spanking-new collaborative game together.
 
 # How to join us
@@ -19,5 +19,7 @@ main repository.
 
 Also take a look at the `CODESTYLE.md` file. It tells you how you should program
 when you want your Pull Request mergerd into the project.
+
+Don't know what to add? Check out the Trello here: https://trello.com/b/Kc93SBo2/hopson-community-project
 
 HAVE FUN CODING!
