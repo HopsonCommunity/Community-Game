@@ -20,10 +20,13 @@ Application::Application(std::string&& name, const WindowSettings& settings)
 
 void Application::start()
 {
+    constexpr static auto UP_TICK = 1000.0f / 60.0f;
+
 	sf::Clock clock;
+
 	float timer = 0.0f;
 	float upTimer = float(clock.getElapsedTime().asMilliseconds());
-	float upTick = 1000.0f / 60.0f;
+
 	uint frames = 0;
 	uint updates = 0;
 
@@ -42,10 +45,10 @@ void Application::start()
 
 		//Runs 60 times a second
 		float now = float(clock.getElapsedTime().asMilliseconds());
-		if (now - upTimer > upTick)
+		if (now - upTimer > UP_TICK)
 		{
 			updates++;
-			upTimer += upTick;
+			upTimer += UP_TICK;
 			onUpdate();
 		}
 
@@ -61,9 +64,9 @@ void Application::start()
 		if (clock.getElapsedTime().asSeconds() - timer > 1.0f)
 		{
 			timer += 1.0f;
-			m_framesPerSecond = frames;
-			m_updatesPerSecond = updates;
-			frames = 0;
+			m_framesPerSecond   = frames;
+			m_updatesPerSecond  = updates;
+			frames  = 0;
 			updates = 0;
 			onTick();
 		}
