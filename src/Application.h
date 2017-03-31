@@ -26,20 +26,13 @@ class Application
 
         void start();
 
-        void onUpdate();
-        void onRender();
-        void onTick();
-        void onEvent(sf::Event& event);
+        void handleEvents (sf::Event& event);
 
         void pushState(std::unique_ptr<State::SBase> state);
         void popState();
 
         ///@TODO Move these getters to the .cpp?
         const WindowSettings& getSettings() const { return m_windowSettings; }
-
-        uint getFPS() const         { return m_framesPerSecond; }
-        uint getUPS() const         { return m_updatesPerSecond; }
-        float getFrameTime() const  { return m_frameTime; }
 
         void setVSync(bool enabled);
         void setWindowTitle(std::string&& title);
@@ -51,13 +44,6 @@ class Application
 
         std::string m_title;
         WindowSettings m_windowSettings;
-
-        uint m_framesPerSecond;
-        uint m_updatesPerSecond;
-        float m_frameTime;
-
         sf::RenderWindow m_window;
-
-        bool m_isRunning = true;
         std::vector<std::unique_ptr<State::SBase>> m_states;
 };

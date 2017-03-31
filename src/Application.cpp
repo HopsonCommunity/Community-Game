@@ -20,6 +20,85 @@ Application::Application(std::string&& name, const WindowSettings& settings)
 
 void Application::start()
 {
+    sf::Clock clock;
+
+    while (m_window.isOpen());
+    {
+        float dt = clock.restart().asSeconds();
+
+        m_window.clear();
+
+        sf::Event e;
+        while (m_window.pollEvent(e))
+        {
+            handleEvents(e);
+        }
+        if (!m_window.isOpen())
+        {
+            return;
+        }
+
+        m_states.back()->input  ();
+        m_states.back()->update (dt);
+        m_states.back()->render (m_window);
+
+        m_window.display();
+    }
+}
+
+void Application::handleEvents(sf::Event& event)
+{
+    switch(event.type)
+    {
+    case sf::Event::Closed:
+        m_window.close();
+        break;
+
+    case sf::Event::KeyReleased:
+        switch (event.key.code)
+        {
+        ///@TODO Change this, we may later need to use the escape key for pausing the game.
+        case sf::Keyboard::Escape:
+            m_window.close();
+            break;
+
+        default:
+            break;
+        }
+        break;
+
+    default:
+        break;
+    }
+
+    m_states.back()->event(event);
+}
+
+void Application::pushState(std::unique_ptr<State::SBase> state)
+{
+    m_states.push_back(std::move(state));
+}
+
+void Application::popState()
+{
+    m_states.pop_back();
+}
+
+void Application::setVSync(bool enabled)
+{
+    m_windowSettings.isVsyncEnabled = enabled;
+    m_window.setVerticalSyncEnabled(enabled);
+}
+
+void Application::setWindowTitle(std::string&& title)
+{
+    m_title = std::move(title);
+    m_window.setTitle(m_title);
+}
+
+/*
+void Application::start()
+{
     constexpr static auto UP_TICK = 1000.0f / 60.0f;
 
     sf::Clock clock;
@@ -76,70 +155,4 @@ void Application::start()
         m_isRunning = m_window.isOpen();
     }
 }
-
-void Application::onUpdate()
-{
-    m_states.back()->update();
-}
-
-void Application::onRender()
-{
-    m_states.back()->render();
-}
-
-void Application::onTick()
-{
-    m_states.back()->tick();
-
-    printf("%d fps, %d ups\n", m_framesPerSecond, m_updatesPerSecond);
-}
-
-void Application::onEvent(sf::Event& event)
-{
-    switch(event.type)
-    {
-    case sf::Event::Closed:
-        m_window.close();
-        break;
-
-    case sf::Event::KeyReleased:
-        switch (event.key.code)
-        {
-        ///@TODO Change this, we may later need to use the escape key for pausing the game.
-        case sf::Keyboard::Escape:
-            m_window.close();
-            break;
-
-        default:
-            break;
-        }
-        break;
-
-    default:
-        break;
-    }
-
-    m_states.back()->event(event);
-}
-
-void Application::pushState(std::unique_ptr<State::SBase> state)
-{
-    m_states.push_back(std::move(state));
-}
-
-void Application::popState()
-{
-    m_states.pop_back();
-}
-
-void Application::setVSync(bool enabled)
-{
-    m_windowSettings.isVsyncEnabled = enabled;
-    m_window.setVerticalSyncEnabled(enabled);
-}
-
-void Application::setWindowTitle(std::string&& title)
-{
-    m_title = std::move(title);
-    m_window.setTitle(m_title);
-}
+*/

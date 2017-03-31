@@ -1,8 +1,13 @@
 #pragma once
 
-#include <SFML/Window.hpp>
-
 class Application;
+
+namespace sf
+{
+    //Forward delcare SFML stuff
+    class RenderWindow;
+    class Event;
+}
 
 namespace State
 {
@@ -18,10 +23,11 @@ namespace State
             SBase(SBase& other) = delete;
             SBase& operator= (SBase& other) = delete;
 
-            virtual void render() = 0;
-            virtual void update() = 0;
-            virtual void tick() = 0;
-			virtual void event(sf::Event& event) = 0;
+            virtual void event  (sf::Event& event) = 0;
+            virtual void input  () = 0;
+            virtual void update (float dt) = 0;
+            virtual void render (sf::RenderWindow& window) = 0;
+
         private:
             Application* m_pApplication;
     };
