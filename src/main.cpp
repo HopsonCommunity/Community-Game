@@ -27,7 +27,7 @@ namespace
 
 int main() try
 {
-    std::cout << "Anna test4\n";
+    std::cout << "This is the Console window of the Project";
 
 	Application app("Community Game", {800, 600, false, VSYNC_DISABLED});
 	app.start();
