@@ -1,5 +1,5 @@
 #include "String.h"
-
+/*
 #include <cctype>
 
 std::vector<String> splitString(const String& string, const String& delimiters)
@@ -121,7 +121,8 @@ bool startsWith(const String& string, const String& start)
 }
 
 int32 nextInt(const String& string)
-{
+{'D
+
 	for (uint i = 0; i < string.size(); i++)
 	{
 		if (isdigit(string[i]))
@@ -129,4 +130,6 @@ int32 nextInt(const String& string)
 	}
 	return -1;
 }
+*/
 
+///for real, this file is not needed so dw i commented it out, idek why or who added it
