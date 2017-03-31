@@ -32,7 +32,13 @@ void Application::start()
 		m_window.clear();
 		sf::Event e;
 		while (m_window.pollEvent(e))
+        {
 			onEvent(e);
+        }
+        if (!m_window.isOpen())
+        {
+            break;
+        }
 
 		//Runs 60 times a second
 		float now = float(clock.getElapsedTime().asMilliseconds());
@@ -61,9 +67,10 @@ void Application::start()
 			updates = 0;
 			onTick();
 		}
+
 		m_window.display();
-		if (!m_window.isOpen())
-			m_isRunning = false;
+
+		m_isRunning = m_window.isOpen();
 	}
 }
 
@@ -86,11 +93,28 @@ void Application::onTick()
 
 void Application::onEvent(sf::Event& event)
 {
-	if (event.type == sf::Event::Closed)
-		m_window.close();
-	if (event.type == sf::Event::KeyReleased)
-		if (event.key.code == sf::Keyboard::Escape)
-			m_window.close();
+    switch(event.type)
+    {
+        case sf::Event::Closed:
+            m_window.close();
+            break;
+
+        case sf::Event::KeyReleased:
+            switch (event.key.code)
+            {
+                ///@TODO Change this, we may later need to use the escape key for pausing the game.
+                case sf::Keyboard::Escape:
+                    m_window.close();
+                    break;
+
+                default:
+                    break;
+            }
+            break;
+
+        default:
+            break;
+    }
 
 	m_states.back()->event(event);
 }
