@@ -40,6 +40,7 @@ void Application::start()
         }
         if (!m_window.isOpen())
         {
+            m_isRunning = false;
             break;
         }
 
