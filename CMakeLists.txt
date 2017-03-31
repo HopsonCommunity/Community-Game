@@ -38,9 +38,9 @@ elseif(UNIX)
 	endif()
 endif()
 
-# Enable C++ 11
+# Enable C++ 14
 set_target_properties(${PROJECT_NAME} PROPERTIES
-    CXX_STANDARD 11
+    CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
     CXX_EXTENSIONS OFF
 )
