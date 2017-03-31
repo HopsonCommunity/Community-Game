@@ -14,7 +14,8 @@ Just join our problic discord, where all of the development happens.
 
 If you want to know how to compile the source or even contribute to this project,
 look at `CONTRIBUTING.md`. The document will tell you how you can get the project
-files with git, compile them, and if you want contribute them back to us.
+files with git, compile them, and even how to contribute your code back into this
+main repository.
 
 Also take a look at the `CODESTYLE.md` file. It tells you how you should program
 when you want your Pull Request mergerd into the project.

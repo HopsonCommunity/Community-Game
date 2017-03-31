@@ -49,8 +49,11 @@ So everytime you want to edit some files, e.g. make a contribution, make your
 local repository up-to-date with the following commands:
 
 `git fetch upstream`
+
 `git checkout master`
+
 `git merge upstream/master`
+
 
 The fetch command downloads the changes from the main repo, the checkout command
 makes sure you are on your master branch, and at last the merge command will merge
@@ -99,7 +102,9 @@ There might be one last problem before pushing your changes: The main repo could
 have changed while you were editing your files. Just make sure you run these 3 agian:
 
 `git fetch upstream`
+
 `git checkout master`
+
 `git merge upstream/master`
 
 There could be a merge conflict, and if there is one, god may help you(jk, Look up
