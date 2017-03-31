@@ -27,7 +27,7 @@ namespace
 
 int main() try
 {
-    std::cout << "Anna test2\n";
+    std::cout << "Anna test3\n";
 
 	Application app("Community Game", {800, 600, false, VSYNC_DISABLED});
 	app.start();
