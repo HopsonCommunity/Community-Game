@@ -6,6 +6,9 @@
 *.suo
 *.user
 *.userosscache
+*.sln
+*.vcxproj
+*.vcxproj.filters
 *.sln.docstates
 
 # Build results
