@@ -3,8 +3,6 @@
 #include <memory>
 #include <vector>
 #include <cstdlib>
-
-// Should fix gcc compiler errors
 #include <cstring>
 
 #include "Types.h"
@@ -18,7 +16,7 @@ namespace StringFormat {
 	static char* s_buffer = new char[STRINGFORMAT_BUFFER_SIZE];;
 
 	template<typename T>
-	static String Hex(const T& input)
+    String Hex(const T& input)
 	{
 		// Tell me if memset still gives compiler error @Hopson
 		memset(s_buffer, 0, STRINGFORMAT_BUFFER_SIZE);
@@ -27,7 +25,7 @@ namespace StringFormat {
 	}
 
 	template<typename T>
-	static String Hex(const T* input, uint size)
+    String Hex(const T* input, uint size)
 	{
 		memset(s_buffer, 0, STRINGFORMAT_BUFFER_SIZE);
 		for (uint i = 0; i < size; i++)
@@ -35,7 +33,7 @@ namespace StringFormat {
 		return String(s_buffer);
 	}
 
-	static String Float(const float input, uint places = 2)
+    String Float(const float input, uint places = 2)
 	{
 		memset(s_buffer, 0, STRINGFORMAT_BUFFER_SIZE);
 		sprintf(s_buffer, "%.*f", places, input);
@@ -43,7 +41,7 @@ namespace StringFormat {
 	}
 
 	template<typename T>
-	static String toString(const T& input)
+    String toString(const T& input)
 	{
 		return std::to_string(input);
 	}

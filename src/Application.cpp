@@ -5,8 +5,8 @@
 #include <iostream>
 
 Application::Application(std::string&& name, const WindowSettings& settings)
-: m_title(std::move(name))
-, m_windowSettings(settings)
+:   m_title(std::move(name))
+,   m_windowSettings(settings)
 {
     auto style  = settings.isFullscreen ? sf::Style::Fullscreen : sf::Style::Default;
     auto width  = settings.width;

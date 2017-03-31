@@ -20,8 +20,9 @@ namespace State
 	{
 
 	}
+
 	void SPlaying::event(sf::Event& event)
 	{
-		
+
 	}
 }

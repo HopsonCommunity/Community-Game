@@ -43,7 +43,7 @@ std::vector<String> getLines(const String& string)
 const char* findToken(const char* str, const String& token)
 {
 	const char* t = str;
-	while (t = strstr(t, token.c_str()))
+	while (t == strstr(t, token.c_str()))
 	{
 		bool left = str == t || isspace(t[-1]);
 		bool right = !t[token.size()] || isspace(t[token.size()]);
@@ -122,7 +122,6 @@ bool startsWith(const String& string, const String& start)
 
 int32 nextInt(const String& string)
 {
-	const char* str = string.c_str();
 	for (uint i = 0; i < string.size(); i++)
 	{
 		if (isdigit(string[i]))
