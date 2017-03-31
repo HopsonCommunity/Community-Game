@@ -27,7 +27,21 @@ namespace
 
 int main() try
 {
-    std::cout << "This is the Console window of the Project";
+    std::cout << "+-------------------------------------------------+\n";
+    std::cout << "|                                                 |\n";
+    std::cout << "| This is the console window of Project Communidy |\n";
+    std::cout << "|                                                 |\n";
+    std::cout << "+-------------------------------------------------+\n";
+    std::cout << "|                                                 |\n";
+    std::cout << "| +---------------------------------------------> |\n";
+    std::cout << "|                                                 |\n";
+    std::cout << "| <---------------------------------------------+ |\n";
+    std::cout << "|                                                 |\n";
+    std::cout << "| +---------------------------------------------> |\n";
+    std::cout << "|                                                 |\n";
+    std::cout << "| <---------------------------------------------+ |\n";
+    std::cout << "|                                                 |\n";
+    std::cout << "+-------------------------------------------------+\n";
 
 	Application app("Community Game", {800, 600, false, VSYNC_DISABLED});
 	app.start();
