@@ -16,12 +16,12 @@ namespace State
 
     }
 
-    void SPlaying::render()
+    void SPlaying::update(float dt)
     {
 
     }
 
-    void SPlaying::update()
+    void SPlaying::render(sf::RenderWindow& window)
     {
 
     }

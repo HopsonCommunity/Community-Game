@@ -24,6 +24,8 @@ void Application::start()
 
     while (m_window.isOpen());
     {
+        float dt = clock.restart().asSeconds();
+
         m_window.clear();
 
         sf::Event e;
@@ -37,8 +39,8 @@ void Application::start()
         }
 
         m_states.back()->input  ();
-        m_states.back()->update ();
-        m_states.back()->render ();
+        m_states.back()->update (dt);
+        m_states.back()->render (m_window);
 
         m_window.display();
     }
