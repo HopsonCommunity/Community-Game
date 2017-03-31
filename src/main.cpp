@@ -1,11 +1,47 @@
 #include "Application.h"
 
-int main()
+#include <iostream>
+
+#ifdef __WIN32
+#include "windows.h"
+#endif // __WIN32
+
+namespace
 {
-	Application app("Community Game", { 800, 600, false, VSYNC_DISABLED });
+    void errorMessage(const std::string& message)
+    {
+        #ifdef __WIN32
+            MessageBox(nullptr, message.c_str(), "Error", MB_OK);
+        #else // __WIN32
+            std::cerr << message << std::endl;
+            std::cin.ignore();
+        #endif
+    }
+}
+
+int main() try
+{
+	Application app("Community Game", {800, 600, true, VSYNC_DISABLED});
 	app.start();
 
 	return EXIT_SUCCESS;
+}
+catch(std::out_of_range& e)
+{
+    std::string msg = e.what();
+    errorMessage(msg);
+    std::cin.ignore();
+}
+catch(std::runtime_error& e)
+{
+    std::string msg = e.what();
+    errorMessage(msg);
+    std::cin.ignore();
+}
+catch(...)
+{
+    errorMessage("Unknown error.");
+    std::cin.ignore();
 }
 
 

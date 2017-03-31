@@ -4,13 +4,13 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-#include "util/String.h"
+//#include "util/std::string.h"
 #include "util/Types.h"
 
 #include "states/State_Base.h"
 
-#define VSYNC_ENABLED  1
-#define VSYNC_DISABLED 0
+constexpr bool VSYNC_ENABLED  = true;
+constexpr bool VSYNC_DISABLED = false;
 
 class Application
 {
@@ -21,7 +21,7 @@ public:
 		bool fullscreen, vsync;
 	};
 public:
-	Application(const String& name, const WindowSettings& settings);
+	Application(std::string&& name, const WindowSettings& settings);
 
 	void start();
 
@@ -39,9 +39,9 @@ public:
 	float getFrameTime() { return m_frameTime; }
 
 	void setVSync(bool enabled);
-	void setWindowTitle(const String& title);
+	void setWindowTitle(const std::string& title);
 private:
-	String m_title;
+	std::string m_title;
 	WindowSettings m_windowSettings;
 
 	uint m_framesPerSecond, m_updatesPerSecond;
