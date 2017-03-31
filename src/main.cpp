@@ -2,7 +2,7 @@
 
 int main()
 {
-	Application app("Community Game", { 800, 600, true, VSYNC_DISABLED });
+	Application app("Community Game", { 800, 600, false, VSYNC_DISABLED });
 	app.start();
 
 	return EXIT_SUCCESS;

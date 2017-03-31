@@ -6,18 +6,22 @@ namespace State
     :   SBase  (app)
     { }
 
-    void SPlaying::input()
-    {
+	void SPlaying::render()
+	{
 
-    }
+	}
 
     void SPlaying::update()
     {
 
     }
 
-    void SPlaying::draw()
-    {
+	void SPlaying::tick()
+	{
 
-    }
+	}
+	void SPlaying::event(sf::Event& event)
+	{
+		
+	}
 }

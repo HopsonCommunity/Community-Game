@@ -18,8 +18,7 @@ void Application::start()
 
 	sf::Clock clock;
 	float timer = 0.0f;
-	sf::Time time = clock.getElapsedTime();
-	float upTimer = (float)time.asMilliseconds();
+	float upTimer = float(clock.getElapsedTime().asMilliseconds());
 	float upTick = 1000.0f / 60.0f;
 	uint frames = 0;
 	uint updates = 0;
@@ -28,39 +27,34 @@ void Application::start()
 		m_window.clear();
 		sf::Event e;
 		while (m_window.pollEvent(e))
-			if (e.type == sf::Event::Closed)
-				m_window.close();
+			onEvent(e);
 
 		//Runs 60 times a second
-		time = clock.getElapsedTime();
-		float now = (float)time.asMilliseconds();
+		float now = float(clock.getElapsedTime().asMilliseconds());
 		if (now - upTimer > upTick)
 		{
-			onUpdate();
 			updates++;
 			upTimer += upTick;
+			onUpdate();
 		}
 
 		//Runs as fast as possible
 		{
+			frames++;
 			sf::Clock frametime;
 			onRender();
-			frames++;
-			time = frametime.getElapsedTime();
-			m_frameTime = (float)time.asMilliseconds();
-			// std::cout << m_frameTime << " ms" << std::endl;
+			m_frameTime = float(frametime.getElapsedTime().asMilliseconds());
 		}
 
 		// Runs each second
-		time = clock.getElapsedTime();
-		if (time.asSeconds() - timer > 1.0f)
+		if (clock.getElapsedTime().asSeconds() - timer > 1.0f)
 		{
 			timer += 1.0f;
 			m_framesPerSecond = frames;
 			m_updatesPerSecond = updates;
-			onTick();
 			frames = 0;
 			updates = 0;
+			onTick();
 		}
 		m_window.display();
 		if (!m_window.isOpen())
@@ -71,20 +65,29 @@ void Application::start()
 void Application::onUpdate()
 {
 	m_states.back()->update();
-	m_states.back()->input();
 }
 
 void Application::onRender()
 {
-	m_states.back()->draw();
+	m_states.back()->render();
 }
 
 void Application::onTick()
 {
-	std::cout << m_framesPerSecond << " fps, " << m_updatesPerSecond << " ups" << std::endl;
-	
-	// Testing VSync
-	setVSync(!m_windowSettings.vsync);
+	m_states.back()->tick();
+
+	printf("%d fps, %d ups\n", m_framesPerSecond, m_updatesPerSecond);
+}
+
+void Application::onEvent(sf::Event& event)
+{
+	if (event.type == sf::Event::Closed)
+		m_window.close();
+	if (event.type == sf::Event::KeyReleased)
+		if (event.key.code == sf::Keyboard::Escape)
+			m_window.close();
+
+	m_states.back()->event(event);
 }
 
 void Application::pushState(std::unique_ptr<State::SBase> state)
