@@ -1,5 +1,6 @@
 #include "String.h"
 
+/*
 #include <cctype>
 
 char* StringFormat::s_buffer = new char[STRINGFORMAT_BUFFER_SIZE];
@@ -132,3 +133,5 @@ int32 nextInt(const String& string)
 	}
 	return -1;
 }
+
+*/

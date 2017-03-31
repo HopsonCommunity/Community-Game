@@ -2,12 +2,15 @@
 
 #include <memory>
 #include <vector>
+#include <cstdlib>
 
 #include "Types.h"
 
+/*
+
 typedef std::string String;
 
-#define STRINGFORMAT_BUFFER_SIZE 10 * 1024
+constexpr int STRINGFORMAT_BUFFER_SIZE 10 * 1024;
 
 class StringFormat
 {
@@ -29,7 +32,7 @@ public:
 		return String(s_buffer);
 	}
 
-	// Not in line with method name case convention but lowercase 'float' conflicts with the primitive type 'float' 
+	// Not in line with method name case convention but lowercase 'float' conflicts with the primitive type 'float'
 	// If that's too much of a problem rename to formatFloat or sth..
 	static String Float(const float input, uint places = 2)
 	{
@@ -66,3 +69,6 @@ String getStatement(const char* str, const char** outPosition = nullptr);
 bool stringContains(const String& string, const String& chars);
 bool startsWith(const String& string, const String& start);
 int32 nextInt(const String& string);
+
+
+*/

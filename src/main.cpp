@@ -1,5 +1,7 @@
 #include "Application.h"
 
+#include <iostream>
+
 #ifdef __WIN32
 #include "windows.h"
 #endif // __WIN32
