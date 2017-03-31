@@ -2,7 +2,7 @@
 
 namespace State
 {
-    SPlaying::SPlaying(Application& app)
+    SPlaying::SPlaying(Application* app)
     :   SBase  (app)
     { }
 

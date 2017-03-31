@@ -7,8 +7,8 @@ namespace State
     class SBase
     {
         public:
-            SBase(Application& app)
-            :   m_pApplication  (&app)
+            SBase(Application* app)
+            :   m_pApplication  (app)
             { }
 
             virtual ~SBase() = default;
