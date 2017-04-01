@@ -15,7 +15,7 @@ namespace Level
             void draw(sf::RenderWindow& window);
 
         private:
-            void addTile(int32 x, int32 y, int8 tileType);
+            void addTile(float x, float y, int8 tileType);
 
             std::vector<uint8>      m_tileData; //1 byte per tile
             std::vector<sf::Vertex> m_vertexArray;
