@@ -22,7 +22,7 @@ void Application::start()
 {
     sf::Clock clock;
 
-    while (m_window.isOpen());
+    while (m_window.isOpen())
     {
         float dt = clock.restart().asSeconds();
 
@@ -35,7 +35,7 @@ void Application::start()
         }
         if (!m_window.isOpen())
         {
-            return;
+            break;
         }
 
         m_states.back()->input  ();
@@ -57,13 +57,12 @@ void Application::handleEvents(sf::Event& event)
     case sf::Event::KeyReleased:
         switch (event.key.code)
         {
-        ///@TODO Change this, we may later need to use the escape key for pausing the game.
-        case sf::Keyboard::Escape:
-            m_window.close();
-            break;
+            case sf::Keyboard::E:
+                m_window.close();
+                break;
 
-        default:
-            break;
+            default:
+                break;
         }
         break;
 

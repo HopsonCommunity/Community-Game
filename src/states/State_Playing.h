@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
+
 #include "State_Base.h"
 
 class Application;
@@ -18,5 +20,10 @@ namespace State
 
         private:
             Application* m_pApplication;
+
+            sf::RectangleShape m_testSprite;
+            sf::Vector2f m_testVelocity;
+
+
     };
 }

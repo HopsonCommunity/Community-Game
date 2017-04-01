@@ -43,7 +43,7 @@ int main() try
     std::cout << "|                                                 |\n";
     std::cout << "+-------------------------------------------------+\n";
 
-	Application app("Community Game", {800, 600, false, VSYNC_DISABLED});
+	Application app("Community Game", {1280, 720, false, VSYNC_DISABLED});
 	app.start();
 
 	return EXIT_SUCCESS;
