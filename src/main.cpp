@@ -10,12 +10,12 @@ namespace
 {
     void errorMessage(const std::string& message)
     {
-        #ifdef __WIN32
+    #ifdef __WIN32
             MessageBox(nullptr, message.c_str(), "Error", MB_OK);
-        #elif __linux
+    #elif __linux
 	    const std::string command = "zenity --error --text \"" + message + "\"";
 	    system(command.c_str());
-        #elif __APPLE__
+    #elif __APPLE__
 	    const std::string command = "osascript -e 'tell app \"System Events\" to display dialog \"" + message + "\" buttons {\"OK\"} default button 1 with icon caution with title \"Error\"'";
 	    system(command.c_str();
 	#else

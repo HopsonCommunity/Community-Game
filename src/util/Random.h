@@ -1,38 +1,39 @@
 #pragma once
 
-#include <cstdint>
 #include <random>
 #include <ctime>
+
+#include "Types.h"
 
 namespace Random
 {
     void init();
-    int32_t     intInRange      (int32_t lowBound, int32_t highBound);
-    uint64_t    uint64InRange   (uint64_t lowBound, uint64_t highBound);
+    int32     intInRange      (int32 lowBound, int32 highBound);
+    uint64    uint64InRange   (uint64 lowBound, uint64 highBound);
 
     template<typename RandomEngine = std::minstd_rand>
     class Generator
     {
         public:
-            Generator(uint64_t seed = std::time(nullptr))
+            Generator(uint64 seed = std::time(nullptr))
             {
                 m_device.seed(seed);
             }
 
-            void setSeed(uint64_t seed)
+            void setSeed(uint64 seed)
             {
                 m_device.seed(seed);
             }
 
-            int32_t intInRange (int32_t lowBound, int32_t highBound)
+            int32 intInRange (int32 lowBound, int32 highBound)
             {
-                std::uniform_int_distribution<int32_t> dist(lowBound, highBound);
+                std::uniform_int_distribution<int32> dist(lowBound, highBound);
                 return dist (m_device);
             }
 
-            uint64_t uint64InRange (uint64_t lowBound, uint64_t highBound)
+            uint64 uint64InRange (uint64 lowBound, uint64 highBound)
             {
-                std::uniform_int_distribution<uint64_t> dist(lowBound, highBound);
+                std::uniform_int_distribution<uint64> dist(lowBound, highBound);
                 return dist (m_device);
             }
 

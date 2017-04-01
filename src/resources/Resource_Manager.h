@@ -2,7 +2,7 @@
 
 #include <unordered_map>
 
-template <typename Res>
+template <typename Resource>
 class Resource_Manager
 {
     public:
@@ -11,7 +11,7 @@ class Resource_Manager
         ,   m_extension (std::move(extension))
         {}
 
-        const Res& get(const std::string& name)
+        const Resource& get(const std::string& name)
         {
             std::string full = m_path + name + m_extension;
 
@@ -23,7 +23,7 @@ class Resource_Manager
             return qGet(full);
         }
 
-        const Res& qGet(const std::string& name)
+        const Resource& qGet(const std::string& name)
         {
             ///@TODO Maybe change to use operator []?
             return m_resourceMap.at(name);
@@ -31,7 +31,7 @@ class Resource_Manager
 
         void add(const std::string& name)
         {
-            Res res;
+            Resource res;
             res.loadFromFile(name);
             m_resourceMap.insert(std::make_pair(name, res));
         }
@@ -40,5 +40,5 @@ class Resource_Manager
         std::string m_path;
         std::string m_extension;
 
-        std::unordered_map<std::string, Res> m_resourceMap;
+        std::unordered_map<std::string, Resource> m_resourceMap;
 };

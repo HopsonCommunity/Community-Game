@@ -83,6 +83,16 @@ void Application::popState()
     m_states.pop_back();
 }
 
+const Application::WindowSettings& Application::getSettings() const
+{
+    return m_windowSettings;
+}
+
+const Resource_Holder& Application::getResources() const
+{
+    return m_resources;
+}
+
 void Application::setVSync(bool enabled)
 {
     m_windowSettings.isVsyncEnabled = enabled;
