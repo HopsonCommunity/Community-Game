@@ -3,8 +3,9 @@
 namespace State
 {
 	SPlaying::SPlaying(Application* app)
-		: SBase(app)
-		, m_entity(new entity::Entity(100, 100))
+	: SBase(app)
+	, m_entity(new entity::Entity(100, 100))
+	, m_tileMap({}, 5, 5)
 	{
 		// This is actually what -> does if you didnt know :)
 		(*m_entity).getShape().setFillColor(sf::Color(0.2 * 255, 0.3 * 255, 0.8 * 255, 255));
@@ -37,5 +38,6 @@ namespace State
     void SPlaying::render(sf::RenderWindow& window)
     {
 		m_entity->render(window);
+        m_tileMap.draw(window);
     }
 }
