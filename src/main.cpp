@@ -6,6 +6,7 @@
 #include "windows.h"
 #endif // __WIN32
 
+
 namespace
 {
     void errorMessage(const std::string& message)
@@ -25,7 +26,7 @@ namespace
     }
 }
 
-int main() try
+int main() //try
 {
 	Application app("Community Game", {1280, 720, false, VSYNC_DISABLED});
     std::cout << "+-------------------------------------------------+\n";
@@ -34,6 +35,7 @@ int main() try
     app.start();
 	return EXIT_SUCCESS;
 }
+/*
 catch(std::out_of_range& e)
 {
     std::string msg = e.what();
@@ -51,7 +53,7 @@ catch(...)
     errorMessage("Unknown error.");
     std::cin.ignore();
 }
-
+*/
 
 /*
 This project is maintained by the  Community on Hopson97's Discord server.
