@@ -1,5 +1,7 @@
 #include "Tile_Map.h"
 
+#include "LevelConstants.h"
+
 namespace Level
 {
     TileMap::TileMap(const std::vector<uint8>& tileData,
