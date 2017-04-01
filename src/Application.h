@@ -16,8 +16,8 @@ class Application
     public:
         struct WindowSettings
         {
-            uint32 width;
-            uint32 height;
+            uint width;
+            uint height;
             bool isFullscreen;
             bool isVsyncEnabled;
         };

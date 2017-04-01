@@ -9,10 +9,8 @@ Application::Application(std::string&& name, const WindowSettings& settings)
 ,   m_windowSettings(settings)
 {
     auto style  = settings.isFullscreen ? sf::Style::Fullscreen : sf::Style::Default;
-    auto width  = settings.width;
-    auto height = settings.height;
 
-    m_window.create({width, height}, m_title, style);
+    m_window.create({ settings.width, settings.height }, m_title, style);
     m_window.setVerticalSyncEnabled(settings.isVsyncEnabled);
 
     pushState(std::make_unique<State::SPlaying>(this));
@@ -33,14 +31,10 @@ void Application::start()
         {
             handleEvents(e);
         }
-        if (!m_window.isOpen())
-        {
-            break;
-        }
 
-        m_states.back()->input  ();
-        m_states.back()->update (dt);
-        m_states.back()->render (m_window);
+        m_states.back()->input();
+        m_states.back()->update(dt);
+        m_states.back()->render(m_window);
 
         m_window.display();
     }
@@ -99,7 +93,7 @@ void Application::setVSync(bool enabled)
     m_window.setVerticalSyncEnabled(enabled);
 }
 
-/*
+/* For when we need it
 void Application::start()
 {
     constexpr static auto UP_TICK = 1000.0f / 60.0f;
