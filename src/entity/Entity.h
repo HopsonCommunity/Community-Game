@@ -6,15 +6,15 @@
 
 namespace entity
 {
-	// Knowing the damage source WILL be useful later if there are stats, buffs 
+	// Knowing the damage source WILL be useful later if there are stats, buffs
 	// or potions reducing specific types of dmg. (eg. Fire Resist or Magic Resist)
 	//
 	// (True damage ignores defences.)
-	enum DamageSource : byte
+	enum class DamageSource : byte
 	{
-		FIRE = 0,
-		MAGIC = 1,
-		TRUE = 2
+		Fire    = 0,
+		Magic   = 1,
+		True    = 2
 	};
 
 	// Damage struct holding some data about damage instances.

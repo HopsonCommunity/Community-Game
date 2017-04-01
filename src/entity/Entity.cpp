@@ -1,20 +1,21 @@
 #include "Entity.h"
 
-namespace entity {
+namespace entity
+{
 
 	Entity::Entity(float width, float height)
-		: m_shape({ width, height })
+    : m_shape({ width, height })
 	{
 	}
 
 	void Entity::damage(Damage damage)
 	{
-		m_health -= damage.amount; 
+		m_health -= damage.amount;
 	}
-	
-	int32 Entity::getHealth() 
+
+	int32 Entity::getHealth()
 	{
-		return m_health; 
+		return m_health;
 	}
 
 	void Entity::render(sf::RenderWindow& window)
@@ -22,8 +23,8 @@ namespace entity {
 		window.draw(m_shape);
 	}
 
-	sf::RectangleShape & Entity::getShape() 
+	sf::RectangleShape & Entity::getShape()
 	{
-		return m_shape; 
+		return m_shape;
 	}
 }
