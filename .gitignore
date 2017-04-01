@@ -70,3 +70,6 @@ ipch/
 *.VC.VC.opendb
 *.vspscc
 *.vssscc
+
+# Visual Studio Code
+.vscode/

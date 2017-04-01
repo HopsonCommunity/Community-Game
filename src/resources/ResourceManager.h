@@ -3,10 +3,10 @@
 #include <unordered_map>
 
 template <typename Resource>
-class Resource_Manager
+class ResourceManager
 {
     public:
-        Resource_Manager(std::string&& path, std::string&& extension)
+        ResourceManager(std::string&& path, std::string&& extension)
         :   m_path      (std::move(path))
         ,   m_extension (std::move(extension))
         {}

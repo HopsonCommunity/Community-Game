@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "State_Base.h"
+#include "StateBase.h"
 
 #include "../entity/Entity.h"
 #include "../level/TileMap.h"
