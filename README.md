@@ -34,7 +34,57 @@ the code, clone the repository with
 Otherwise look at the Contributing file to get a fork and your local repository
 configured right.
 
+## Compiling without IDE
+Simply run:
+
+### Windows
+Only can run on an IDE
+
+### Mac
+You have to install SFML library package:
+* With <a href="//brew.sh">Homebrew</a>
+  ```
+  $ brew install sfml
+  ```
+
+
+  And then build with CMake:
+  ```
+  $ mkdir build
+  $ cd build
+  $ cmake ..
+  $ make
+  ```
+### Ubuntu
+You have to install SFML library package:
+  ```
+  $ sudo apt-get install libsfml-dev
+  ```
+
+  And then build with CMake:
+  ```
+  $ mkdir build
+  $ cd build
+  $ cmake ..
+  $ make
+  ```
+
+
 ## Compiling in CLion
+Compiling in CLion is simple, CLion uses CMake for building, so you only to download the main repository and open CLion.
+
+Go to ``FILE > Import Project`` and open the path when the project is, click done.
+
+Then appears an info popup, click the button ``Open Project``.
+Then CLion prepares all the IDE so you have to wait for a seconds.
+
+Then in the right top you have a couple of buttons like that: 
+
+<img src="http://i.imgur.com/gwbZoA5.png" />
+
+Press in the play green like button and then another popup appears, in the executable config select the only available and click run.
+
+Then the IDE compiles CMake and builds the project.
 
 ## Compiling in every other toolchain/IDE
 
