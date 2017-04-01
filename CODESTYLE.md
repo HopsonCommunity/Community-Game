@@ -15,15 +15,21 @@ constexpr int FOO_FUNCTION(){ return 0; }
 ```C++
 class ClassName
 {
-public:
-  ClassName();
-  ...
-  
-private:
-  ...
+  public:
+    ClassName();
+    ...
+
+  private:
+    ...
 };
 ```
 * Don't use the `\`, it can cause errors on Linux. Correct use:
 ```C++
 #include <SFML/Graphics.hpp>
+```
+
+Please prefer unique pointers to raw owning pointers
+```C++
+int* x = new int(5); //No!
+auto y = std::make_unique<int>(5) //Yes!
 ```

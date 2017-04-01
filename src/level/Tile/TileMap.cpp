@@ -1,10 +1,11 @@
 #include "TileMap.h"
 
-#include "LevelConstants.h"
+#include "../LevelConstants.h"
 
-namespace Level
+namespace Level{
+namespace Tile
 {
-    TileMap::TileMap(const std::vector<uint8>& tileData,
+    Map::Map(const std::vector<uint8>& tileData,
                      uint32 width,
                      uint32 height)
     :   m_tileData  (tileData)
@@ -22,12 +23,12 @@ namespace Level
         }
     }
 
-    void TileMap::draw(sf::RenderWindow& window)
+    void Map::draw(sf::RenderWindow& window)
     {
         window.draw(m_vertexArray.data(), m_vertexArray.size(), sf::Quads);
     }
 
-    void TileMap::addTile(float x, float y, int8 tileType)
+    void Map::addTile(float x, float y, int8 tileType)
     {
         ///@TODO Textures
         //4 points of a quad
@@ -48,4 +49,4 @@ namespace Level
         m_vertexArray.push_back(bottomRight);
         m_vertexArray.push_back(bottomLeft);
     }
-}
+}}
