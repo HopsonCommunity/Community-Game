@@ -7,7 +7,7 @@ namespace Debug
 {
     struct DebugMenuIntEntry
     {
-        const std::string& name;
+        const std::string name;
         int* value;
         int rangeBeg;
         int rangeEnd;
@@ -15,7 +15,7 @@ namespace Debug
 
     struct DebugMenuFloatEntry
     {
-        const std::string& name;
+        const std::string name;
         float* value;
         float rangeBeg;
         float rangeEnd;
@@ -23,7 +23,7 @@ namespace Debug
 
     struct DebugMenuBoolEntry
     {
-        const std::string& name;
+        const std::string name;
         bool* value;
     };
 
