@@ -17,7 +17,7 @@ namespace
 	    system(command.c_str());
     #elif __APPLE__
 	    const std::string command = "osascript -e 'tell app \"System Events\" to display dialog \"" + message + "\" buttons {\"OK\"} default button 1 with icon caution with title \"Error\"'";
-	    system(command.c_str();
+	    system(command.c_str());
 	#else
 	    std::cerr << message << std::endl;
 	    std::cin.ignore();
@@ -27,10 +27,10 @@ namespace
 
 int main() try
 {
-	Application app("Community Game", {1280, 720, false, VSYNC_DISABLED});
-    std::cout << "+-------------------------------------------------+\n";
-    std::cout << "| This is the console window of Project Communidy |\n";
-    std::cout << "+-------------------------------------------------+\n";
+	Application app("Project Comonidy", {1280, 720, false, VSYNC_DISABLED});
+	//Can someone help me move this into its own function so this is cleaner? Thanks! -Anna
+	std::cout << consoleAppInfo;
+    //End -Anna
     app.start();
 	return EXIT_SUCCESS;
 }
