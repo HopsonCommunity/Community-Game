@@ -5,8 +5,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "util/Types.h"
-#include "states/StateBase.h"
-#include "resources/ResourceHolder.h"
+#include "states/State_Base.h"
+#include "resources/Resource_Holder.h"
 
 constexpr bool VSYNC_ENABLED  = true;
 constexpr bool VSYNC_DISABLED = false;
@@ -32,12 +32,12 @@ class Application
         void popState();
 
         const WindowSettings& getSettings() const;
-        const ResourceHolder& getResources() const;
+        const Resource_Holder& getResources() const;
 
         void setVSync(bool enabled);
 
     private:
-        ResourceHolder m_resources;
+        Resource_Holder m_resources;
 
         std::string m_title;
         WindowSettings m_windowSettings;
