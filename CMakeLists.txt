@@ -27,11 +27,11 @@ if(WIN32)
     set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
     add_subdirectory(SFML)
 
-    target_link_libraries(${PROJECT_NAME} sfml-network sfml-audio sfml-graphics sfml-window sfml-system)
+    target_link_libraries(${PROJECT_NAME} sfml-network sfml-graphics sfml-window sfml-system)
 elseif(UNIX)
     set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 
-	find_package(SFML REQUIRED system window graphics network audio)
+	find_package(SFML REQUIRED system window graphics network)
 	if(SFML_FOUND)
 	    include_directories(${SFML_INCLUDE_DIR})
 	    target_link_libraries(${PROJECT_NAME} ${SFML_LIBRARIES})

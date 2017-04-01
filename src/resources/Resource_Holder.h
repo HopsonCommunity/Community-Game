@@ -10,12 +10,12 @@ struct Resource_Holder
     Resource_Holder()
     :   textures        ("res/textures",    ".png")
     ,   fonts           ("res/fonts",       ".ttf")
-    ,   soundBuffers    ("res/sfx",         ".ogg")
+    //,   soundBuffers    ("res/sfx",         ".ogg")
     {}
 
     Resource_Manager<sf::Texture>       textures;
     Resource_Manager<sf::Font>          fonts;
-    Resource_Manager<sf::SoundBuffer>   soundBuffers;
+    //Resource_Manager<sf::SoundBuffer>   soundBuffers;
 };
 
 
