@@ -73,3 +73,6 @@ ipch/
 
 # Visual Studio Code
 .vscode/
+
+#CLion
+.idea
