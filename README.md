@@ -22,8 +22,6 @@ when you want your Pull Request mergerd into the project.
 
 Don't know what to add? Check out the Trello here: https://trello.com/b/Kc93SBo2/hopson-community-project
 
-# Compiling the code
-
 # Compiling the project
 
 First, get the repsoitory downloaded to your computer. If you just want to look at
@@ -35,13 +33,11 @@ Otherwise look at the Contributing file to get a fork and your local repository
 configured right.
 
 ## Compiling without IDE
-Simply run:
+#### Windows
+Use the IDE/other toolchain or CMake part
 
-### Windows
-Only can run on an IDE
-
-### Mac
-You have to install SFML library package:
+#### Mac
+You have to install SFML library package and CMake:
 * With <a href="//brew.sh">Homebrew</a>
   ```
   $ brew install sfml
@@ -55,10 +51,10 @@ You have to install SFML library package:
   $ cmake ..
   $ make
   ```
-### Ubuntu
-You have to install SFML library package:
+#### Ubuntu
+You have to install SFML library package and CMake:
   ```
-  $ sudo apt-get install libsfml-dev
+  $ sudo apt-get install libsfml-dev cmake
   ```
 
   And then build with CMake:
@@ -84,7 +80,7 @@ Then in the right top you have a couple of buttons like that:
 
 Press in the play green like button and then another popup appears, in the executable config select the only available and click run.
 
-Then the IDE compiles CMake and builds the project.
+Then the IDE reads the CMake and builds the project.
 
 ## Compiling in every other toolchain/IDE
 
