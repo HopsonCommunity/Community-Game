@@ -28,8 +28,10 @@ namespace
 int main() try
 {
 	Application app("Community Game", {1280, 720, false, VSYNC_DISABLED});
-	app.start();
-
+    std::cout << "+-------------------------------------------------+\n";
+    std::cout << "| This is the console window of Project Communidy |\n";
+    std::cout << "+-------------------------------------------------+\n";
+    app.start();
 	return EXIT_SUCCESS;
 }
 catch(std::out_of_range& e)
