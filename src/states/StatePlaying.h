@@ -5,7 +5,7 @@
 #include "StateBase.h"
 
 #include "../entity/Entity.h"
-#include "../level/TileMap.h"
+#include "../level/Tile/TileMap.h"
 
 class Application;
 
@@ -22,6 +22,6 @@ namespace State
             void render(sf::RenderWindow& window) override;
         private:
 			entity::Entity* m_entity;
-            Level::TileMap m_tileMap;
+            Level::Tile::Map m_tileMap;
     };
 }
