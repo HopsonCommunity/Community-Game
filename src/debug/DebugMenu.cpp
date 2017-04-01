@@ -53,7 +53,7 @@ namespace Debug
 
     void DebugMenu::input()
     {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::F1))
             m_active = true;
         else
             m_active = false;
