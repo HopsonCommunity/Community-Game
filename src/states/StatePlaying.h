@@ -4,6 +4,7 @@
 
 #include "StateBase.h"
 
+#include "../entity/Entity.h"
 #include "../level/TileMap.h"
 
 class Application;
@@ -15,19 +16,12 @@ namespace State
         public:
             SPlaying(Application* app);
 
-            void event  (sf::Event& event)  override;
-            void input  ()                  override;
-            void update (float dt)          override;
-            void render (sf::RenderWindow& window) override;
-
+            void event(sf::Event& event) override;
+            void input() override;
+            void update(float dt) override;
+            void render(sf::RenderWindow& window) override;
         private:
-            Application* m_pApplication;
-
-            sf::RectangleShape m_testSprite;
-            sf::Vector2f m_testVelocity;
-
+			entity::Entity* m_entity;
             Level::TileMap m_tileMap;
-
-
     };
 }
