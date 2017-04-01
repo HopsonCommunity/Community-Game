@@ -4,6 +4,8 @@
 
 #include "State_Base.h"
 
+#include "../level/TileMap.h"
+
 class Application;
 
 namespace State
@@ -23,6 +25,8 @@ namespace State
 
             sf::RectangleShape m_testSprite;
             sf::Vector2f m_testVelocity;
+
+            Level::TileMap m_tileMap;
 
 
     };
