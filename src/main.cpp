@@ -17,7 +17,7 @@ namespace
 	    system(command.c_str());
     #elif __APPLE__
 	    const std::string command = "osascript -e 'tell app \"System Events\" to display dialog \"" + message + "\" buttons {\"OK\"} default button 1 with icon caution with title \"Error\"'";
-	    system(command.c_str();
+	    system(command.c_str());
 	#else
 	    std::cerr << message << std::endl;
 	    std::cin.ignore();
