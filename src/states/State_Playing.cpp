@@ -5,7 +5,10 @@ namespace State
     SPlaying::SPlaying(Application* app)
     :   SBase           (app)
     ,   m_testSprite    ({100, 100})    //Set the size of the sprite
-    { }
+    ,   m_tileMap       ({}, 5, 5)
+    {
+        m_testSprite.setFillColor(sf::Color::Red);
+    }
 
     void SPlaying::event(sf::Event& event)
     {
@@ -43,5 +46,6 @@ namespace State
     void SPlaying::render(sf::RenderWindow& window)
     {
         window.draw(m_testSprite);
+        m_tileMap.draw(window);
     }
 }
