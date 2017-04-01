@@ -93,7 +93,6 @@ const Resource_Holder& Application::getResources() const
     return m_resources;
 }
 
-
 void Application::setVSync(bool enabled)
 {
     m_windowSettings.isVsyncEnabled = enabled;
