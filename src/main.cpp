@@ -27,10 +27,10 @@ namespace
 
 int main() try
 {
-	Application app("Community Game", {1280, 720, false, VSYNC_DISABLED});
-    std::cout << "+-------------------------------------------------+\n";
-    std::cout << "| This is the console window of Project Communidy |\n";
-    std::cout << "+-------------------------------------------------+\n";
+	Application app("Project Comonidy", {1280, 720, false, VSYNC_DISABLED});
+	//Can someone help me move this into its own function so this is cleaner? Thanks! -Anna
+	std::cout << consoleAppInfo;
+    //End -Anna
     app.start();
 	return EXIT_SUCCESS;
 }
