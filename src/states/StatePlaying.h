@@ -6,6 +6,7 @@
 
 #include "../entity/Entity.h"
 #include "../level/Tile/TileMap.h"
+#include "../debug/DebugMenu.h"
 
 class Application;
 
@@ -23,5 +24,7 @@ namespace State
         private:
 			entity::Entity* m_entity;
             Level::Tile::Map m_tileMap;
+            Debug::DebugMenu m_debugMenu;
+            float testFloat;
     };
 }
