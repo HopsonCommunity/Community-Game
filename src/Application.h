@@ -31,12 +31,10 @@ class Application
         void pushState(std::unique_ptr<State::SBase> state);
         void popState();
 
-        ///@TODO Move these getters to the .cpp?
-        const WindowSettings& getSettings() const { return m_windowSettings; }
+        const WindowSettings& getSettings() const;
+        const Resource_Holder& getResources() const;
 
         void setVSync(bool enabled);
-
-        const Resource_Holder& getResources() const { return m_resources; }
 
     private:
         Resource_Holder m_resources;
