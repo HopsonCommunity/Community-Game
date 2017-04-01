@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <iostream>
-#include <SFML\Window.hpp>
+#include <SFML/Window.hpp>
 
 namespace Debug
 {
@@ -53,7 +53,7 @@ namespace Debug
 
     void DebugMenu::input()
     {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::F1))
+	    if (sf::Keyboard::isKeyPressed(sf::Keyboard::F1) && std::getenv("DEVELOPMENT"))
             m_active = true;
         else
             m_active = false;

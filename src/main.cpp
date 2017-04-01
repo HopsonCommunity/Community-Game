@@ -6,7 +6,6 @@
 #include "windows.h"
 #endif // __WIN32
 
-
 namespace
 {
     void errorMessage(const std::string& message)
