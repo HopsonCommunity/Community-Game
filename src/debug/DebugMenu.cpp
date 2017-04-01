@@ -1,7 +1,5 @@
 #include "DebugMenu.h"
 
-#include <SFML/>
-
 namespace Debug
 {
     void DebugMenu::addEntry(const std::string& name, bool* value)
