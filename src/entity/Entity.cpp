@@ -23,7 +23,7 @@ namespace entity
 		window.draw(m_shape);
 	}
 
-	sf::RectangleShape & Entity::getShape()
+	sf::RectangleShape& Entity::getShape()
 	{
 		return m_shape;
 	}
