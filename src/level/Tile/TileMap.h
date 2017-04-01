@@ -3,14 +3,15 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-#include "../util/Types.h"
+#include "../../util/Types.h"
 
-namespace Level
+namespace Level{
+namespace Tile
 {
-    class TileMap
+    class Map
     {
         public:
-            TileMap(const std::vector<uint8>& tileData, uint32 width, uint32 height);
+            Map(const std::vector<uint8>& tileData, uint32 width, uint32 height);
 
             void draw(sf::RenderWindow& window);
 
@@ -23,4 +24,4 @@ namespace Level
             uint32 m_width  = 0;
             uint32 m_height = 0;
     };
-}
+}}
