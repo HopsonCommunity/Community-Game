@@ -35,7 +35,6 @@ class Application
         const WindowSettings& getSettings() const { return m_windowSettings; }
 
         void setVSync(bool enabled);
-        void setWindowTitle(std::string&& title);
 
         const Resource_Holder& getResources() const { return m_resources; }
 

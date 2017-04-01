@@ -24,7 +24,7 @@ void Application::start()
 
     while (m_window.isOpen())
     {
-        float dt = clock.restart().asSeconds();
+        auto dt = clock.restart().asSeconds();
 
         m_window.clear();
 
@@ -50,24 +50,24 @@ void Application::handleEvents(sf::Event& event)
 {
     switch(event.type)
     {
-    case sf::Event::Closed:
-        m_window.close();
-        break;
+        case sf::Event::Closed:
+            m_window.close();
+            break;
 
-    case sf::Event::KeyReleased:
-        switch (event.key.code)
-        {
-            case sf::Keyboard::E:
-                m_window.close();
-                break;
+        case sf::Event::KeyReleased:
+            switch (event.key.code)
+            {
+                case sf::Keyboard::E:
+                    m_window.close();
+                    break;
 
-            default:
-                break;
-        }
-        break;
+                default:
+                    break;
+            }
+            break;
 
-    default:
-        break;
+        default:
+            break;
     }
 
     m_states.back()->event(event);
@@ -87,12 +87,6 @@ void Application::setVSync(bool enabled)
 {
     m_windowSettings.isVsyncEnabled = enabled;
     m_window.setVerticalSyncEnabled(enabled);
-}
-
-void Application::setWindowTitle(std::string&& title)
-{
-    m_title = std::move(title);
-    m_window.setTitle(m_title);
 }
 
 /*
