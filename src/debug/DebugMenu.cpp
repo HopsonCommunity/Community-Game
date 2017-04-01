@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <iostream>
-#include <SFML\Window.hpp>
+#include <SFML/Window.hpp>
 
 namespace Debug
 {
