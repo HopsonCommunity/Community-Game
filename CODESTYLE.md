@@ -27,3 +27,9 @@ private:
 ```C++
 #include <SFML/Graphics.hpp>
 ```
+
+Please prefer unique pointers to raw owning pointers
+```C++
+int* x = new int(5); //No!
+auto y = std::make_unique<int>(5) //Yes!
+```
