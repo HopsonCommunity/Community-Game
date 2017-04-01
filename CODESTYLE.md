@@ -15,12 +15,12 @@ constexpr int FOO_FUNCTION(){ return 0; }
 ```C++
 class ClassName
 {
-public:
-  ClassName();
-  ...
-  
-private:
-  ...
+  public:
+    ClassName();
+    ...
+
+  private:
+    ...
 };
 ```
 * Don't use the `\`, it can cause errors on Linux. Correct use:
