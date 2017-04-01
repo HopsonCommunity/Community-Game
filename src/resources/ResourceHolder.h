@@ -3,19 +3,19 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include "Resource_Manager.h"
+#include "ResourceManager.h"
 
-struct Resource_Holder
+struct ResourceHolder
 {
-    Resource_Holder()
+    ResourceHolder()
     :   textures        ("res/textures",    ".png")
     ,   fonts           ("res/fonts",       ".ttf")
     //,   soundBuffers    ("res/sfx",         ".ogg")
     {}
 
-    Resource_Manager<sf::Texture>       textures;
-    Resource_Manager<sf::Font>          fonts;
-    //Resource_Manager<sf::SoundBuffer>   soundBuffers;
+    ResourceManager<sf::Texture>       textures;
+    ResourceManager<sf::Font>          fonts;
+    //ResourceManager<sf::SoundBuffer>   soundBuffers;
 };
 
 
