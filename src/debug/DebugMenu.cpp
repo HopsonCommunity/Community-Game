@@ -8,8 +8,9 @@ namespace Debug
 {
     void DebugMenu::addEntry(const std::string& name, bool* value)
     {
-        if (m_boolMap.find(name) == m_boolMap.end() || m_intMap.find(name) == m_intMap.end() || m_floatMap.find(name) == m_floatMap.end())
-            return;
+        ///@ Fix is-existing check
+        //if (m_boolMap.find(name) == m_boolMap.end() || m_intMap.find(name) == m_intMap.end() || m_floatMap.find(name) == m_floatMap.end())
+        //    return;
         
         DebugMenuBoolEntry entry = { name, value };
 
@@ -18,8 +19,9 @@ namespace Debug
 
     void DebugMenu::addEntry(const std::string& name, int* value, int rangeBeg, int rangeEnd)
     {
-        if (m_boolMap.find(name) == m_boolMap.end() || m_intMap.find(name) == m_intMap.end() || m_floatMap.find(name) == m_floatMap.end())
-            return;
+        ///@ Fix is-existing check
+        //if (m_boolMap.find(name) == m_boolMap.end() || m_intMap.find(name) == m_intMap.end() || m_floatMap.find(name) == m_floatMap.end())
+        //    return;
 
         DebugMenuIntEntry entry = { name, value, rangeBeg, rangeEnd };
 
@@ -28,8 +30,9 @@ namespace Debug
 
     void DebugMenu::addEntry(const std::string& name, float* value, float rangeBeg, float rangeEnd)
     {
-        if (m_boolMap.find(name) == m_boolMap.end() || m_intMap.find(name) == m_intMap.end() || m_floatMap.find(name) == m_floatMap.end())
-            return;
+        ///@ Fix is-existing check
+        //if (m_boolMap.find(name) != m_boolMap.end() || m_intMap.find(name) != m_intMap.end() || m_floatMap.find(name) != m_floatMap.end())
+        //    return;
 
         DebugMenuFloatEntry entry = { name, value, rangeBeg, rangeEnd };
 
