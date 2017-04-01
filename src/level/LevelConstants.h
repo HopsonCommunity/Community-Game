@@ -1,0 +1,9 @@
+#ifndef LEVELCONSTANTS_H_INCLUDED
+#define LEVELCONSTANTS_H_INCLUDED
+
+namespace Level
+{
+
+}
+
+#endif // LEVELCONSTANTS_H_INCLUDED

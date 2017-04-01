@@ -10,7 +10,7 @@ namespace Level
     class TileMap
     {
         public:
-            TileMap(uint32 width, uint32 height, const std::vector<uint8>& tileData);
+            TileMap(const std::vector<uint8>& tileData, uint32 width, uint32 height);
 
             void draw(sf::RenderWindow& window);
 
