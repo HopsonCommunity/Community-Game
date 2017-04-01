@@ -6,7 +6,7 @@ and is an attempt at making a brand-spanking-new collaborative game together.
 
 # How to join us
 
-Just join our problic discord, where all of the development happens.
+Just join our public discord, where all of the development happens.
 
 `https://discord.gg/JKVBze6`
 
