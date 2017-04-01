@@ -1,6 +1,6 @@
 #include "Application.h"
 
-#include "states/State_Playing.h"
+#include "states/StatePlaying.h"
 
 #include <iostream>
 
@@ -88,7 +88,7 @@ const Application::WindowSettings& Application::getSettings() const
     return m_windowSettings;
 }
 
-const Resource_Holder& Application::getResources() const
+const ResourceHolder& Application::getResources() const
 {
     return m_resources;
 }
