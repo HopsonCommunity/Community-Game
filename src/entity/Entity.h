@@ -45,6 +45,6 @@ namespace entity
 		sf::RectangleShape m_shape;
 	public:
 		///@TODO Public for now. Change later
-		sf::Vector2<float> velocity;
+		sf::Vector2f velocity;
 	};
 }
