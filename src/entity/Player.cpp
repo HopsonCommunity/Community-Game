@@ -5,9 +5,9 @@
 namespace Framework
 {
 	Player::Player()
-	: Entity(100, 100)
-	, m_textureAtlas()
-	, m_currentFrame(new sf::Texture())
+	:   Entity(100, 100)
+	,   m_textureAtlas()
+	,   m_currentFrame(new sf::Texture())
 	{
 		m_textureAtlas.loadFromFile("res/textures/player_modelDefault.png");
 

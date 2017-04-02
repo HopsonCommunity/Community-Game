@@ -5,10 +5,9 @@
 namespace State
 {
     SPlaying::SPlaying(Application* app)
-    : SBase(app)
-    , m_testFloat(0)
-    , m_player()
-    , m_debugMenu(app->getResources().fonts.get("SourceCodePro-Regular"))
+    :   SBase(app)
+    ,   m_player()
+    ,   m_debugMenu(app->getResources().fonts.get("SourceCodePro-Regular"))
     {
         m_debugMenu.addEntry("A", &m_testInt, 0.0f, 1.0f);
         m_debugMenu.addEntry("B", &m_testFloat, 0.0f, 1.0f);
@@ -25,7 +24,7 @@ namespace State
 			std::cout << "Debug" << std::endl;
 
 		m_player.input(m_pApplication);
-			
+
         m_debugMenu.input();
     }
 
