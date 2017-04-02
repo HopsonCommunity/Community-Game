@@ -20,8 +20,9 @@ namespace State
             void input() override;
             void update(float dt) override;
             void render(sf::RenderWindow& window) override;
+
         private:
-			entity::Entity* m_entity;
+			entity::Entity m_entity;
             Level::Tile::Map m_tileMap;
     };
 }

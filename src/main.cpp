@@ -6,6 +6,8 @@
 #include "windows.h"
 #endif // __WIN32
 
+#include "util/Random.h"
+
 namespace
 {
     void errorMessage(const std::string& message)
@@ -27,6 +29,8 @@ namespace
 
 int main() try
 {
+    Random::init();
+
 	Application app("Project Comonidy", {1280, 720, false, VSYNC_DISABLED});
 	//Can someone help me move this into its own function so this is cleaner? Thanks! -Anna
 	std::cout << consoleAppInfo;
