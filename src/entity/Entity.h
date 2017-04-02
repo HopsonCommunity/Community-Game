@@ -22,8 +22,8 @@ namespace Framework
             int32 getHealth();
 			const Stats& getStats();
 
-			void update(); 
-            void render(sf::RenderWindow& window);
+			virtual void update(); 
+            virtual void render(sf::RenderWindow& window);
 
 			void addEffect(std::unique_ptr<StatusEffect> effect);
 

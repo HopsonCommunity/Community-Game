@@ -23,15 +23,7 @@ namespace State
 
     void SPlaying::input()
     {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-
-			m_player.velocity.x += 1;
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-            m_player.velocity.x += 0.1;
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-            m_player.velocity.y -= 0.1;
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            m_player.velocity.y += 0.1;
+      
 
         m_debugMenu.input();
     }
