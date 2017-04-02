@@ -8,9 +8,8 @@ namespace Debug
 {
     DebugMenu::DebugMenu(Application* app)
     : m_application(app)
+    , font (app->getResources().fonts.get("SourceCodePro-Regular"))
     {
-        font = (*m_application).getResources().fonts.get("SourceCodePro-Regular");
-
         menu[0].setFont(font);
         menu[0].setColor(sf::Color::White);
         menu[0].setPosition({  GUI_WIDTH / 2, GUI_HEIGHT / (GUI_DISPLAY_VARS + 1) * 1  });
