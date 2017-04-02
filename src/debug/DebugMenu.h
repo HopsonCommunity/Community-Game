@@ -3,6 +3,10 @@
 #include <string>
 #include <unordered_map>
 
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+
 namespace Debug
 {
     const int GUI_WIDTH = 1280;
