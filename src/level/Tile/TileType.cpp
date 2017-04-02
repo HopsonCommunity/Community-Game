@@ -8,8 +8,8 @@ namespace Level{ namespace Tile
     Type::Type(std::string&& fileName)
 	{
 		using json = nlohmann::json;
-
 		auto source = getFileContents("res/tiles/" + fileName + ".json");
+
 		json json_ = json::parse(source.c_str());
 
 		m_data.name = json_["Name"].get<std::string>();
