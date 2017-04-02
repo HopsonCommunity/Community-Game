@@ -19,5 +19,4 @@ std::string getFileContents(const std::string& filePath)
     content = stream.str();
     std::cout << content << std::endl;
     return content;
-
 }
