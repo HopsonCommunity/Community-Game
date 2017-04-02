@@ -5,6 +5,11 @@
 
 namespace Debug
 {
+    const int GUI_WIDTH = 1280;
+    const int GUI_HEIGHT = 720;
+
+    const int GUI_DISPLAY_VARS = 3;
+    
     struct DebugMenuIntEntry
     {
         const std::string name;
@@ -53,5 +58,11 @@ namespace Debug
         std::string createText(DebugMenuBoolEntry& entry);
         std::string createText(DebugMenuIntEntry& entry);
         std::string createText(DebugMenuFloatEntry& entry);
+        
+        sf::RenderWindow window;
+
+        int actualSelectedItem;
+        sf::Font font;
+        sf::Text menu[3];
     };
 }
