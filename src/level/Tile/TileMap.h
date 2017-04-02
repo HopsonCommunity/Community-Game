@@ -26,6 +26,8 @@ namespace Tile
             void draw(sf::RenderWindow& window);
 
         private:
+            uint8 getTile(uint32 x, uint32 y);
+
             void addTile                (float x, float y, int8 tileType);
             void setQuadVertexCoords    (Quad& quad, float x, float y);
             void setQuadTextureCoords   (Quad& quad, int8 tileType);

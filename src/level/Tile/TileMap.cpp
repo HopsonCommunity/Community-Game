@@ -11,10 +11,11 @@ namespace
 {
     std::vector<uint8> tiles =
     {
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        0, 0, 0, 0,
+        0, 1, 0, 0, 0,
+        0, 0, 1, 0, 0,
+        1, 0, 1, 1, 0,
+        1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1,
     };
 }
 
@@ -32,11 +33,13 @@ namespace Tile
 
         m_vertexArray.reserve(width * height * 4);
 
+        std::cout << m_tileData.size() << std::endl;
+
         for (uint32 y = 0; y < height; ++y)
         {
             for (uint32 x = 0; x < width; ++x)
             {
-                addTile(x * TILE_SIZE, y * TILE_SIZE, 0);
+                addTile(x * TILE_SIZE, y * TILE_SIZE, getTile(x, y));
             }
         }
     }
@@ -48,6 +51,12 @@ namespace Tile
 
         window.draw(m_vertexArray.data(), m_vertexArray.size(), sf::Quads, states);
     }
+
+    uint8 Map::getTile(uint32 x, uint32 y)
+    {
+        return m_tileData.at(y * m_width + x);
+    }
+
 
     void Map::addTile(float x, float y, int8 tileType)
     {
@@ -85,7 +94,7 @@ namespace Tile
 
         //Get the x and y positions inside of the texture atlas of that variation of the texture
         auto tx = texCoords.x + varitation * TILE_SIZE;
-        auto ty = texCoords.y;
+        auto ty = texCoords.y * TILE_SIZE;
 
         //Set texture coords of the 4 vertex points, anti-clockwise order
         quad.topLeft     .texCoords = {tx,              ty};
