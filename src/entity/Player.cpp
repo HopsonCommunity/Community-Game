@@ -6,7 +6,6 @@ namespace Framework
 {
 	Player::Player()
 	: Entity(100, 100)
-	, m_moveState(IDLE)
 	, m_textureAtlas()
 	, m_currentFrame(new sf::Texture())
 	{
@@ -29,28 +28,28 @@ namespace Framework
 
 	void Player::input(Application* app)
 	{
-		m_moveState = IDLE;
+		m_moveState = MoveState::Idle;
 
 		if (app->inputPressed(MOVE_UP))
 		{
-			m_moveState = WALK;
+			m_moveState = MoveState::Walk;
 			velocity.y -= g_movement_speed;
 		}
 		if (app->inputPressed(MOVE_DOWN))
 		{
-			m_moveState = WALK;
+			m_moveState = MoveState::Walk;
 			velocity.y += g_movement_speed;
 		}
 		if (app->inputPressed(MOVE_LEFT))
 		{
-			m_faceDir = FaceDirection::LEFT;
-			m_moveState = WALK;
+			m_faceDir = FaceDirection::Left;
+			m_moveState = MoveState::Walk;
 			velocity.x -= g_movement_speed;
 		}
 		if (app->inputPressed(MOVE_RIGHT))
 		{
-			m_faceDir = FaceDirection::RIGHT;
-			m_moveState = WALK;
+			m_faceDir = FaceDirection::Right;
+			m_moveState = MoveState::Walk;
 			velocity.x += g_movement_speed;
 		}
 	}
@@ -68,10 +67,10 @@ namespace Framework
 		if (m_frame > 7)
 			m_frame = 0;
 
-		sf::IntRect sprite_area(m_frame * 32, m_moveState == WALK ? 33 : 0, 32, 32);
+		sf::IntRect sprite_area(m_frame * 32, m_moveState == MoveState::Walk ? 33 : 0, 32, 32);
 		m_currentFrame->loadFromImage(m_textureAtlas, sprite_area);
 		getShape().setTexture(m_currentFrame);
-		getShape().setTextureRect(m_faceDir == FaceDirection::RIGHT ? sf::IntRect(0, 0, 32, 32) : sf::IntRect(32, 0, -32, 32));
+		getShape().setTextureRect(m_faceDir == FaceDirection::Right ? sf::IntRect(0, 0, 32, 32) : sf::IntRect(32, 0, -32, 32));
 
 		getShape().move(velocity);
 
