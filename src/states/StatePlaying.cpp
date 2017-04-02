@@ -20,7 +20,7 @@ namespace State
     void SPlaying::input()
     {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			m_player.velocity.x += 0.1;
+			m_player.velocity.x += 1;
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 			m_player.velocity.x -= 0.1;
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
@@ -35,8 +35,7 @@ namespace State
 
 		m_player.update();
 
-        ///@TODO Make velocity dampening scale with FPS/ dt
-		m_player.velocity *= 0.98f;
+		m_player.velocity *= 0.99f * dt * 30;
     }
 
     void SPlaying::render(sf::RenderWindow& window)
