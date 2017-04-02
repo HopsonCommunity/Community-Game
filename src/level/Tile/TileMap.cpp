@@ -11,11 +11,11 @@ namespace
 {
     std::vector<uint8> tiles =
     {
-        0, 1, 0, 0, 0,
-        0, 0, 1, 0, 0,
-        1, 0, 1, 1, 0,
-        1, 1, 1, 1, 1,
-        1, 1, 1, 1, 1,
+        1, 0, 1, 3, 1,
+        3, 0, 3, 1, 3,
+        1, 0, 0, 0, 1,
+        3, 1, 0, 1, 3,
+        1, 3, 1, 3, 1,
     };
 }
 
@@ -90,6 +90,7 @@ namespace Tile
         //Get the number of texture variations
         auto texVaritations = Tile::Database::get().getTileData(tileType).textureVariations;
         //Choose a random variation
+
         auto varitation = Random::intInRange(0, texVaritations - 1);
 
         //Get the x and y positions inside of the texture atlas of that variation of the texture

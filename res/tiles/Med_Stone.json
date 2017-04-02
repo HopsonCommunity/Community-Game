@@ -1,6 +1,6 @@
 {
 	"Name": "Med Stone",
-	"ID": 1,
+	"ID": 2,
 	"Variation": 3,
-	"Texture": [ 0, 1 ]
+	"Texture": [ 0, 12 ]
 }

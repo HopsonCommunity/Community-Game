@@ -5,9 +5,11 @@ namespace Tile
 {
     enum class ID
     {
-        Light_Stone = 0,
-        Med_Stone   = 1,
-        Dark_Stone  = 2,
+        WNothing        = 0,
+
+        FLight_Stone    = 1,
+        FMed_Stone      = 2,
+        FDark_Stone     = 3,
 
         Tile_Types_Count
     };

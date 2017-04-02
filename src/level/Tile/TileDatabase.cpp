@@ -13,9 +13,10 @@ namespace Level { namespace Tile
     Database::Database()
     :   m_tiles ((uint32)ID::Tile_Types_Count)
     {
-        registerTile(ID::Light_Stone,   "Light_Stone");
-        registerTile(ID::Med_Stone,     "Med_Stone");
-        registerTile(ID::Dark_Stone,    "Dark_Stone");
+        registerTile(ID::WNothing,      "Blank");
+        registerTile(ID::FLight_Stone,  "Light_Stone");
+        registerTile(ID::FMed_Stone,    "Med_Stone");
+        registerTile(ID::FDark_Stone,   "Dark_Stone");
     }
 
     void Database::registerTile(ID id, std::string&& name)
