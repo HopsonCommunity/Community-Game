@@ -18,7 +18,7 @@ class ResourceManager
             if (m_resourceMap.find(full) == m_resourceMap.end())
             {
                 ///@TODO Throw error on fail?
-                add(name);
+                add(full);
             }
             return qGet(full);
         }

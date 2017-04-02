@@ -10,7 +10,7 @@ namespace State
 	, m_tileMap({}, 5, 5)
 	{
 		// This is actually what -> does if you didnt know :)
-		m_entity.getShape().setFillColor(sf::Color(0.2 * 255, 0.3 * 255, 0.8 * 255, 255));
+		m_player.getShape().setFillColor(sf::Color(0.2 * 255, 0.3 * 255, 0.8 * 255, 255));
 	}
 
     void SPlaying::event(sf::Event& event)
