@@ -10,9 +10,10 @@ namespace Framework
 	// (True damage ignores defences.)
 	enum class DamageSource : byte
 	{
-		Fire = 0,
+		Physical = 0,
 		Magic = 1,
-		True = 2
+		Fire = 2,
+		True = 3
 	};
 
 	// Damage struct holding some data about damage instances.
