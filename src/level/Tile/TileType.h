@@ -12,10 +12,10 @@ namespace Level{ namespace Tile
         public:
             struct Data
             {
-                std::string  name;
-                sf::Vector2i texCoords;
-                ID           id;
-                uint8        textureVariations;
+                std::string     name;
+                sf::Vector2f    texCoords;
+                ID              id;
+                uint32          textureVariations;
             };
 
             Type() = default;

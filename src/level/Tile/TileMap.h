@@ -23,5 +23,7 @@ namespace Tile
 
             uint32 m_width  = 0;
             uint32 m_height = 0;
+
+            sf::Texture m_tileTextures;
     };
 }}
