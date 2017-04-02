@@ -20,10 +20,7 @@ class ResourceManager
             {
                 add(full);
             }
-            else
-            {
-                throw Exceptions::CannotGetResource(full);
-            }
+
             return qGet(full);
         }
 

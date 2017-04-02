@@ -6,9 +6,13 @@
 
 namespace Exceptions
 {
-    ExceptionBase::ExceptionBase(const std::string& text) : m_msg(text){
+    ExceptionBase::ExceptionBase(const std::string& text)
+    : m_msg(text)
+    {
     }
-    const char* ExceptionBase::what() const throw() {
+
+    const char* ExceptionBase::what() const throw()
+    {
         return m_msg.c_str();
     }
 
