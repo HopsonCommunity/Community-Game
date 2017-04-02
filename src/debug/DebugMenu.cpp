@@ -53,9 +53,12 @@ namespace Debug
 
     void DebugMenu::input()
     {
-	    if (sf::Keyboard::isKeyPressed(sf::Keyboard::F1))
-            m_active = true;
-        else
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::F1)) {
+            if(!(m_active)) {
+		m_active = true;
+		window.create(sf::VideoMode(GUI_WIDTH, GUI_HEIGHT), "Debug Menu");
+	    }
+	} else
             m_active = false;
     }
 
@@ -85,15 +88,47 @@ namespace Debug
 
         ///@TODO: Use our sfml text abstraction
 
-        for (auto& entry : bools)
-            std::cout << createText(entry) << std::endl;
-            //drawText(0, currentText++ * 10, createText(entry));
-        for (auto& entry : floats)
-            std::cout << createText(entry) << std::endl;
-            //drawText(0, currentText++ * 10, createText(entry));
-        for (auto& entry : ints)
-            std::cout << createText(entry) << std::endl;
-            //drawText(0, currentText++ * 10, createText(entry));
+        if(window.isOpen())
+        {
+            sf::Event e;
+
+            while(window.pollEvent(e))
+            {
+                if(e.type == sf::Event::Closed)
+                    window.close();
+
+            }
+
+            window.clear();
+
+            for (auto& entry : bools)
+            {
+                std::cout << createText(entry) << std::endl;
+                menu[0].setString("Hello");
+                window.draw(menu[0]);
+                //drawText(0, currentText++ * 10, createText(entry));
+            }
+
+            for (auto& entry : floats)
+            {
+                std::cout << createText(entry) << std::endl;
+                menu[1].setString(createText(entry));
+                window.draw(menu[1]);
+                //drawText(0, currentText++ * 10, createText(entry));
+            }
+
+            for (auto& entry : ints)
+            {
+                std::cout << createText(entry) << std::endl;
+                menu[2].setString(":D");
+                window.draw(menu[2]);
+                //drawText(0, currentText++ * 10, createText(entry));
+            }
+
+            window.display();
+        }
+
+        return;
     }
 
     std::string DebugMenu::createText(DebugMenuBoolEntry& entry)
