@@ -9,16 +9,19 @@ namespace Debug
     DebugMenu::DebugMenu(const sf::Font& font)
         : m_active(false)
     {
-        menu[0].setFont(font);
-        menu[0].setColor(sf::Color::White);
-        menu[0].setPosition({ 0, 0 });
+        menu[0].setFont         (font);
+        menu[0].setOutlineColor (sf::Color::Black);
+        menu[0].setFillColor    (sf::Color::White);
+        menu[0].setPosition     ({ 0, 0 });
 
-        menu[1].setFont(font);
-        menu[1].setColor(sf::Color::White);
+        menu[1].setFont         (font);
+        menu[1].setOutlineColor (sf::Color::Black);
+        menu[1].setFillColor    (sf::Color::White);
         menu[1].setPosition({ GUI_WIDTH / 3, 0 });
 
-        menu[2].setFont(font);
-        menu[2].setColor(sf::Color::White);
+        menu[2].setFont         (font);
+        menu[2].setOutlineColor (sf::Color::Black);
+        menu[2].setFillColor    (sf::Color::White);
         menu[2].setPosition({ GUI_WIDTH / 3 * 2 , 0 });
     }
 
@@ -105,8 +108,6 @@ namespace Debug
 
         for (auto kv : m_intMap)
             ints.push_back(kv.second);
-
-        int currentText;
 
         if (m_window.isOpen())
         {

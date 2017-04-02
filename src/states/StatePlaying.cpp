@@ -25,15 +25,10 @@ namespace State
     void SPlaying::input()
     {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-<<<<<<< HEAD
+
 			m_player.velocity.x += 1;
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			m_player.velocity.x -= 0.1;
-=======
             m_player.velocity.x += 0.1;
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-            m_player.velocity.x -= 0.1;
->>>>>>> 336c4636434e804f9d77c950857a9a8a6c37d705
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
             m_player.velocity.y -= 0.1;
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
@@ -48,13 +43,12 @@ namespace State
 
         m_player.update();
 
-<<<<<<< HEAD
+
 		m_player.velocity *= 0.99f * dt * 30;
-=======
+
         m_testFloat = dt;
         m_testInt = dt * 10000;
         m_testBool = m_testInt % 2 == 1 ? true : false;
->>>>>>> 336c4636434e804f9d77c950857a9a8a6c37d705
     }
 
     void SPlaying::render(sf::RenderWindow& window)
