@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "TileID.h"
+#include "../../util/Types.h"
 
 namespace Level{ namespace Tile
 {
