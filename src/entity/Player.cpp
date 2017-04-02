@@ -79,15 +79,15 @@ namespace Framework
 
 	void Player::applyDamage(const Damage& dmg)
 	{
-		int32 real_dmg = dmg.amount;
+		float damageMultiplier;
 
-		///@TODO Better algorithm to calculate defenses
+		// As armor increases, damage reduction does too but never reaches 100%
 		if (dmg.source == DamageSource::Physical)
-			real_dmg = m_stats.armor / 100 * dmg.amount;
+			damageMultiplier = dmg.amount / (dmg.amount + m_stats.armor);
 
 		if (dmg.source == DamageSource::Magic)
-			real_dmg = m_stats.magic_resist / 100 * dmg.amount;
+			damageMultiplier = dmg.amount / (dmg.amount + m_stats.magic_resist);
 
-		m_health -= real_dmg;
+		m_health -= dmg.amount * damageMultiplier;
 	}
 }
