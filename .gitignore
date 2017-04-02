@@ -24,6 +24,11 @@ bld/
 [Ll]og/
 [Dd]ependencies/
 
+# CMake build
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+
 # Visual Studio 2015 cache/options directory
 .vs/
 
