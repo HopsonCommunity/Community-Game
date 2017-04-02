@@ -7,26 +7,26 @@
 namespace Debug
 {
     DebugMenu::DebugMenu(const sf::Font& font)
+        : m_active(false)
     {
         menu[0].setFont(font);
         menu[0].setColor(sf::Color::White);
-        menu[0].setPosition({  GUI_WIDTH / 2, GUI_HEIGHT / (GUI_DISPLAY_VARS + 1) * 1  });
+        menu[0].setPosition({ 0, 0 });
 
         menu[1].setFont(font);
         menu[1].setColor(sf::Color::White);
-        menu[1].setPosition({  GUI_WIDTH / 2, GUI_HEIGHT / (GUI_DISPLAY_VARS + 1) * 2  });
+        menu[1].setPosition({ GUI_WIDTH / 3, 0 });
 
         menu[2].setFont(font);
         menu[2].setColor(sf::Color::White);
-        menu[2].setPosition({  GUI_WIDTH / 2, GUI_HEIGHT / (GUI_DISPLAY_VARS + 1) * 3  });
+        menu[2].setPosition({ GUI_WIDTH / 3 * 2 , 0 });
     }
-	
+
     void DebugMenu::addEntry(const std::string& name, bool* value)
     {
-        ///@ Fix is-existing check
-        //if (m_boolMap.find(name) == m_boolMap.end() || m_intMap.find(name) == m_intMap.end() || m_floatMap.find(name) == m_floatMap.end())
-        //    return;
-        
+        if (m_boolMap.find(name) != m_boolMap.end() || m_intMap.find(name) != m_intMap.end() || m_floatMap.find(name) != m_floatMap.end())
+            return;
+
         DebugMenuBoolEntry entry = { name, value };
 
         m_boolMap.insert(std::make_pair(name, entry));
@@ -34,9 +34,8 @@ namespace Debug
 
     void DebugMenu::addEntry(const std::string& name, int* value, int rangeBeg, int rangeEnd)
     {
-        ///@ Fix is-existing check
-        //if (m_boolMap.find(name) == m_boolMap.end() || m_intMap.find(name) == m_intMap.end() || m_floatMap.find(name) == m_floatMap.end())
-        //    return;
+        if (m_boolMap.find(name) != m_boolMap.end() || m_intMap.find(name) != m_intMap.end() || m_floatMap.find(name) != m_floatMap.end())
+            return;
 
         DebugMenuIntEntry entry = { name, value, rangeBeg, rangeEnd };
 
@@ -45,9 +44,8 @@ namespace Debug
 
     void DebugMenu::addEntry(const std::string& name, float* value, float rangeBeg, float rangeEnd)
     {
-        ///@ Fix is-existing check
-        //if (m_boolMap.find(name) != m_boolMap.end() || m_intMap.find(name) != m_intMap.end() || m_floatMap.find(name) != m_floatMap.end())
-        //    return;
+        if (m_boolMap.find(name) != m_boolMap.end() || m_intMap.find(name) != m_intMap.end() || m_floatMap.find(name) != m_floatMap.end())
+            return;
 
         DebugMenuFloatEntry entry = { name, value, rangeBeg, rangeEnd };
 
@@ -68,13 +66,22 @@ namespace Debug
 
     void DebugMenu::input()
     {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::F1)) {
-            if(!(m_active)) {
-		m_active = true;
-		window.create(sf::VideoMode(GUI_WIDTH, GUI_HEIGHT), "Debug Menu");
-	    }
-	} else
-            m_active = false;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::F1) && !m_active)
+        {
+            m_active = true;
+            m_window.create(sf::VideoMode(GUI_WIDTH, GUI_HEIGHT), "Debug Menu");
+        }
+
+        if (m_active)
+        {
+            sf::Event ev;
+            while (m_window.pollEvent(ev))
+                if (ev.type == sf::Event::Closed)
+                {
+                    m_window.close();
+                    m_active = false;
+                }
+        }
     }
 
     void DebugMenu::render()
@@ -101,46 +108,38 @@ namespace Debug
 
         int currentText;
 
-        ///@TODO: Use our sfml text abstraction
-
-        if(window.isOpen())
+        if (m_window.isOpen())
         {
             sf::Event e;
 
-            while(window.pollEvent(e))
+            while (m_window.pollEvent(e))
             {
-                if(e.type == sf::Event::Closed)
-                    window.close();
+                if (e.type == sf::Event::Closed)
+                    m_window.close();
 
             }
 
-            window.clear();
+            m_window.clear();
 
             for (auto& entry : bools)
             {
-                std::cout << createText(entry) << std::endl;
-                menu[0].setString("Hello");
-                window.draw(menu[0]);
-                //drawText(0, currentText++ * 10, createText(entry));
+                menu[0].setString(createText(entry));
+                m_window.draw(menu[0]);
             }
 
             for (auto& entry : floats)
             {
-                std::cout << createText(entry) << std::endl;
                 menu[1].setString(createText(entry));
-                window.draw(menu[1]);
-                //drawText(0, currentText++ * 10, createText(entry));
+                m_window.draw(menu[1]);
             }
 
             for (auto& entry : ints)
             {
-                std::cout << createText(entry) << std::endl;
-                menu[2].setString(":D");
-                window.draw(menu[2]);
-                //drawText(0, currentText++ * 10, createText(entry));
+                menu[2].setString(createText(entry));
+                m_window.draw(menu[2]);
             }
 
-            window.display();
+            m_window.display();
         }
 
         return;
@@ -149,8 +148,13 @@ namespace Debug
     std::string DebugMenu::createText(DebugMenuBoolEntry& entry)
     {
         std::string returnText = entry.name;
+
         returnText += " ";
-        returnText += std::to_string(*(entry.value));
+
+        if (*(entry.value))
+            returnText += "true";
+        else
+            returnText += "false";
         return returnText;
     }
 
@@ -169,4 +173,5 @@ namespace Debug
         returnText += std::to_string(*(entry.value));
         return returnText;
     }
+
 }

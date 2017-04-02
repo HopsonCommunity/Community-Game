@@ -25,6 +25,8 @@ namespace State
 			Framework::Player m_player;
             Level::Tile::Map m_tileMap;
             Debug::DebugMenu m_debugMenu;
-            float testFloat;
+            float m_testFloat;
+            int m_testInt;
+            bool m_testBool;
     };
 }

@@ -65,7 +65,7 @@ namespace Debug
         std::string createText(DebugMenuIntEntry& entry);
         std::string createText(DebugMenuFloatEntry& entry);
         
-        sf::RenderWindow window;
+        sf::RenderWindow m_window;
 
         int actualSelectedItem;
         sf::Text menu[3];
