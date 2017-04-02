@@ -1,28 +1,27 @@
 #include "DebugMenu.h"
 
-#include <vector>
-#include <iostream>
-#include <SFML/Window.hpp>
-
 namespace Debug
 {
     DebugMenu::DebugMenu(const sf::Font& font)
         : m_active(false)
     {
-        menu[0].setFont         (font);
-        menu[0].setOutlineColor (sf::Color::Black);
-        menu[0].setFillColor    (sf::Color::White);
-        menu[0].setPosition     ({ 0, 0 });
+        m_menu[0].setFont         (font);
+        m_menu[0].setCharacterSize(20);
+        m_menu[0].setOutlineColor (sf::Color::Black);
+        m_menu[0].setFillColor    (sf::Color::White);
+        m_menu[0].setPosition     ({ 0, 0 });
 
-        menu[1].setFont         (font);
-        menu[1].setOutlineColor (sf::Color::Black);
-        menu[1].setFillColor    (sf::Color::White);
-        menu[1].setPosition({ GUI_WIDTH / 3, 0 });
+        m_menu[1].setFont         (font);
+        m_menu[1].setCharacterSize(20);
+        m_menu[1].setOutlineColor (sf::Color::Black);
+        m_menu[1].setFillColor    (sf::Color::White);
+        m_menu[1].setPosition({ GUI_WIDTH / 3, 0 });
 
-        menu[2].setFont         (font);
-        menu[2].setOutlineColor (sf::Color::Black);
-        menu[2].setFillColor    (sf::Color::White);
-        menu[2].setPosition({ GUI_WIDTH / 3 * 2 , 0 });
+        m_menu[2].setFont         (font);
+        m_menu[2].setCharacterSize(20);
+        m_menu[2].setOutlineColor (sf::Color::Black);
+        m_menu[2].setFillColor    (sf::Color::White);
+        m_menu[2].setPosition({ GUI_WIDTH / 3 * 2 , 0 });
     }
 
     void DebugMenu::addEntry(const std::string& name, bool* value)
@@ -122,22 +121,35 @@ namespace Debug
 
             m_window.clear();
 
+            m_menu[0].setPosition     ({ 0, 0 });
+            m_menu[1].setPosition({ GUI_WIDTH / 3, 0 });
+            m_menu[2].setPosition({ GUI_WIDTH / 3 * 2 , 0 });
+
+            int currentVal = 0;
+
             for (auto& entry : bools)
             {
-                menu[0].setString(createText(entry));
-                m_window.draw(menu[0]);
+                m_menu[0].setString(createText(entry));
+                m_menu[0].setPosition(0, currentVal++ * 20);
+                m_window.draw(m_menu[0]);
             }
+
+            currentVal = 0;
 
             for (auto& entry : floats)
             {
-                menu[1].setString(createText(entry));
-                m_window.draw(menu[1]);
+                m_menu[1].setString(createText(entry));
+                m_menu[1].setPosition(GUI_WIDTH / 3, currentVal++ * 20);
+                m_window.draw(m_menu[1]);
             }
+
+            currentVal = 0;
 
             for (auto& entry : ints)
             {
-                menu[2].setString(createText(entry));
-                m_window.draw(menu[2]);
+                m_menu[2].setString(createText(entry));
+                m_menu[2].setPosition(GUI_WIDTH / 3 * 2, currentVal++ * 20);
+                m_window.draw(m_menu[2]);
             }
 
             m_window.display();
