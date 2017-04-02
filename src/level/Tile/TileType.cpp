@@ -21,6 +21,7 @@ namespace Level{ namespace Tile
 		auto uv = json_["Texture"].get<std::vector<short>>();
 		m_data.texCoords.x = uv[0];
 		m_data.texCoords.y = uv[1];
+
     }
 
     const Type::Data& Type::getData() const
