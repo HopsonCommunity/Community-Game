@@ -1,6 +1,6 @@
 #include "TileType.h"
 
-#include "../../util/FileReader.h"
+#include "../../util/FileUtil.h"
 #include "../../util/json.hpp"
 
 namespace Level{ namespace Tile
@@ -8,8 +8,8 @@ namespace Level{ namespace Tile
     Type::Type(std::string&& fileName)
 	{
 		using json = nlohmann::json;
-     
-		std::string source = Util::ReadFile("res/tiles/" + fileName + ".json");
+
+		auto source = getFileContents("res/tiles/" + fileName + ".json");
 		json json_ = json::parse(source.c_str());
 
 		m_data.name = json_["Name"].get<std::string>();
