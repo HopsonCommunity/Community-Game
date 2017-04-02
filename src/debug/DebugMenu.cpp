@@ -6,6 +6,28 @@
 
 namespace Debug
 {
+    DebugMenu::DebugMenu()
+    {
+        // TODO (developer): Change this path for a relative
+        if(!font.loadFromFile("/home/paul/CLionProjects/community-game/res/fonts/arial.ttf"))
+        {
+            std::cerr << "Cannot load font file" << std::endl;
+            exit(0);
+        }
+
+        menu[0].setFont(font);
+        menu[0].setColor(sf::Color::White);
+        menu[0].setPosition({  GUI_WIDTH / 2, GUI_HEIGHT / (GUI_DISPLAY_VARS + 1) * 1  });
+
+        menu[1].setFont(font);
+        menu[1].setColor(sf::Color::White);
+        menu[1].setPosition({  GUI_WIDTH / 2, GUI_HEIGHT / (GUI_DISPLAY_VARS + 1) * 2  });
+
+        menu[2].setFont(font);
+        menu[2].setColor(sf::Color::White);
+        menu[2].setPosition({  GUI_WIDTH / 2, GUI_HEIGHT / (GUI_DISPLAY_VARS + 1) * 3  });
+    }
+	
     void DebugMenu::addEntry(const std::string& name, bool* value)
     {
         ///@ Fix is-existing check
