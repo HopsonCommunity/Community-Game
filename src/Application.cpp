@@ -82,7 +82,7 @@ const Application::WindowSettings& Application::getSettings() const
     return m_windowSettings;
 }
 
-const ResourceHolder& Application::getResources() const
+ResourceHolder& Application::getResources()
 {
     return m_resources;
 }

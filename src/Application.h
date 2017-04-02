@@ -33,7 +33,7 @@ class Application
         void popState();
 
         const WindowSettings& getSettings() const;
-        const ResourceHolder& getResources() const;
+        ResourceHolder& getResources();
 
         void setVSync(bool enabled);
 

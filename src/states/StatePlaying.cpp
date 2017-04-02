@@ -1,5 +1,7 @@
 #include "StatePlaying.h"
 
+#include "../Application.h"
+
 namespace State
 {
 	SPlaying::SPlaying(Application* app)
@@ -9,6 +11,7 @@ namespace State
 	{
 		// This is actually what -> does if you didnt know :)
 		m_entity.getShape().setFillColor(sf::Color(0.2 * 255, 0.3 * 255, 0.8 * 255, 255));
+		m_entity.getShape().setTexture(&app->getResources().textures.get("Test"));
 	}
 
     void SPlaying::event(sf::Event& event)
