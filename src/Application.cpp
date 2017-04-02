@@ -7,6 +7,8 @@
 Application::Application(std::string&& name, const WindowSettings& settings)
 :   m_title(std::move(name))
 ,   m_windowSettings(settings)
+,	m_inputScheme("Controls.json")
+,	m_inputManager(&m_inputScheme)
 {
     auto style  = settings.isFullscreen ? sf::Style::Fullscreen : sf::Style::Default;
 
@@ -91,6 +93,11 @@ void Application::setVSync(bool enabled)
 {
     m_windowSettings.isVsyncEnabled = enabled;
     m_window.setVerticalSyncEnabled(enabled);
+}
+
+bool Application::inputPressed(std::string action)
+{
+	return m_inputManager.isInput(action);
 }
 
 /* For when we need it
