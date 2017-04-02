@@ -79,6 +79,9 @@ ipch/
 # Visual Studio Code
 .vscode/
 
+# Builds
+dev_build.bat
+
 #CLion
 .idea
 cmake-build-debug/
