@@ -6,9 +6,7 @@
 
 namespace Debug
 {
-    DebugMenu::DebugMenu(Application* app)
-    : m_application(app)
-    , font (app->getResources().fonts.get("SourceCodePro-Regular"))
+    DebugMenu::DebugMenu(const sf::Font& font)
     {
         menu[0].setFont(font);
         menu[0].setColor(sf::Color::White);

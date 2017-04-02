@@ -41,7 +41,7 @@ namespace Debug
     class DebugMenu
     {
     public:
-        DebugMenu(Application* application);
+        DebugMenu(const sf::Font& font);
 
         void addEntry(const std::string& name, bool* value);
         void addEntry(const std::string& name, int* value, int rangeBeg, int rangeEnd);
@@ -53,8 +53,6 @@ namespace Debug
         void update();
         void render();
     private:
-        Application* m_application;
-
         std::unordered_map<std::string, DebugMenuBoolEntry> m_boolMap;
         std::unordered_map<std::string, DebugMenuIntEntry> m_intMap;
         std::unordered_map<std::string, DebugMenuFloatEntry> m_floatMap;
@@ -70,7 +68,6 @@ namespace Debug
         sf::RenderWindow window;
 
         int actualSelectedItem;
-        const sf::Font& font;
         sf::Text menu[3];
     };
 }
