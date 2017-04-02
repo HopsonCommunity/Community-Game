@@ -13,10 +13,6 @@ std::string getFileContents(const std::string& filePath)
     }
 
     std::stringstream stream;
-    std::string content;
-
     stream << inFile.rdbuf();
-    content = stream.str();
-    std::cout << content << std::endl;
-    return content;
+    return stream.str();
 }

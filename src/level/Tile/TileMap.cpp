@@ -11,34 +11,35 @@ namespace
 {
     std::vector<uint8> tiles =
     {
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        0, 0, 0, 0,
-        0, 0, 0, 0,
+        1, 0, 1, 3, 1,
+        3, 0, 3, 1, 3,
+        1, 0, 0, 0, 1,
+        3, 1, 0, 1, 3,
+        1, 3, 1, 3, 1,
     };
 }
 
 namespace Level{
 namespace Tile
 {
-    Map::Map(const std::vector<uint8>& tileData,
-                     uint32 width,
-                     uint32 height)
-    :   m_tileData  (tiles)  ///@TODO Use the consturcor args here
+    Map::Map()
+    :   m_tileData  (tiles)
     ,   m_width     (5)
     ,   m_height    (5)
     {
         m_tileTextures.loadFromFile("res/textures/tile_atlas.png");
+        generateVertexArray();
+    }
 
-        m_vertexArray.reserve(width * height * 4);
-
-        for (uint32 y = 0; y < height; ++y)
-        {
-            for (uint32 x = 0; x < width; ++x)
-            {
-                addTile(x * TILE_SIZE, y * TILE_SIZE, 0);
-            }
-        }
+    Map::Map(const std::vector<uint8>& tileData,
+                     uint32 width,
+                     uint32 height)
+    :   m_tileData  (tileData)
+    ,   m_width     (width)
+    ,   m_height    (height)
+    {
+        m_tileTextures.loadFromFile("res/textures/tile_atlas.png");
+        generateVertexArray();
     }
 
     void Map::draw(sf::RenderWindow& window)
@@ -47,6 +48,23 @@ namespace Tile
         states.texture = &m_tileTextures;
 
         window.draw(m_vertexArray.data(), m_vertexArray.size(), sf::Quads, states);
+    }
+
+    uint8 Map::getTile(uint32 x, uint32 y)
+    {
+        return m_tileData.at(y * m_width + x);
+    }
+
+    void Map::generateVertexArray()
+    {
+        m_vertexArray.reserve(m_width * m_height * 4);
+        for (uint32 y = 0; y < m_height; ++y)
+        {
+            for (uint32 x = 0; x < m_width; ++x)
+            {
+                addTile(x * TILE_SIZE, y * TILE_SIZE, getTile(x, y));
+            }
+        }
     }
 
     void Map::addTile(float x, float y, int8 tileType)
@@ -81,11 +99,12 @@ namespace Tile
         //Get the number of texture variations
         auto texVaritations = Tile::Database::get().getTileData(tileType).textureVariations;
         //Choose a random variation
+
         auto varitation = Random::intInRange(0, texVaritations - 1);
 
         //Get the x and y positions inside of the texture atlas of that variation of the texture
         auto tx = texCoords.x + varitation * TILE_SIZE;
-        auto ty = texCoords.y;
+        auto ty = texCoords.y * TILE_SIZE;
 
         //Set texture coords of the 4 vertex points, anti-clockwise order
         quad.topLeft     .texCoords = {tx,              ty};
