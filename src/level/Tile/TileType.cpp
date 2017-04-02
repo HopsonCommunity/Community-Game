@@ -8,8 +8,8 @@ namespace Level{ namespace Tile
     Type::Type(std::string&& fileName)
 	{
 		using json = nlohmann::json;
-     
-		std::string source = getFileContents("res/tiles/" + fileName + ".json");
+		auto source = getFileContents("res/tiles/" + fileName + ".json");
+
 		json json_ = json::parse(source.c_str());
 
 		m_data.name = json_["Name"].get<std::string>();
@@ -21,6 +21,7 @@ namespace Level{ namespace Tile
 		auto uv = json_["Texture"].get<std::vector<short>>();
 		m_data.texCoords.x = uv[0];
 		m_data.texCoords.y = uv[1];
+
     }
 
     const Type::Data& Type::getData() const

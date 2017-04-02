@@ -51,40 +51,47 @@ namespace Tile
 
     void Map::addTile(float x, float y, int8 tileType)
     {
-        //4 points of a quad
-        sf::Vertex topLeft;
-        sf::Vertex topRight;
-        sf::Vertex bottomLeft;
-        sf::Vertex bottomRight;
+        Quad quad;
 
         //Set the positions of the 4 verticies of the quad
-        topLeft     .position = {x,              y};
-        topRight    .position = {x + TILE_SIZE,  y};
-        bottomRight .position = {x + TILE_SIZE,  y + TILE_SIZE};
-        bottomLeft  .position = {x,              y + TILE_SIZE};
+        setQuadVertexCoords (quad, x, y);
+        setQuadTextureCoords(quad, tileType);
 
+        //Add them into the array (in anti-clockwise order)
+        m_vertexArray.push_back(quad.topLeft);
+        m_vertexArray.push_back(quad.topRight);
+        m_vertexArray.push_back(quad.bottomRight);
+        m_vertexArray.push_back(quad.bottomLeft);
+    }
+
+    void Map::setQuadVertexCoords(Quad& quad, float x, float y)
+    {
+        //Set the vertex positions, anti-clockwise order
+        quad.topLeft     .position = {x,              y};
+        quad.topRight    .position = {x + TILE_SIZE,  y};
+        quad.bottomRight .position = {x + TILE_SIZE,  y + TILE_SIZE};
+        quad.bottomLeft  .position = {x,              y + TILE_SIZE};
+    }
+
+    void Map::setQuadTextureCoords(Quad& quad, int8 tileType)
+    {
         //Get the place inside of the texture atlas where the texture can be found
         auto texCoords = Tile::Database::get().getTileData(tileType).texCoords;
+
         //Get the number of texture variations
         auto texVaritations = Tile::Database::get().getTileData(tileType).textureVariations;
         //Choose a random variation
         auto varitation = Random::intInRange(0, texVaritations - 1);
 
-        std::cout << varitation << std::endl;
         //Get the x and y positions inside of the texture atlas of that variation of the texture
         auto tx = texCoords.x + varitation * TILE_SIZE;
         auto ty = texCoords.y;
 
-        //Set texture coords of the 4 vertex points
-        topLeft     .texCoords = {tx,              ty};
-        topRight    .texCoords = {tx + TILE_SIZE,  ty};
-        bottomRight .texCoords = {tx + TILE_SIZE,  ty + TILE_SIZE};
-        bottomLeft  .texCoords = {tx,              ty + TILE_SIZE};
-
-        //Add them into the array (in anti-clockwise order)
-        m_vertexArray.push_back(topLeft);
-        m_vertexArray.push_back(topRight);
-        m_vertexArray.push_back(bottomRight);
-        m_vertexArray.push_back(bottomLeft);
+        //Set texture coords of the 4 vertex points, anti-clockwise order
+        quad.topLeft     .texCoords = {tx,              ty};
+        quad.topRight    .texCoords = {tx + TILE_SIZE,  ty};
+        quad.bottomRight .texCoords = {tx + TILE_SIZE,  ty + TILE_SIZE};
+        quad.bottomLeft  .texCoords = {tx,              ty + TILE_SIZE};
     }
+
 }}
