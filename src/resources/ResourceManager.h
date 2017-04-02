@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unordered_map>
+#include "../util/Exceptions.h"
 
 template <typename Resource>
 class ResourceManager
@@ -15,10 +16,13 @@ class ResourceManager
         {
             std::string full = m_path + name + m_extension;
 
-            if (m_resourceMap.find(full))
+            if (m_resourceMap.find(full) == m_resourceMap.end())
             {
-                ///@TODO Throw error on fail?
-                add(name);
+                add(full);
+            }
+            else
+            {
+                throw Exceptions::CannotGetResource(full);
             }
             return qGet(full);
         }

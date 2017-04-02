@@ -10,6 +10,7 @@
 
 constexpr bool VSYNC_ENABLED  = true;
 constexpr bool VSYNC_DISABLED = false;
+const std::string consoleAppInfo = "+---------------------------------------------------------------------------------------------------------------------+\n|                                   This is the console window for Project Comonidy                                   |\n+---------------------------------------------------------------------------------------------------------------------+\n";
 
 class Application
 {
@@ -32,7 +33,7 @@ class Application
         void popState();
 
         const WindowSettings& getSettings() const;
-        const ResourceHolder& getResources() const;
+        ResourceHolder& getResources();
 
         void setVSync(bool enabled);
 

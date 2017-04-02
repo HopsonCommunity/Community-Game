@@ -1,6 +1,22 @@
 #include "TileMap.h"
 
+#include "../../util/Random.h"
 #include "../LevelConstants.h"
+#include "TileDatabase.h"
+
+#include <iostream>
+
+///@TODO Remove this
+namespace
+{
+    std::vector<uint8> tiles =
+    {
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+    };
+}
 
 namespace Level{
 namespace Tile
@@ -8,10 +24,12 @@ namespace Tile
     Map::Map(const std::vector<uint8>& tileData,
                      uint32 width,
                      uint32 height)
-    :   m_tileData  (tileData)
-    ,   m_width     (width)
-    ,   m_height    (height)
+    :   m_tileData  (tiles)  ///@TODO Use the consturcor args here
+    ,   m_width     (5)
+    ,   m_height    (5)
     {
+        m_tileTextures.loadFromFile("res/textures/tile_atlas.png");
+
         m_vertexArray.reserve(width * height * 4);
 
         for (uint32 y = 0; y < height; ++y)
@@ -25,28 +43,55 @@ namespace Tile
 
     void Map::draw(sf::RenderWindow& window)
     {
-        window.draw(m_vertexArray.data(), m_vertexArray.size(), sf::Quads);
+        sf::RenderStates states;
+        states.texture = &m_tileTextures;
+
+        window.draw(m_vertexArray.data(), m_vertexArray.size(), sf::Quads, states);
     }
 
     void Map::addTile(float x, float y, int8 tileType)
     {
-        ///@TODO Textures
-        //4 points of a quad
-        sf::Vertex topLeft;
-        sf::Vertex topRight;
-        sf::Vertex bottomLeft;
-        sf::Vertex bottomRight;
+        Quad quad;
 
         //Set the positions of the 4 verticies of the quad
-        topLeft     .position = {x,              y};
-        topRight    .position = {x + TILE_SIZE,  y};
-        bottomRight .position = {x + TILE_SIZE,  y + TILE_SIZE};
-        bottomLeft  .position = {x,              y + TILE_SIZE};
+        setQuadVertexCoords (quad, x, y);
+        setQuadTextureCoords(quad, tileType);
 
         //Add them into the array (in anti-clockwise order)
-        m_vertexArray.push_back(topLeft);
-        m_vertexArray.push_back(topRight);
-        m_vertexArray.push_back(bottomRight);
-        m_vertexArray.push_back(bottomLeft);
+        m_vertexArray.push_back(quad.topLeft);
+        m_vertexArray.push_back(quad.topRight);
+        m_vertexArray.push_back(quad.bottomRight);
+        m_vertexArray.push_back(quad.bottomLeft);
     }
+
+    void Map::setQuadVertexCoords(Quad& quad, float x, float y)
+    {
+        //Set the vertex positions, anti-clockwise order
+        quad.topLeft     .position = {x,              y};
+        quad.topRight    .position = {x + TILE_SIZE,  y};
+        quad.bottomRight .position = {x + TILE_SIZE,  y + TILE_SIZE};
+        quad.bottomLeft  .position = {x,              y + TILE_SIZE};
+    }
+
+    void Map::setQuadTextureCoords(Quad& quad, int8 tileType)
+    {
+        //Get the place inside of the texture atlas where the texture can be found
+        auto texCoords = Tile::Database::get().getTileData(tileType).texCoords;
+
+        //Get the number of texture variations
+        auto texVaritations = Tile::Database::get().getTileData(tileType).textureVariations;
+        //Choose a random variation
+        auto varitation = Random::intInRange(0, texVaritations - 1);
+
+        //Get the x and y positions inside of the texture atlas of that variation of the texture
+        auto tx = texCoords.x + varitation * TILE_SIZE;
+        auto ty = texCoords.y;
+
+        //Set texture coords of the 4 vertex points, anti-clockwise order
+        quad.topLeft     .texCoords = {tx,              ty};
+        quad.topRight    .texCoords = {tx + TILE_SIZE,  ty};
+        quad.bottomRight .texCoords = {tx + TILE_SIZE,  ty + TILE_SIZE};
+        quad.bottomLeft  .texCoords = {tx,              ty + TILE_SIZE};
+    }
+
 }}
