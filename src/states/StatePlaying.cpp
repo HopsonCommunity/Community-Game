@@ -23,6 +23,21 @@ namespace State
 
     void SPlaying::input()
     {
+		if (m_pApplication->inputPressed(MOVE_UP))
+			m_player.velocity.y -= 0.1;
+
+		if (m_pApplication->inputPressed(MOVE_DOWN))
+			m_player.velocity.y += 0.1;
+
+		if (m_pApplication->inputPressed(MOVE_LEFT))
+			m_player.velocity.x -= 0.1;
+
+		if (m_pApplication->inputPressed(MOVE_RIGHT))
+			m_player.velocity.x += 0.1;
+
+		if (m_pApplication->inputPressed("PRINT_TEST"))
+			std::cout << "Debug" << std::endl;
+		/*
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 			m_player.velocity.x += 0.1;
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -31,7 +46,7 @@ namespace State
             m_player.velocity.y -= 0.1;
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
             m_player.velocity.y += 0.1;
-
+		*/
         m_debugMenu.input();
     }
 
