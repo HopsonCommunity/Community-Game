@@ -6,6 +6,7 @@
 
 #include "../entity/Player.h"
 #include "../level/Tile/TileMap.h"
+#include "../debug/DebugMenu.h"
 
 class Application;
 
@@ -23,5 +24,9 @@ namespace State
         private:
 			Framework::Player m_player;
             Level::Tile::Map m_tileMap;
+            Debug::DebugMenu m_debugMenu;
+            float m_testFloat;
+            int m_testInt;
+            bool m_testBool;
     };
 }
