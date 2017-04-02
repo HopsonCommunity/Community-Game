@@ -22,26 +22,24 @@ namespace
 namespace Level{
 namespace Tile
 {
-    Map::Map(const std::vector<uint8>& tileData,
-                     uint32 width,
-                     uint32 height)
-    :   m_tileData  (tiles)  ///@TODO Use the consturcor args here
+    Map::Map()
+    :   m_tileData  (tiles)
     ,   m_width     (5)
     ,   m_height    (5)
     {
         m_tileTextures.loadFromFile("res/textures/tile_atlas.png");
+        generateVertexArray();
+    }
 
-        m_vertexArray.reserve(width * height * 4);
-
-        std::cout << m_tileData.size() << std::endl;
-
-        for (uint32 y = 0; y < height; ++y)
-        {
-            for (uint32 x = 0; x < width; ++x)
-            {
-                addTile(x * TILE_SIZE, y * TILE_SIZE, getTile(x, y));
-            }
-        }
+    Map::Map(const std::vector<uint8>& tileData,
+                     uint32 width,
+                     uint32 height)
+    :   m_tileData  (tileData)
+    ,   m_width     (width)
+    ,   m_height    (height)
+    {
+        m_tileTextures.loadFromFile("res/textures/tile_atlas.png");
+        generateVertexArray();
     }
 
     void Map::draw(sf::RenderWindow& window)
@@ -57,6 +55,17 @@ namespace Tile
         return m_tileData.at(y * m_width + x);
     }
 
+    void Map::generateVertexArray()
+    {
+        m_vertexArray.reserve(m_width * m_height * 4);
+        for (uint32 y = 0; y < m_height; ++y)
+        {
+            for (uint32 x = 0; x < m_width; ++x)
+            {
+                addTile(x * TILE_SIZE, y * TILE_SIZE, getTile(x, y));
+            }
+        }
+    }
 
     void Map::addTile(float x, float y, int8 tileType)
     {

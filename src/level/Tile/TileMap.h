@@ -21,12 +21,14 @@ namespace Tile
         };
 
         public:
+            Map();
             Map(const std::vector<uint8>& tileData, uint32 width, uint32 height);
-
             void draw(sf::RenderWindow& window);
 
         private:
             uint8 getTile(uint32 x, uint32 y);
+
+            void generateVertexArray();
 
             void addTile                (float x, float y, int8 tileType);
             void setQuadVertexCoords    (Quad& quad, float x, float y);
