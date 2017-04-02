@@ -4,27 +4,11 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace entity
+#include "Damage.h"
+
+namespace Framework
 {
-	// Knowing the damage source WILL be useful later if there are stats, buffs
-	// or potions reducing specific types of dmg. (eg. Fire Resist or Magic Resist)
-	//
-	// (True damage ignores defences.)
-	enum class DamageSource : byte
-	{
-		Fire    = 0,
-		Magic   = 1,
-		True    = 2
-	};
-
-	// Damage struct holding some data about damage instances.
-	struct Damage
-	{
-		DamageSource source;
-		int32 amount;
-	};
-
-	class Entity
+	class Entity : public IDamageable
 	{
         public:
             Entity(float width, float height);
@@ -33,8 +17,8 @@ namespace entity
                 Default entity doesn't care about damage sources. (He just takes it)
                 Later other entites (eg: Player) will care tho. Since they will have stats and buffs
             */
-            ///@TODO Better method name
-            virtual void damage(Damage damage);
+			virtual void applyDamage(const Damage& dmg) override;
+
             int32 getHealth();
 
             void render(sf::RenderWindow& window);

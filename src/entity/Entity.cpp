@@ -1,16 +1,15 @@
 #include "Entity.h"
 
-namespace entity
+namespace Framework
 {
-
 	Entity::Entity(float width, float height)
     : m_shape({ width, height })
 	{
 	}
 
-	void Entity::damage(Damage damage)
+	void Entity::applyDamage(const Damage& dmg)
 	{
-		m_health -= damage.amount;
+		m_health -= dmg.amount;
 	}
 
 	int32 Entity::getHealth()
