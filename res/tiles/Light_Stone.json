@@ -1,6 +1,6 @@
 {
 	"Name": "Light Stone",
-	"ID": 0,
+	"ID": 1,
 	"Variation": 3,
-	"Texture": [ 0, 0 ]
+	"Texture": [ 0, 1 ]
 }

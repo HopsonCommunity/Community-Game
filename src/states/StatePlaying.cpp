@@ -8,7 +8,6 @@ namespace State
     : SBase(app)
     , m_testFloat(0)
     , m_player()
-    , m_tileMap({}, 5, 5)
     , m_debugMenu(app->getResources().fonts.get("SourceCodePro-Regular"))
     {
         m_debugMenu.addEntry("A", &m_testInt, 0.0f, 1.0f);
