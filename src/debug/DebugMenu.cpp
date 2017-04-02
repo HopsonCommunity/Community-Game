@@ -6,14 +6,10 @@
 
 namespace Debug
 {
-    DebugMenu::DebugMenu()
+    DebugMenu::DebugMenu(Application* app)
+    : m_application(app)
     {
-        // TODO (developer): Change this path for a relative
-        if(!font.loadFromFile("/home/paul/CLionProjects/community-game/res/fonts/arial.ttf"))
-        {
-            std::cerr << "Cannot load font file" << std::endl;
-            exit(0);
-        }
+        font = (*m_application).getResources().fonts.get("SourceCodePro-Regular");
 
         menu[0].setFont(font);
         menu[0].setColor(sf::Color::White);
