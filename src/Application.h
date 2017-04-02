@@ -7,6 +7,8 @@
 #include "util/Types.h"
 #include "states/StateBase.h"
 #include "resources/ResourceHolder.h"
+#include "input/InputScheme.h"
+#include "input/Input.h"
 
 constexpr bool VSYNC_ENABLED  = true;
 constexpr bool VSYNC_DISABLED = false;
@@ -37,8 +39,11 @@ class Application
 
         void setVSync(bool enabled);
 
+		bool inputPressed(std::string action);
     private:
         ResourceHolder m_resources;
+		Input::InputScheme m_inputScheme;
+		Input::Input m_inputManager;
 
         std::string m_title;
         WindowSettings m_windowSettings;
