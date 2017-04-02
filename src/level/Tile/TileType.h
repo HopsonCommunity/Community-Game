@@ -14,11 +14,11 @@ namespace Level{ namespace Tile
                 std::string  name;
                 sf::Vector2i texCoords;
                 ID           id;
+                uint8        textureVariations;
             };
 
+            Type() = default;
             Type(std::string&& fileName);
-            Type(const Type& other) = delete;
-            Type& operator = (const Type& other) = delete;
 
             const Data& getData() const;
 
