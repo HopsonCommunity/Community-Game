@@ -21,11 +21,12 @@ namespace State
             void input() override;
             void update(float dt) override;
             void render(sf::RenderWindow& window) override;
+
         private:
 			Framework::Player m_player;
             Level::Tile::Map m_tileMap;
             Debug::DebugMenu m_debugMenu;
-            float m_testFloat;
+            float m_testFloat = 0;
             int m_testInt;
             bool m_testBool;
     };
