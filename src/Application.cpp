@@ -24,26 +24,59 @@ Application::Application(std::string&& name, const WindowSettings& settings)
 
 void Application::start()
 {
-    sf::Clock clock;
+	constexpr static auto UP_TICK = 1000.0f / 60.0f;
 
-    while (m_window.isOpen())
-    {
-        auto dt = clock.restart().asSeconds();
+	sf::Clock clock;
 
-        m_window.clear();
+	float timer = 0.0f;
+	float upTimer = float(clock.getElapsedTime().asMilliseconds());
 
-        sf::Event e;
-        while (m_window.pollEvent(e))
-        {
-            handleEvents(e);
-        }
+	uint frames = 0;
+	uint updates = 0;
 
-        m_states.back()->input();
-        m_states.back()->update(dt);
-        m_states.back()->render(m_window);
+	float dt = clock.getElapsedTime().asMilliseconds();
+	float last_time = 0.0f;
+	while (m_window.isOpen())
+	{
+		m_window.clear();
+		sf::Event e;
+		while (m_window.pollEvent(e))
+		{
+			handleEvents(e);
+		}
+		//Runs 60 times a second
+		float now = float(clock.getElapsedTime().asMilliseconds());
+		if (now - upTimer > UP_TICK)
+		{
+			updates++;
+			upTimer += UP_TICK;
+			m_states.back()->input();
+			dt = last_time - now;
+			last_time = now;
+			m_states.back()->update(dt);
+		}
 
-        m_window.display();
-    }
+		//Runs as fast as possible
+		frames++;
+		sf::Clock frametime;
+		m_states.back()->render(m_window);
+		// m_frameTime = float(frametime.getElapsedTime().asMilliseconds());
+
+		// Runs each second
+		if (clock.getElapsedTime().asSeconds() - timer > 1.0f)
+		{
+			timer += 1.0f;
+			// m_framesPerSecond = frames;
+			// m_updatesPerSecond = updates;
+			std::cout << "FPS: " << frames << ", UPS: " << updates << std::endl;
+			frames = 0;
+			updates = 0;
+			// onTick();
+		}
+
+		m_window.display();
+	}
+	Level::Tile::Tile::deleteTiles();
 }
 
 void Application::handleEvents(sf::Event& event)
@@ -103,64 +136,3 @@ bool Application::inputPressed(std::string action)
 {
 	return m_inputManager.isInput(action);
 }
-
-/* For when we need it
-void Application::start()
-{
-    constexpr static auto UP_TICK = 1000.0f / 60.0f;
-
-    sf::Clock clock;
-
-    float timer = 0.0f;
-    float upTimer = float(clock.getElapsedTime().asMilliseconds());
-
-    uint frames = 0;
-    uint updates = 0;
-
-    while (m_isRunning)
-    {
-        m_window.clear();
-        sf::Event e;
-        while (m_window.pollEvent(e))
-        {
-            onEvent(e);
-        }
-        if (!m_window.isOpen())
-        {
-            m_isRunning = false;
-            break;
-        }
-
-        //Runs 60 times a second
-        float now = float(clock.getElapsedTime().asMilliseconds());
-        if (now - upTimer > UP_TICK)
-        {
-            updates++;
-            upTimer += UP_TICK;
-            onUpdate();
-        }
-
-        //Runs as fast as possible
-        frames++;
-        sf::Clock frametime;
-        onRender();
-        m_frameTime = float(frametime.getElapsedTime().asMilliseconds());
-
-
-        // Runs each second
-        if (clock.getElapsedTime().asSeconds() - timer > 1.0f)
-        {
-            timer += 1.0f;
-            m_framesPerSecond   = frames;
-            m_updatesPerSecond  = updates;
-            frames  = 0;
-            updates = 0;
-            onTick();
-        }
-
-        m_window.display();
-
-        m_isRunning = m_window.isOpen();
-    }
-}
-*/

@@ -10,7 +10,7 @@ namespace Framework
 	// (True damage ignores defences.)
 	enum class DamageSource : byte
 	{
-		Fire = 0,
+		Physical = 0,
 		Magic = 1,
 		True = 2
 	};

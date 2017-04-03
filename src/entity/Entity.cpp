@@ -40,10 +40,10 @@ namespace Framework
 	void Entity::render(sf::RenderWindow& window)
 	{
 		Level::LevelRenderer::renderEntitySprite(position.x - sprite.getTextureRect().width / 2, position.y - sprite.getTextureRect().height, sprite);
-  }
-
-	void Entity::addEffect(std::unique_ptr<StatusEffect> effect)
-	{
-		m_activeEffects.push_back(std::move(effect));
 	}
+
+	void Entity::addEffect(std::shared_ptr<StatusEffect> effect)
+	{
+		m_activeEffects.push_back(effect);
+  }
 }

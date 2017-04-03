@@ -26,15 +26,11 @@ namespace Framework
             virtual void render(sf::RenderWindow& window);
 
 			void addEffect(std::shared_ptr<StatusEffect> effect);
-
         protected:
 			int32 m_health;
 			Stats m_stats;
-
-			void applyVelocity(float dt);
 		private:
 			std::vector<std::shared_ptr<StatusEffect>> m_activeEffects;
-
         public:
             ///@TODO Public for now. Change later
 			sf::Vector2f position;
