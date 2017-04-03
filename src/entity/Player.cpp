@@ -4,14 +4,11 @@
 
 namespace Framework
 {
-
 	Player::Player()
 	{
-		constexpr static auto MAX_HEALTH = 800;
-
-		auto hb = std::make_shared<HealthBoost>(DURATION_INFINITE, MAX_HEALTH, 0);
+		auto hb = std::make_shared<HealthBoost>(DURATION_INFINITE, 800, 0);
 		addEffect(hb);
-		m_health = MAX_HEALTH;
+		m_health = 800;
 
 		hb->max_health = 7200;
 
@@ -57,11 +54,21 @@ namespace Framework
 			else if (ydir < 0)
 				walk(UP);
 		}
+		std::cout << m_stats.max_health << std::endl;
 
 		velocity *= 0.5f;
 	}
 
 	void Player::applyDamage(const Damage& dmg)
 	{
+		float damage_thing;
+
+		if (dmg.source == DamageSource::Physical)
+			damage_thing = dmg.amount / (dmg.amount - m_stats.armor);
+
+		if (dmg.source == DamageSource::Magic)
+			damage_thing = dmg.amount / (dmg.amount - m_stats.magic_resist);
+
+		m_health -= dmg.amount * damage_thing;
 	}
 }

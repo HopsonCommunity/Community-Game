@@ -45,5 +45,5 @@ namespace Framework
 	void Entity::addEffect(std::shared_ptr<StatusEffect> effect)
 	{
 		m_activeEffects.push_back(effect);
-	}
+  }
 }
