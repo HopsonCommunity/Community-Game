@@ -1,6 +1,23 @@
 # Code Style
 
+## Namespaces
+
 * NO `using namespace std;` Your pull request will be denied if that is included.
+* Namespaces should be CamelCase
+* Nested namespaces: 
+
+```C++
+namespace Foo {
+namespace Bar 
+{
+    void codeGoesHere()
+    {
+      
+    }
+}}
+```
+
+
 * Class, Struct and Namespace names must be uppercased and have camel-casing
 * Variable names must be lowercased and have camel-casing
 * Private member variables must be prefixed with a `m_`
