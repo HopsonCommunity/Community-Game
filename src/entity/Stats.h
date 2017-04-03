@@ -25,12 +25,21 @@ namespace Framework
 	public:
 		bool active = 1;
 	public:
-		StatusEffect(int32 duration);
+		StatusEffect(int32 duration)
+		: m_duration(duration) 
+		{}
 		
 		virtual void effect(Stats& stats) = 0;
 
 		// Effects with m_duration = -1 are infinite.
-		void manageDuration();
+		void manageDuration()
+		{
+			if (m_duration == 0)
+				active = 0;
+
+			if (m_duration > 0)
+				m_duration--;
+		}
 	};
 
 	// All stats related to health
@@ -40,9 +49,17 @@ namespace Framework
 		int32 max_health;
 		int32 health_regen;
 	public:
-		HealthBoost(int32 duration, int32 maxHealth, int32 healthregen = 0);
+		HealthBoost(int32 duration, int32 maxHealth, int32 healthregen = 0)
+		: StatusEffect(duration)
+		, m_maxHealth(maxHealth)
+		, m_healthRegen(healthregen)
+		{}
 		
-		void effect(Stats& stats) override;
+		void effect(Stats& stats) override
+		{
+			stats.max_health += m_maxHealth;
+			stats.health_regen += m_healthRegen;
+		}
 	};
 
 	// All stats related to defense
@@ -52,8 +69,16 @@ namespace Framework
 		int32 armor;
 		int32 magic_resist;
 	public:
-		Defense(int32 duration, int32 armor, int32 mr);
+		Defense(int32 duration, int32 armor, int32 mr)
+			: StatusEffect(duration)
+			, m_armor(armor)
+			, m_magicResist(mr)
+		{}
 
-		void effect(Stats& stats) override;
+		void effect(Stats& stats) override
+		{
+			stats.armor += m_armor;
+			stats.magic_resist += m_magicResist;
+		}
 	};
 }

@@ -14,8 +14,8 @@ namespace Debug
     const int GUI_WIDTH = 1280;
     const int GUI_HEIGHT = 720;
 
-    // Each struct is how data is saved internally to later draw in the GUI
-    //rangeBeg and rangeEnd are for upcoming sliders
+    const int GUI_DISPLAY_VARS = 3;
+    
     struct DebugMenuIntEntry
     {
         const std::string name;
@@ -41,38 +41,33 @@ namespace Debug
     class DebugMenu
     {
     public:
-        // Constructs the instance and sets the font to be used, also needs a pointer to fps
         DebugMenu(const sf::Font& font);
 
-        // Adds a bool to display onto the GUI
         void addEntry(const std::string& name, bool* value);
-
-        // Adds an int to display onto the GUI, rangeBeg and rangeEnd are for the slider range
         void addEntry(const std::string& name, int* value, int rangeBeg, int rangeEnd);
-
-        // Adds a float to display onto the GUI, rangeBeg and rangeEnd are for the slider range
         void addEntry(const std::string& name, float* value, float rangeBeg, float rangeEnd);
 
-        //Removes an entry from the menu
         void removeEntry(const std::string& name);
 
-        // Used internally for updating state of the debugging window
         void input();
-
-        // Renders current values to the debugging window
+        void update();
         void render();
     private:
-        // Maps to store
         std::unordered_map<std::string, DebugMenuBoolEntry> m_boolMap;
         std::unordered_map<std::string, DebugMenuIntEntry> m_intMap;
         std::unordered_map<std::string, DebugMenuFloatEntry> m_floatMap;
 
         bool m_active;
-        sf::RenderWindow m_window;
-        sf::Text m_menu[3];
+        int m_selectedEntry;
+        int m_numEntries;
 
         std::string createText(DebugMenuBoolEntry& entry);
         std::string createText(DebugMenuIntEntry& entry);
         std::string createText(DebugMenuFloatEntry& entry);
+        
+        sf::RenderWindow m_window;
+
+        int actualSelectedItem;
+        sf::Text menu[3];
     };
 }

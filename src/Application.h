@@ -25,6 +25,9 @@ class Application
             bool isVsyncEnabled;
         };
 
+	public:
+		static Application* instance;
+
         Application(std::string&& name, const WindowSettings& settings);
 
         void start();
@@ -40,15 +43,14 @@ class Application
         void setVSync(bool enabled);
 
 		bool inputPressed(std::string action);
+
     private:
         ResourceHolder m_resources;
+		Input::InputScheme m_inputScheme;
+		Input::Input m_inputManager;
 
         std::string m_title;
         WindowSettings m_windowSettings;
         sf::RenderWindow m_window;
-        Input::InputScheme m_inputScheme;
-		Input::Input m_inputManager;
-
-
         std::vector<std::unique_ptr<State::SBase>> m_states;
 };

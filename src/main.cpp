@@ -28,7 +28,7 @@ namespace
     }
 }
 
-int main() try
+int main() //try
 {
     Random::init();
 
@@ -39,6 +39,7 @@ int main() try
     app.start();
 	return EXIT_SUCCESS;
 }
+/*
 catch(std::out_of_range& e)
 {
     std::string msg = e.what();
@@ -62,7 +63,7 @@ catch(...)
     errorMessage("Unknown error.");
     std::cin.ignore();
 }
-
+*/
 
 /*
 This project is maintained by the  Community on Hopson97's Discord server.

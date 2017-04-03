@@ -27,6 +27,7 @@ namespace State
             virtual void input  () = 0;
             virtual void update (float dt) = 0;
             virtual void render (sf::RenderWindow& window) = 0;
+
         protected:
             Application* m_pApplication;
     };
