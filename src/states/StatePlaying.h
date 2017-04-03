@@ -5,7 +5,6 @@
 #include "StateBase.h"
 
 #include "../entity/Player.h"
-#include "../level/Level.h"
 #include "../level/Tile/TileMap.h"
 #include "../debug/DebugMenu.h"
 
@@ -16,20 +15,18 @@ namespace State
     class SPlaying : public SBase
     {
         public:
-            SPlaying(Application* app, sf::RenderWindow& window);
+            SPlaying(Application* app);
 
             void event(sf::Event& event) override;
             void input() override;
             void update(float dt) override;
             void render(sf::RenderWindow& window) override;
+
         private:
-            //Level::Tile::Map m_tileMap;
-			sf::RenderWindow& m_window;
-			sf::View m_camera;
 			Framework::Player m_player;
-			Level::Level m_level;
+            Level::Tile::Map m_tileMap;
             Debug::DebugMenu m_debugMenu;
-            float m_testFloat;
+            float m_testFloat = 0;
             int m_testInt;
             bool m_testBool;
     };
