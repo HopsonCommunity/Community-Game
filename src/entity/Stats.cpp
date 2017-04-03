@@ -18,25 +18,25 @@ namespace Framework
 
 	HealthBoost::HealthBoost(int32 duration, int32 maxHealth, int32 healthregen)
 		: StatusEffect(duration)
-		, m_maxHealth(maxHealth)
-		, m_healthRegen(healthregen)
+		, max_health(maxHealth)
+		, health_regen(healthregen)
 	{}
 	
 	void HealthBoost::effect(Stats & stats)
 	{
-		stats.max_health += m_maxHealth;
-		stats.health_regen += m_healthRegen;
+		stats.max_health += max_health;
+		stats.health_regen += health_regen;
 	}
 	
 	Defense::Defense(int32 duration, int32 armor, int32 mr)
 		: StatusEffect(duration)
-		, m_armor(armor)
-		, m_magicResist(mr)
+		, armor(armor)
+		, magic_resist(mr)
 	{}
 	
 	void Defense::effect(Stats & stats)
 	{
-		stats.armor += m_armor;
-		stats.magic_resist += m_magicResist;
+		stats.armor += armor;
+		stats.magic_resist += magic_resist;
 	}
 }

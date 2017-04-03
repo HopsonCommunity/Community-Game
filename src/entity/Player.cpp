@@ -13,10 +13,13 @@ namespace Framework
 
 		constexpr static auto MAX_HEALTH = 800;
 
-		addEffect(std::make_unique<HealthBoost>(DURATION_INFINITE, MAX_HEALTH, 0));
+		auto hb = std::make_shared<HealthBoost>(DURATION_INFINITE, MAX_HEALTH, 0);
+		addEffect(hb);
 		m_health = MAX_HEALTH;
 
-		addEffect(std::make_unique<Defense>(20 * 5, 20, 30));
+		hb->max_health = 7200;
+
+		addEffect(std::make_shared<Defense>(20 * 5, 20, 30));
 	}
 
 	Player::~Player()
@@ -73,6 +76,8 @@ namespace Framework
 		getShape().setTextureRect(m_faceDir == FaceDirection::Right ? sf::IntRect(0, 0, 32, 32) : sf::IntRect(32, 0, -32, 32));
 
 		getShape().move(velocity);
+
+		std::cout << m_stats.max_health << std::endl;
 
 		velocity *= 0.5f;
 	}

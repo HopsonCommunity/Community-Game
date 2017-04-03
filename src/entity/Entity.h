@@ -25,7 +25,7 @@ namespace Framework
 			virtual void update(); 
             virtual void render(sf::RenderWindow& window);
 
-			void addEffect(std::unique_ptr<StatusEffect> effect);
+			void addEffect(std::shared_ptr<StatusEffect> effect);
 
             // Returns entity's shape. Use to apply transormations.
             sf::RectangleShape& getShape();
@@ -33,7 +33,7 @@ namespace Framework
 			int32 m_health;
 			Stats m_stats;
 		private:
-			std::vector<std::unique_ptr<StatusEffect>> m_activeEffects;
+			std::vector<std::shared_ptr<StatusEffect>> m_activeEffects;
 
             sf::RectangleShape m_shape;
         public:

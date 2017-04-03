@@ -42,9 +42,9 @@ namespace Framework
 		window.draw(m_shape);
 	}
 
-	void Entity::addEffect(std::unique_ptr<StatusEffect> effect)
+	void Entity::addEffect(std::shared_ptr<StatusEffect> effect)
 	{
-		m_activeEffects.push_back(std::move(effect));
+		m_activeEffects.push_back(effect);
 	}
 
 	sf::RectangleShape& Entity::getShape()
