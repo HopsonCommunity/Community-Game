@@ -1,6 +1,22 @@
 # Code Style
 
-## Namespaces
+## Nameing conventions
+
+* File names: CamelCase
+* Folder names: underscore_lower_case
+
+* Class names: CamelCase
+* Struct names: CamelCase
+* Class members: m_lowerCamelCase
+
+* Functions: lowerCamelCase
+* Local variables: lowerCamelCase
+
+* Namespaces: CamelCase
+
+* Constants: SCREAMING_SNAKE_CASE
+
+## Everything else
 
 * NO `using namespace std;` Your pull request will be denied if that is included.
 * Namespaces should be CamelCase
