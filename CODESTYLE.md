@@ -16,7 +16,30 @@
 
 * Constants: SCREAMING_SNAKE_CASE
 
-## Everything else
+## Class Style
+
+```C++
+class Foo
+{
+    public:
+        Foo();
+    
+        void foo();
+        void bar();
+        
+    protected:
+        void barFoo();
+        
+    private:
+        void fooBar();
+        
+        int m_number;
+};
+
+* public functions and members at top, protected in middle, private at bottom
+* Notice a space between the final class member/function and the next accessor!
+
+## Namespaces
 
 * NO `using namespace std;` Your pull request will be denied if that is included.
 * Namespaces should be CamelCase
