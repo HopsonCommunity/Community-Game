@@ -21,7 +21,6 @@ namespace Tile
                 static std::unique_ptr<Tile> stoneWall;
 
                 static void loadTiles();
-				static void deleteTiles() {};
 
             protected:
                 uint8 m_id;
