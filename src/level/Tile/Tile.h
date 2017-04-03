@@ -2,7 +2,7 @@
 
 #include "../../util/Types.h"
 #include "../LevelConstants.h"
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 #include <memory>
 
