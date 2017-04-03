@@ -36,9 +36,9 @@ namespace Framework
 	// All stats related to health
 	class HealthBoost : public StatusEffect
 	{
-	private:
-		int32 m_maxHealth;
-		int32 m_healthRegen;
+	public:
+		int32 max_health;
+		int32 health_regen;
 	public:
 		HealthBoost(int32 duration, int32 maxHealth, int32 healthregen = 0);
 
@@ -48,8 +48,9 @@ namespace Framework
 	// All stats related to defense
 	class Defense : public StatusEffect
 	{
-		int32 m_armor;
-		int32 m_magicResist;
+	public:
+		int32 armor;
+		int32 magic_resist;
 	public:
 		Defense(int32 duration, int32 armor, int32 mr);
 

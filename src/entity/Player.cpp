@@ -9,10 +9,13 @@ namespace Framework
 
 	Player::Player()
 	{
-		addEffect(std::make_unique<HealthBoost>(DURATION_INFINITE, MAX_HEALTH, 0));
+		auto hb = std::make_shared<HealthBoost>(DURATION_INFINITE, MAX_HEALTH, 0);
+		addEffect(hb);
 		m_health = MAX_HEALTH;
 
-		addEffect(std::make_unique<Defense>(20 * 5, 20, 30));
+		hb->max_health = 7200;
+
+		addEffect(std::make_shared<Defense>(20 * 5, 20, 30));
 	}
 
 	void Player::update(float dt)
@@ -54,8 +57,9 @@ namespace Framework
 			else if (ydir < 0)
 				walk(UP);
 		}
+		std::cout << m_stats.max_health << std::endl;
 
-		applyVelocity(dt);
+		velocity *= 0.5f;
 	}
 
 	void Player::applyDamage(const Damage& dmg)

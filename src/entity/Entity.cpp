@@ -40,19 +40,10 @@ namespace Framework
 	void Entity::render(sf::RenderWindow& window)
 	{
 		Level::LevelRenderer::renderEntitySprite(position.x - sprite.getTextureRect().width / 2, position.y - sprite.getTextureRect().height, sprite);
-	}
-
-	void Entity::applyVelocity(float dt)
-	{
-		position.x += velocity.x * dt;
-		position.y += velocity.y * dt;
-		velocity.x = 0;
-		velocity.y = 0;
-	}
+  }
 
 	void Entity::addEffect(std::unique_ptr<StatusEffect> effect)
 	{
 		m_activeEffects.push_back(std::move(effect));
 	}
-
 }

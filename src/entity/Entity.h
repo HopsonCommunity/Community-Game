@@ -25,7 +25,7 @@ namespace Framework
 			virtual void update(float dt); 
             virtual void render(sf::RenderWindow& window);
 
-			void addEffect(std::unique_ptr<StatusEffect> effect);
+			void addEffect(std::shared_ptr<StatusEffect> effect);
 
         protected:
 			int32 m_health;
@@ -33,7 +33,7 @@ namespace Framework
 
 			void applyVelocity(float dt);
 		private:
-			std::vector<std::unique_ptr<StatusEffect>> m_activeEffects;
+			std::vector<std::shared_ptr<StatusEffect>> m_activeEffects;
 
         public:
             ///@TODO Public for now. Change later
