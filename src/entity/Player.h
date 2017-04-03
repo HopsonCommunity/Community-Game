@@ -1,15 +1,42 @@
 #pragma once
 
-#include "Creature.h"
+#include "Entity.h"
+
+class Application;
 
 namespace Framework
 {
-	class Player : public Creature
+	class Player : public Entity
 	{
-	public:
-		Player();
+        public:
+            enum class FaceDirection : byte
+            {
+                Right,
+                Left,
+            };
 
-		void update(float dt) override;
-		void applyDamage(const Damage& dmg) override;
+            enum class MoveState : byte
+            {
+                Idle,
+                Walk
+            };
+
+            Player();
+            ~Player();
+
+            void applyDamage(const Damage& dmg) override;
+
+            void input(Application* app);
+            void update(float dt);
+
+        private:
+            sf::Image m_textureAtlas;
+            sf::Texture* m_currentFrame;
+
+            MoveState m_moveState    = MoveState::Idle;
+            FaceDirection m_faceDir;
+
+            int m_frameCounter = 0;
+            int m_frame = 0;
 	};
 }

@@ -44,8 +44,6 @@ namespace Tile
 
     void Map::draw(sf::RenderWindow& window)
     {
-		generateVertexArray();
-
         sf::RenderStates states;
         states.texture = &m_tileTextures;
 

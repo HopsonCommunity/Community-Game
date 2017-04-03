@@ -1,11 +1,11 @@
 #include "Entity.h"
 
 #include <iostream>
-#include "../level/LevelRenderer.h"
 
 namespace Framework
 {
-	Entity::Entity()
+	Entity::Entity(float width, float height)
+    : m_shape({ width, height })
 	{
 	}
 
@@ -24,7 +24,7 @@ namespace Framework
 		return m_stats;
 	}
 
-	void Entity::update(float dt)
+	void Entity::update()
 	{
 		m_stats.reset();
 		for (auto& effect : m_activeEffects)
@@ -39,15 +39,7 @@ namespace Framework
 
 	void Entity::render(sf::RenderWindow& window)
 	{
-		Level::LevelRenderer::renderEntitySprite(position.x - sprite.getTextureRect().width / 2, position.y - sprite.getTextureRect().height, sprite);
-	}
-
-	void Entity::applyVelocity(float dt)
-	{
-		position.x += velocity.x * dt;
-		position.y += velocity.y * dt;
-		velocity.x = 0;
-		velocity.y = 0;
+		window.draw(m_shape);
 	}
 
 	void Entity::addEffect(std::unique_ptr<StatusEffect> effect)
@@ -55,4 +47,8 @@ namespace Framework
 		m_activeEffects.push_back(std::move(effect));
 	}
 
+	sf::RectangleShape& Entity::getShape()
+	{
+		return m_shape;
+	}
 }
