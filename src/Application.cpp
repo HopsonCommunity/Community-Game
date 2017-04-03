@@ -44,7 +44,6 @@ void Application::start()
 
         m_window.display();
     }
-	Level::Tile::Tile::deleteTiles();
 }
 
 void Application::handleEvents(sf::Event& event)
