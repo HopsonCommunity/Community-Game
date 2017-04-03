@@ -1,38 +1,39 @@
 #pragma once
 
 #include "../../util/Types.h"
+#include "../LevelConstants.h"
 #include <SFML\Graphics.hpp>
+
+#include <memory>
 
 namespace Level
 {
-	namespace Tile
-	{
-
-#define TILE_SIZE 32
+namespace Tile
+{
 
 		class Tile
 		{
-		public:
-			static const sf::Texture* tileset;
-			static Tile* fLightStone;
-			static Tile* fMedStone;
-			static Tile* fDarkStone;
-			static Tile* stoneWall;
+            public:
+                static const sf::Texture* tileset;
+                static std::unique_ptr<Tile> fLightStone;
+                static std::unique_ptr<Tile> fMedStone;
+                static std::unique_ptr<Tile> fDarkStone;
+                static std::unique_ptr<Tile> stoneWall;
 
-			static void loadTiles();
-			static void deleteTiles();
+                static void loadTiles();
+				static void deleteTiles() {};
 
-		protected:
-			uint8 m_id;
-			sf::Sprite m_sprite;
+            protected:
+                uint8 m_id;
+                sf::Sprite m_sprite;
 
-		private:
-			Tile() {}
+            private:
+                Tile() {}
 
-		public:
-			Tile(uint8 id, sf::Sprite sprite);
+            public:
+                Tile(uint8 id, sf::Sprite sprite);
 
-			virtual void render(uint32 x, uint32 y, sf::RenderWindow& window);
+                virtual void render(uint32 x, uint32 y, sf::RenderWindow& window);
 		};
 
 	}

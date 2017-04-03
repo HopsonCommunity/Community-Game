@@ -115,3 +115,6 @@ auto y = std::make_unique<int>(5) //Yes!
 * Only case raw pointers are fine is if they are a pointer to a variable (So a non-owning pointer)
 * Class members pointers must have a "mp_" prefix
 
+## Enums
+
+* Use enum class, not regular enums!

@@ -18,9 +18,9 @@ namespace Level
 		m_entities.push_back(entity);
 	}
 
-	void Level::setTile(unsigned int x, unsigned int y, Tile::Tile* tile)
+	void Level::setTile(unsigned int x, unsigned int y, Tile::Tile& tile)
 	{
-		m_tiles[x + y * m_width] = tile;
+		m_tiles[x + y * m_width] = &tile;
 	}
 
 	void Level::update(float dt)
