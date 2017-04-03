@@ -14,7 +14,7 @@ namespace Framework
 	class Entity : public IDamageable
 	{
         public:
-            Entity(float width, float height);
+            Entity();
 
 			// Default entity doesn't care about damage source.
 			virtual void applyDamage(const Damage& dmg) override;
@@ -22,22 +22,23 @@ namespace Framework
             int32 getHealth();
 			const Stats& getStats();
 
-			virtual void update(); 
+			virtual void update(float dt); 
             virtual void render(sf::RenderWindow& window);
 
 			void addEffect(std::shared_ptr<StatusEffect> effect);
 
-            // Returns entity's shape. Use to apply transormations.
-            sf::RectangleShape& getShape();
         protected:
 			int32 m_health;
 			Stats m_stats;
+
+			void applyVelocity(float dt);
 		private:
 			std::vector<std::shared_ptr<StatusEffect>> m_activeEffects;
 
-            sf::RectangleShape m_shape;
         public:
             ///@TODO Public for now. Change later
+			sf::Vector2f position;
             sf::Vector2f velocity;
+			sf::Sprite sprite;
 	};
 }

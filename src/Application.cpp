@@ -4,18 +4,22 @@
 
 #include <iostream>
 
+Application* Application::instance = nullptr;
+
 Application::Application(std::string&& name, const WindowSettings& settings)
 :   m_title(std::move(name))
 ,   m_windowSettings(settings)
 ,	m_inputScheme("Controls.json")
-,   m_inputManager(&m_inputScheme)
+,	m_inputManager(&m_inputScheme)
 {
+	instance = this;
+
     auto style  = settings.isFullscreen ? sf::Style::Fullscreen : sf::Style::Default;
 
     m_window.create({ settings.width, settings.height }, m_title, style);
     m_window.setVerticalSyncEnabled(settings.isVsyncEnabled);
 
-    pushState(std::make_unique<State::SPlaying>(this));
+    pushState(std::make_unique<State::SPlaying>(this, m_window));
 }
 
 void Application::start()
@@ -24,61 +28,21 @@ void Application::start()
 
     while (m_window.isOpen())
     {
-		constexpr static auto UP_TICK = 1000.0f / 60.0f;
+        auto dt = clock.restart().asSeconds();
 
-		sf::Clock clock;
+        m_window.clear();
 
-		float timer = 0.0f;
-		float upTimer = float(clock.getElapsedTime().asMilliseconds());
+        sf::Event e;
+        while (m_window.pollEvent(e))
+        {
+            handleEvents(e);
+        }
 
-		uint frames = 0;
-		uint updates = 0;
+        m_states.back()->input();
+        m_states.back()->update(dt);
+        m_states.back()->render(m_window);
 
-		float dt = clock.getElapsedTime().asMilliseconds();
-		float last_time = 0.0f;
-		while (m_window.isOpen())
-		{
-			m_window.clear();
-			sf::Event e;
-			while (m_window.pollEvent(e))
-			{
-				handleEvents(e);
-			}
-			if (!m_window.isOpen())
-				break;
-
-			//Runs 60 times a second
-			float now = float(clock.getElapsedTime().asMilliseconds());
-			if (now - upTimer > UP_TICK)
-			{
-				dt = now - last_time;
-				last_time = now;
-				updates++;
-				upTimer += UP_TICK;
-				m_states.back()->input();
-				m_states.back()->update(dt);
-			}
-
-			//Runs as fast as possible
-			frames++;
-			sf::Clock frametime;
-			m_states.back()->render(m_window);
-
-			// m_frameTime = float(frametime.getElapsedTime().asMilliseconds());
-
-			// Runs each second
-			if (clock.getElapsedTime().asSeconds() - timer > 1.0f)
-			{
-				timer += 1.0f;
-				// m_framesPerSecond = frames;
-				// m_updatesPerSecond = updates;
-				frames = 0;
-				updates = 0;
-				// onTick();
-			}
-
-			m_window.display();
-		}
+        m_window.display();
     }
 }
 

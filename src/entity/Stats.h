@@ -26,7 +26,7 @@ namespace Framework
 		bool active = 1;
 	public:
 		StatusEffect(int32 duration);
-		
+
 		virtual void effect(Stats& stats) = 0;
 
 		// Effects with m_duration = -1 are infinite.
@@ -41,7 +41,7 @@ namespace Framework
 		int32 health_regen;
 	public:
 		HealthBoost(int32 duration, int32 maxHealth, int32 healthregen = 0);
-		
+
 		void effect(Stats& stats) override;
 	};
 
