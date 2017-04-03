@@ -13,7 +13,6 @@ namespace Input
 		for (json::iterator it = json_.begin(); it != json_.end(); ++it)
 		{
 			m_actionMap[it.key()] = m_nameMap[it.value()];
-			std::cout << "Mapped " << it.key() << " to " << m_nameMap[it.value()] << std::endl;
 		}
 	}
 
