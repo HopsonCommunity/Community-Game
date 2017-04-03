@@ -20,7 +20,7 @@ namespace Level
 		Level(unsigned int width, unsigned int height);
 
 		void addEntity(Framework::Entity* entity);
-		void setTile(unsigned int x, unsigned int y, Tile::Tile* tile);
+		void setTile(unsigned int x, unsigned int y, Tile::Tile& tile);
 
 		void update(float dt);
 		void render(sf::RenderWindow& window);

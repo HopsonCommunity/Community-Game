@@ -30,30 +30,30 @@ namespace State
 
 		Level::Tile::Tile::loadTiles();
 
-		m_level.setTile(0, 0, Level::Tile::Tile::fLightStone);
-		m_level.setTile(2, 0, Level::Tile::Tile::fLightStone);
-		m_level.setTile(3, 0, Level::Tile::Tile::fDarkStone);
-		m_level.setTile(4, 0, Level::Tile::Tile::fLightStone);
+		m_level.setTile(0, 0, *Level::Tile::Tile::fLightStone);
+		m_level.setTile(2, 0, *Level::Tile::Tile::fLightStone);
+		m_level.setTile(3, 0, *Level::Tile::Tile::fDarkStone);
+		m_level.setTile(4, 0, *Level::Tile::Tile::fLightStone);
 
-		m_level.setTile(0, 1, Level::Tile::Tile::fDarkStone);
-		m_level.setTile(2, 1, Level::Tile::Tile::fDarkStone);
-		m_level.setTile(3, 1, Level::Tile::Tile::fDarkStone);
-		m_level.setTile(4, 1, Level::Tile::Tile::fDarkStone);
+		m_level.setTile(0, 1, *Level::Tile::Tile::fDarkStone);
+		m_level.setTile(2, 1, *Level::Tile::Tile::fDarkStone);
+		m_level.setTile(3, 1, *Level::Tile::Tile::fDarkStone);
+		m_level.setTile(4, 1, *Level::Tile::Tile::fDarkStone);
 
-		m_level.setTile(0, 2, Level::Tile::Tile::fDarkStone);
-		m_level.setTile(4, 2, Level::Tile::Tile::fDarkStone);
+		m_level.setTile(0, 2, *Level::Tile::Tile::fDarkStone);
+		m_level.setTile(4, 2, *Level::Tile::Tile::fDarkStone);
 
-		m_level.setTile(0, 3, Level::Tile::Tile::fDarkStone);
-		m_level.setTile(1, 3, Level::Tile::Tile::stoneWall);
-		m_level.setTile(2, 3, Level::Tile::Tile::stoneWall);
-		m_level.setTile(3, 3, Level::Tile::Tile::stoneWall);
-		m_level.setTile(4, 3, Level::Tile::Tile::fDarkStone);
+		m_level.setTile(0, 3, *Level::Tile::Tile::fDarkStone);
+		m_level.setTile(1, 3, *Level::Tile::Tile::stoneWall);
+		m_level.setTile(2, 3, *Level::Tile::Tile::stoneWall);
+		m_level.setTile(3, 3, *Level::Tile::Tile::stoneWall);
+		m_level.setTile(4, 3, *Level::Tile::Tile::fDarkStone);
 
-		m_level.setTile(0, 4, Level::Tile::Tile::fDarkStone);
-		m_level.setTile(1, 4, Level::Tile::Tile::fDarkStone);
-		m_level.setTile(2, 4, Level::Tile::Tile::fDarkStone);
-		m_level.setTile(3, 4, Level::Tile::Tile::fDarkStone);
-		m_level.setTile(4, 4, Level::Tile::Tile::fDarkStone);
+		m_level.setTile(0, 4, *Level::Tile::Tile::fDarkStone);
+		m_level.setTile(1, 4, *Level::Tile::Tile::fDarkStone);
+		m_level.setTile(2, 4, *Level::Tile::Tile::fDarkStone);
+		m_level.setTile(3, 4, *Level::Tile::Tile::fDarkStone);
+		m_level.setTile(4, 4, *Level::Tile::Tile::fDarkStone);
     }
 
     void SPlaying::event(sf::Event& event)
