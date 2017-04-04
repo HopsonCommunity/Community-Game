@@ -25,14 +25,17 @@ namespace Tile
             protected:
                 uint8 m_id;
                 sf::Sprite m_sprite;
+				bool m_solid;
 
             private:
                 Tile() {}
 
             public:
-                Tile(uint8 id, sf::Sprite sprite);
+                Tile(uint8 id, sf::Sprite sprite, bool solid);
 
                 virtual void render(uint32 x, uint32 y, sf::RenderWindow& window);
+
+				inline bool isSolid() { return m_solid; }
 		};
 
 	}

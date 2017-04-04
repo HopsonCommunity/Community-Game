@@ -3,37 +3,44 @@
 #include "../util/Types.h"
 
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 #include "Damage.h"
 #include "Stats.h"
 
-#include <memory>
+#include "../level/Level.h"
 
 namespace Framework
 {
+
 	class Entity : public IDamageable
 	{
-        public:
-            Entity();
+	private:
+		std::vector<std::shared_ptr<StatusEffect>> m_activeEffects;
 
-			// Default entity doesn't care about damage source.
-			virtual void applyDamage(const Damage& dmg) override;
+	protected:
+		int32 m_health;
+		Stats m_stats;
 
-            int32 getHealth();
-			const Stats& getStats();
+	public:
+		///@TODO Public for now. Change later
+		Level::Level* level;
+		sf::Vector2f position;
+		sf::Vector2f velocity;
+		sf::Sprite sprite;
 
-			virtual void update(float dt); 
-            virtual void render(sf::RenderWindow& window);
+    public:
+        Entity();
 
-			void addEffect(std::shared_ptr<StatusEffect> effect);
-        protected:
-			int32 m_health;
-			Stats m_stats;
-		private:
-			std::vector<std::shared_ptr<StatusEffect>> m_activeEffects;
-        public:
-			sf::Vector2f position;
-            sf::Vector2f velocity;
-			sf::RectangleShape shape;
+		virtual void update(float dt);
+		virtual void render(sf::RenderWindow& window);
+
+		virtual void applyVelocity(float dt);
+		// Default entity doesn't care about damage source.
+		virtual void applyDamage(const Damage& dmg) override;
+		void addEffect(std::shared_ptr<StatusEffect> effect);    
+
+        int32 getHealth();
+		const Stats& getStats();
 	};
 }

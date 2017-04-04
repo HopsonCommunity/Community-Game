@@ -18,7 +18,7 @@ namespace Level
 			float m_height;
 
 		public:
-			WallTile(uint8 id, sf::Sprite spriteTop, sf::Sprite spriteSide, float height);
+			WallTile(uint8 id, sf::Sprite spriteTop, sf::Sprite spriteSide, float height, bool solid);
 
 			void render(uint32 x, uint32 y, sf::RenderWindow& window);
 		};

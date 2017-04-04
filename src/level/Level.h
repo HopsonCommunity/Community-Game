@@ -1,7 +1,12 @@
 #pragma once
 
 #include "Tile/Tile.h"
-#include "../entity/Entity.h"
+#include <iostream>
+
+namespace Framework
+{
+	class Entity;
+}
 
 namespace Level
 {
@@ -21,6 +26,11 @@ namespace Level
 
 		void addEntity(Framework::Entity* entity);
 		void setTile(unsigned int x, unsigned int y, Tile::Tile& tile);
+		inline Tile::Tile* getTile(unsigned int x, unsigned int y)
+		{
+			if (x < 0 || x >= m_width || y < 0 || y >= m_height) return nullptr;
+			return m_tiles[x + y * m_width];
+		}
 
 		void update(float dt);
 		void render(sf::RenderWindow& window);

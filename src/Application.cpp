@@ -51,7 +51,7 @@ void Application::start()
 			updates++;
 			upTimer += UP_TICK;
 			m_states.back()->input();
-			dt = last_time - now;
+			dt = (now - last_time) / 1000.0f; // dt in seconds
 			last_time = now;
 			m_states.back()->update(dt);
 		}
@@ -128,6 +128,11 @@ const Application::WindowSettings& Application::getSettings() const
 ResourceHolder& Application::getResources()
 {
     return m_resources;
+}
+
+sf::RenderWindow& Application::getWindow()
+{
+	return m_window;
 }
 
 void Application::setVSync(bool enabled)

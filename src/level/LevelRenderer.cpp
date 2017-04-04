@@ -16,14 +16,16 @@ namespace Level
 
 	void LevelRenderer::renderWallTileSide(uint32 x, uint32 y, sf::Sprite& sprite)
 	{
-		sf::Vector3f tilePosition(x, y, 0);
+		sf::Vector3f tilePosition(x, y + 32, 0);
+		sprite.setOrigin(0, 32);
 		positions.push_back(tilePosition);
 		sprites.push_back(&sprite);
 	}
 
 	void LevelRenderer::renderWallTileTop(uint32 x, uint32 y, float height, sf::Sprite& sprite)
 	{
-		sf::Vector3f tilePosition(x, y, height);
+		sf::Vector3f tilePosition(x, y + 32, height);
+		sprite.setOrigin(0, 32);
 		positions.push_back(tilePosition);
 		sprites.push_back(&sprite);
 	}

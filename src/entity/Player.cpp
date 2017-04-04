@@ -6,6 +6,13 @@ namespace Framework
 {
 	Player::Player()
 	{
+		sprite = sf::Sprite(Application::instance->getResources().textures.get("player_modelDefault"), sf::IntRect(0, 0, 32, 64));
+
+		m_animator.addAnim("idle", 0, 0, 32, 8, 7);
+		m_animator.addAnim("run", 0, 64, 32, 8, 14);
+		m_animator.setAnim("idle");
+		m_speedWalk = 150;
+
 		auto hb = std::make_shared<HealthBoost>(DURATION_INFINITE, 800, 0);
 		addEffect(hb);
 		m_health = 800;
@@ -26,6 +33,8 @@ namespace Framework
 
 	void Player::update(float dt)
 	{
+		Creature::update(dt);
+
 		int xdir = 0;
 		int ydir = 0;
 
@@ -63,12 +72,9 @@ namespace Framework
 			else if (ydir < 0)
 				walk(UP);
 		}
-		std::cout << m_stats.max_health << std::endl;
 
-		velocity *= 0.5f;
-
-		m_animation->update();
-		m_animation->glueToShape(shape, 0, false);
+		m_animator.setAnim(m_walking ? "run" : "idle");
+		applyVelocity(dt);
 	}
 
 	void Player::applyDamage(const Damage& dmg)
