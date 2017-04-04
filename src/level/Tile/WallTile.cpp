@@ -8,8 +8,8 @@ namespace Level
 	namespace Tile
 	{
 
-		WallTile::WallTile(uint8 id, sf::Sprite spriteTop, sf::Sprite spriteSide, float height)
-			: Tile(id, spriteTop),
+		WallTile::WallTile(uint8 id, sf::Sprite spriteTop, sf::Sprite spriteSide, float height, bool solid)
+			: Tile(id, spriteTop, solid),
 			m_spriteSide(spriteSide),
 			m_height(height)
 		{}

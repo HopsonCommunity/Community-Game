@@ -1,5 +1,6 @@
 #include "Level.h"
 
+#include "../entity/Entity.h"
 #include "LevelRenderer.h"
 #include <iostream>
 
@@ -15,6 +16,7 @@ namespace Level
 
 	void Level::addEntity(Framework::Entity* entity)
 	{
+		entity->level = this;
 		m_entities.push_back(entity);
 	}
 

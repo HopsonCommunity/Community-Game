@@ -46,6 +46,8 @@ class Application
 		bool inputPressed(std::string action);
 		sf::Vector2i mousePosition();
 
+		sf::RenderWindow& getWindow();
+
 		Sound::SFX::SFX sound = Sound::SFX::SFX(sf::Sound());
 
     private:

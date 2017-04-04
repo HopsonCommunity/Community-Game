@@ -18,8 +18,6 @@ namespace Framework
 				effect->effect(m_stats);
 			effect->manageDuration();
 		}
-
-		// std::cout << "max_health: " << m_stats.max_health << " health_regen: " << m_stats.health_regen << " armor: " << m_stats.armor << " magic_resist: " << m_stats.magic_resist << std::endl;
 	}
 
 	void Entity::render(sf::RenderWindow& window)

@@ -130,6 +130,11 @@ ResourceHolder& Application::getResources()
     return m_resources;
 }
 
+sf::RenderWindow& Application::getWindow()
+{
+	return m_window;
+}
+
 void Application::setVSync(bool enabled)
 {
     m_windowSettings.isVsyncEnabled = enabled;
