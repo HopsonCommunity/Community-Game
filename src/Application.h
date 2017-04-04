@@ -10,6 +10,7 @@
 #include "input/InputScheme.h"
 #include "input/Input.h"
 #include "level/SFX/SFX.h"
+#include "util/Timestep.h"
 
 constexpr bool VSYNC_ENABLED  = true;
 constexpr bool VSYNC_DISABLED = false;
@@ -41,6 +42,10 @@ class Application
         const WindowSettings& getSettings() const;
         ResourceHolder& getResources();
 
+		const uint getFPS() { return m_framesPerSecond; }
+		const uint getUPS() { return m_updatesPerSecond; }
+		const float getFrameTime() { return m_frameTime; }
+
         void setVSync(bool enabled);
 
 		bool inputPressed(std::string action);
@@ -51,6 +56,9 @@ class Application
 		Sound::SFX::SFX sound = Sound::SFX::SFX(sf::Sound());
 
     private:
+		uint m_framesPerSecond, m_updatesPerSecond;
+		float m_frameTime;
+
         ResourceHolder m_resources;
 		Input::InputScheme m_inputScheme;
 		Input::Input m_inputManager;

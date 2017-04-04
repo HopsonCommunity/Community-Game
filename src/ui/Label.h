@@ -1,5 +1,5 @@
 #pragma once
-/*
+
 #include <SFML/Graphics.hpp>
 
 namespace UI
@@ -34,4 +34,3 @@ namespace UI
 		void updateBounds();
 	};
 }
-*/

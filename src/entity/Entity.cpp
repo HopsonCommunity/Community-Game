@@ -9,7 +9,7 @@ namespace Framework
 	{
 	}
 
-	void Entity::update(float dt)
+	void Entity::update(const Timestep& ts)
 	{
 		m_stats.reset();
 		for (auto& effect : m_activeEffects)
@@ -53,5 +53,4 @@ namespace Framework
 	{
 		return m_stats;
 	}
-
 }

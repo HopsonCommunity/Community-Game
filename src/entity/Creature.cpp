@@ -11,9 +11,9 @@ namespace Framework
 		m_hitBox(sf::FloatRect(-8, -8, 16, 16))
 	{}
 
-	void Creature::update(float dt)
+	void Creature::update(const Timestep& ts)
 	{
-		m_animator.update(dt);
+		m_animator.update(ts);
 		m_direction = Application::instance->mousePosition().x > Application::instance->getWindow().getSize().x / 2;
 		sprite.setScale(m_direction ? 1 : -1, 1);
 		m_walking = false;

@@ -1,6 +1,5 @@
 #include "Label.h"
 
-/*
 namespace UI
 {
 	Label::Label(sf::Text text)
@@ -8,7 +7,7 @@ namespace UI
 	{
 	}
 
-	void Label::render(sf::RenderWindow & m_window)
+	void Label::render(sf::RenderWindow& m_window)
 	{
 		m_text.setPosition(m_position + m_alignmentOffset);
 		m_window.draw(m_text);
@@ -34,14 +33,14 @@ namespace UI
 	void Label::updateBounds()
 	{
 		sf::FloatRect rect = m_text.getLocalBounds();
-		sf::Vector2f size(rect.width * 0.5, rect.height * 0.5);
+		sf::Vector2f size(rect.width, rect.height);
 		switch (m_alignment)
 		{
 		case Alignment::LEFT:
-			m_alignmentOffset.x = size.x;
+			m_alignmentOffset.x = 0;
 			break;
 		case Alignment::CENTER:
-			m_alignmentOffset.x = 0.0f;
+			m_alignmentOffset.x = -size.x * 0.5;
 			break;
 		case Alignment::RIGHT:
 			m_alignmentOffset.x = -size.x;
@@ -49,4 +48,3 @@ namespace UI
 		}
 	}
 }
-*/

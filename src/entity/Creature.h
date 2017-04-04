@@ -35,7 +35,7 @@ namespace Framework
 		void applyVelocity(float dt) override;
 
 	protected:
-		void update(float dt) override;
+		void update(const Timestep& ts) override;
 
 		void walk(Direction dir);
 	};

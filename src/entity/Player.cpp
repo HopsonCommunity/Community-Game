@@ -22,9 +22,9 @@ namespace Framework
 		addEffect(std::make_shared<Defense>(20 * 5, 20, 30));
 	}
 
-	void Player::update(float dt)
+	void Player::update(const Timestep& ts)
 	{
-		Creature::update(dt);
+		Creature::update(ts);
 
 		int xdir = 0;
 		int ydir = 0;
@@ -65,12 +65,12 @@ namespace Framework
 		}
 
 		m_animator.setAnim(m_walking ? "run" : "idle");
-		applyVelocity(dt);
+		applyVelocity(ts.asSeconds());
 	}
 
 	void Player::applyDamage(const Damage& dmg)
 	{
-		float damage_thing;
+		float damage_thing = 1; // Never code late at night
 
 		if (dmg.source == DamageSource::Physical)
 			damage_thing = dmg.amount / (dmg.amount - m_stats.armor);

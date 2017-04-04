@@ -15,7 +15,6 @@ namespace Framework
 
 	class Entity : public IDamageable
 	{
-
 	private:
 		std::vector<std::shared_ptr<StatusEffect>> m_activeEffects;
 
@@ -33,7 +32,7 @@ namespace Framework
     public:
         Entity();
 
-		virtual void update(float dt);
+		virtual void update(const Timestep& ts);
 		virtual void render(sf::RenderWindow& window);
 
 		virtual void applyVelocity(float dt);
