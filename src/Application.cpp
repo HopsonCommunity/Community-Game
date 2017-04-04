@@ -88,15 +88,15 @@ void Application::handleEvents(sf::Event& event)
 
         case sf::Event::KeyReleased:
             switch (event.key.code)
-			{
-				case sf::Keyboard::E:
-					m_window.close();
-					break;
+	    {
+                case sf::Keyboard::E:
+		    m_window.close();
+		    break;
 
-				case sf::Keyboard::S:
+		case sf::Keyboard::S:
                     sound.loadSounds();
                     sound.play(*sound.explosion);
-				break;
+                    break;
 
                 default:
                     break;
