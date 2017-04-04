@@ -1,12 +1,14 @@
 #pragma once
 
+#include <map>
+
 #include "../../level/Level.h"
 #include "../../level/Tile/Tile.h"
 
 namespace Physics
 {
 
-	bool* tileCollision(sf::Vector2f& position, sf::Vector2f& velocity, HitBox& hitBox, Level::Level& level, float dt)
+	std::pair<bool, bool> tileCollision(sf::Vector2f& position, sf::Vector2f& velocity, HitBox& hitBox, Level::Level& level, float dt)
 	{
 		int tileX0 = (int)((position.x + velocity.x * dt + hitBox.m_rect.left) / Level::TILE_SIZE);
 		int tileX1 = (int)((position.x + velocity.x * dt + hitBox.m_rect.left + hitBox.m_rect.width) / Level::TILE_SIZE) + 2;
@@ -43,11 +45,7 @@ namespace Physics
 			}
 		}
 
-		bool result[2];
-		result[0] = collidingX;
-		result[1] = collidingY;
-
-		return result;
+		return std::make_pair(collidingX, collidingY);
 	}
 
 }
