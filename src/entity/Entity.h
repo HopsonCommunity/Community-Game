@@ -32,9 +32,8 @@ namespace Framework
 		private:
 			std::vector<std::shared_ptr<StatusEffect>> m_activeEffects;
         public:
-            ///@TODO Public for now. Change later
 			sf::Vector2f position;
             sf::Vector2f velocity;
-			sf::Sprite sprite;
+			sf::RectangleShape shape;
 	};
 }

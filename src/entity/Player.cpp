@@ -13,6 +13,15 @@ namespace Framework
 		hb->max_health = 7200;
 
 		addEffect(std::make_shared<Defense>(20 * 5, 20, 30));
+
+		sf::Image* m_animationAtlas = new sf::Image();
+		m_animationAtlas->loadFromFile("res/textures/player_modelDefault.png");
+		m_animation = new Graphics::AnimatedSprite(m_animationAtlas, 32, 7, 5);
+	}
+
+	Player::~Player()
+	{
+		delete m_animation;
 	}
 
 	void Player::update(float dt)
@@ -57,11 +66,14 @@ namespace Framework
 		std::cout << m_stats.max_health << std::endl;
 
 		velocity *= 0.5f;
+
+		m_animation->update();
+		m_animation->glueToShape(shape, 0, false);
 	}
 
 	void Player::applyDamage(const Damage& dmg)
 	{
-		float damage_thing;
+		float damage_thing = 1; // Never code late at night
 
 		if (dmg.source == DamageSource::Physical)
 			damage_thing = dmg.amount / (dmg.amount - m_stats.armor);
