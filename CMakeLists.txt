@@ -28,8 +28,12 @@ add_subdirectory(SFML)
 target_link_libraries(${PROJECT_NAME} sfml-network sfml-graphics sfml-window sfml-system sfml-audio)
 
 # Enable C++ 14
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    CXX_STANDARD 14
-    CXX_STANDARD_REQUIRED ON
-    CXX_EXTENSIONS OFF
-)
+if (NOT UNIX)
+	set_target_properties(${PROJECT_NAME} PROPERTIES
+	    CXX_STANDARD 14
+	    CXX_STANDARD_REQUIRED ON
+	    CXX_EXTENSIONS OFF
+	)
+else()
+	add_definitions(-std=c++1y)
+endif()
