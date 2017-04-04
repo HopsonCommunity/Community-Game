@@ -34,7 +34,7 @@ void Application::start()
 	uint frames = 0;
 	uint updates = 0;
 
-	Timestep timestep(clock.getElapsedTime().asMilliseconds());
+	Timestep timestep(static_cast<float>(clock.getElapsedTime().asMilliseconds()));
 	while (m_window.isOpen())
 	{
 		m_window.clear();

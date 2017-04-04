@@ -73,11 +73,11 @@ namespace Framework
 		float damage_thing = 1; // Never code late at night
 
 		if (dmg.source == DamageSource::Physical)
-			damage_thing = dmg.amount / (dmg.amount - m_stats.armor);
+			damage_thing = static_cast<float>(dmg.amount / (dmg.amount - m_stats.armor));
 
 		if (dmg.source == DamageSource::Magic)
-			damage_thing = dmg.amount / (dmg.amount - m_stats.magic_resist);
+			damage_thing = static_cast<float>(dmg.amount / (dmg.amount - m_stats.magic_resist));
 
-		m_health -= dmg.amount * damage_thing;
+		m_health -= static_cast<int32>(dmg.amount * damage_thing);
 	}
 }

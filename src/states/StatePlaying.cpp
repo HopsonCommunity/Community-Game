@@ -15,11 +15,11 @@ namespace State
 	, m_level(5, 5)
     , m_debugMenu(app->getResources().fonts.get("SourceCodePro-Regular"))
     {
-        m_debugMenu.addEntry("A", &m_testInt, 0.0f, 1.0f);
-        m_debugMenu.addEntry("B", &m_testFloat, 0.0f, 1.0f);
+        m_debugMenu.addEntry("A", &m_testInt, 0, 1);
+        m_debugMenu.addEntry("B", &m_testFloat, 0, 1);
         m_debugMenu.addEntry("C", &m_testBool);
 
-		m_camera = sf::View(sf::Vector2f(0, 0), sf::Vector2f(window.getSize().x, window.getSize().y));
+		m_camera = sf::View(sf::Vector2f(0, 0), sf::Vector2f(static_cast<float>(window.getSize().x), static_cast<float>(window.getSize().y)));
 		window.setView(m_camera);
 
 		m_level.addEntity(&m_player);
@@ -57,7 +57,7 @@ namespace State
     {
 		if (event.type == sf::Event::EventType::Resized)
 		{
-			m_camera.setSize(m_window.getSize().x, m_window.getSize().y);
+			m_camera.setSize(static_cast<float>(m_window.getSize().x), static_cast<float>(m_window.getSize().y));
 		}
     }
 
@@ -82,7 +82,7 @@ namespace State
 		m_camera.setCenter(m_player.position.x + offsetX, m_player.position.y + offsetY);
 
         m_testFloat = ts.asSeconds();
-        m_testInt = ts.asSeconds() * 10000;
+        m_testInt = static_cast<int>(ts.asMillis());
         m_testBool = m_testInt % 2 == 1 ? true : false;
     }
 

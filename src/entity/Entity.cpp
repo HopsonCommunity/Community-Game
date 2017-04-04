@@ -22,7 +22,7 @@ namespace Framework
 
 	void Entity::render(sf::RenderWindow& window)
 	{
-		sprite.setOrigin(sprite.getTextureRect().width / 2, sprite.getTextureRect().height);
+		sprite.setOrigin(static_cast<float>(sprite.getTextureRect().width / 2), static_cast<float>(sprite.getTextureRect().height));
 		Level::LevelRenderer::renderEntitySprite(position.x, position.y, sprite);
 	}
 
