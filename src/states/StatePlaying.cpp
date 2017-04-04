@@ -50,6 +50,7 @@ namespace State
 		m_level.setTile(2, 4, *Level::Tile::Tile::fDarkStone);
 		m_level.setTile(3, 4, *Level::Tile::Tile::fDarkStone);
 		m_level.setTile(4, 4, *Level::Tile::Tile::fDarkStone);
+
     }
 
     void SPlaying::event(sf::Event& event)

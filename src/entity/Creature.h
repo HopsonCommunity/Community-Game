@@ -2,6 +2,7 @@
 
 #include "Entity.h"
 #include "animation/Animator.h"
+#include "physics/HitBox.h"
 
 namespace Framework
 {
@@ -26,8 +27,12 @@ namespace Framework
 		bool m_walking;
 		Animator m_animator;
 
+		Physics::HitBox m_hitBox;
+
 	public:
 		Creature();
+
+		void applyVelocity(float dt) override;
 
 	protected:
 		void update(float dt) override;
