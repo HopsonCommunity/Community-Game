@@ -69,7 +69,14 @@ namespace State
     void SPlaying::update(float dt)
     {
 		m_level.update(dt);
-		m_camera.setCenter(m_player.position);
+
+		int mouseX = Application::instance->mousePosition().x;
+		int mouseY = Application::instance->mousePosition().y;
+		int halfWidth = Application::instance->getWindow().getSize().x / 2;
+		int halfHeight = Application::instance->getWindow().getSize().y / 2;
+		float offsetX = (mouseX - halfWidth) * 0.2f;
+		float offsetY = (mouseY - halfHeight) * 0.2f;
+		m_camera.setCenter(m_player.position.x + offsetX, m_player.position.y + offsetY);
 
         m_testFloat = dt;
         m_testInt = dt * 10000;
