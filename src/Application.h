@@ -43,6 +43,7 @@ class Application
         void setVSync(bool enabled);
 
 		bool inputPressed(std::string action);
+		sf::Vector2i mousePosition();
 
     private:
         ResourceHolder m_resources;
