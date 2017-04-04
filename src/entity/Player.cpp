@@ -6,6 +6,8 @@ namespace Framework
 {
 	Player::Player()
 	{
+		sprite = sf::Sprite(Application::instance->getResources().textures.get("player_modelDefault"), sf::IntRect(0, 0, 32, 64));
+
 		auto hb = std::make_shared<HealthBoost>(DURATION_INFINITE, 800, 0);
 		addEffect(hb);
 		m_health = 800;
@@ -54,9 +56,8 @@ namespace Framework
 			else if (ydir < 0)
 				walk(UP);
 		}
-		std::cout << m_stats.max_health << std::endl;
 
-		velocity *= 0.5f;
+		applyVelocity(dt);
 	}
 
 	void Player::applyDamage(const Damage& dmg)

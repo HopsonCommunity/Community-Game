@@ -23,10 +23,6 @@ namespace State
 		window.setView(m_camera);
 
 		m_level.addEntity(&m_player);
-		sf::Texture playerTexture;
-		playerTexture.loadFromFile("res/textures/player_modelDefault.png");
-		m_player.sprite = sf::Sprite(playerTexture, sf::IntRect(0, 0, 32, 32));
-		//player.getShape().setFillColor(sf::Color(0.2 * 255, 0.3 * 255, 0.8 * 255, 255));
 
 		Level::Tile::Tile::loadTiles();
 
