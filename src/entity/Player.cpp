@@ -22,13 +22,6 @@ namespace Framework
 		addEffect(std::make_shared<Defense>(20 * 5, 20, 30));
 	}
 
-	void Player::render(sf::RenderWindow& window)
-	{
-		Creature::render(window);
-		
-		m_label->render(window);
-	}
-
 	void Player::update(const Timestep& ts)
 	{
 		Creature::update(ts);

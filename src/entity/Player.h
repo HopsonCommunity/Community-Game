@@ -11,7 +11,6 @@ namespace Framework
 	public:
 		Player();
 
-		void render(sf::RenderWindow& window) override;
 		void update(const Timestep& ts) override;
 		void applyDamage(const Damage& dmg) override;
 	};
