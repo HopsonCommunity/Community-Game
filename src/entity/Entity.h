@@ -13,28 +13,31 @@ namespace Framework
 {
 	class Entity : public IDamageable
 	{
-        public:
-            Entity();
+	private:
+		std::vector<std::shared_ptr<StatusEffect>> m_activeEffects;
 
-			// Default entity doesn't care about damage source.
-			virtual void applyDamage(const Damage& dmg) override;
+	protected:
+		int32 m_health;
+		Stats m_stats;
 
-            int32 getHealth();
-			const Stats& getStats();
+	public:
+		///@TODO Public for now. Change later
+		sf::Vector2f position;
+		sf::Vector2f velocity;
+		sf::Sprite sprite;
 
-			virtual void update(float dt); 
-            virtual void render(sf::RenderWindow& window);
+    public:
+        Entity();
 
-			void addEffect(std::shared_ptr<StatusEffect> effect);
-        protected:
-			int32 m_health;
-			Stats m_stats;
-		private:
-			std::vector<std::shared_ptr<StatusEffect>> m_activeEffects;
-        public:
-            ///@TODO Public for now. Change later
-			sf::Vector2f position;
-            sf::Vector2f velocity;
-			sf::Sprite sprite;
+		virtual void update(float dt);
+		virtual void render(sf::RenderWindow& window);
+
+		void applyVelocity(float dt);
+		// Default entity doesn't care about damage source.
+		virtual void applyDamage(const Damage& dmg) override;
+		void addEffect(std::shared_ptr<StatusEffect> effect);    
+
+        int32 getHealth();
+		const Stats& getStats();
 	};
 }
