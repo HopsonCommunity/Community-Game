@@ -9,6 +9,7 @@
 #include "resources/ResourceHolder.h"
 #include "input/InputScheme.h"
 #include "input/Input.h"
+#include "level/SFX/SFX.h"
 
 constexpr bool VSYNC_ENABLED  = true;
 constexpr bool VSYNC_DISABLED = false;
@@ -43,6 +44,8 @@ class Application
         void setVSync(bool enabled);
 
 		bool inputPressed(std::string action);
+
+		Sound::SFX::SFX sound = Sound::SFX::SFX(sf::Sound());
 
     private:
         ResourceHolder m_resources;
