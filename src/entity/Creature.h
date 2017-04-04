@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Entity.h"
+#include "animation/Animator.h"
 
 namespace Framework
 {
@@ -21,12 +22,16 @@ namespace Framework
 	{
 	protected:
 		float m_speedWalk = 80;
-		Direction m_direction = DOWN;
+		bool m_direction;
+		bool m_walking;
+		Animator m_animator;
 
 	public:
 		Creature();
 
 	protected:
+		void update(float dt) override;
+
 		void walk(Direction dir);
 	};
 

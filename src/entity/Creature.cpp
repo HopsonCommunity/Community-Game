@@ -1,15 +1,24 @@
 #include "Creature.h"
 
+#include "../Application.h"
+
 namespace Framework
 {
 
 	Creature::Creature()
+		: m_animator(&sprite)
 	{}
+
+	void Creature::update(float dt)
+	{
+		m_animator.update(dt);
+		m_direction = Application::instance->mousePosition().x > Application::instance->getWindow().getSize().x / 2;
+		sprite.setScale(m_direction ? 1 : -1, 1);
+		m_walking = false;
+	}
 
 	void Creature::walk(Direction dir)
 	{
-		m_direction = dir;
-
 		switch (dir)
 		{
 		case UP:
@@ -41,6 +50,7 @@ namespace Framework
 			velocity.y -= m_speedWalk * 0.7071067811865475;
 			break;
 		}
+		m_walking = true;
 	}
 
 }
