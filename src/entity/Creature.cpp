@@ -21,13 +21,13 @@ namespace Framework
 
 	void Creature::applyVelocity(float dt)
 	{
-		bool* colliding = Physics::tileCollision(position, velocity, m_hitBox, *level, dt);
+		auto colliding = Physics::tileCollision(position, velocity, m_hitBox, *level, dt);
 
-		if (!colliding[0])
+		if (!colliding.first)
 			position.x += velocity.x * dt;
-		if (!colliding[1])
+		if (!colliding.second)
 			position.y += velocity.y * dt;
-		
+
 		velocity.x = 0;
 		velocity.y = 0;
 	}
