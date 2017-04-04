@@ -1,6 +1,7 @@
 #pragma once
 
 #include "InputScheme.h"
+#include <SFML/Graphics.hpp>
 
 #define MOVE_UP "MOVE_UP"
 #define MOVE_DOWN "MOVE_DOWN"
@@ -16,6 +17,8 @@ namespace Input
 		Input(InputScheme* inputScheme);
 
 		bool isInput(std::string action);
+
+		sf::Vector2i mousePosition(sf::RenderWindow& window);
 	private:
 		InputScheme* m_inputScheme;
 	};
