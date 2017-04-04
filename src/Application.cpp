@@ -143,7 +143,7 @@ void Application::setVSync(bool enabled)
 
 bool Application::inputPressed(std::string action)
 {
-	return m_inputManager.isInput(action);
+	return m_inputManager.isInput(action) && m_window.hasFocus();
 }
 
 sf::Vector2i Application::mousePosition()
