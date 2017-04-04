@@ -44,6 +44,7 @@ class Application
         void setVSync(bool enabled);
 
 		bool inputPressed(std::string action);
+		sf::Vector2i mousePosition();
 
 		Sound::SFX::SFX sound = Sound::SFX::SFX(sf::Sound());
 

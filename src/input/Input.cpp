@@ -19,5 +19,10 @@ namespace Input
 	{
 		return sf::Keyboard::isKeyPressed(m_inputScheme->getKeyForAction(action));
 	}
+
+	sf::Vector2i Input::mousePosition(sf::RenderWindow& window)
+	{
+		return sf::Mouse::getPosition(window);
+	}
 }
 

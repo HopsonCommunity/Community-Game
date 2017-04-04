@@ -140,3 +140,8 @@ bool Application::inputPressed(std::string action)
 {
 	return m_inputManager.isInput(action);
 }
+
+sf::Vector2i Application::mousePosition()
+{
+	return m_inputManager.mousePosition(m_window);
+}
