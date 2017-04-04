@@ -2,6 +2,7 @@
 
 #include "Tile/Tile.h"
 #include <iostream>
+#include "../util/Timestep.h"
 
 namespace Framework
 {
@@ -32,7 +33,7 @@ namespace Level
 			return m_tiles[x + y * m_width];
 		}
 
-		void update(float dt);
+		void update(const Timestep& ts);
 		void render(sf::RenderWindow& window);
 	};
 

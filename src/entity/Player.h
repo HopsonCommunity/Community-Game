@@ -1,19 +1,18 @@
 #pragma once
 
 #include "Creature.h"
-#include "../graphics/AnimatedSprite.h"
+#include "../ui/Label.h"
 
 namespace Framework
 {
 	class Player : public Creature
 	{
 	private:
-		Graphics::AnimatedSprite* m_animation;
 	public:
 		Player();
-		~Player();
 
-		void update(float dt) override;
+		void render(sf::RenderWindow& window) override;
+		void update(const Timestep& ts) override;
 		void applyDamage(const Damage& dmg) override;
 	};
 }

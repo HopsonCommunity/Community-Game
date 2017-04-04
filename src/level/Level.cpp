@@ -25,23 +25,23 @@ namespace Level
 		m_tiles[x + y * m_width] = &tile;
 	}
 
-	void Level::update(float dt)
+	void Level::update(const Timestep& ts)
 	{
-		for (unsigned int i = 0; i < m_entities.size(); i++)
+		for (uint i = 0; i < m_entities.size(); i++)
 		{
 			if (m_entities[i] != nullptr)
 			{
 				Framework::Entity* e = m_entities[i];
-				e->update(dt);
+				e->update(ts);
 			}
 		}
 	}
 
 	void Level::render(sf::RenderWindow& window)
 	{
-		for (unsigned int x = 0; x < m_width; x++)
+		for (uint x = 0; x < m_width; x++)
 		{
-			for (unsigned int y = 0; y < m_height; y++)
+			for (uint y = 0; y < m_height; y++)
 			{
 				if (m_tiles[x + y * m_width] != nullptr)
 				{
@@ -49,7 +49,7 @@ namespace Level
 				}
 			}
 		}
-		for (unsigned int i = 0; i < m_entities.size(); i++)
+		for (uint i = 0; i < m_entities.size(); i++)
 		{
 			if (m_entities[i] != nullptr)
 			{

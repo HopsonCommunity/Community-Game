@@ -20,20 +20,18 @@ namespace Framework
 		hb->max_health = 7200;
 
 		addEffect(std::make_shared<Defense>(20 * 5, 20, 30));
-
-		sf::Image* m_animationAtlas = new sf::Image();
-		m_animationAtlas->loadFromFile("res/textures/player_modelDefault.png");
-		m_animation = new Graphics::AnimatedSprite(m_animationAtlas, 32, 7, 5);
 	}
 
-	Player::~Player()
+	void Player::render(sf::RenderWindow& window)
 	{
-		delete m_animation;
+		Creature::render(window);
+		
+		m_label->render(window);
 	}
 
-	void Player::update(float dt)
+	void Player::update(const Timestep& ts)
 	{
-		Creature::update(dt);
+		Creature::update(ts);
 
 		int xdir = 0;
 		int ydir = 0;
@@ -74,7 +72,7 @@ namespace Framework
 		}
 
 		m_animator.setAnim(m_walking ? "run" : "idle");
-		applyVelocity(dt);
+		applyVelocity(ts.asSeconds());
 	}
 
 	void Player::applyDamage(const Damage& dmg)

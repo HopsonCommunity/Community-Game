@@ -69,9 +69,9 @@ namespace State
         m_debugMenu.input();
     }
 
-    void SPlaying::update(float dt)
+    void SPlaying::update(const Timestep& ts)
     {
-		m_level.update(dt);
+		m_level.update(ts);
 
 		int mouseX = Application::instance->mousePosition().x;
 		int mouseY = Application::instance->mousePosition().y;
@@ -81,8 +81,8 @@ namespace State
 		float offsetY = (mouseY - halfHeight) * 0.1f;
 		m_camera.setCenter(m_player.position.x + offsetX, m_player.position.y + offsetY);
 
-        m_testFloat = dt;
-        m_testInt = dt * 10000;
+        m_testFloat = ts.asSeconds();
+        m_testInt = ts.asSeconds() * 10000;
         m_testBool = m_testInt % 2 == 1 ? true : false;
     }
 

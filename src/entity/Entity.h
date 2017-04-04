@@ -32,7 +32,7 @@ namespace Framework
     public:
         Entity();
 
-		virtual void update(float dt);
+		virtual void update(const Timestep& ts);
 		virtual void render(sf::RenderWindow& window);
 
 		virtual void applyVelocity(float dt);

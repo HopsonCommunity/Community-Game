@@ -34,8 +34,7 @@ void Application::start()
 	uint frames = 0;
 	uint updates = 0;
 
-	float dt = clock.getElapsedTime().asMilliseconds();
-	float last_time = 0.0f;
+	Timestep timestep(clock.getElapsedTime().asMilliseconds());
 	while (m_window.isOpen())
 	{
 		m_window.clear();
@@ -48,30 +47,28 @@ void Application::start()
 		float now = float(clock.getElapsedTime().asMilliseconds());
 		if (now - upTimer > UP_TICK)
 		{
+			timestep.update(now);
 			updates++;
 			upTimer += UP_TICK;
 			m_states.back()->input();
-			dt = (now - last_time) / 1000.0f; // dt in seconds
-			last_time = now;
-			m_states.back()->update(dt);
+			m_states.back()->update(timestep);
 		}
 
 		//Runs as fast as possible
 		frames++;
 		sf::Clock frametime;
 		m_states.back()->render(m_window);
-		// m_frameTime = float(frametime.getElapsedTime().asMilliseconds());
+		m_frameTime = float(frametime.getElapsedTime().asMilliseconds());
 
 		// Runs each second
 		if (clock.getElapsedTime().asSeconds() - timer > 1.0f)
 		{
 			timer += 1.0f;
-			// m_framesPerSecond = frames;
-			// m_updatesPerSecond = updates;
-			std::cout << "FPS: " << frames << ", UPS: " << updates << std::endl;
+			m_framesPerSecond = frames;
+			m_updatesPerSecond = updates;
+			std::cout << "FPS: " << m_framesPerSecond << ", UPS: " << m_updatesPerSecond << std::endl;
 			frames = 0;
 			updates = 0;
-			// onTick();
 		}
 
 		m_window.display();

@@ -20,7 +20,7 @@ namespace State
 
             void event(sf::Event& event) override;
             void input() override;
-            void update(float dt) override;
+            void update(const Timestep& ts) override;
             void render(sf::RenderWindow& window) override;
         private:
             //Level::Tile::Map m_tileMap;

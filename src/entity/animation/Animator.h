@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+#include "../../util/Timestep.h"
+
 namespace Framework
 {
 
@@ -27,7 +29,7 @@ namespace Framework
 		void setAnim(const std::string name);
 		void addAnim(const std::string& name, unsigned int xpos, unsigned int ypos, unsigned int stride, unsigned int length, unsigned int fps);
 
-		void update(float dt);
+		void update(const Timestep& ts);
 	};
 
 }

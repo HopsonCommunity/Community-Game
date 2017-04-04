@@ -26,12 +26,12 @@ namespace Framework
 		m_anims.push_back(anim);
 	}
 
-	void Animator::update(float dt)
+	void Animator::update(const Timestep& ts)
 	{
 		if (m_anims.empty())
 			return;
 
-		m_timer += dt;
+		m_timer += ts.asSeconds();
 		Animation* anim = nullptr;
 		bool animFound = false;
 		for (unsigned int i = 0; i < m_anims.size(); i++)
