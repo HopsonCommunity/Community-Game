@@ -55,7 +55,10 @@ namespace State
 
     void SPlaying::event(sf::Event& event)
     {
-
+		if (event.type == sf::Event::EventType::Resized)
+		{
+			m_camera.setSize(m_window.getSize().x, m_window.getSize().y);
+		}
     }
 
     void SPlaying::input()
@@ -74,8 +77,8 @@ namespace State
 		int mouseY = Application::instance->mousePosition().y;
 		int halfWidth = Application::instance->getWindow().getSize().x / 2;
 		int halfHeight = Application::instance->getWindow().getSize().y / 2;
-		float offsetX = (mouseX - halfWidth) * 0.2f;
-		float offsetY = (mouseY - halfHeight) * 0.2f;
+		float offsetX = (mouseX - halfWidth) * 0.1f;
+		float offsetY = (mouseY - halfHeight) * 0.1f;
 		m_camera.setCenter(m_player.position.x + offsetX, m_player.position.y + offsetY);
 
         m_testFloat = dt;
