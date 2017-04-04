@@ -9,7 +9,6 @@
 #include "resources/ResourceHolder.h"
 #include "input/InputScheme.h"
 #include "input/Input.h"
-#include "level/SFX/SFX.h"
 #include "util/Timestep.h"
 
 constexpr bool VSYNC_ENABLED  = true;
@@ -52,8 +51,6 @@ class Application
 		sf::Vector2i mousePosition();
 
 		sf::RenderWindow& getWindow();
-
-		Sound::SFX::SFX sound = Sound::SFX::SFX(sf::Sound());
 
     private:
 		uint m_framesPerSecond, m_updatesPerSecond;

@@ -3,10 +3,7 @@
 
 #pragma once
 
-#include <string>
-#include <memory>
 #include <SFML/Audio.hpp>
-#include <SFML/System.hpp>
 
 namespace Sound
 {

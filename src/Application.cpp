@@ -1,5 +1,4 @@
 #include "Application.h"
-#include "level/SFX/SFX.h"
 #include "states/StatePlaying.h"
 
 #include <iostream>
@@ -85,15 +84,10 @@ void Application::handleEvents(sf::Event& event)
 
         case sf::Event::KeyReleased:
             switch (event.key.code)
-	    {
+            {
                 case sf::Keyboard::E:
-		    m_window.close();
-		    break;
-
-		case sf::Keyboard::S:
-                    sound.loadSounds();
-                    sound.play(*sound.explosion);
-                    break;
+		            m_window.close();
+		            break;
 
                 default:
                     break;
