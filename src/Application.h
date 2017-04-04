@@ -9,6 +9,7 @@
 #include "resources/ResourceHolder.h"
 #include "input/InputScheme.h"
 #include "input/Input.h"
+#include "level/SFX/SFX.h"
 
 constexpr bool VSYNC_ENABLED  = true;
 constexpr bool VSYNC_DISABLED = false;
@@ -44,6 +45,8 @@ class Application
 
 		bool inputPressed(std::string action);
 		sf::Vector2i mousePosition();
+
+		Sound::SFX::SFX sound = Sound::SFX::SFX(sf::Sound());
 
     private:
         ResourceHolder m_resources;
