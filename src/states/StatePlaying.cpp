@@ -6,6 +6,8 @@
 
 namespace State
 {
+	SPlaying* SPlaying::instance = nullptr;
+
     SPlaying::SPlaying(Application* app, sf::RenderWindow& window)
     : SBase(app)
     , m_testFloat(0)
@@ -15,6 +17,8 @@ namespace State
 	, m_level(5, 5)
     , m_debugMenu(app->getResources().fonts.get("SourceCodePro-Regular"))
     {
+		instance = this;
+
         m_debugMenu.addEntry("A", &m_testInt, 0, 1);
         m_debugMenu.addEntry("B", &m_testFloat, 0, 1);
         m_debugMenu.addEntry("C", &m_testBool);

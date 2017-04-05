@@ -16,12 +16,16 @@ namespace State
     class SPlaying : public SBase
     {
         public:
+			static SPlaying* instance;
+
             SPlaying(Application* app, sf::RenderWindow& window);
 
             void event(sf::Event& event) override;
             void input() override;
             void update(const Timestep& ts) override;
             void render(sf::RenderWindow& window) override;
+
+			inline sf::View& getCamera() { return m_camera; }
         private:
             //Level::Tile::Map m_tileMap;
 			sf::RenderWindow& m_window;
