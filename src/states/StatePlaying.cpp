@@ -6,6 +6,9 @@
 
 namespace State
 {
+
+	 SPlaying* SPlaying::instance = nullptr;
+
     namespace Test
     {
         constexpr int WORLD_SIZE = 50;
@@ -21,6 +24,8 @@ namespace State
     ,   m_debugMenu(app->getResources().fonts.get("SourceCodePro-Regular"))
     ,   m_worldGen(Test::WORLD_SIZE, Test::WORLD_SIZE, 23535)
     {
+		instance = this;
+
         m_debugMenu.addEntry("A", &m_testInt, 0, 1);
         m_debugMenu.addEntry("B", &m_testFloat, 0, 1);
         m_debugMenu.addEntry("C", &m_testBool);
