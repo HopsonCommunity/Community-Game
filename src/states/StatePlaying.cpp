@@ -3,6 +3,7 @@
 #include "../Application.h"
 #include "../level/Tile/Tile.h"
 #include "../level/LevelRenderer.h"
+#include "../entity/enemy/Zombie.h"
 
 namespace State
 {
@@ -23,6 +24,9 @@ namespace State
 		window.setView(m_camera);
 
 		m_level.addEntity(&m_player);
+		m_level.player = &m_player;
+
+		m_level.addEntity(new Framework::Zombie());
 
 		Level::Tile::Tile::loadTiles();
 

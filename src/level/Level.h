@@ -7,6 +7,7 @@
 namespace Framework
 {
 	class Entity;
+	class Player;
 }
 
 namespace Level
@@ -24,9 +25,11 @@ namespace Level
             void render(sf::RenderWindow& window);
 
         private:
-            unsigned int m_width;
-            unsigned int m_height;
+            uint m_width;
+            uint m_height;
             std::vector<Tile::Tile*> m_tiles;
             std::vector<Framework::Entity*> m_entities;
+		public:
+			Framework::Player* player;
 	};
 }
