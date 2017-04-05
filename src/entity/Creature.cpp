@@ -15,7 +15,7 @@ namespace Framework
 	{
 		m_animator.update(ts);
 		m_direction = Application::instance->mousePosition().x > Application::instance->getWindow().getSize().x / 2;
-		sprite.setScale(m_direction ? 1 : -1, 1);
+		sprite.setScale(static_cast<float>(m_direction ? 1 : -1), static_cast<float>(1));
 		m_walking = false;
 	}
 
@@ -40,29 +40,30 @@ namespace Framework
 			velocity.y -= m_speedWalk;
 			break;
 		case UP_RIGHT:
-			velocity.x += m_speedWalk * 0.7071067811865475;
-			velocity.y -= m_speedWalk * 0.7071067811865475;
+			velocity.x += m_speedWalk * 0.7071067f;
+			velocity.y -= m_speedWalk * 0.7071067f;
 			break;
 		case RIGHT:
 			velocity.x += m_speedWalk;
 			break;
 		case DOWN_RIGHT:
-			velocity.x += m_speedWalk * 0.7071067811865475;
-			velocity.y += m_speedWalk * 0.7071067811865475;
+			velocity.x += m_speedWalk * 0.7071067f;
+			velocity.y += m_speedWalk * 0.7071067f;
 			break;
 		case DOWN:
 			velocity.y += m_speedWalk;
 			break;
 		case DOWN_LEFT:
-			velocity.x -= m_speedWalk * 0.7071067811865475;
-			velocity.y += m_speedWalk * 0.7071067811865475;
+			velocity.x -= m_speedWalk * 0.7071067f;
+			velocity.y += m_speedWalk * 0.7071067f;
 			break;
 		case LEFT:
 			velocity.x -= m_speedWalk;
 			break;
 		case UP_LEFT:
-			velocity.x -= m_speedWalk * 0.7071067811865475;
-			velocity.y -= m_speedWalk * 0.7071067811865475;
+			velocity.x -= m_speedWalk * 0.7071067f;
+			velocity.y -= m_speedWalk * 0.7071067f;
+				//0.7071067811865475f//
 			break;
 		}
 		m_walking = true;

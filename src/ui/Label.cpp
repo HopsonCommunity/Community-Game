@@ -40,7 +40,7 @@ namespace UI
 			m_alignmentOffset.x = 0;
 			break;
 		case Alignment::CENTER:
-			m_alignmentOffset.x = -size.x * 0.5;
+			m_alignmentOffset.x = -size.x * 0.5f;
 			break;
 		case Alignment::RIGHT:
 			m_alignmentOffset.x = -size.x;

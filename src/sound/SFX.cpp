@@ -3,7 +3,7 @@
 //
 
 #include "SFX.h"
-#include "../../Application.h"
+#include "../Application.h"
 
 
 namespace Sound

@@ -24,7 +24,7 @@ namespace Level
 
 	void LevelRenderer::renderWallTileTop(uint32 x, uint32 y, float height, sf::Sprite& sprite)
 	{
-		sf::Vector3f tilePosition(x, y + 32, height);
+		sf::Vector3f tilePosition(static_cast<float>(x), static_cast<float>(y + 32), height);
 		sprite.setOrigin(0, 32);
 		positions.push_back(tilePosition);
 		sprites.push_back(&sprite);
