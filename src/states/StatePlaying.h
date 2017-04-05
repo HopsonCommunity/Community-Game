@@ -8,6 +8,7 @@
 #include "../level/Level.h"
 #include "../level/Tile/TileMap.h"
 #include "../debug/DebugMenu.h"
+#include "../level/WorldGenerator/WorldGenerator.h"
 
 class Application;
 
@@ -32,5 +33,6 @@ namespace State
             float m_testFloat;
             int m_testInt;
             bool m_testBool;
+            WGenerator::WorldGenerator m_worldGen;
     };
 }
