@@ -18,7 +18,6 @@ namespace Level
 		unsigned int m_width;
 		unsigned int m_height;
 		std::vector<Tile::Tile*> m_tiles;
-
 		std::vector<Framework::Entity*> m_entities;
 
 	public:
