@@ -1,5 +1,4 @@
 #include "Application.h"
-#include "level/SFX/SFX.h"
 #include "states/StatePlaying.h"
 
 #include <iostream>
@@ -34,7 +33,12 @@ void Application::start()
 	uint frames = 0;
 	uint updates = 0;
 
-	Timestep timestep(static_cast<float>(clock.getElapsedTime().asMilliseconds()));
+	Timestep timestep(clock.getElapsedTime().asMilliseconds());
+	BGM.loadMusic();
+    BGM.menu.setVolume(30.0f);
+    BGM.menu.setLoop(true);
+    BGM.play(BGM.menu);
+  
 	while (m_window.isOpen())
 	{
 		m_window.clear();
@@ -85,14 +89,18 @@ void Application::handleEvents(sf::Event& event)
 
         case sf::Event::KeyReleased:
             switch (event.key.code)
-	    {
+            {
                 case sf::Keyboard::E:
-		    m_window.close();
-		    break;
+                    m_window.close();
+                    break;
 
-		case sf::Keyboard::S:
-                    sound.loadSounds();
-                    sound.play(*sound.explosion);
+                case sf::Keyboard::M:
+                    if(BGM.menu.getStatus() == sf::SoundSource::Playing){
+                        BGM.pause(BGM.menu);
+                    }
+                    else if(BGM.menu.getStatus() == sf::SoundSource::Paused){
+                        BGM.play(BGM.menu);
+                    }
                     break;
 
                 default:
