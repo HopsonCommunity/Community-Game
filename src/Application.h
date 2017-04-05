@@ -10,6 +10,7 @@
 #include "input/InputScheme.h"
 #include "input/Input.h"
 #include "util/Timestep.h"
+#include "sound/BGM.h"
 
 constexpr bool VSYNC_ENABLED  = true;
 constexpr bool VSYNC_DISABLED = false;
@@ -51,6 +52,7 @@ class Application
 		sf::Vector2i mousePosition();
 
 		sf::RenderWindow& getWindow();
+		Sound::BGM::BGM BGM = Sound::BGM::BGM();
 
     private:
 		uint m_framesPerSecond, m_updatesPerSecond;
