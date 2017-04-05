@@ -8,6 +8,7 @@
 #include "../level/Level.h"
 #include "../level/Tile/TileMap.h"
 #include "../debug/DebugMenu.h"
+#include "../level/WorldGenerator/WorldGenerator.h"
 
 class Application;
 
@@ -16,12 +17,16 @@ namespace State
     class SPlaying : public SBase
     {
         public:
+			static SPlaying* instance;
+
             SPlaying(Application* app, sf::RenderWindow& window);
 
             void event(sf::Event& event) override;
             void input() override;
             void update(const Timestep& ts) override;
             void render(sf::RenderWindow& window) override;
+
+			inline sf::View& getCamera() { return m_camera; }
         private:
             //Level::Tile::Map m_tileMap;
 			sf::RenderWindow& m_window;
@@ -32,5 +37,6 @@ namespace State
             float m_testFloat;
             int m_testInt;
             bool m_testBool;
+            WGenerator::WorldGenerator m_worldGen;
     };
 }

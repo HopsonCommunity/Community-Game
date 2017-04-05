@@ -20,7 +20,7 @@ namespace Framework
 
 	void Creature::applyVelocity(float dt)
 	{
-		auto colliding = Physics::tileCollision(position, velocity, m_hitBox, *level, dt);
+		auto colliding = std::make_pair(false, false);//Physics::tileCollision(position, velocity, m_hitBox, *level, dt);
 
 		if (!colliding.first)
 			position.x += velocity.x * dt;
