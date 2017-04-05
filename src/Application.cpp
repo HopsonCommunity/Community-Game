@@ -35,7 +35,7 @@ void Application::start()
 
 	Timestep timestep(clock.getElapsedTime().asMilliseconds());
 	BGM.loadMusic();
-    BGM.menu.setVolume(30.0f);
+    BGM.menu.setVolume(3.0f);
     BGM.menu.setLoop(true);
     BGM.play(BGM.menu);
   

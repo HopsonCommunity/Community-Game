@@ -64,6 +64,8 @@ namespace Framework
 				walk(UP);
 		}
 
+		m_direction = Application::instance->mousePosition().x > Application::instance->getWindow().getSize().x / 2;
+
 		m_animator.setAnim(m_walking ? "run" : "idle");
 		applyVelocity(ts.asSeconds());
 	}
