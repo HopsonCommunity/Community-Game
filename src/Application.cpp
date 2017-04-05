@@ -34,10 +34,10 @@ void Application::start()
 	uint updates = 0;
 
 	Timestep timestep(clock.getElapsedTime().asMilliseconds());
-	BGM.loadMusic();
-    BGM.menu.setVolume(30.0f);
-    BGM.menu.setLoop(true);
-    BGM.play(BGM.menu);
+	//BGM.loadMusic();
+    //BGM.menu.setVolume(30.0f);
+    //BGM.menu.setLoop(true);
+    //BGM.play(BGM.menu);
   
 	while (m_window.isOpen())
 	{
@@ -95,12 +95,12 @@ void Application::handleEvents(sf::Event& event)
                     break;
 
                 case sf::Keyboard::M:
-                    if(BGM.menu.getStatus() == sf::SoundSource::Playing){
-                        BGM.pause(BGM.menu);
-                    }
-                    else if(BGM.menu.getStatus() == sf::SoundSource::Paused){
-                        BGM.play(BGM.menu);
-                    }
+                    //if(BGM.menu.getStatus() == sf::SoundSource::Playing){
+                    //    BGM.pause(BGM.menu);
+                    //}
+                    //else if(BGM.menu.getStatus() == sf::SoundSource::Paused){
+                    //    BGM.play(BGM.menu);
+                    //}
                     break;
 
                 default:
