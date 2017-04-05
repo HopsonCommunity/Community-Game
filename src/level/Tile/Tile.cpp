@@ -21,13 +21,10 @@ namespace Level
 		{
 			tileset = &Application::instance->getResources().textures.get("tile_atlas");
 
-			fLightStone = std::make_unique<Tile>(0, sf::Sprite(*tileset, sf::IntRect(0, 32, 32, 32)), false);
-			fMedStone   = std::make_unique<Tile>(1, sf::Sprite(*tileset, sf::IntRect(0, 64, 32, 32)), false);
-			fDarkStone  = std::make_unique<Tile>(2, sf::Sprite(*tileset, sf::IntRect(0, 96, 32, 32)), false);
-			stoneWall   = std::make_unique<WallTile>(3, sf::Sprite(*tileset, sf::IntRect(0, 128, 32, 32)), sf::Sprite(*tileset, sf::IntRect(0, 160, 32, 32)), 32, true);
-
-			sf::View view;
-			sf::Sprite sprite;
+			fLightStone = std::make_unique<Tile>(0,     sf::Sprite(*tileset, sf::IntRect(0, TILE_SIZE,      TILE_SIZE, TILE_SIZE)), false);
+			fMedStone   = std::make_unique<Tile>(1,     sf::Sprite(*tileset, sf::IntRect(0, TILE_SIZE * 2,  TILE_SIZE, TILE_SIZE)), false);
+			fDarkStone  = std::make_unique<Tile>(2,     sf::Sprite(*tileset, sf::IntRect(0, TILE_SIZE * 3,  TILE_SIZE, TILE_SIZE)), false);
+			stoneWall   = std::make_unique<WallTile>(3, sf::Sprite(*tileset, sf::IntRect(0, TILE_SIZE * 4 , TILE_SIZE, TILE_SIZE)), sf::Sprite(*tileset, sf::IntRect(0, 160, TILE_SIZE, TILE_SIZE)), TILE_SIZE, true);
 		}
 
 		Tile::Tile(uint8 id, sf::Sprite sprite, bool solid)
