@@ -6,16 +6,23 @@
 
 namespace State
 {
-	SPlaying* SPlaying::instance = nullptr;
+
+	 SPlaying* SPlaying::instance = nullptr;
+
+    namespace Test
+    {
+        constexpr int WORLD_SIZE = 50;
+    }
 
     SPlaying::SPlaying(Application* app, sf::RenderWindow& window)
-    : SBase(app)
-    , m_testFloat(0)
-	, m_window(window)
-	, m_camera()
-    , m_player()
-	, m_level(5, 5)
-    , m_debugMenu(app->getResources().fonts.get("SourceCodePro-Regular"))
+    :   SBase(app)
+    ,   m_testFloat(0)
+	,   m_window(window)
+	,   m_camera()
+    ,   m_player()
+	,   m_level(Test::WORLD_SIZE, Test::WORLD_SIZE)
+    ,   m_debugMenu(app->getResources().fonts.get("SourceCodePro-Regular"))
+    ,   m_worldGen(Test::WORLD_SIZE, Test::WORLD_SIZE, 23535)
     {
 		instance = this;
 
@@ -30,6 +37,29 @@ namespace State
 
 		Level::Tile::Tile::loadTiles();
 
+        m_worldGen.generate();
+
+        auto data = m_worldGen.debug();
+
+        for (int x = 0; x < Test::WORLD_SIZE; x++)
+        {
+            for (int y = 0; y < Test::WORLD_SIZE; y++)
+            {
+                auto n = data.at(x).at(y);
+                if (n == 0)
+                {
+                    m_level.setTile(x, y, *Level::Tile::Tile::fLightStone);
+                }
+                else
+                {
+                    m_level.setTile(x, y, *Level::Tile::Tile::stoneWall);
+
+                }
+            }
+        }
+
+        m_player.sprite.setPosition(500,500);
+/*
 		m_level.setTile(0, 0, *Level::Tile::Tile::fLightStone);
 		m_level.setTile(2, 0, *Level::Tile::Tile::fLightStone);
 		m_level.setTile(3, 0, *Level::Tile::Tile::fDarkStone);
@@ -54,7 +84,7 @@ namespace State
 		m_level.setTile(2, 4, *Level::Tile::Tile::fDarkStone);
 		m_level.setTile(3, 4, *Level::Tile::Tile::fDarkStone);
 		m_level.setTile(4, 4, *Level::Tile::Tile::fDarkStone);
-
+*/
     }
 
     void SPlaying::event(sf::Event& event)
