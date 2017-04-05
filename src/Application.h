@@ -52,8 +52,7 @@ class Application
 		sf::Vector2i mousePosition();
 
 		sf::RenderWindow& getWindow();
-		Sound::BGM::BGM BGM = Sound::BGM::BGM();
-
+		Sound::BGM BGM;
     private:
 		uint m_framesPerSecond, m_updatesPerSecond;
 		float m_frameTime;
