@@ -9,18 +9,18 @@ namespace Random
 
     void init()
     {
-        rd.seed(std::time(nullptr));
+        rd.seed(static_cast<uint>(std::time(nullptr)));
     }
 
-    int32_t intInRange(int32_t lowBound, int32_t highBound)
+    int32 intInRange(int32 lowBound, int32 highBound)
     {
-        std::uniform_int_distribution<int32_t> dist(lowBound, highBound);
+        std::uniform_int_distribution<int32> dist(lowBound, highBound);
         return dist (rd);
     }
 
-    uint64_t uint64InRange(uint64_t lowBound, uint64_t highBound)
+    uint64 uint64InRange(uint64 lowBound, uint64 highBound)
     {
-        std::uniform_int_distribution<uint64_t> dist(lowBound, highBound);
+        std::uniform_int_distribution<uint64> dist(lowBound, highBound);
         return dist (rd);
     }
 }

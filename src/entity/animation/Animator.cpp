@@ -48,9 +48,9 @@ namespace Framework
 		float animLength = anim->length / (float)anim->fps;
 		if (m_timer >= animLength)
 			m_timer -= animLength;
-		unsigned int frameIndex = (m_timer / animLength) * anim->length;
-		unsigned int textureX = anim->xpos + frameIndex * anim->stride;
-		unsigned int textureY = anim->ypos;
+		uint frameIndex = static_cast<uint>((m_timer / animLength) * anim->length);
+		uint textureX = anim->xpos + frameIndex * anim->stride;
+		uint textureY = anim->ypos;
 		m_sprite->setTextureRect(sf::IntRect(textureX, textureY, m_sprite->getTextureRect().width, m_sprite->getTextureRect().height));
 	}
 
