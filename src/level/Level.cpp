@@ -25,6 +25,14 @@ namespace Level
 		m_tiles[x + y * m_width] = &tile;
 	}
 
+    Tile::Tile* Level::getTile(unsigned int x, unsigned int y)
+    {
+        if (x < 0 || x >= m_width || y < 0 || y >= m_height)
+            return nullptr;
+        return
+            m_tiles[x + y * m_width];
+    }
+
 	void Level::update(const Timestep& ts)
 	{
 		for (uint i = 0; i < m_entities.size(); i++)

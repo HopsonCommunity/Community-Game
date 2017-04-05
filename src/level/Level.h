@@ -19,12 +19,7 @@ namespace Level
 
             void addEntity(Framework::Entity* entity);
             void setTile(unsigned int x, unsigned int y, Tile::Tile& tile);
-            inline Tile::Tile* getTile(unsigned int x, unsigned int y)
-            {
-                if (x < 0 || x >= m_width || y < 0 || y >= m_height) return nullptr;
-                return m_tiles[x + y * m_width];
-            }
-
+            Tile::Tile* getTile(unsigned int x, unsigned int y);
             void update(const Timestep& ts);
             void render(sf::RenderWindow& window);
 
