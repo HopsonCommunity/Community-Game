@@ -32,39 +32,35 @@ the code, clone the repository with
 Otherwise look at the Contributing file to get a fork and your local repository
 configured right.
 
-## Compiling without IDE
+## Compiling in console
+### Preperation
 #### Windows
-Use the IDE/other toolchain or CMake part
+Make sure you have MINGW with a c++ compiler, make installed in your path.
+Install CMake from their official website and add it to the PATH.
 
 #### Mac
-You have to install SFML library package and CMake:
-* With <a href="//brew.sh">Homebrew</a>
-  ```
-  $ brew install sfml
-  ```
+Install CMake from their site. Make sure you add the CMake executable to the
+PATH.
+Also make sure you have a working C++ compiler with C++ 14 capabilities.
 
+#### Linux
+Get a working C++ compiler, make and CMake from your distribution's package manager.
 
-  And then build with CMake:
-  ```
-  $ mkdir build
-  $ cd build
-  $ cmake ..
-  $ make
-  ```
-#### Ubuntu
-You have to install SFML library package and CMake:
-  ```
-  $ sudo apt-get install libsfml-dev cmake
-  ```
+#### Compiling
+Go into the cloned repository and make a folder called `build`
 
-  And then build with CMake:
-  ```
-  $ mkdir build
-  $ cd build
-  $ cmake ..
-  $ make
-  ```
+`mkdir build`
 
+Then, run CMake inside that build folder pointing the root folder.
+
+`cd build`
+`cmake ..`
+
+CMake creates the Makefile in the build directory. Now you can just run
+
+`make`
+
+and your files will be compiled.
 
 ## Compiling in CLion
 Compiling in CLion is simple, CLion uses CMake for building, so you only to download the main repository and open CLion.
@@ -74,7 +70,7 @@ Go to ``FILE > Import Project`` and open the path when the project is, click don
 Then appears an info popup, click the button ``Open Project``.
 Then CLion prepares all the IDE so you have to wait for a seconds.
 
-Then in the right top you have a couple of buttons like that: 
+Then in the right top you have a couple of buttons like that:
 
 <img src="http://i.imgur.com/gwbZoA5.png" />
 
@@ -82,16 +78,10 @@ Press in the play green like button and then another popup appears, in the execu
 
 Then the IDE reads the CMake and builds the project.
 
-## Compiling in every other toolchain/IDE
+## Compiling in Visual Studio
 
-First, you have to have CMake. CMake is a tool to generate project files for
-Visual Studio, CodeBlocks, GNU Makefile and many more toolchains. It is really useful for
-a team of people where everyone wants to use his/her preferred IDE and operating
-system. Download it from their website or from your favorite package manager if
-you are on a Linux distribution.
-
-If you look at the repository, you will see a CMakeLists.txt file. It will tell
-CMake on how it should generate the project files for your IDE.
+Download CMake. Also make sure when installing Visual Studio you install the
+C++ compiler too.
 
 Go on and open the CMake GUI. Set the source path to the path where the CMakeLists.txt
 is inside(the repository root) and select any new folder to be the build folder.
@@ -106,9 +96,14 @@ but don't worry it's normal. Then click on the generate button.
 It will generate the project for your chosen toolchain/IDE and you should be
 set to go! Click on `Open Project` and your project should be opened.
 
-If any error did occur, please look if you have done everything that was being said
-here correctly. Also double-check if your IDE is really installed if CMake tells
-you the compiler could not be found.
+Right click on the project `Community Project` and then click `Set as startup project`
+Click on that green Run Button and the project should compile.
+
+## Program crashes when launching?
+
+Most likely it will happen because you wont have the res/ folder where the
+execute relies. Just copy the folder to your build/ folder and you should be most
+likely good to go.
 
 If there are still error, go to our Discord and ask `kaizi99` for help, there
 could be still bugs in our `CMakeLists.txt` so just tell him.
