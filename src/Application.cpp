@@ -38,6 +38,7 @@ void Application::start()
     BGM.menu.setVolume(30.0f);
     BGM.menu.setLoop(true);
     BGM.play(BGM.menu);
+  
 	while (m_window.isOpen())
 	{
 		m_window.clear();

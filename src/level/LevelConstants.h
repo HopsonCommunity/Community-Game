@@ -6,7 +6,7 @@
 namespace Level
 {
     ///@TODO I am not sure if these are correct values, change as needed
-    constexpr uint32 TILE_SIZE = 32;
+    constexpr float TILE_SIZE = 32;
 }
 
 #endif // LEVELCONSTANTS_H_INCLUDED

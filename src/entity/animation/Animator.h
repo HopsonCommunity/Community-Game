@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "../../util/Timestep.h"
+#include "../../util/Types.h"
 
 namespace Framework
 {
@@ -11,7 +12,7 @@ namespace Framework
 	struct Animation
 	{
 		std::string name;
-		unsigned int xpos, ypos, stride, length, fps;
+		uint xpos, ypos, stride, length, fps;
 	};
 
 	class Animator
