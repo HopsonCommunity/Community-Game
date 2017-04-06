@@ -2,6 +2,7 @@
 
 #include "../entity/Entity.h"
 #include "LevelRenderer.h"
+#include "../states/StatePlaying.h"
 #include <iostream>
 
 namespace Level
@@ -25,6 +26,14 @@ namespace Level
 		m_tiles[x + y * m_width] = &tile;
 	}
 
+    Tile::Tile* Level::getTile(unsigned int x, unsigned int y)
+    {
+        if (x < 0 || x >= m_width || y < 0 || y >= m_height)
+            return nullptr;
+        return
+            m_tiles[x + y * m_width];
+    }
+
 	void Level::update(const Timestep& ts)
 	{
 		for (uint i = 0; i < m_entities.size(); i++)
@@ -39,10 +48,23 @@ namespace Level
 
 	void Level::render(sf::RenderWindow& window)
 	{
-		for (uint x = 0; x < m_width; x++)
+		sf::View view = State::SPlaying::instance->getCamera();
+		float left = view.getCenter().x - view.getSize().x / 2;
+		float right = view.getCenter().x + view.getSize().x / 2;
+		float top = view.getCenter().y - view.getSize().y / 2;
+		float bottom = view.getCenter().y + view.getSize().y / 2;
+		int x0 = (int)(left / TILE_SIZE);
+		int y0 = (int)(top / TILE_SIZE);
+		int x1 = (int)(right / TILE_SIZE) + 1;
+		int y1 = (int)(bottom / TILE_SIZE) + 1;
+
+		for (uint x = x0; x < x1; x++)
 		{
-			for (uint y = 0; y < m_height; y++)
+			for (uint y = y0; y < y1; y++)
 			{
+				if (x < 0 || x >= m_width || y < 0 || y >= m_height)
+					continue;
+
 				if (m_tiles[x + y * m_width] != nullptr)
 				{
 					m_tiles[x + y * m_width]->render(x, y, window);

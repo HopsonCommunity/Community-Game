@@ -35,7 +35,7 @@ void Application::start()
 
 	Timestep timestep(clock.getElapsedTime().asMilliseconds());
 	BGM.loadMusic();
-    BGM.menu.setVolume(30.0f);
+    BGM.menu.setVolume(3.0f);
     BGM.menu.setLoop(true);
     BGM.play(BGM.menu);
   
@@ -95,12 +95,12 @@ void Application::handleEvents(sf::Event& event)
                     break;
 
                 case sf::Keyboard::M:
-                    if(BGM.menu.getStatus() == sf::SoundSource::Playing){
-                        BGM.pause(BGM.menu);
-                    }
-                    else if(BGM.menu.getStatus() == sf::SoundSource::Paused){
-                        BGM.play(BGM.menu);
-                    }
+                    //if(BGM.menu.getStatus() == sf::SoundSource::Playing){
+                    //    BGM.pause(BGM.menu);
+                    //}
+                    //else if(BGM.menu.getStatus() == sf::SoundSource::Paused){
+                    //    BGM.play(BGM.menu);
+                    //}
                     break;
 
                 default:

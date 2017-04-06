@@ -17,13 +17,16 @@ file(GLOB_RECURSE SRC
 # Define the executable
 add_executable(${PROJECT_NAME} ${SRC})
 
-include_directories(SFML/include)
+include_directories(deps/SFML/include)
 add_definitions(-DSFML_STATIC)
 
 set(SFML_BUILD_DOC OFF CACHE BOOL "" FORCE)
 set(SFML_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
-add_subdirectory(SFML)
+add_subdirectory(deps/SFML)
+
+# Copy static files
+file(COPY res/ DESTINATION res/)
 
 target_link_libraries(${PROJECT_NAME} sfml-network sfml-graphics sfml-window sfml-system sfml-audio)
 

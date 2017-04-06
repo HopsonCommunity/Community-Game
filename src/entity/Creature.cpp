@@ -14,14 +14,13 @@ namespace Framework
 	void Creature::update(const Timestep& ts)
 	{
 		m_animator.update(ts);
-		m_direction = Application::instance->mousePosition().x > Application::instance->getWindow().getSize().x / 2;
 		sprite.setScale(static_cast<float>(m_direction ? 1 : -1), static_cast<float>(1));
 		m_walking = false;
 	}
 
 	void Creature::applyVelocity(float dt)
 	{
-		auto colliding = Physics::tileCollision(position, velocity, m_hitBox, *level, dt);
+		auto colliding = std::make_pair(false, false);//Physics::tileCollision(position, velocity, m_hitBox, *level, dt);
 
 		if (!colliding.first)
 			position.x += velocity.x * dt;
