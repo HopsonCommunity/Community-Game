@@ -3,7 +3,7 @@
 #include "../util/Types.h"
 #include "SFML/Graphics.hpp"
 
-#include <map>
+#include <vector>
 
 namespace Level
 {
@@ -11,8 +11,7 @@ namespace Level
 	class LevelRenderer
 	{
 	private:
-		static std::vector<sf::Vector3f> positions;
-		static std::vector<sf::Sprite*> sprites;
+		static std::vector<std::pair<sf::Vector3f, sf::Sprite*>> sprites;
 
 		static sf::RenderWindow* renderWindow;
 

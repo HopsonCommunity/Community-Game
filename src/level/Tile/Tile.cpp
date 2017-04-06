@@ -3,6 +3,7 @@
 #include <iostream>
 #include "WallTile.h"
 #include "../../Application.h"
+#include "../Level.h"
 
 #include <SFML/Graphics/View.hpp>
 
@@ -33,10 +34,14 @@ namespace Level
 			m_solid(solid)
 		{}
 
-		void Tile::render(uint32 x, uint32 y, sf::RenderWindow& window)
+		void Tile::render(uint32 x, uint32 y, Level& level, sf::RenderWindow& window)
 		{
-			m_sprite.setPosition(x * TILE_SIZE, y * TILE_SIZE);
-			window.draw(m_sprite);
+			Tile* nextTile = level.getTile(x, y + 1);
+			if (nextTile == nullptr || !nextTile->isSolid())
+			{
+				m_sprite.setPosition(x * TILE_SIZE, y * TILE_SIZE);
+				window.draw(m_sprite);
+			}
 		}
 
 	}

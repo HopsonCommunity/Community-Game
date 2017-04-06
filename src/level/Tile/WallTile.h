@@ -20,7 +20,7 @@ namespace Level
 		public:
 			WallTile(uint8 id, sf::Sprite spriteTop, sf::Sprite spriteSide, float height, bool solid);
 
-			void render(uint32 x, uint32 y, sf::RenderWindow& window);
+			void render(uint32 x, uint32 y, Level& level, sf::RenderWindow& window) override;
 		};
 
 	}
