@@ -33,45 +33,14 @@ namespace Framework
 
 		float angle = toDegrees(theta);
 
-		int xdir = 0;
-		int ydir = 0;
-
 		if (angle > -135 && angle < -45)
-			ydir--; //UP
+			walk(UP);
 		if (angle < 135 && angle > 45)
-			ydir++; //DOWN
+			walk(DOWN);
 		if (angle > 135 || angle < -135)
-			xdir--; //LEFT
+			walk(LEFT);
 		if (angle > -45 && angle < 45)
-			xdir++; //RIGHT
-
-		if (xdir > 0)
-		{
-			if (ydir > 0)
-				walk(DOWN_RIGHT);
-			else if (ydir < 0)
-				walk(UP_RIGHT);
-			else
-				walk(RIGHT);
-			m_direction = true;
-		}
-		else if (xdir < 0)
-		{
-			if (ydir > 0)
-				walk(DOWN_LEFT);
-			else if (ydir < 0)
-				walk(UP_LEFT);
-			else
-				walk(LEFT);
-			m_direction = false;
-		}
-		else
-		{
-			if (ydir > 0)
-				walk(DOWN);
-			else if (ydir < 0)
-				walk(UP);
-		}
+			walk(RIGHT);
 
 		applyVelocity(ts.asSeconds());
 		m_animator.setAnim(m_walking ? "run" : "idle");
