@@ -8,6 +8,12 @@
 
 namespace Level
 {
+	class Level;
+}
+
+namespace Level
+{
+
 namespace Tile
 {
 
@@ -33,7 +39,7 @@ namespace Tile
             public:
                 Tile(uint8 id, sf::Sprite sprite, bool solid);
 
-                virtual void render(uint32 x, uint32 y, sf::RenderWindow& window);
+                virtual void render(uint32 x, uint32 y, Level& level, sf::RenderWindow& window);
 
 				inline bool isSolid() { return m_solid; }
 		};

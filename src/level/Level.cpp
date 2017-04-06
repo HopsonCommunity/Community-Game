@@ -58,16 +58,16 @@ namespace Level
 		int x1 = (int)(right / TILE_SIZE) + 1;
 		int y1 = (int)(bottom / TILE_SIZE) + 1;
 
-		for (uint x = x0; x < x1; x++)
+		for (int x = x0; x < x1; x++)
 		{
-			for (uint y = y0; y < y1; y++)
+			for (int y = y0; y < y1; y++)
 			{
 				if (x < 0 || x >= m_width || y < 0 || y >= m_height)
 					continue;
 
 				if (m_tiles[x + y * m_width] != nullptr)
 				{
-					m_tiles[x + y * m_width]->render(x, y, window);
+					m_tiles[x + y * m_width]->render(x, y, *this, window);
 				}
 			}
 		}
