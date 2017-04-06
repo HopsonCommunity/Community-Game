@@ -25,6 +25,9 @@ set(SFML_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 add_subdirectory(deps/SFML)
 
+# Copy static files
+file(COPY res/ DESTINATION res/)
+
 target_link_libraries(${PROJECT_NAME} sfml-network sfml-graphics sfml-window sfml-system sfml-audio)
 
 # Enable C++ 14
