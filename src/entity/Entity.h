@@ -1,46 +1,48 @@
-#pragma once
+﻿#pragma once
 
 #include "../util/Types.h"
 
-#include <SFML/Graphics.hpp>
-#include <memory>
+#include "component/Component.h"
 
-#include "Damage.h"
-#include "Stats.h"
+#include <unordered_map>
 
-#include "../level/Level.h"
+struct Timestep;
 
 namespace Framework
 {
-
-	class Entity : public IDamageable
+	class Entity
 	{
 	private:
-		std::vector<std::shared_ptr<StatusEffect>> m_activeEffects;
-
-	protected:
-		int32 m_health;
-		Stats m_stats;
-
+		uint64 m_ID;
+		std::unordered_map<ComponentType*, Component*> m_components;
 	public:
-		///@TODO Public for now. Change later
-		Level::Level* level;
-		sf::Vector2f position;
-		sf::Vector2f velocity;
-		sf::Sprite sprite;
+		Entity();
+		Entity(sf::Vector2f& position, sf::Sprite& sprite);
 
-    public:
-        Entity();
+		void addComponent(Component* component);
 
-		virtual void update(const Timestep& ts);
-		virtual void render(sf::RenderWindow& window);
+		virtual void update(const Timestep& ts) {};
 
-		virtual void applyVelocity(float dt);
-		// Default entity doesn't care about damage source.
-		virtual void applyDamage(const Damage& dmg) override;
-		void addEffect(std::shared_ptr<StatusEffect> effect);    
+		template<typename T>
+		const T* getComponent() const
+		{
+			return getComponentInternal<T>();
+		}
 
-        int32 getHealth();
-		const Stats& getStats();
+		template<typename T>
+		T* getComponent()
+		{
+			return (T*)getComponentInternal<T>();
+		}
+	private:
+		template <typename T>
+		const T* getComponentInternal() const
+		{
+			ComponentType* type = T::getStaticType();
+			auto it = m_components.find(type);
+			if (it == m_components.end())
+				return nullptr;
+			return (T*)it->second;
+		}
 	};
 }

@@ -1,31 +1,38 @@
-#include "Player.h"
+﻿#include "Player.h"
 
 #include "../Application.h"
+
+#include "component/Components.h"
 
 namespace Framework
 {
 	Player::Player()
+	: Entity()
 	{
-		sprite = sf::Sprite(Application::instance->getResources().textures.get("player_modelDefault"), sf::IntRect(0, 0, 32, 64));
+		addComponent(new Framework::SpriteComponent(sf::Sprite(Application::instance->getResources().textures.get("player_modelDefault"), sf::IntRect(0, 0, 32, 64))));
+		addComponent(new Framework::PositionComponent({ -20, -20 }));
+		addComponent(new Framework::VelocityComponent());
 
-		m_animator.addAnim("idle", 0, 0, 32, 8, 7);
-		m_animator.addAnim("run", 0, 64, 32, 8, 14);
-		m_animator.setAnim("idle");
+		m_animator.addAnimation("idle", 0, 0, 32, 8, 7);
+		m_animator.addAnimation("run", 0, 64, 32, 8, 14);
+		m_animator.setAnimation("idle");
 		m_speedWalk = 150;
-
+		
 		auto hb = std::make_shared<HealthBoost>(DURATION_INFINITE, 800, 0);
-		addEffect(hb);
-		m_health = 800;
+	
+		addComponent(new StatsComponent());
+		StatsComponent* c_stats = getComponent<StatsComponent>();
+		
+		c_stats->addEffect(hb);
+		c_stats->stats.health = 800;
 
 		hb->max_health = 7200;
 
-		addEffect(std::make_shared<Defense>(20 * 5, 20, 30));
+		c_stats->addEffect(std::make_shared<Defense>(20 * 5, 20, 30));
 	}
 
 	void Player::update(const Timestep& ts)
 	{
-		Creature::update(ts);
-
 		int xdir = 0;
 		int ydir = 0;
 
@@ -65,21 +72,54 @@ namespace Framework
 		}
 
 		m_direction = Application::instance->mousePosition().x > Application::instance->getWindow().getSize().x / 2;
+		
+		m_animator.setAnimation(m_walking ? "run" : "idle");
 
-		m_animator.setAnim(m_walking ? "run" : "idle");
-		applyVelocity(ts.asSeconds());
+		SpriteComponent* c_sprite = getComponent<SpriteComponent>();
+		m_animator.update(ts, c_sprite->sprite);
+	
+		c_sprite->sprite.setScale(static_cast<float>(m_direction ? 1 : -1), static_cast<float>(1));
+		
+		m_walking = false;
 	}
 
-	void Player::applyDamage(const Damage& dmg)
+	void Player::walk(Direction dir)
 	{
-		float damage_thing = 1; // Never code late at night
+		VelocityComponent* c_vel = getComponent<VelocityComponent>();
+		if (!c_vel)
+			return;
 
-		if (dmg.source == DamageSource::Physical)
-			damage_thing = static_cast<float>(dmg.amount / (dmg.amount - m_stats.armor));
-
-		if (dmg.source == DamageSource::Magic)
-			damage_thing = static_cast<float>(dmg.amount / (dmg.amount - m_stats.magic_resist));
-
-		m_health -= static_cast<int32>(dmg.amount * damage_thing);
+		switch (dir)
+		{
+		case UP:
+			c_vel->velocity.y -= m_speedWalk;
+			break;
+		case UP_RIGHT:
+			c_vel->velocity.x += m_speedWalk * 0.7071067f;
+			c_vel->velocity.y -= m_speedWalk * 0.7071067f;
+			break;
+		case RIGHT:
+			c_vel->velocity.x += m_speedWalk;
+			break;
+		case DOWN_RIGHT:
+			c_vel->velocity.x += m_speedWalk * 0.7071067f;
+			c_vel->velocity.y += m_speedWalk * 0.7071067f;
+			break;
+		case DOWN:
+			c_vel->velocity.y += m_speedWalk;
+			break;
+		case DOWN_LEFT:
+			c_vel->velocity.x -= m_speedWalk * 0.7071067f;
+			c_vel->velocity.y += m_speedWalk * 0.7071067f;
+			break;
+		case LEFT:
+			c_vel->velocity.x -= m_speedWalk;
+			break;
+		case UP_LEFT:
+			c_vel->velocity.x -= m_speedWalk * 0.7071067f;
+			c_vel->velocity.y -= m_speedWalk * 0.7071067f;
+			break;
+		}
+		m_walking = true;
 	}
 }

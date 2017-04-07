@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "Tile/Tile.h"
 #include <iostream>
@@ -6,6 +6,7 @@
 
 namespace Framework
 {
+	class System;
 	class Entity;
 	class Player;
 }
@@ -28,7 +29,9 @@ namespace Level
             uint m_width;
             uint m_height;
             std::vector<Tile::Tile*> m_tiles;
-            std::vector<Framework::Entity*> m_entities;
+            
+			std::vector<Framework::System*> m_systems;
+			std::vector<Framework::Entity*> m_entities;
 		public:
 			Framework::Player* player;
 	};
