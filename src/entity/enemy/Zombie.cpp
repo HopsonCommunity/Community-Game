@@ -9,7 +9,7 @@ namespace Framework
 {
 	Zombie::Zombie()
 	{
-		sprite = sf::Sprite(Application::instance->getResources().textures.get("player_modelDefault"), sf::IntRect(0, 0, 32, 64));
+		sprite = sf::Sprite(Application::instance->getResources().textures.get("zombie_modelTemp"), sf::IntRect(0, 0, 32, 64));
 
 		m_animator.addAnim("idle", 0, 0, 32, 8, 7);
 		m_animator.addAnim("run", 0, 64, 32, 8, 14);
