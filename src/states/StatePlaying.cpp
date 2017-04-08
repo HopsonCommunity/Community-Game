@@ -62,8 +62,6 @@ namespace State
             }
         }
 
-		m_player.getComponent<Framework::PositionComponent>()->position = sf::Vector2f(data.player.x * 32, data.player.y * 32);
-
         // m_player.sprite.setPosition(500,500);
 /*
 		m_level.setTile(0, 0, *Level::Tile::Tile::fLightStone);
