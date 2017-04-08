@@ -41,16 +41,16 @@ namespace State
 
 		Level::Tile::Tile::loadTiles();
 
-        m_worldGen.generate();
+        m_worldGen.generateMap();
 
-        auto data = m_worldGen.debug();
+        auto data = m_worldGen.getMap();
 
         for (int x = 0; x < Test::WORLD_SIZE; x++)
         {
             for (int y = 0; y < Test::WORLD_SIZE; y++)
             {
-                auto n = data.at(x).at(y);
-                if (n == 0)
+                auto n = data.tiles.at(x).at(y);
+                if (n == 1)
                 {
                     m_level.setTile(x, y, *Level::Tile::Tile::fLightStone);
                 }

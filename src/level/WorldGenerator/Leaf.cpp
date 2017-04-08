@@ -118,7 +118,7 @@ namespace WGenerator
                 }
                 else
                 {
-                    halls.push_back(Rectangle(point1.first, point1.second, (uint)std::abs(w), 3));
+                    halls.push_back(Rectangle(point1.first, point1.second, (uint)std::abs(w) + 3, 3));
                     halls.push_back(Rectangle(point2.first, point2.second, 3, (uint)std::abs(h)));
                 }
             }
