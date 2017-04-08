@@ -24,12 +24,16 @@ namespace State
 	,   m_level(Test::WORLD_SIZE, Test::WORLD_SIZE)
     ,   m_debugMenu(app->getResources().fonts.get("SourceCodePro-Regular"))
     ,   m_worldGen(Test::WORLD_SIZE, Test::WORLD_SIZE, 2355)
+    ,   m_ui(&window)
+    ,   m_button(sf::Rect<int>(10, 10, 150, 50), std::bind(&SPlaying::buttonCallback, this))
     {
 		instance = this;
 
         m_debugMenu.addEntry("A", &m_testInt, 0, 1);
         m_debugMenu.addEntry("B", &m_testFloat, 0, 1);
         m_debugMenu.addEntry("C", &m_testBool);
+
+        m_ui.addComponent(m_button);
 
 		m_camera = sf::View(sf::Vector2f(0, 0), sf::Vector2f(static_cast<float>(window.getSize().x), static_cast<float>(window.getSize().y)));
 		window.setView(m_camera);
@@ -126,6 +130,8 @@ namespace State
         m_testFloat = ts.asSeconds();
         m_testInt = static_cast<int>(ts.asMillis());
         m_testBool = m_testInt % 2 == 1 ? true : false;
+
+        m_ui.update(Application::instance->getInputManager());
     }
 
     void SPlaying::render(sf::RenderWindow& window)
@@ -134,5 +140,6 @@ namespace State
 		Level::LevelRenderer::setRenderWindow(&window);
 		m_level.render(window);
         m_debugMenu.render();
+        m_ui.render();
     }
 }

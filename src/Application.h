@@ -46,6 +46,8 @@ class Application
 		const uint getUPS() { return m_updatesPerSecond; }
 		const float getFrameTime() { return m_frameTime; }
 
+        Input::Input getInputManager() { return m_inputManager; }
+
         void setVSync(bool enabled);
 
 		bool inputPressed(std::string action);
