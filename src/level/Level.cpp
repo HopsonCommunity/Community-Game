@@ -1,9 +1,10 @@
-#include "Level.h"
+﻿#include "Level.h"
 
 #include "../entity/Entity.h"
 #include "LevelRenderer.h"
 #include "../states/StatePlaying.h"
 #include <iostream>
+#include "../entity/component/Components.h"
 
 namespace Level
 {
@@ -13,11 +14,14 @@ namespace Level
 		m_height(height)
 	{
 		m_tiles.resize(width*height);
+
+		m_systems.push_back(std::make_unique<Framework::MoveSystem>());
+		m_systems.push_back(std::make_unique<Framework::StatsSystem>());
 	}
 
 	void Level::addEntity(Framework::Entity* entity)
 	{
-		entity->level = this;
+		// entity->level = this;
 		m_entities.push_back(entity);
 	}
 
@@ -41,6 +45,10 @@ namespace Level
 			if (m_entities[i] != nullptr)
 			{
 				Framework::Entity* e = m_entities[i];
+				for (auto& system : m_systems)
+				{
+					system->update(ts, e);
+				}
 				e->update(ts);
 			}
 		}
@@ -76,7 +84,16 @@ namespace Level
 			if (m_entities[i] != nullptr)
 			{
 				Framework::Entity* e = m_entities[i];
-				e->render(window);
+
+				///@TODO: Move to render system (look MoveSystem, StatsSystem in System.h/cpp) 
+				Framework::PositionComponent* c_pos = e->getComponent<Framework::PositionComponent>();
+				Framework::SpriteComponent* c_sprite = e->getComponent<Framework::SpriteComponent>();
+
+				if (c_pos && c_sprite)
+				{
+					c_sprite->sprite.setOrigin(static_cast<float>(c_sprite->sprite.getTextureRect().width / 2), static_cast<float>(c_sprite->sprite.getTextureRect().height));
+					LevelRenderer::renderEntitySprite(c_pos->position.x, c_pos->position.y, c_sprite->sprite);
+				}
 			}
 		}
 		LevelRenderer::drawAll();

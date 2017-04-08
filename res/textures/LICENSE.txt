@@ -1,0 +1,5 @@
+The copyright for the player texture and the tile textures (even the modified versions)
+belongs to RagingRabbit. You are not allowed to use or redistribute them in any way other
+than with this project.
+
+For more info write an e-mail to ragingrab@gmail.com

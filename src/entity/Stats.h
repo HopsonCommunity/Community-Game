@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "../util/Types.h"
 
@@ -7,7 +7,8 @@ namespace Framework
 	// Do not change entities' stats directly. Use StatusEffects. Example in Player constructor.
 	struct Stats
 	{
-		int32 max_health, health_regen, armor, magic_resist;
+		// Only change health directly
+		int32 health, max_health, health_regen, armor, magic_resist;
 
 		void reset() { max_health = 0, health_regen = 0, armor = 0, magic_resist = 0; }
 	};
@@ -33,7 +34,6 @@ namespace Framework
 		void manageDuration();
 	};
 
-	// All stats related to health
 	class HealthBoost : public StatusEffect
 	{
 	public:
@@ -45,7 +45,6 @@ namespace Framework
 		void effect(Stats& stats) override;
 	};
 
-	// All stats related to defense
 	class Defense : public StatusEffect
 	{
 	public:
