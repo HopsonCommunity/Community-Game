@@ -41,8 +41,8 @@ namespace Framework
 		{
 			ComponentType* type = T::getStaticType();
 			std::unordered_map<ComponentType*, std::unique_ptr<Component>>::const_iterator it = m_components.find(type);
-			//if (it == m_components.end())
-			//	return nullptr;
+			if (it == m_components.end())
+				return nullptr;
 			return it->second;
 		}
 	};

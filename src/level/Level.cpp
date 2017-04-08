@@ -5,7 +5,6 @@
 #include "../states/StatePlaying.h"
 #include <iostream>
 #include "../entity/component/Components.h"
-#include "../entity/system/System.h"
 
 namespace Level
 {
@@ -16,8 +15,8 @@ namespace Level
 	{
 		m_tiles.resize(width*height);
 
-		m_systems.push_back(new Framework::MoveSystem());
-		m_systems.push_back(new Framework::StatsSystem());
+		m_systems.push_back(std::make_unique<Framework::MoveSystem>());
+		m_systems.push_back(std::make_unique<Framework::StatsSystem>());
 	}
 
 	void Level::addEntity(Framework::Entity* entity)
@@ -46,7 +45,7 @@ namespace Level
 			if (m_entities[i] != nullptr)
 			{
 				Framework::Entity* e = m_entities[i];
-				for (auto system : m_systems)
+				for (auto& system : m_systems)
 				{
 					system->update(ts, e);
 				}

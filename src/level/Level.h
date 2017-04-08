@@ -4,9 +4,10 @@
 #include <iostream>
 #include "../util/Timestep.h"
 
+#include "../entity/system/System.h"
+
 namespace Framework
 {
-	class System;
 	class Entity;
 	class Player;
 }
@@ -30,7 +31,7 @@ namespace Level
             uint m_height;
             std::vector<Tile::Tile*> m_tiles;
             
-			std::vector<Framework::System*> m_systems;
+			std::vector<std::unique_ptr<Framework::System>> m_systems;
 			std::vector<Framework::Entity*> m_entities;
 		public:
 			Framework::Player* player;
