@@ -9,9 +9,9 @@ namespace Framework
 	Player::Player()
 	: Entity()
 	{
-		addComponent(new Framework::SpriteComponent(sf::Sprite(Application::instance->getResources().textures.get("player_modelDefault"), sf::IntRect(0, 0, 32, 64))));
-		addComponent(new Framework::PositionComponent({ -20, -20 }));
-		addComponent(new Framework::VelocityComponent());
+		addComponent(std::make_unique<Framework::SpriteComponent>(sf::Sprite(Application::instance->getResources().textures.get("player_modelDefault"), sf::IntRect(0, 0, 32, 64))));
+		addComponent(std::make_unique<Framework::PositionComponent>(sf::Vector2f(-20, -20 )));
+		addComponent(std::make_unique<Framework::VelocityComponent>());
 
 		m_animator.addAnimation("idle", 0, 0, 32, 8, 7);
 		m_animator.addAnimation("run", 0, 64, 32, 8, 14);
@@ -20,7 +20,7 @@ namespace Framework
 		
 		auto hb = std::make_shared<HealthBoost>(DURATION_INFINITE, 800, 0);
 	
-		addComponent(new StatsComponent());
+		addComponent(std::make_unique<Framework::StatsComponent>());
 		StatsComponent* c_stats = getComponent<StatsComponent>();
 		
 		c_stats->addEffect(hb);

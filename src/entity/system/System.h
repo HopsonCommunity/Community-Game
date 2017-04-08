@@ -1,9 +1,10 @@
-#pragma once
+﻿#pragma once
 
 #include <vector>
 
 #include "../Entity.h"
-#include "../../util/Timestep.h"
+
+struct Timestep;
 
 namespace Framework
 {

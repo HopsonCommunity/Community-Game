@@ -14,13 +14,13 @@ namespace Framework
 	Entity::Entity(sf::Vector2f& position, sf::Sprite& sprite)
 	: m_ID(Random::uint64InRange(0, 18446744073709551614))
 	{
-		addComponent(new PositionComponent(position));
-		addComponent(new SpriteComponent(sprite));
+		addComponent(std::make_unique<PositionComponent>(position));
+		addComponent(std::make_unique<SpriteComponent>(sprite));
 	}
 
-	void Entity::addComponent(Component* component)
+	void Entity::addComponent(std::unique_ptr<Component> component)
 	{
 		if (component->getType())
-			m_components[component->getType()] = component;
+			m_components[component->getType()] = std::move(component);
 	}
 }

@@ -1,4 +1,4 @@
-#include "StatsComponent.h"
+﻿#include "StatsComponent.h"
 
 namespace Framework
 {
