@@ -92,16 +92,7 @@ void Application::handleEvents(sf::Event& event)
             {
                 case sf::Keyboard::E:
                     m_window.close();
-                    break;
-
-                case sf::Keyboard::M:
-                    //if(BGM.menu.getStatus() == sf::SoundSource::Playing){
-                    //    BGM.pause(BGM.menu);
-                    //}
-                    //else if(BGM.menu.getStatus() == sf::SoundSource::Paused){
-                    //    BGM.play(BGM.menu);
-                    //}
-                    break;
+					break;
 
                 default:
                     break;
