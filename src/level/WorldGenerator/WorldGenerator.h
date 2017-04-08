@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/Audio.hpp>
 #include "../../util/Types.h"
 #include "../../util/Random.h"
 #include "Leaf.h"
@@ -7,7 +8,9 @@
 namespace WGenerator
 {
     struct Map {
-        std::vector<std::vector<byte>> tiles;
+        std::vector<std::vector<byte> > tiles;
+        std::vector<std::pair<sf::Vector2f, byte> > entites;
+        sf::Vector2f player;
     };
 
     class WorldGenerator
@@ -23,6 +26,8 @@ namespace WGenerator
             std::vector<std::shared_ptr<Rectangle> > getRooms();
             std::vector<std::shared_ptr<Rectangle> > getRandomSquares();
             std::vector<std::shared_ptr<Rectangle> > getHalls();
+            sf::Vector2f placePlayer(uint roomId);
+            std::vector<std::pair<sf::Vector2f, byte> > placeEntities(uint spawnRoomId, byte id);
             std::vector<std::vector<byte > > render(std::vector<std::pair<std::vector<std::shared_ptr<Rectangle> >, byte > > data);
 
             uint m_minSize;
