@@ -124,10 +124,10 @@ namespace WGenerator
         {
             for (int j=0; j < map[i].size(); j++)
             {
-                if(map[i][j] == 1) std::cout<<"XXX";
-                else std::cout<<"   ";
+                //if(map[i][j] == 1) //std::cout<<"XXX";
+//                else std::cout<<"   ";
             }
-            std::cout<<std::endl;
+            //std::cout<<std::endl;
         }
         return map;
     }

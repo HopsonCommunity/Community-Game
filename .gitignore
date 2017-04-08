@@ -38,6 +38,8 @@ Win32/
 Community-Game.dir/
 build/
 
+.out
+
 
 # Visual Studio profiler
 *.psess

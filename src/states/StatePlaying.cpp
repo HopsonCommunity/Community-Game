@@ -12,7 +12,7 @@ namespace State
 
     namespace Test
     {
-        constexpr int WORLD_SIZE = 50;
+        constexpr int WORLD_SIZE = 100;
     }
 
     SPlaying::SPlaying(Application* app, sf::RenderWindow& window)
@@ -23,7 +23,7 @@ namespace State
     ,   m_player()
 	,   m_level(Test::WORLD_SIZE, Test::WORLD_SIZE)
     ,   m_debugMenu(app->getResources().fonts.get("SourceCodePro-Regular"))
-    ,   m_worldGen(Test::WORLD_SIZE, Test::WORLD_SIZE, 23535)
+    ,   m_worldGen(Test::WORLD_SIZE, Test::WORLD_SIZE, 2355)
     {
 		instance = this;
 
