@@ -24,7 +24,6 @@ namespace Framework
 		float m_speedWalk = 80;
 		bool m_direction;
 		bool m_walking;
-		Animator m_animator;
 	public:
 		Player();
 

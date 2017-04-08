@@ -7,22 +7,22 @@
 namespace Framework
 {
 	Player::Player()
-	: Entity()
+	: Entity(sf::Vector2f(-20, -20), sf::Sprite(Application::instance->getResources().textures.get("player_modelDefault"), sf::IntRect(0, 0, 32, 64)))
 	{
-		addComponent(std::make_unique<Framework::SpriteComponent>(sf::Sprite(Application::instance->getResources().textures.get("player_modelDefault"), sf::IntRect(0, 0, 32, 64))));
-		addComponent(std::make_unique<Framework::PositionComponent>(sf::Vector2f(-20, -20 )));
 		addComponent(std::make_unique<Framework::VelocityComponent>());
 
-		m_animator.addAnimation("idle", 0, 0, 32, 8, 7);
-		m_animator.addAnimation("run", 0, 64, 32, 8, 14);
-		m_animator.setAnimation("idle");
 		m_speedWalk = 150;
-		
+
+		SpriteComponent* c_sprite = getComponent<SpriteComponent>();
+		c_sprite->animator.addAnimation("idle", 0, 0, 32, 8, 7);
+		c_sprite->animator.addAnimation("run", 0, 64, 32, 8, 14);
+		c_sprite->animator.setAnimation("idle");
+
 		auto hb = std::make_shared<HealthBoost>(DURATION_INFINITE, 800, 0);
 	
 		addComponent(std::make_unique<Framework::StatsComponent>());
 		StatsComponent* c_stats = getComponent<StatsComponent>();
-		
+				
 		c_stats->addEffect(hb);
 		c_stats->stats.health = 800;
 
@@ -72,14 +72,11 @@ namespace Framework
 		}
 
 		m_direction = Application::instance->mousePosition().x > Application::instance->getWindow().getSize().x / 2;
-		
-		m_animator.setAnimation(m_walking ? "run" : "idle");
 
 		SpriteComponent* c_sprite = getComponent<SpriteComponent>();
-		m_animator.update(ts, c_sprite->sprite);
-	
 		c_sprite->sprite.setScale(static_cast<float>(m_direction ? 1 : -1), static_cast<float>(1));
-		
+		c_sprite->animator.setAnimation(m_walking ? "run" : "idle");
+
 		m_walking = false;
 	}
 

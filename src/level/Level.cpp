@@ -8,7 +8,6 @@
 
 namespace Level
 {
-
 	Level::Level(unsigned int width, unsigned int height)
 		: m_width(width),
 		m_height(height)
@@ -50,6 +49,10 @@ namespace Level
 					system->update(ts, e);
 				}
 				e->update(ts);
+
+				Framework::SpriteComponent* c_sprite = e->getComponent<Framework::SpriteComponent>();
+				if (c_sprite)
+					c_sprite->animator.update(ts, c_sprite->sprite);
 			}
 		}
 	}
