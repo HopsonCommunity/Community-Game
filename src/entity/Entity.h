@@ -1,46 +1,50 @@
-#pragma once
+﻿#pragma once
 
 #include "../util/Types.h"
 
-#include <SFML/Graphics.hpp>
+#include "component/Component.h"
+
 #include <memory>
+#include <unordered_map>
 
-#include "Damage.h"
-#include "Stats.h"
-
-#include "../level/Level.h"
+struct Timestep;
 
 namespace Framework
 {
-
-	class Entity : public IDamageable
+	class Entity
 	{
-	private:
-		std::vector<std::shared_ptr<StatusEffect>> m_activeEffects;
+        public:
+            Entity();
+            Entity(sf::Vector2f& position, sf::Sprite& sprite);
 
-	protected:
-		int32 m_health;
-		Stats m_stats;
+            void addComponent(std::unique_ptr<Component> component);
 
-	public:
-		///@TODO Public for now. Change later
-		Level::Level* level;
-		sf::Vector2f position;
-		sf::Vector2f velocity;
-		sf::Sprite sprite;
+            virtual void update(const Timestep& ts) {};
 
-    public:
-        Entity();
+            template<typename T>
+            const T* getComponent() const
+            {
+                return getComponentInternal<T>().get();
+            }
 
-		virtual void update(const Timestep& ts);
-		virtual void render(sf::RenderWindow& window);
+            template<typename T>
+            T* getComponent()
+            {
+                return (T*)getComponentInternal<T>();
+            }
 
-		virtual void applyVelocity(float dt);
-		// Default entity doesn't care about damage source.
-		virtual void applyDamage(const Damage& dmg) override;
-		void addEffect(std::shared_ptr<StatusEffect> effect);    
+        private:
+            template <typename T>
+            const Component* getComponentInternal() const
+            {
+                ComponentType* type = T::getStaticType();
+                auto it = m_components.find(type);
+                if (it == m_components.end())
+                    return nullptr;
+                return it->second.get();
+            }
 
-        int32 getHealth();
-		const Stats& getStats();
+            uint64 m_ID;
+            std::unordered_map<ComponentType*, std::unique_ptr<Component>> m_components;
 	};
 }

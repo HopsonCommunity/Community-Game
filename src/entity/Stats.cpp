@@ -22,7 +22,7 @@ namespace Framework
 		, health_regen(healthregen)
 	{}
 	
-	void HealthBoost::effect(Stats & stats)
+	void HealthBoost::effect(Stats& stats)
 	{
 		stats.max_health += max_health;
 		stats.health_regen += health_regen;
@@ -34,7 +34,7 @@ namespace Framework
 		, magic_resist(mr)
 	{}
 	
-	void Defense::effect(Stats & stats)
+	void Defense::effect(Stats& stats)
 	{
 		stats.armor += armor;
 		stats.magic_resist += magic_resist;

@@ -1,9 +1,9 @@
-#include "StatePlaying.h"
+﻿#include "StatePlaying.h"
 
 #include "../Application.h"
 #include "../level/Tile/Tile.h"
 #include "../level/LevelRenderer.h"
-#include "../entity/enemy/Zombie.h"
+#include "../entity/component/Components.h"
 
 namespace State
 {
@@ -12,7 +12,7 @@ namespace State
 
     namespace Test
     {
-        constexpr int WORLD_SIZE = 50;
+        constexpr int WORLD_SIZE = 100;
     }
 
     SPlaying::SPlaying(Application* app, sf::RenderWindow& window)
@@ -23,7 +23,7 @@ namespace State
     ,   m_player()
 	,   m_level(Test::WORLD_SIZE, Test::WORLD_SIZE)
     ,   m_debugMenu(app->getResources().fonts.get("SourceCodePro-Regular"))
-    ,   m_worldGen(Test::WORLD_SIZE, Test::WORLD_SIZE, 23535)
+    ,   m_worldGen(Test::WORLD_SIZE, Test::WORLD_SIZE, 2355)
     {
 		instance = this;
 
@@ -37,20 +37,20 @@ namespace State
 		m_level.addEntity(&m_player);
 		m_level.player = &m_player;
 
-		m_level.addEntity(new Framework::Zombie());
+		// m_level.addEntity(new Framework::Zombie());
 
 		Level::Tile::Tile::loadTiles();
 
-        m_worldGen.generate();
+        m_worldGen.generateMap();
 
-        auto data = m_worldGen.debug();
+        auto data = m_worldGen.getMap();
 
         for (int x = 0; x < Test::WORLD_SIZE; x++)
         {
             for (int y = 0; y < Test::WORLD_SIZE; y++)
             {
-                auto n = data.at(x).at(y);
-                if (n == 0)
+                auto n = data.tiles.at(x).at(y);
+                if (n == 1)
                 {
                     m_level.setTile(x, y, *Level::Tile::Tile::fLightStone);
                 }
@@ -62,7 +62,9 @@ namespace State
             }
         }
 
-        m_player.sprite.setPosition(500,500);
+		m_player.getComponent<Framework::PositionComponent>()->position = sf::Vector2f(data.player.x * 32, data.player.y * 32);
+
+        // m_player.sprite.setPosition(500,500);
 /*
 		m_level.setTile(0, 0, *Level::Tile::Tile::fLightStone);
 		m_level.setTile(2, 0, *Level::Tile::Tile::fLightStone);
@@ -111,13 +113,17 @@ namespace State
     {
 		m_level.update(ts);
 
+		m_player.update(ts);
+
 		int mouseX = Application::instance->mousePosition().x;
 		int mouseY = Application::instance->mousePosition().y;
 		int halfWidth = Application::instance->getWindow().getSize().x / 2;
 		int halfHeight = Application::instance->getWindow().getSize().y / 2;
 		float offsetX = (mouseX - halfWidth) * 0.1f;
 		float offsetY = (mouseY - halfHeight) * 0.1f;
-		m_camera.setCenter(m_player.position.x + offsetX, m_player.position.y + offsetY);
+
+		Framework::PositionComponent* c_pos = m_player.getComponent<Framework::PositionComponent>();
+		m_camera.setCenter(c_pos->position.x + offsetX, c_pos->position.y + offsetY);
 
         m_testFloat = ts.asSeconds();
         m_testInt = static_cast<int>(ts.asMillis());
@@ -129,7 +135,6 @@ namespace State
 		window.setView(m_camera);
 		Level::LevelRenderer::setRenderWindow(&window);
 		m_level.render(window);
-        //m_tileMap.draw(window);
         m_debugMenu.render();
     }
 }

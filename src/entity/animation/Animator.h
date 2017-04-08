@@ -1,14 +1,13 @@
-#pragma once
+﻿#pragma once
 
-#include <SFML/Graphics.hpp>
 #include <vector>
+#include <SFML/Graphics.hpp>
 
 #include "../../util/Timestep.h"
 #include "../../util/Types.h"
 
 namespace Framework
 {
-
 	struct Animation
 	{
 		std::string name;
@@ -18,19 +17,14 @@ namespace Framework
 	class Animator
 	{
 	private:
-		sf::Sprite* m_sprite;
-		std::vector<Animation> m_anims;
+		std::vector<Animation> m_animations;
 		std::string m_current;
 
 		float m_timer = 0;
-
 	public:
-		Animator(sf::Sprite* sprite);
+		void setAnimation(const std::string name);
+		void addAnimation(const std::string& name, uint xpos, uint ypos, uint stride, uint length, uint fps);
 
-		void setAnim(const std::string name);
-		void addAnim(const std::string& name, unsigned int xpos, unsigned int ypos, unsigned int stride, unsigned int length, unsigned int fps);
-
-		void update(const Timestep& ts);
+		void update(const Timestep& ts, sf::Sprite& destsprite);
 	};
-
 }
