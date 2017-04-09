@@ -66,33 +66,7 @@ namespace State
             }
         }
 
-        // m_player.sprite.setPosition(500,500);
-/*
-		m_level.setTile(0, 0, *Level::Tile::Tile::fLightStone);
-		m_level.setTile(2, 0, *Level::Tile::Tile::fLightStone);
-		m_level.setTile(3, 0, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(4, 0, *Level::Tile::Tile::fLightStone);
-
-		m_level.setTile(0, 1, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(2, 1, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(3, 1, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(4, 1, *Level::Tile::Tile::fDarkStone);
-
-		m_level.setTile(0, 2, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(4, 2, *Level::Tile::Tile::fDarkStone);
-
-		m_level.setTile(0, 3, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(1, 3, *Level::Tile::Tile::stoneWall);
-		m_level.setTile(2, 3, *Level::Tile::Tile::stoneWall);
-		m_level.setTile(3, 3, *Level::Tile::Tile::stoneWall);
-		m_level.setTile(4, 3, *Level::Tile::Tile::fDarkStone);
-
-		m_level.setTile(0, 4, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(1, 4, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(2, 4, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(3, 4, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(4, 4, *Level::Tile::Tile::fDarkStone);
-*/
+		m_player.getComponent<Framework::PositionComponent>()->position = sf::Vector2f(data.playerPosition.x * 32, data.playerPosition.y * 32);
     }
 
     void SPlaying::event(sf::Event& event)
@@ -131,7 +105,9 @@ namespace State
         m_testInt = static_cast<int>(ts.asMillis());
         m_testBool = m_testInt % 2 == 1 ? true : false;
 
-        m_ui.update(Application::instance->getInputManager());
+
+		Input::Input input = Application::instance->getInputManager();
+        m_ui.update(input);
     }
 
     void SPlaying::render(sf::RenderWindow& window)
