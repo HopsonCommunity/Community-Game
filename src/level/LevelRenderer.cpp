@@ -40,26 +40,7 @@ namespace Level
 			[](const std::pair<sf::Vector3f, sf::Sprite*>& lhs, const std::pair<sf::Vector3f, sf::Sprite*>& rhs) {
 			return lhs.first.y < rhs.first.y;
 		});
-		/*
-		for (unsigned int i = 0; i < positions.size(); i++)
-		{
-			for (unsigned int j = 0; j < positions.size() - 1; j++)
-			{
-				if (positions[j].y > positions[j + 1].y)
-				{
-					sf::Vector3f position = positions[j];
-					sf::Vector3f nextPosition = positions[j + 1];
-					positions[j] = nextPosition;
-					positions[j + 1] = position;
-					sf::Sprite* sprite = sprites[j];
-					sf::Sprite* nextSprite = sprites[j + 1];
-					sprites[j] = nextSprite;
-					sprites[j + 1] = sprite;					
-				}
-			}
-		}
-		*/
-
+		
 		//Rendering
 		for (unsigned int i = 0; i < sprites.size(); i++)
 		{
