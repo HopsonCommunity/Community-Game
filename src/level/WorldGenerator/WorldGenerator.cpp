@@ -125,6 +125,15 @@ namespace WGenerator
 		data.push_back(std::make_pair<std::vector<std::shared_ptr<Rectangle> >, byte >(getRandomSquares(), 1));
 		data.push_back(std::make_pair<std::vector<std::shared_ptr<Rectangle> >, byte >(getHalls(), 1));
 		map.tiles = render(data);
+		uint numberOfRooms = getRooms().size();
+		map.playerPosition = placePlayer(m_generator.uint64InRange(0, numberOfRooms));
 		return map;
 	}
+
+	sf::Vector2<uint> WorldGenerator::placePlayer(uint roomId) {
+		std::vector<std::shared_ptr<Rectangle> > rooms = getRooms();
+		return sf::Vector2<uint>(((rooms[roomId]->x * 2) + rooms[roomId]->width) / 2, ((rooms[roomId]->y * 2) + rooms[roomId]->height) / 2);
+	}
+
+
 }

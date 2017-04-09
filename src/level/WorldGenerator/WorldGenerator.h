@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/System/Vector2.hpp>
 #include "../../util/Types.h"
 #include "../../util/Random.h"
 #include "Leaf.h"
@@ -8,6 +9,7 @@ namespace WGenerator
 {
     struct Map {
         std::vector<std::vector<byte>> tiles;
+        sf::Vector2<uint> playerPosition;
     };
 
     class WorldGenerator
@@ -24,6 +26,8 @@ namespace WGenerator
             std::vector<std::shared_ptr<Rectangle> > getRandomSquares();
             std::vector<std::shared_ptr<Rectangle> > getHalls();
             std::vector<std::vector<byte > > render(std::vector<std::pair<std::vector<std::shared_ptr<Rectangle> >, byte > > data);
+
+            sf::Vector2<uint> placePlayer(uint roomId);
 
             uint m_minSize;
             uint m_maxSize;
