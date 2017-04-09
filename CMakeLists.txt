@@ -23,6 +23,7 @@ add_definitions(-DSFML_STATIC)
 set(SFML_BUILD_DOC OFF CACHE BOOL "" FORCE)
 set(SFML_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+set(CMAKE_BUILD_TYPE Debug)
 add_subdirectory(deps/SFML)
 
 # Copy static files

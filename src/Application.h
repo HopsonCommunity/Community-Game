@@ -46,13 +46,15 @@ class Application
 		const uint getUPS() { return m_updatesPerSecond; }
 		const float getFrameTime() { return m_frameTime; }
 
+        Input::Input getInputManager() { return m_inputManager; }
+
         void setVSync(bool enabled);
 
 		bool inputPressed(std::string action);
 		sf::Vector2i mousePosition();
 
 		sf::RenderWindow& getWindow();
-		Sound::BGM BGM;
+		Sound::BGM::BGM BGM;
     private:
 		uint m_framesPerSecond, m_updatesPerSecond;
 		float m_frameTime;

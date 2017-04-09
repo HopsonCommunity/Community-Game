@@ -14,6 +14,10 @@ namespace Input
 	class Input
 	{
 	public:
+        static Input* instance;
+
+        Input() { instance = this; }
+
 		Input(InputScheme* inputScheme);
 
 		bool isInput(std::string action);
