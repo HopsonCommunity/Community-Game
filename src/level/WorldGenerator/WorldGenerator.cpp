@@ -125,6 +125,39 @@ namespace WGenerator
 		data.push_back(std::make_pair<std::vector<std::shared_ptr<Rectangle> >, byte >(getRandomSquares(), 1));
 		data.push_back(std::make_pair<std::vector<std::shared_ptr<Rectangle> >, byte >(getHalls(), 1));
 		map.tiles = render(data);
+		uint spawnRoomId = m_generator.uint64InRange(0, getRooms().size());
+		map.player = placePlayer(spawnRoomId);
+		map.entites = placeEntities(spawnRoomId, 1);
 		return map;
 	}
+
+	sf::Vector2f WorldGenerator::placePlayer(uint roomId)
+	{
+		std::vector<std::shared_ptr<Rectangle> > rooms = getRooms();
+
+		return sf::Vector2f((uint)(rooms[roomId]->x + rooms[roomId]->x + rooms[roomId]->width) / 2,
+										  (uint)(rooms[roomId]->y + rooms[roomId]->y + rooms[roomId]->height) / 2);
+	}
+
+	std::vector<std::pair<sf::Vector2f, byte> > WorldGenerator::placeEntities(uint spawnRoomId, byte id) {
+		std::vector<std::shared_ptr<Rectangle> > rooms = getRooms();
+		std::vector<std::pair<sf::Vector2f, byte> > entities;
+		for (int i=0; i < rooms.size(); i++)
+		{
+			if (i != spawnRoomId)
+			{
+				int numberOfZombies = m_generator.intInRange(1, 3);
+				std::cout<<numberOfZombies<<std::endl;
+				for(int j = 0; j < numberOfZombies; j++)
+				{
+					sf::Vector2f position = sf::Vector2f(m_generator.uint64InRange(rooms[i]->x + 1, rooms[i]->x + rooms[i]->width - 1),
+								 m_generator.uint64InRange(rooms[i]->y + 1, rooms[i]->y + rooms[i]->height - 1));
+					std::cout<<position.x<<" "<<position.y<<std::endl;
+					entities.push_back(std::make_pair(position, id));
+				}
+			}
+		}
+		return entities;
+	}
+
 }
