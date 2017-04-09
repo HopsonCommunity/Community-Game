@@ -24,6 +24,16 @@ namespace Level
 		m_entities.push_back(entity);
 	}
 
+	Framework::Entity * Level::getEntity(const uint64 & id)
+	{
+		for (auto it = m_entities.begin(); it != m_entities.end(); ++it)
+		{
+			if ((*it)->getID() == id)
+				return (*it);
+		}
+		return nullptr;
+	}
+
 	void Level::setTile(unsigned int x, unsigned int y, Tile::Tile& tile)
 	{
 		m_tiles[x + y * m_width] = &tile;

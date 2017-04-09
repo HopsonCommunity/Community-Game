@@ -19,11 +19,14 @@ namespace Level
         public:
             Level() {}
             Level(unsigned int width, unsigned int height);
-
+			
             void addEntity(Framework::Entity* entity);
-            void setTile(unsigned int x, unsigned int y, Tile::Tile& tile);
+			Framework::Entity* getEntity(const uint64& id);
+
+			void setTile(unsigned int x, unsigned int y, Tile::Tile& tile);
             Tile::Tile* getTile(unsigned int x, unsigned int y);
-            void update(const Timestep& ts);
+            
+			void update(const Timestep& ts);
             void render(sf::RenderWindow& window);
 
         private:
@@ -33,7 +36,8 @@ namespace Level
             
 			std::vector<std::unique_ptr<Framework::System>> m_systems;
 			std::vector<Framework::Entity*> m_entities;
+
 		public:
-			Framework::Player* player;
+			uint64 player_id;
 	};
 }
