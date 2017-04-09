@@ -7,8 +7,10 @@
 namespace Framework
 {
 	Player::Player()
-	: Entity(sf::Vector2f(-20, -20), sf::Sprite(Application::instance->getResources().textures.get("player_modelDefault"), sf::IntRect(0, 0, 32, 64)))
+	: Entity()
 	{
+		addComponent(std::make_unique<Framework::SpriteComponent>(sf::Sprite(Application::instance->getResources().textures.get("player_modelDefault"), sf::IntRect(0, 0, 32, 64))));
+		addComponent(std::make_unique<Framework::PositionComponent>(sf::Vector2f(-20, -20)));
 		addComponent(std::make_unique<Framework::VelocityComponent>());
 
 		m_speedWalk = 150;
