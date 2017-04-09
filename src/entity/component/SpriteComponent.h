@@ -3,6 +3,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 
 #include "Component.h"
+#include "../animation/Animator.h"
 
 namespace Framework
 {
@@ -10,6 +11,7 @@ namespace Framework
 	{
 	public:
 		sf::Sprite sprite;
+		Animator animator;
 	public:
 		SpriteComponent(const sf::Sprite& sprite);
 

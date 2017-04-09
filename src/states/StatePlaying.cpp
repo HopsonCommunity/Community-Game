@@ -25,7 +25,7 @@ namespace State
     ,   m_debugMenu(app->getResources().fonts.get("SourceCodePro-Regular"))
     ,   m_worldGen(Test::WORLD_SIZE, Test::WORLD_SIZE, 2355)
     ,   m_ui(&window)
-    ,   m_button(sf::Rect<int>(10, 10, 150, 50), std::bind(&SPlaying::buttonCallback, this))
+    ,   m_button(UI::Label(sf::Text("Test Button", app->getResources().fonts.get("SourceCodePro-Regular"), 18)), sf::Rect<int>(10, 10, 150, 50), std::bind(&SPlaying::buttonCallback, this))
     {
 		instance = this;
 
@@ -50,21 +50,14 @@ namespace State
         auto data = m_worldGen.getMap();
 
         for (int x = 0; x < Test::WORLD_SIZE; x++)
-        {
             for (int y = 0; y < Test::WORLD_SIZE; y++)
             {
                 auto n = data.tiles.at(x).at(y);
                 if (n == 1)
-                {
                     m_level.setTile(x, y, *Level::Tile::Tile::fLightStone);
-                }
                 else
-                {
                     m_level.setTile(x, y, *Level::Tile::Tile::stoneWall);
-
-                }
             }
-        }
 
 		m_player.getComponent<Framework::PositionComponent>()->position = sf::Vector2f(data.playerPosition.x * 32, data.playerPosition.y * 32);
     }
@@ -104,7 +97,6 @@ namespace State
         m_testFloat = ts.asSeconds();
         m_testInt = static_cast<int>(ts.asMillis());
         m_testBool = m_testInt % 2 == 1 ? true : false;
-
 
 		Input::Input input = Application::instance->getInputManager();
         m_ui.update(input);

@@ -1,11 +1,12 @@
-#pragma once
+﻿#pragma once
 
 #include <SFML/Graphics.hpp>
 
 #include "TileID.h"
 #include "../../util/Types.h"
 
-namespace Level{ namespace Tile
+namespace Level {
+namespace Tile
 {
     class Type
     {

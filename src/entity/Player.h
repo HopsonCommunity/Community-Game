@@ -2,7 +2,6 @@
 
 #include "Entity.h"
 #include "animation/Animator.h"
-#include "../ui/Label.h"
 
 namespace Framework
 {
@@ -24,7 +23,6 @@ namespace Framework
 		float m_speedWalk = 80;
 		bool m_direction;
 		bool m_walking;
-		Animator m_animator;
 	public:
 		Player();
 

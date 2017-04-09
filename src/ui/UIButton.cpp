@@ -2,12 +2,15 @@
 
 namespace UI
 {
-	UIButton::UIButton(sf::Rect<int> rect, std::function<void()> callback)
-		: UIComponent(rect)
-		, m_sprite()
-		, m_callback(callback)
-		, m_rectangle(rect)
+	UIButton::UIButton(Label label, sf::Rect<int> rect, std::function<void()> callback)
+	: UIComponent(rect)
+	, m_sprite()
+	, m_callback(callback)
+	, m_rectangle(rect)
+	, m_label(label)
 	{
+		m_label.setAlignment(Label::Alignment::CENTER);
+
 		textures.insert(std::pair<int, const sf::Texture>(0, Application::instance->getResources().textures.get("button_idle")));
 		textures.insert(std::pair<int, const sf::Texture>(1, Application::instance->getResources().textures.get("button_hover")));
 		textures.insert(std::pair<int, const sf::Texture>(2, Application::instance->getResources().textures.get("button_pressed")));
@@ -37,6 +40,8 @@ namespace UI
 	void UIButton::render(sf::RenderWindow& window)
 	{
 		window.draw(m_sprite);
+		m_label.setPosition({(float)m_rectangle.left + m_rectangle.width / 2, (float)m_rectangle.top + m_rectangle.height / 4});
+		m_label.render(window);
 	}
 
 	void UIButton::setTexture(int mode)
