@@ -4,6 +4,7 @@
 #include "../level/Tile/Tile.h"
 #include "../level/LevelRenderer.h"
 #include "../entity/component/Components.h"
+#include "../entity/enemy/Zombie.h"
 
 namespace State
 {
@@ -39,9 +40,8 @@ namespace State
 		window.setView(m_camera);
 
 		m_level.addEntity(&m_player);
-		m_level.player = &m_player;
-
-		// m_level.addEntity(new Framework::Zombie());
+		m_level.player_id = m_player.getID();
+		std::cout << "Player ID: " << m_player.getID() << std::endl;
 
 		Level::Tile::Tile::loadTiles();
 
@@ -59,8 +59,9 @@ namespace State
                     m_level.setTile(x, y, *Level::Tile::Tile::stoneWall);
             }
 
-		m_player.getComponent<Framework::PositionComponent>()->position = sf::Vector2f(data.playerPosition.x * 32, data.playerPosition.y * 32);
-    }
+		m_level.getEntity(m_level.player_id)->getComponent<Framework::PositionComponent>()->position = sf::Vector2f(data.playerPosition.x * 32, data.playerPosition.y * 32);
+		m_level.addEntity(new Framework::Zombie(sf::Vector2f(data.playerPosition.x * 32, data.playerPosition.y * 32)));
+	}
 
     void SPlaying::event(sf::Event& event)
     {
