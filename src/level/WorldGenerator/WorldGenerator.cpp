@@ -22,8 +22,9 @@ namespace WGenerator
             {
                 if (!(m_leafs[i]->leftChild) && !(m_leafs[i]->rightChild))
                 {
+					int randomizedValue = m_generator.intInRange(0, 100);
                     if (m_leafs[i]->block.width > m_maxSize || m_leafs[i]->block.height > m_maxSize ||
-                        m_generator.intInRange(0, 100) > 25)
+                        randomizedValue > 25)
                     {
                         if (m_leafs[i]->split())
                         {
