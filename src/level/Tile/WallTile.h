@@ -1,27 +1,22 @@
-#pragma once
+﻿#pragma once
 
 #include "../../util/Types.h"
-#include <SFML/Graphics.hpp>
 #include "Tile.h"
 
-namespace Level
+#include <SFML/Graphics.hpp>
+
+namespace Level {
+namespace Tile
 {
-	namespace Tile
+	class WallTile : public Tile
 	{
-
-		class Tile;
-
-		class WallTile : public Tile
-		{
 		private:
 			sf::Sprite m_spriteSide;
 			float m_height;
 
 		public:
-			WallTile(uint8 id, sf::Sprite spriteTop, sf::Sprite spriteSide, float height, bool solid);
+			WallTile(byte id, sf::Sprite spriteTop, sf::Sprite spriteSide, float height, bool solid);
 
 			void render(uint32 x, uint32 y, Level& level, sf::RenderWindow& window) override;
-		};
-
-	}
-}
+	};
+}}

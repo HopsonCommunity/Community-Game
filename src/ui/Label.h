@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -19,7 +19,7 @@ namespace UI
 		Alignment m_alignment;
 		sf::Vector2f m_alignmentOffset;
 	public:
-		Label(sf::Text text);
+		Label(sf::Text text, Alignment alignment = Alignment::LEFT);
 	
 		void render(sf::RenderWindow& m_window);
 

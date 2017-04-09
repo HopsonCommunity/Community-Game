@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "../util/Types.h"
 #include "SFML/Graphics.hpp"
@@ -7,7 +7,6 @@
 
 namespace Level
 {
-
 	class LevelRenderer
 	{
 	private:
@@ -22,5 +21,4 @@ namespace Level
 		static void renderEntitySprite(float x, float y, sf::Sprite& sprite);
 		static void drawAll();
 	};
-
 }

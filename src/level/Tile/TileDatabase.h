@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <vector>
 
@@ -6,7 +6,8 @@
 #include "TileID.h"
 #include "../../util/Types.h"
 
-namespace Level { namespace Tile
+namespace Level { 
+namespace Tile
 {
     class Database
     {
@@ -30,7 +31,5 @@ namespace Level { namespace Tile
 
             std::vector<Type> m_tiles;
     };
-
-
 }}
 

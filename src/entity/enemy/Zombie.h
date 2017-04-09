@@ -1,14 +1,11 @@
-#pragma once
+﻿#pragma once
 
-#include "../Creature.h"
+#include "../Entity.h"
 
 namespace Framework
 {
-	class Zombie : public Creature
+	class Zombie : public Entity
 	{
-	public:
-		Zombie();
-
-		void update(const Timestep& ts) override;
+		Zombie(const sf::Vector2f& position);
 	};
 }

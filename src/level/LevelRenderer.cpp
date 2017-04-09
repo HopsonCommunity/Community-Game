@@ -1,10 +1,9 @@
-#include "LevelRenderer.h"
+﻿#include "LevelRenderer.h"
 
 #include <iostream>
 
 namespace Level
 {
-
 	std::vector<std::pair<sf::Vector3f, sf::Sprite*>> LevelRenderer::sprites;
 	sf::RenderWindow* LevelRenderer::renderWindow = nullptr;
 
@@ -40,9 +39,9 @@ namespace Level
 			[](const std::pair<sf::Vector3f, sf::Sprite*>& lhs, const std::pair<sf::Vector3f, sf::Sprite*>& rhs) {
 			return lhs.first.y < rhs.first.y;
 		});
-		
+
 		//Rendering
-		for (unsigned int i = 0; i < sprites.size(); i++)
+		for (uint i = 0; i < sprites.size(); i++)
 		{
 			sf::Vector3f position = sprites[i].first;
 			sf::Sprite* sprite = sprites[i].second;

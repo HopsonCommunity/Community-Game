@@ -1,10 +1,6 @@
-//
-// Temporary framework for playing sounds
-//
-
 #include "SFX.h"
-#include "../Application.h"
 
+#include "../Application.h"
 
 namespace Sound
 {
@@ -28,6 +24,11 @@ namespace Sound
         {
             m_sound.setBuffer(buffer);
             m_sound.play();
+        }
+
+        void SFX::setVolume(const int volume)
+        {
+            m_sound.setVolume(volume);
         }
     }
 }

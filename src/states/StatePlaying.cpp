@@ -1,9 +1,9 @@
-#include "StatePlaying.h"
+﻿#include "StatePlaying.h"
 
 #include "../Application.h"
 #include "../level/Tile/Tile.h"
 #include "../level/LevelRenderer.h"
-#include "../entity/enemy/Zombie.h"
+#include "../entity/component/Components.h"
 
 namespace State
 {
@@ -12,7 +12,7 @@ namespace State
 
     namespace Test
     {
-        constexpr int WORLD_SIZE = 50;
+        constexpr int WORLD_SIZE = 100;
     }
 
     SPlaying::SPlaying(Application* app, sf::RenderWindow& window)
@@ -23,7 +23,9 @@ namespace State
     ,   m_player()
 	,   m_level(Test::WORLD_SIZE, Test::WORLD_SIZE)
     ,   m_debugMenu(app->getResources().fonts.get("SourceCodePro-Regular"))
-    ,   m_worldGen(Test::WORLD_SIZE, Test::WORLD_SIZE, 23535)
+    ,   m_worldGen(Test::WORLD_SIZE, Test::WORLD_SIZE, 2355)
+    ,   m_ui(&window)
+    ,   m_button(UI::Label(sf::Text("Test Button", app->getResources().fonts.get("SourceCodePro-Regular"), 18)), sf::Rect<int>(10, 10, 150, 50), std::bind(&SPlaying::buttonCallback, this))
     {
 		instance = this;
 
@@ -31,64 +33,33 @@ namespace State
         m_debugMenu.addEntry("B", &m_testFloat, 0, 1);
         m_debugMenu.addEntry("C", &m_testBool);
 
+        m_ui.addComponent(m_button);
+
 		m_camera = sf::View(sf::Vector2f(0, 0), sf::Vector2f(static_cast<float>(window.getSize().x), static_cast<float>(window.getSize().y)));
 		window.setView(m_camera);
 
 		m_level.addEntity(&m_player);
 		m_level.player = &m_player;
 
-		m_level.addEntity(new Framework::Zombie());
+		// m_level.addEntity(new Framework::Zombie());
 
 		Level::Tile::Tile::loadTiles();
 
-        m_worldGen.generate();
+        m_worldGen.generateMap();
 
-        auto data = m_worldGen.debug();
+        auto data = m_worldGen.getMap();
 
         for (int x = 0; x < Test::WORLD_SIZE; x++)
-        {
             for (int y = 0; y < Test::WORLD_SIZE; y++)
             {
-                auto n = data.at(x).at(y);
-                if (n == 0)
-                {
+                auto n = data.tiles.at(x).at(y);
+                if (n == 1)
                     m_level.setTile(x, y, *Level::Tile::Tile::fLightStone);
-                }
                 else
-                {
                     m_level.setTile(x, y, *Level::Tile::Tile::stoneWall);
-
-                }
             }
-        }
 
-        m_player.sprite.setPosition(500,500);
-/*
-		m_level.setTile(0, 0, *Level::Tile::Tile::fLightStone);
-		m_level.setTile(2, 0, *Level::Tile::Tile::fLightStone);
-		m_level.setTile(3, 0, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(4, 0, *Level::Tile::Tile::fLightStone);
-
-		m_level.setTile(0, 1, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(2, 1, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(3, 1, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(4, 1, *Level::Tile::Tile::fDarkStone);
-
-		m_level.setTile(0, 2, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(4, 2, *Level::Tile::Tile::fDarkStone);
-
-		m_level.setTile(0, 3, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(1, 3, *Level::Tile::Tile::stoneWall);
-		m_level.setTile(2, 3, *Level::Tile::Tile::stoneWall);
-		m_level.setTile(3, 3, *Level::Tile::Tile::stoneWall);
-		m_level.setTile(4, 3, *Level::Tile::Tile::fDarkStone);
-
-		m_level.setTile(0, 4, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(1, 4, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(2, 4, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(3, 4, *Level::Tile::Tile::fDarkStone);
-		m_level.setTile(4, 4, *Level::Tile::Tile::fDarkStone);
-*/
+		m_player.getComponent<Framework::PositionComponent>()->position = sf::Vector2f(data.playerPosition.x * 32, data.playerPosition.y * 32);
     }
 
     void SPlaying::event(sf::Event& event)
@@ -111,17 +82,24 @@ namespace State
     {
 		m_level.update(ts);
 
+		m_player.update(ts);
+
 		int mouseX = Application::instance->mousePosition().x;
 		int mouseY = Application::instance->mousePosition().y;
 		int halfWidth = Application::instance->getWindow().getSize().x / 2;
 		int halfHeight = Application::instance->getWindow().getSize().y / 2;
 		float offsetX = (mouseX - halfWidth) * 0.1f;
 		float offsetY = (mouseY - halfHeight) * 0.1f;
-		m_camera.setCenter(m_player.position.x + offsetX, m_player.position.y + offsetY);
+
+		Framework::PositionComponent* c_pos = m_player.getComponent<Framework::PositionComponent>();
+		m_camera.setCenter(c_pos->position.x + offsetX, c_pos->position.y + offsetY);
 
         m_testFloat = ts.asSeconds();
         m_testInt = static_cast<int>(ts.asMillis());
         m_testBool = m_testInt % 2 == 1 ? true : false;
+
+		Input::Input input = Application::instance->getInputManager();
+        m_ui.update(input);
     }
 
     void SPlaying::render(sf::RenderWindow& window)
@@ -129,7 +107,7 @@ namespace State
 		window.setView(m_camera);
 		Level::LevelRenderer::setRenderWindow(&window);
 		m_level.render(window);
-        //m_tileMap.draw(window);
         m_debugMenu.render();
+        m_ui.render();
     }
 }

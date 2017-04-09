@@ -1,12 +1,10 @@
-// Temporary framework for playing sounds
-//
-
 #pragma once
 
 #include <SFML/Audio.hpp>
 
 namespace Sound
 {
+
 namespace SFX //for short music files. Loads to memory
 {
 
@@ -24,6 +22,7 @@ namespace SFX //for short music files. Loads to memory
             SFX(sf::Sound sound);
 
             virtual void play(const sf::SoundBuffer& buffer);
+            virtual void setVolume(const int volume);
         };
 }
 }

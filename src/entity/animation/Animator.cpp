@@ -1,20 +1,15 @@
-#include "Animator.h"
+﻿#include "Animator.h"
 
 #include <iostream>
 
 namespace Framework
 {
-
-	Animator::Animator(sf::Sprite* sprite)
-		: m_sprite(sprite)
-	{}
-
-	void Animator::setAnim(std::string name)
+	void Animator::setAnimation(std::string name)
 	{
 		m_current = name;
 	}
 
-	void Animator::addAnim(const std::string& name, unsigned int xpos, unsigned int ypos, unsigned int stride, unsigned int length, unsigned int fps)
+	void Animator::addAnimation(const std::string& name, uint xpos, uint ypos, uint stride, uint length, uint fps)
 	{
 		Animation anim;
 		anim.name = name;
@@ -23,22 +18,22 @@ namespace Framework
 		anim.stride = stride;
 		anim.length = length;
 		anim.fps = fps;
-		m_anims.push_back(anim);
+		m_animations.push_back(anim);
 	}
 
-	void Animator::update(const Timestep& ts)
+	void Animator::update(const Timestep& ts, sf::Sprite& destsprite)
 	{
-		if (m_anims.empty())
+		if (m_animations.empty())
 			return;
 
 		m_timer += ts.asSeconds();
 		Animation* anim = nullptr;
 		bool animFound = false;
-		for (unsigned int i = 0; i < m_anims.size(); i++)
+		for (uint i = 0; i < m_animations.size(); i++)
 		{
-			if (m_anims[i].name == m_current)
+			if (m_animations[i].name == m_current)
 			{
-				anim = &m_anims[i];
+				anim = &m_animations[i];
 				animFound = true;
 			}
 		}
@@ -51,7 +46,6 @@ namespace Framework
 		uint frameIndex = static_cast<uint>((m_timer / animLength) * anim->length);
 		uint textureX = anim->xpos + frameIndex * anim->stride;
 		uint textureY = anim->ypos;
-		m_sprite->setTextureRect(sf::IntRect(textureX, textureY, m_sprite->getTextureRect().width, m_sprite->getTextureRect().height));
+		destsprite.setTextureRect(sf::IntRect(textureX, textureY, destsprite.getTextureRect().width, destsprite.getTextureRect().height));
 	}
-
 }
