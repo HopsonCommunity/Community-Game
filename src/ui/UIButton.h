@@ -3,6 +3,7 @@
 #include "UIComponentBase.h"
 
 #include "../Application.h"
+#include "Label.h"
 
 #include <functional>
 
@@ -11,7 +12,7 @@ namespace UI
     class UIButton : public UIComponent
     {
     public:
-        UIButton(sf::Rect<int> rect, std::function<void()> callback);
+        UIButton(Label label, sf::Rect<int> rect, std::function<void()> callback);
 
         void click(int x, int y);
         void hover(int x, int y);
@@ -21,6 +22,7 @@ namespace UI
         std::function<void()> m_callback;
         sf::Sprite m_sprite;
         sf::Rect<int> m_rectangle;
+		Label m_label;
 
         std::unordered_map<int, const sf::Texture> textures;
 

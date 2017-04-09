@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 namespace Level {
 namespace Tile
@@ -13,6 +13,5 @@ namespace Tile
 
         Tile_Types_Count
     };
-}
-}
+}}
 

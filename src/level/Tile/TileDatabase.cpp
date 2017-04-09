@@ -1,8 +1,9 @@
-#include "TileDatabase.h"
+﻿#include "TileDatabase.h"
 
 #include "../../util/Types.h"
 
-namespace Level { namespace Tile
+namespace Level { 
+namespace Tile
 {
     Database& Database::get()
     {

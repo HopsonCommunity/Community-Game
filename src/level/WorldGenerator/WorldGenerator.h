@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <SFML/System/Vector2.hpp>
 #include "../../util/Types.h"

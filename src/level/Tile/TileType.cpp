@@ -1,9 +1,10 @@
-#include "TileType.h"
+﻿#include "TileType.h"
 
 #include "../../util/FileUtil.h"
 #include "../../util/json.hpp"
 
-namespace Level{ namespace Tile
+namespace Level { 
+namespace Tile
 {
     Type::Type(std::string&& fileName)
 	{

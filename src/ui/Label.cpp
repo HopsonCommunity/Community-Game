@@ -1,9 +1,9 @@
-#include "Label.h"
+﻿#include "Label.h"
 
 namespace UI
 {
-	Label::Label(sf::Text text)
-	: m_text(text), m_alignment(Alignment::LEFT)
+	Label::Label(sf::Text text, Alignment alignment)
+	: m_text(text), m_alignment(alignment)
 	{
 	}
 

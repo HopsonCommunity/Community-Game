@@ -2,7 +2,6 @@
 
 #include "Entity.h"
 #include "animation/Animator.h"
-#include "../ui/Label.h"
 
 namespace Framework
 {

@@ -1,9 +1,10 @@
 ﻿#include "Level.h"
+#include "LevelRenderer.h"
+
+#include <iostream>
 
 #include "../entity/Entity.h"
-#include "LevelRenderer.h"
 #include "../states/StatePlaying.h"
-#include <iostream>
 #include "../entity/component/Components.h"
 
 namespace Level
@@ -20,7 +21,6 @@ namespace Level
 
 	void Level::addEntity(Framework::Entity* entity)
 	{
-		// entity->level = this;
 		m_entities.push_back(entity);
 	}
 
@@ -40,21 +40,18 @@ namespace Level
 	void Level::update(const Timestep& ts)
 	{
 		for (uint i = 0; i < m_entities.size(); i++)
-		{
 			if (m_entities[i] != nullptr)
 			{
 				Framework::Entity* e = m_entities[i];
 				for (auto& system : m_systems)
-				{
 					system->update(ts, e);
-				}
+	
 				e->update(ts);
 
 				Framework::SpriteComponent* c_sprite = e->getComponent<Framework::SpriteComponent>();
 				if (c_sprite)
 					c_sprite->animator.update(ts, c_sprite->sprite);
 			}
-		}
 	}
 
 	void Level::render(sf::RenderWindow& window)
@@ -67,28 +64,23 @@ namespace Level
 		int x0 = (int)(left / TILE_SIZE);
 		int y0 = (int)(top / TILE_SIZE);
 		int x1 = (int)(right / TILE_SIZE) + 1;
-		int y1 = (int)(bottom / TILE_SIZE) + 1;
+		int y1 = (int)(bottom / TILE_SIZE) + 2;
 
 		for (int x = x0; x < x1; x++)
-		{
 			for (int y = y0; y < y1; y++)
 			{
 				if (x < 0 || x >= m_width || y < 0 || y >= m_height)
 					continue;
 
 				if (m_tiles[x + y * m_width] != nullptr)
-				{
 					m_tiles[x + y * m_width]->render(x, y, *this, window);
-				}
 			}
-		}
+		
 		for (uint i = 0; i < m_entities.size(); i++)
-		{
 			if (m_entities[i] != nullptr)
 			{
 				Framework::Entity* e = m_entities[i];
 
-				///@TODO: Move to render system (look MoveSystem, StatsSystem in System.h/cpp) 
 				Framework::PositionComponent* c_pos = e->getComponent<Framework::PositionComponent>();
 				Framework::SpriteComponent* c_sprite = e->getComponent<Framework::SpriteComponent>();
 
@@ -98,8 +90,6 @@ namespace Level
 					LevelRenderer::renderEntitySprite(c_pos->position.x, c_pos->position.y, c_sprite->sprite);
 				}
 			}
-		}
 		LevelRenderer::drawAll();
 	}
-
 }
