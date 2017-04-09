@@ -20,6 +20,10 @@ add_executable(${PROJECT_NAME} ${SRC})
 include_directories(deps/SFML/include)
 add_definitions(-DSFML_STATIC)
 
+include_directories(tests)
+enable_testing()
+add_test(NAME CompleteTestSuite COMMAND	${PROJECT_NAME})
+
 set(SFML_BUILD_DOC OFF CACHE BOOL "" FORCE)
 set(SFML_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
