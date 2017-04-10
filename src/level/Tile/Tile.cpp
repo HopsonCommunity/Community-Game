@@ -18,7 +18,7 @@ namespace Tile
 
 	void Tile::loadTiles()
 	{
-		tileset = &Application::instance->getResources().textures.get("tile_atlas");
+		tileset = &Application::instance->getResources().textures.get("tiles/atlas");
 
 		fLightStone = std::make_unique<Tile>(0,     sf::Sprite(*tileset, sf::IntRect(0, TILE_SIZE,      TILE_SIZE, TILE_SIZE)), false);
 		fMedStone   = std::make_unique<Tile>(1,     sf::Sprite(*tileset, sf::IntRect(0, TILE_SIZE * 2,  TILE_SIZE, TILE_SIZE)), false);
