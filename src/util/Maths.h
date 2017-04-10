@@ -38,6 +38,6 @@ namespace Maths
 		auto x = a.x * b.x;
 		auto y = a.y * b.y;
 
-		return x + y
+		return x + y;
 	}
 }
