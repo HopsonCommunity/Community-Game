@@ -19,6 +19,7 @@ namespace State
     {
         public:
 			static SPlaying* instance;
+			Level::Level m_level;
 
             SPlaying(Application* app, sf::RenderWindow& window);
 
@@ -33,7 +34,6 @@ namespace State
 			sf::RenderWindow& m_window;
 			sf::View m_camera;
 			Framework::Player m_player;
-			Level::Level m_level;
             Debug::DebugMenu m_debugMenu;
             UI::UI m_ui;
             UI::UIButton m_button;

@@ -17,6 +17,8 @@ namespace Framework
             Entity();
             Entity(sf::Vector2f& position, sf::Sprite& sprite);
 
+			uint64 getID() { return m_ID; }
+
             void addComponent(std::unique_ptr<Component> component);
 
             virtual void update(const Timestep& ts) {};
