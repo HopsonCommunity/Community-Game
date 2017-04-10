@@ -10,10 +10,10 @@ namespace UI
 	{
 		m_label.setAlignment(Label::Alignment::CENTER);
 
-		textures.insert(std::pair<int, const sf::Texture>(0, Application::instance->getResources().textures.get("slider_slider_idle")));
-		textures.insert(std::pair<int, const sf::Texture>(1, Application::instance->getResources().textures.get("slider_slider_hover")));
-		textures.insert(std::pair<int, const sf::Texture>(2, Application::instance->getResources().textures.get("slider_slider_pressed")));
-		textures.insert(std::pair<int, const sf::Texture>(3, Application::instance->getResources().textures.get("slider_bg")));
+		textures.insert(std::pair<int, const sf::Texture>(0, Application::instance->getResources().textures.get("gui/slider/knob_idle")));
+		textures.insert(std::pair<int, const sf::Texture>(1, Application::instance->getResources().textures.get("gui/slider/knob_hover")));
+		textures.insert(std::pair<int, const sf::Texture>(2, Application::instance->getResources().textures.get("gui/slider/knob_pressed")));
+		textures.insert(std::pair<int, const sf::Texture>(3, Application::instance->getResources().textures.get("gui/slider/background")));
 
 		m_label.setPosition({ (float)rect.left + rect.width / 2, (float)rect.top + rect.height / 4 });
 
