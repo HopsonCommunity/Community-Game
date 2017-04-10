@@ -9,7 +9,7 @@ namespace Framework
 	Player::Player()
 	{
 		addComponent(std::make_unique<Framework::PositionComponent>());
-		addComponent(std::make_unique<Framework::SpriteComponent>(sf::Sprite(Application::instance->getResources().textures.get("player_modelDefault"), sf::IntRect(0, 0, 32, 64))));
+		addComponent(std::make_unique<Framework::SpriteComponent>(sf::Sprite(Application::instance->getResources().textures.get("entity/player_modelDefault"), sf::IntRect(0, 0, 32, 64))));
 		addComponent(std::make_unique<Framework::StatsComponent>());
 		addComponent(std::make_unique<Framework::VelocityComponent>());
 		addComponent(std::make_unique<Framework::CollisionComponent>(sf::FloatRect(0, 0, 32, 32)));
