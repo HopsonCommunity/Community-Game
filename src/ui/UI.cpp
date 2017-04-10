@@ -22,9 +22,11 @@ namespace UI
 			auto mousePos = input.mousePosition(*m_owningWindow);
 			if (transform.contains(mousePos))
 			{
-				auto relativeMP = sf::Vector2i(transform.left, transform.top) - mousePos;
+				auto relativeMP = mousePos - sf::Vector2i(transform.left, transform.top);
 				if (!m_mousePressed && sf::Mouse::isButtonPressed(sf::Mouse::Left))
 					comp->click(relativeMP.x, relativeMP.y);
+				else if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+					comp->clickAndHold(relativeMP.x, relativeMP.y);
 				else
 					comp->hover(relativeMP.x, relativeMP.y);
 			}
