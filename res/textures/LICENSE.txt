@@ -5,6 +5,8 @@ Copyrighted textures:
 player_modelDefault.png
 zombie.png
 rose.png
-tileatlas.png
+floor1.png
+floor2.png
+floor3.png
 
 For more info write an e-mail to ragingrab@gmail.com
