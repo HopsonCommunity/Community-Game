@@ -7,118 +7,49 @@
 namespace Framework
 {
 	Player::Player()
-	: Entity()
 	{
-		addComponent(std::make_unique<Framework::SpriteComponent>(sf::Sprite(Application::instance->getResources().textures.get("entity/player_modelDefault"), sf::IntRect(0, 0, 32, 64))));
-		addComponent(std::make_unique<Framework::PositionComponent>(sf::Vector2f(-20, -20)));
-		addComponent(std::make_unique<Framework::VelocityComponent>());
-
-		m_speedWalk = 150;
-
-		SpriteComponent* c_sprite = getComponent<SpriteComponent>();
-		c_sprite->animator.addAnimation("idle", 0, 0, 32, 8, 7);
-		c_sprite->animator.addAnimation("run", 0, 64, 32, 8, 14);
-		c_sprite->animator.setAnimation("idle");
-
-		auto hb = std::make_shared<HealthBoost>(DURATION_INFINITE, 800, 0);
-	
+		addComponent(std::make_unique<Framework::PositionComponent>());
+		addComponent(std::make_unique<Framework::SpriteComponent>(sf::Sprite(Application::instance->getResources().textures.get("player_modelDefault"), sf::IntRect(0, 0, 32, 64))));
 		addComponent(std::make_unique<Framework::StatsComponent>());
+		addComponent(std::make_unique<Framework::VelocityComponent>());
+		addComponent(std::make_unique<Framework::CollisionComponent>(sf::FloatRect(0, 0, 32, 32)));
+		addComponent(std::make_unique<Framework::AnimatorComponent>(Animator()));
+
+		VelocityComponent* c_vel = getComponent<VelocityComponent>();
+		c_vel->speed = 200;
+
+		AnimatorComponent* c_anim = getComponent<AnimatorComponent>();
+		c_anim->animator.addAnimation("idle", 0, 0, 32, 8, 7);
+		c_anim->animator.addAnimation("run", 0, 64, 32, 8, 14);
+		c_anim->animator.setAnimation("idle");
+
+		auto health_boost = std::make_shared<HealthBoost>(DURATION_INFINITE, 800, 0);
+	
 		StatsComponent* c_stats = getComponent<StatsComponent>();
-				
-		c_stats->addEffect(hb);
-		c_stats->stats.health = 800;
-
-		hb->max_health = 7200;
-
+		c_stats->addEffect(health_boost);
+		c_stats->stats.health = health_boost->max_health;
 		c_stats->addEffect(std::make_shared<Defense>(20 * 5, 20, 30));
 	}
 
 	void Player::update(const Timestep& ts)
 	{
-		int xdir = 0;
-		int ydir = 0;
+		VelocityComponent* c_vel = getComponent<VelocityComponent>();
 
 		if (Application::instance->inputPressed(MOVE_UP))
-			ydir--;
+			c_vel->move(-90);
 		if (Application::instance->inputPressed(MOVE_DOWN))
-			ydir++;
+			c_vel->move(90);
 		if (Application::instance->inputPressed(MOVE_LEFT))
-			xdir--;
+			c_vel->move(180);
 		if (Application::instance->inputPressed(MOVE_RIGHT))
-			xdir++;
+			c_vel->move(0);
 
-		if (xdir > 0)
-		{
-			if (ydir > 0)
-				walk(DOWN_RIGHT);
-			else if (ydir < 0)
-				walk(UP_RIGHT);
-			else
-				walk(RIGHT);
-		}
-		else if (xdir < 0)
-		{
-			if (ydir > 0)
-				walk(DOWN_LEFT);
-			else if (ydir < 0)
-				walk(UP_LEFT);
-			else
-				walk(LEFT);
-		}
-		else
-		{
-			if (ydir > 0)
-				walk(DOWN);
-			else if (ydir < 0)
-				walk(UP);
-		}
-
-		m_direction = Application::instance->mousePosition().x > Application::instance->getWindow().getSize().x / 2;
+		AnimatorComponent* c_anim = getComponent<AnimatorComponent>();
+		c_anim->animator.setAnimation(c_vel->moving ? "run" : "idle");
 
 		SpriteComponent* c_sprite = getComponent<SpriteComponent>();
-		c_sprite->sprite.setScale(static_cast<float>(m_direction ? 1 : -1), static_cast<float>(1));
-		c_sprite->animator.setAnimation(m_walking ? "run" : "idle");
+		c_sprite->flipX = Application::instance->mousePosition().x > Application::instance->getWindow().getSize().x / 2;
 
-		m_walking = false;
-	}
-
-	void Player::walk(Direction dir)
-	{
-		VelocityComponent* c_vel = getComponent<VelocityComponent>();
-		if (!c_vel)
-			return;
-
-		switch (dir)
-		{
-		case UP:
-			c_vel->velocity.y -= m_speedWalk;
-			break;
-		case UP_RIGHT:
-			c_vel->velocity.x += m_speedWalk * 0.7071067f;
-			c_vel->velocity.y -= m_speedWalk * 0.7071067f;
-			break;
-		case RIGHT:
-			c_vel->velocity.x += m_speedWalk;
-			break;
-		case DOWN_RIGHT:
-			c_vel->velocity.x += m_speedWalk * 0.7071067f;
-			c_vel->velocity.y += m_speedWalk * 0.7071067f;
-			break;
-		case DOWN:
-			c_vel->velocity.y += m_speedWalk;
-			break;
-		case DOWN_LEFT:
-			c_vel->velocity.x -= m_speedWalk * 0.7071067f;
-			c_vel->velocity.y += m_speedWalk * 0.7071067f;
-			break;
-		case LEFT:
-			c_vel->velocity.x -= m_speedWalk;
-			break;
-		case UP_LEFT:
-			c_vel->velocity.x -= m_speedWalk * 0.7071067f;
-			c_vel->velocity.y -= m_speedWalk * 0.7071067f;
-			break;
-		}
-		m_walking = true;
+		c_vel->moving = false;
 	}
 }
