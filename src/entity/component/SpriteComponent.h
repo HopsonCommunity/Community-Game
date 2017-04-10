@@ -11,7 +11,7 @@ namespace Framework
 	{
 	public:
 		sf::Sprite sprite;
-		Animator animator;
+		bool flipX, flipY;
 	public:
 		SpriteComponent(const sf::Sprite& sprite);
 

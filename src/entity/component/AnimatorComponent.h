@@ -1,17 +1,17 @@
 ﻿#pragma once
 
-#include <SFML/System/Vector2.hpp>
+#include "../animation/Animator.h"
 
 #include "Component.h"
 
 namespace Framework
 {
-	class PositionComponent : public Component
+	class AnimatorComponent : public Component
 	{
 	public:
-		sf::Vector2f position;
+		Animator animator;
 	public:
-		PositionComponent(const sf::Vector2f& position = {0, 0});
+		AnimatorComponent(Animator animator);
 
 		static ComponentType* getStaticType();
 		virtual ComponentType* getType() const override;;

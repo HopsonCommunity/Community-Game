@@ -11,9 +11,9 @@ namespace UI
 	{
 		m_label.setAlignment(Label::Alignment::CENTER);
 
-		textures.insert(std::pair<int, const sf::Texture>(0, Application::instance->getResources().textures.get("button_idle")));
-		textures.insert(std::pair<int, const sf::Texture>(1, Application::instance->getResources().textures.get("button_hover")));
-		textures.insert(std::pair<int, const sf::Texture>(2, Application::instance->getResources().textures.get("button_pressed")));
+		textures.insert(std::pair<int, const sf::Texture>(0, Application::instance->getResources().textures.get("gui/button/idle")));
+		textures.insert(std::pair<int, const sf::Texture>(1, Application::instance->getResources().textures.get("gui/button/hover")));
+		textures.insert(std::pair<int, const sf::Texture>(2, Application::instance->getResources().textures.get("gui/button/pressed")));
 
 		setTexture(0);
 	}
@@ -23,6 +23,11 @@ namespace UI
 		if (m_currentMode != 2)
 			setTexture(2);
 		m_callback();
+	}
+
+	void UIButton::clickAndHold(int x, int y)
+	{
+
 	}
 
 	void UIButton::hover(int x, int y)

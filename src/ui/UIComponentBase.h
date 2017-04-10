@@ -13,7 +13,9 @@ namespace UI
 
         virtual void hover(int x, int y) = 0;
         virtual void click(int x, int y) = 0;
+        virtual void clickAndHold(int x, int y) = 0;
         virtual void none() = 0;
+
         virtual void render(sf::RenderWindow& window) = 0;
 
         const sf::Rect<int>& getTransform() { return m_transform; }
