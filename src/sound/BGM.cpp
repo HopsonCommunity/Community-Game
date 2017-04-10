@@ -9,9 +9,9 @@ namespace Sound
 
         void BGM::loadMusic()
         {
-            BGM::challenge.openFromFile("res/Music/challenge.ogg");
-            BGM::lunar_streams.openFromFile("res/Music/lunar_streams.ogg");
-            BGM::menu.openFromFile("res/Music/menu.ogg");
+            BGM::challenge.openFromFile("res/music/Challenge.ogg");
+            BGM::lunar_streams.openFromFile("res/music/LunarStreams.ogg");
+            BGM::menu.openFromFile("res/music/Menu.ogg");
 
             sf::Music music;
         }
