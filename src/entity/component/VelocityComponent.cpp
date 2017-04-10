@@ -9,6 +9,10 @@ namespace Framework
 	{
 	}
 
+	VelocityComponent::VelocityComponent(nlohmann::json json) {
+		velocity = sf::Vector2f(json["x"], json["y"]);
+	}
+
 	void VelocityComponent::move(float angle)
 	{
 		velocity.x += cos(Maths::toRadians(angle));

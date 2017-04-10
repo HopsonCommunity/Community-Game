@@ -4,7 +4,10 @@ namespace Framework
 {
 	CollisionComponent::CollisionComponent(const sf::FloatRect& aabb)
 		: aabb(aabb)
-	{
+	{}
+
+	CollisionComponent::CollisionComponent(nlohmann::json json) {
+		//aabb = sf::FloatRect(json["width"], json["height"]);
 	}
 
 	ComponentType* CollisionComponent::getStaticType()
@@ -17,4 +20,6 @@ namespace Framework
 	{
 		return getStaticType();
 	}
+
+
 }
