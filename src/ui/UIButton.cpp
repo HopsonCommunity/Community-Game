@@ -25,6 +25,11 @@ namespace UI
 		m_callback();
 	}
 
+	void UIButton::clickAndHold(int x, int y)
+	{
+
+	}
+
 	void UIButton::hover(int x, int y)
 	{
 		if (m_currentMode != 1)

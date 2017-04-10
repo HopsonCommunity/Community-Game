@@ -6,6 +6,8 @@
 #include "../entity/component/Components.h"
 #include "../entity/enemy/Zombie.h"
 
+using namespace std::placeholders;
+
 namespace State
 {
 
@@ -16,17 +18,18 @@ namespace State
         constexpr int WORLD_SIZE = 100;
     }
 
-    SPlaying::SPlaying(Application* app, sf::RenderWindow& window)
-    :   SBase(app)
-    ,   m_testFloat(0)
-	,   m_window(window)
-	,   m_camera()
-    ,   m_player()
-	,   m_level(Test::WORLD_SIZE, Test::WORLD_SIZE)
-    ,   m_debugMenu(app->getResources().fonts.get("SourceCodePro-Regular"))
-    ,   m_worldGen(Test::WORLD_SIZE, Test::WORLD_SIZE, 2355)
-    ,   m_ui(&window)
-    ,   m_button(UI::Label(sf::Text("Test Button", app->getResources().fonts.get("SourceCodePro-Regular"), 18)), sf::Rect<int>(10, 10, 150, 50), std::bind(&SPlaying::buttonCallback, this))
+	SPlaying::SPlaying(Application* app, sf::RenderWindow& window)
+		: SBase(app)
+		, m_testFloat(0)
+		, m_window(window)
+		, m_camera()
+		, m_player()
+		, m_level(Test::WORLD_SIZE, Test::WORLD_SIZE)
+		, m_debugMenu(app->getResources().fonts.get("SourceCodePro-Regular"))
+		, m_worldGen(Test::WORLD_SIZE, Test::WORLD_SIZE, 2355)
+		, m_ui(&window)
+		, m_button(UI::Label(sf::Text("Test Button", app->getResources().fonts.get("SourceCodePro-Regular"), 18)), sf::Rect<int>(10, 10, 150, 50), std::bind(&SPlaying::buttonCallback, this))
+		, m_slider(UI::Label(sf::Text("Test Slider", app->getResources().fonts.get("SourceCodePro-Regular"), 18)), sf::Rect<int>(10, 70, 150, 50), std::bind(&SPlaying::sliderCallback, this, _1))
     {
 		instance = this;
 
@@ -35,6 +38,7 @@ namespace State
         m_debugMenu.addEntry("C", &m_testBool);
 
         m_ui.addComponent(m_button);
+		m_ui.addComponent(m_slider);
 
 		m_camera = sf::View(sf::Vector2f(0, 0), sf::Vector2f(static_cast<float>(window.getSize().x), static_cast<float>(window.getSize().y)));
 		window.setView(m_camera);
