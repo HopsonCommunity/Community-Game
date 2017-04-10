@@ -15,8 +15,11 @@ namespace Level
 	{
 		m_tiles.resize(width*height);
 
-		m_systems.push_back(std::make_unique<Framework::MoveSystem>());
-		m_systems.push_back(std::make_unique<Framework::StatsSystem>());
+		m_renderSystem = std::make_unique<Framework::RenderSystem>();
+
+		m_updateSystems.push_back(std::make_unique<Framework::MoveSystem>());
+		m_updateSystems.push_back(std::make_unique<Framework::StatsSystem>());
+		m_updateSystems.push_back(std::make_unique<Framework::AnimatorSystem>());
 	}
 
 	void Level::addEntity(Framework::Entity* entity)
@@ -53,14 +56,10 @@ namespace Level
 			if (m_entities[i] != nullptr)
 			{
 				Framework::Entity* e = m_entities[i];
-				for (auto& system : m_systems)
+				for (auto& system : m_updateSystems)
 					system->update(ts, e);
 	
 				e->update(ts);
-
-				Framework::SpriteComponent* c_sprite = e->getComponent<Framework::SpriteComponent>();
-				if (c_sprite)
-					c_sprite->animator.update(ts, c_sprite->sprite);
 			}
 	}
 
@@ -90,16 +89,10 @@ namespace Level
 			if (m_entities[i] != nullptr)
 			{
 				Framework::Entity* e = m_entities[i];
-
-				Framework::PositionComponent* c_pos = e->getComponent<Framework::PositionComponent>();
-				Framework::SpriteComponent* c_sprite = e->getComponent<Framework::SpriteComponent>();
-
-				if (c_pos && c_sprite)
-				{
-					c_sprite->sprite.setOrigin(static_cast<float>(c_sprite->sprite.getTextureRect().width / 2), static_cast<float>(c_sprite->sprite.getTextureRect().height));
-					LevelRenderer::renderEntitySprite(c_pos->position.x, c_pos->position.y, c_sprite->sprite);
-				}
+			
+				m_renderSystem->update(Timestep(0) /*Render doesn't need delta time*/, e);
 			}
+
 		LevelRenderer::drawAll();
 	}
 }

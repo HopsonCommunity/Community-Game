@@ -33,10 +33,11 @@ namespace Level
             uint m_width;
             uint m_height;
             std::vector<Tile::Tile*> m_tiles;
-            
-			std::vector<std::unique_ptr<Framework::System>> m_systems;
+
 			std::vector<Framework::Entity*> m_entities;
 
+			std::unique_ptr<Framework::System> m_renderSystem;
+			std::vector<std::unique_ptr<Framework::System>> m_updateSystems;
 		public:
 			uint64 player_id;
 	};

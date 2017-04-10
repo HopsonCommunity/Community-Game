@@ -1,7 +1,8 @@
-#pragma once
+﻿#pragma once
 
 // All components headers
 
+#include "AnimatorComponent.h"
 #include "CollisionComponent.h"
 #include "PositionComponent.h"
 #include "SpriteComponent.h"
