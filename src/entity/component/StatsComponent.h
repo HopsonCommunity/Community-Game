@@ -6,6 +6,7 @@
 #include "../Stats.h"
 
 #include "Component.h"
+#include "../../util/json.hpp"
 
 namespace Framework
 {
@@ -16,6 +17,7 @@ namespace Framework
 		std::vector<std::shared_ptr<StatusEffect>> active_effects;
 	public:
 		StatsComponent();
+		StatsComponent(nlohmann::json json);
 
 		void addEffect(std::shared_ptr<StatusEffect> effect);
 

@@ -4,6 +4,7 @@
 
 #include "Component.h"
 #include "../animation/Animator.h"
+#include "../../util/json.hpp"
 
 namespace Framework
 {
@@ -14,6 +15,7 @@ namespace Framework
 		bool flipX, flipY;
 	public:
 		SpriteComponent(const sf::Sprite& sprite);
+		SpriteComponent(nlohmann::json json);
 
 		static ComponentType* getStaticType();
 		virtual ComponentType* getType() const override;;

@@ -7,6 +7,10 @@ namespace Framework
 	{
 	}
 
+	AnimatorComponent::AnimatorComponent(nlohmann::json json) {
+		///@TODO: json parsing
+	}
+
 	ComponentType* AnimatorComponent::getStaticType()
 	{
 		static ComponentType type({ "Animator" });
