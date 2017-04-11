@@ -87,3 +87,4 @@ dev_build.bat
 #CLion
 .idea
 cmake-build-debug/
+/CMakeSettings.json
