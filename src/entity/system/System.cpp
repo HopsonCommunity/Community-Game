@@ -64,7 +64,7 @@ namespace Framework
 		
 		if (c_pos && c_sprite)
 		{
-			c_sprite->sprite.setScale(static_cast<float>(c_sprite->flipX ? 1 : -1), static_cast<float>(c_sprite->flipY ? 1 : -1));
+			c_sprite->sprite.setScale(static_cast<float>(c_sprite->flipX ? 1 : -1), static_cast<float>(c_sprite->flipY ? -1 : 1));
 			c_sprite->sprite.setOrigin(static_cast<float>(c_sprite->sprite.getTextureRect().width / 2), static_cast<float>(c_sprite->sprite.getTextureRect().height));
 			Level::LevelRenderer::renderEntitySprite(c_pos->position.x, c_pos->position.y, c_sprite->sprite);
 		}
