@@ -53,14 +53,15 @@ namespace Framework
 			path.clear();
 		}
 
-		c_vel->move(xa, ya);
-
+		if (xa != 0 || ya != 0)
+			c_vel->move(xa, ya);
+		
 		AnimatorComponent* c_anim = getComponent<AnimatorComponent>();
 		c_anim->animator.setAnimation(c_vel->moving ? "run" : "idle");
 
 		SpriteComponent* c_sprite = getComponent<SpriteComponent>();
 		c_sprite->flipX = Application::instance->mousePosition().x > Application::instance->getWindow().getSize().x / 2;
-
+	
 		c_vel->moving = false;
 	}
 }
