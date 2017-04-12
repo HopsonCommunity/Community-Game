@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "Entity.h"
-#include "animation/Animator.h"
 
 namespace Framework
 {

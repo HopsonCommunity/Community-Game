@@ -2,6 +2,7 @@
 
 // All components headers
 
+#include "AIComponent.h"
 #include "AnimatorComponent.h"
 #include "CollisionComponent.h"
 #include "PositionComponent.h"

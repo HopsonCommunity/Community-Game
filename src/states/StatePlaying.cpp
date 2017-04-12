@@ -4,6 +4,7 @@
 #include "../level/Tile/Tile.h"
 #include "../level/LevelRenderer.h"
 #include "../entity/component/Components.h"
+#include "../entity/enemy/Zombie.h"
 
 using namespace std::placeholders;
 
@@ -63,6 +64,7 @@ namespace State
             }
 
 		m_level.getEntity(m_level.player_id)->getComponent<Framework::PositionComponent>()->position = sf::Vector2f(data.playerPosition.x * 32, data.playerPosition.y * 32);
+		m_level.addEntity(new Framework::Zombie({ (float)data.playerPosition.x * 32 + 200, (float)data.playerPosition.y * 32 + 200 }));
 	}
 
     void SPlaying::event(sf::Event& event)

@@ -35,14 +35,18 @@ namespace Framework
 	{
 		VelocityComponent* c_vel = getComponent<VelocityComponent>();
 
+		int xa = 0, ya = 0;
+
 		if (Application::instance->inputPressed(MOVE_UP))
-			c_vel->move(-90);
+			ya--;
 		if (Application::instance->inputPressed(MOVE_DOWN))
-			c_vel->move(90);
+			ya++;
 		if (Application::instance->inputPressed(MOVE_LEFT))
-			c_vel->move(180);
+			xa--;
 		if (Application::instance->inputPressed(MOVE_RIGHT))
-			c_vel->move(0);
+			xa++;
+
+		c_vel->move(xa, ya);
 
 		AnimatorComponent* c_anim = getComponent<AnimatorComponent>();
 		c_anim->animator.setAnimation(c_vel->moving ? "run" : "idle");
