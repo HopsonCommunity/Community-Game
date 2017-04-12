@@ -69,4 +69,29 @@ namespace Framework
 			Level::LevelRenderer::renderEntitySprite(c_pos->position.x, c_pos->position.y, c_sprite->sprite);
 		}
 	}
+
+	void AISystem::update(const Timestep& ts, Entity* entity)
+	{
+		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
+		PositionComponent* c_player_pos = State::SPlaying::instance->m_level.getEntity(State::SPlaying::instance->m_level.player_id)->getComponent<PositionComponent>();
+		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
+		AIComponent* c_ai = entity->getComponent<AIComponent>();
+
+		std::vector<Node*> path = c_ai->findPath({ (int32)c_pos->position.x >> 5, (int32)c_pos->position.y >> 5 }, { (int32)c_player_pos->position.x >> 5, (int32)c_player_pos->position.y >> 5 }, &State::SPlaying::instance->m_level);
+		int xa = 0, ya = 0;
+		if (!path.empty())
+		{
+			Vec2i vec = path.at(path.size() - 1)->pos;
+			vec.x = vec.x << 5;
+			vec.y = vec.y << 5;
+			int offSet = 5; //Magic number. I'm using it to avoid zombie flickering in walls.
+			if (c_pos->position.x < vec.x + offSet) xa++;
+			if (c_pos->position.x > vec.x + offSet) xa--;
+			if (c_pos->position.y < vec.y + offSet) ya++;
+			if (c_pos->position.y > vec.y + offSet) ya--;
+			path.clear();
+		}
+
+		c_vel->move(xa, ya);
+	}
 }
