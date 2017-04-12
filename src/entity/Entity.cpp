@@ -7,12 +7,12 @@
 namespace Framework
 {
 	Entity::Entity()
-	: m_ID(Random::uint64InRange(0, 18446744073709551614))
+	: m_ID(Random::uint64InRange(0, 18446744073709551614ULL))
 	{
 	}
 
 	Entity::Entity(sf::Vector2f& position, sf::Sprite& sprite)
-	: m_ID(Random::uint64InRange(0, 18446744073709551614))
+	: m_ID(Random::uint64InRange(0, 18446744073709551614ULL))
 	{
 		addComponent(std::make_unique<PositionComponent>(position));
 		addComponent(std::make_unique<SpriteComponent>(sprite));

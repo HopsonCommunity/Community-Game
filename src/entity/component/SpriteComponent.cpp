@@ -7,6 +7,10 @@ namespace Framework
 	{
 	}
 
+	SpriteComponent::SpriteComponent(nlohmann::json json) {
+		///@TODO: json parsing
+	};
+
 	ComponentType* SpriteComponent::getStaticType()
 	{
 		static ComponentType type({ "Sprite" });
@@ -16,5 +20,5 @@ namespace Framework
 	ComponentType* SpriteComponent::getType() const
 	{ 
 		return getStaticType(); 
-	};
+	}
 }

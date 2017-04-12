@@ -6,6 +6,10 @@ namespace Framework
 	{
 	}
 
+	StatsComponent::StatsComponent(nlohmann::json json) {
+		///@TODO: json parsing
+	};
+
 	void StatsComponent::addEffect(std::shared_ptr<StatusEffect> effect)
 	{
 		active_effects.push_back(effect);
@@ -20,5 +24,5 @@ namespace Framework
 	ComponentType* StatsComponent::getType() const
 	{
 		return getStaticType();
-	};
+	}
 }

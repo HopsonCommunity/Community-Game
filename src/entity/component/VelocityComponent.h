@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Component.h"
+#include "../../util/json.hpp"
 
 namespace Framework
 {
@@ -14,8 +15,9 @@ namespace Framework
 		bool moving;
 	public:
 		VelocityComponent(const sf::Vector2f& velocity = {});
-
-		// Move at an angle
+    VelocityComponent(nlohmann::json json);
+    
+    // Move at an angle
 		void move(float angle);
 
 		// Move x/y dir
