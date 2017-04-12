@@ -1,4 +1,5 @@
 ﻿#include "AStar.h"
+#include <math.h>
 
 namespace Framework
 {
