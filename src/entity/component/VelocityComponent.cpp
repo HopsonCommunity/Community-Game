@@ -22,6 +22,16 @@ namespace Framework
 		moving = true;
 	}
 
+	void VelocityComponent::move(int xa, int ya)
+	{
+		velocity.x += (float)xa;
+		velocity.y += (float)ya;
+		if (xa != 0 || ya != 0)
+			Maths::normalize(velocity);
+
+		moving = true;
+	}
+
 	ComponentType* VelocityComponent::getStaticType()
 	{
 		static ComponentType type({ "Velocity" });
