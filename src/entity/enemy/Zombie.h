@@ -2,6 +2,13 @@
 
 #include <SFML/System/Vector2.hpp>
 
+#include "../../Application.h"
+
+#include "../component/Components.h"
+
+#include "../ai/pathfind/AStar.h"
+#include "../../states/StatePlaying.h"
+
 #include "../Entity.h"
 
 namespace Framework
@@ -12,8 +19,5 @@ namespace Framework
 		Zombie(const sf::Vector2f& position);
 
 		void update(const Timestep& ts) override;
-
-		///@TODO This shouldn't be in Zombie. Maybe some kind of 'AI types' class
-		void pathFind(Entity* entity);
 	};
 }

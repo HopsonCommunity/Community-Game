@@ -14,13 +14,9 @@ namespace Framework
 		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
 		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
 		CollisionComponent* c_col = entity->getComponent<CollisionComponent>();
-		AIComponent* c_ai = entity->getComponent<AIComponent>();
 
 		if (c_pos && c_vel)
 		{
-			if (c_ai)
-				c_ai->ai(entity);
-
 			auto colliding = c_col ? Physics::tileCollision(c_pos->position, c_vel->velocity, c_col->aabb, State::SPlaying::instance->m_level, ts.asSeconds()) : std::make_pair(false, false);
 				
 			if (!colliding.first)

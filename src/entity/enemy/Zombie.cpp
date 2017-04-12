@@ -1,12 +1,5 @@
 ﻿#include "Zombie.h"
 
-#include "../../Application.h"
-
-#include "../component/Components.h"
-
-#include "../ai/pathfind/AStar.h"
-#include "../../states/StatePlaying.h"
-
 using namespace std::placeholders;
 
 namespace Framework
@@ -14,20 +7,19 @@ namespace Framework
 	Zombie::Zombie(const sf::Vector2f& position)
 	{
 		addComponent(std::make_unique<Framework::PositionComponent>(position));
-		addComponent(std::make_unique<Framework::SpriteComponent>(sf::Sprite(Application::instance->getResources().textures.get("entity/player_modelDefault"), sf::IntRect(0, 0, 32, 64))));
+		addComponent(std::make_unique<Framework::SpriteComponent>(sf::Sprite(Application::instance->getResources().textures.get("entity/enemy/zombie"), sf::IntRect(0, 0, 32, 64))));
 		addComponent(std::make_unique<Framework::StatsComponent>());
 		addComponent(std::make_unique<Framework::VelocityComponent>());
 		addComponent(std::make_unique<Framework::CollisionComponent>(sf::FloatRect(0, 0, 32, 32)));
 		addComponent(std::make_unique<Framework::AnimatorComponent>(Animator()));
 		addComponent(std::make_unique<Framework::AnimatorComponent>(Animator()));
-		addComponent(std::make_unique<Framework::AIComponent>(std::bind(&Zombie::pathFind, this, _1)));
 
 		VelocityComponent* c_vel = getComponent<VelocityComponent>();
 		c_vel->speed = 100;
 
 		AnimatorComponent* c_anim = getComponent<AnimatorComponent>();
-		c_anim->animator.addAnimation("idle", 0, 0, 32, 8, 7);
-		c_anim->animator.addAnimation("run", 0, 64, 32, 8, 14);
+		c_anim->animator.addAnimation("idle", 16, 0, 64, 4, 7);
+		c_anim->animator.addAnimation("run", 16, 64, 64, 4, 14);
 		c_anim->animator.setAnimation("idle");
 
 		auto health_boost = std::make_shared<HealthBoost>(DURATION_INFINITE, 800, 0);
@@ -40,23 +32,10 @@ namespace Framework
 	
 	void Zombie::update(const Timestep& ts)
 	{
+		int32 xa = 0, ya = 0;
 		VelocityComponent* c_vel = getComponent<VelocityComponent>();
 
-		AnimatorComponent* c_anim = getComponent<AnimatorComponent>();
-		c_anim->animator.setAnimation(c_vel->moving ? "run" : "idle");
-
-		SpriteComponent* c_sprite = getComponent<SpriteComponent>();
-		c_sprite->flipX = Application::instance->mousePosition().x > Application::instance->getWindow().getSize().x / 2;
-
-		c_vel->moving = false;
-	}
-
-	void Zombie::pathFind(Entity* entity)
-	{
-		int32 xa = 0, ya = 0;
-		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
-
-		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
+		PositionComponent* c_pos = getComponent<PositionComponent>();
 		PositionComponent* c_player_pos = State::SPlaying::instance->m_level.getEntity(State::SPlaying::instance->m_level.player_id)->getComponent<PositionComponent>();
 
 		// Before feeding coords in A*, convert them to tile precision (x32)
@@ -75,5 +54,13 @@ namespace Framework
 		}
 
 		c_vel->move(xa, ya);
+
+		AnimatorComponent* c_anim = getComponent<AnimatorComponent>();
+		c_anim->animator.setAnimation(c_vel->moving ? "run" : "idle");
+
+		SpriteComponent* c_sprite = getComponent<SpriteComponent>();
+		c_sprite->flipX = Application::instance->mousePosition().x > Application::instance->getWindow().getSize().x / 2;
+
+		c_vel->moving = false;
 	}
 }
