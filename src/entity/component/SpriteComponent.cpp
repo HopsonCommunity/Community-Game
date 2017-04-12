@@ -7,7 +7,8 @@ namespace Framework
 	{
 	}
 
-	SpriteComponent::SpriteComponent(nlohmann::json json) {
+	SpriteComponent::SpriteComponent(nlohmann::json json) 
+	{
 		///@TODO: json parsing
 	};
 

@@ -19,21 +19,22 @@ namespace Level
 
 		m_updateSystems.push_back(std::make_unique<Framework::MoveSystem>());
 		m_updateSystems.push_back(std::make_unique<Framework::StatsSystem>());
-		m_updateSystems.push_back(std::make_unique<Framework::AnimatorSystem>());
 		m_updateSystems.push_back(std::make_unique<Framework::AISystem>());
+		m_updateSystems.push_back(std::make_unique<Framework::PlayerInputSystem>());
+		m_updateSystems.push_back(std::make_unique<Framework::AnimatorSystem>());
 	}
 
-	void Level::addEntity(Framework::Entity* entity)
+	void Level::addEntity(std::unique_ptr<Framework::Entity> entity)
 	{
-		m_entities.push_back(entity);
+		m_entities.push_back(std::move(entity));
 	}
 
-	Framework::Entity * Level::getEntity(const uint64 & id)
+	Framework::Entity* Level::getEntity(const uint64 & id)
 	{
-		for (auto it = m_entities.begin(); it != m_entities.end(); ++it)
+		for (auto& entity : m_entities)
 		{
-			if ((*it)->getID() == id)
-				return (*it);
+			if (entity->getID() == id)
+				return entity.get();
 		}
 		return nullptr;
 	}
@@ -53,15 +54,13 @@ namespace Level
 
 	void Level::update(const Timestep& ts)
 	{
-		for (uint i = 0; i < m_entities.size(); i++)
-			if (m_entities[i] != nullptr)
-			{
-				Framework::Entity* e = m_entities[i];
-				for (auto& system : m_updateSystems)
-					system->update(ts, e);
-	
-				e->update(ts);
-			}
+		for (auto& entity : m_entities)
+		{
+			for (auto& system : m_updateSystems)
+				system->update(ts, entity.get());
+			entity.get()->update(ts);
+		}
+
 	}
 
 	void Level::render(sf::RenderWindow& window)
@@ -86,13 +85,8 @@ namespace Level
 					m_tiles[x + y * m_width]->render(x, y, *this, window);
 			}
 		
-		for (uint i = 0; i < m_entities.size(); i++)
-			if (m_entities[i] != nullptr)
-			{
-				Framework::Entity* e = m_entities[i];
-			
-				m_renderSystem->update(Timestep(0) /*Render doesn't need delta time*/, e);
-			}
+		for (auto& entity : m_entities)
+			m_renderSystem->update(Timestep(0) /*Render doesn't need delta time*/, entity.get());
 
 		LevelRenderer::drawAll();
 	}

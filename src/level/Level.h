@@ -20,8 +20,8 @@ namespace Level
             Level() {}
             Level(unsigned int width, unsigned int height);
 			
-            void addEntity(Framework::Entity* entity);
-			Framework::Entity* getEntity(const uint64& id);
+            void addEntity(std::unique_ptr<Framework::Entity> entity);
+            Framework::Entity* getEntity(const uint64& id);
 
 			void setTile(unsigned int x, unsigned int y, Tile::Tile& tile);
             Tile::Tile* getTile(unsigned int x, unsigned int y);
@@ -34,7 +34,7 @@ namespace Level
             uint m_height;
             std::vector<Tile::Tile*> m_tiles;
 
-			std::vector<Framework::Entity*> m_entities;
+			std::vector<std::unique_ptr<Framework::Entity>> m_entities;
 
 			std::unique_ptr<Framework::System> m_renderSystem;
 			std::vector<std::unique_ptr<Framework::System>> m_updateSystems;

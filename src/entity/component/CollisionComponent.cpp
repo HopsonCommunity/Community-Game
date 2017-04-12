@@ -6,7 +6,8 @@ namespace Framework
 		: aabb(aabb)
 	{}
 
-	CollisionComponent::CollisionComponent(nlohmann::json json) {
+	CollisionComponent::CollisionComponent(nlohmann::json json) 
+	{
 		//aabb = sf::FloatRect(json["width"], json["height"]);
 	}
 

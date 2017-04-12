@@ -4,7 +4,6 @@
 
 #include "StateBase.h"
 
-#include "../entity/Player.h"
 #include "../level/Level.h"
 #include "../debug/DebugMenu.h"
 #include "../level/WorldGenerator/WorldGenerator.h"
@@ -35,7 +34,6 @@ namespace State
             //Level::Tile::Map m_tileMap;
 			sf::RenderWindow& m_window;
 			sf::View m_camera;
-			Framework::Player m_player;
             Debug::DebugMenu m_debugMenu;
             UI::UI m_ui;
             UI::UIButton m_button;
