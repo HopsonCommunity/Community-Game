@@ -6,7 +6,8 @@ namespace Framework
 	{
 	}
 
-	StatsComponent::StatsComponent(nlohmann::json json) {
+	StatsComponent::StatsComponent(nlohmann::json json) 
+	{
 		///@TODO: json parsing
 	};
 

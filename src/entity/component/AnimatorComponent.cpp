@@ -7,7 +7,8 @@ namespace Framework
 	{
 	}
 
-	AnimatorComponent::AnimatorComponent(nlohmann::json json) {
+	AnimatorComponent::AnimatorComponent(nlohmann::json json)
+	{
 		///@TODO: json parsing
 	}
 
