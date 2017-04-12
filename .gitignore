@@ -29,6 +29,9 @@ CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
 
+# Visual Studio 2017 cmake settings
+CMakeSettings.json
+
 # Visual Studio 2015 cache/options directory
 .vs/
 

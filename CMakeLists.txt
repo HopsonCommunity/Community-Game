@@ -27,7 +27,8 @@ set(CMAKE_BUILD_TYPE Debug)
 add_subdirectory(deps/SFML)
 
 # Copy static files
-file(COPY res/ DESTINATION res/)
+# Tired of manually copying it
+file(COPY res/ DESTINATION Debug/res/) 
 
 target_link_libraries(${PROJECT_NAME} sfml-network sfml-graphics sfml-window sfml-system sfml-audio)
 
