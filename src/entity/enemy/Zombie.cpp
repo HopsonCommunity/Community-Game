@@ -60,8 +60,7 @@ namespace Framework
 		c_anim->animator.setAnimation(c_vel->moving ? "run" : "idle");
 
 		SpriteComponent* c_sprite = getComponent<SpriteComponent>();
-		c_sprite->flipX = Application::instance->mousePosition().x > Application::instance->getWindow().getSize().x / 2;
-	
+		c_sprite->flipX = c_vel->moving ? (c_vel->velocity.x > 0 ? 1 : 0) : 0;
 		c_vel->moving = false;
 	}
 }
