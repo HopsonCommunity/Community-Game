@@ -36,4 +36,16 @@ namespace Framework
 	public:
 		void update(const Timestep& ts, Entity* entity) override;
 	};
+
+    class AISystem : public System
+    {
+    public:
+        void update(const Timestep& ts, Entity* entity) override;
+    };
+
+    class PlayerInputSystem : public System
+    {
+    public:
+        void update(const Timestep& ts, Entity* entity) override;
+    };
 }

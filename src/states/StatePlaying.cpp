@@ -4,7 +4,7 @@
 #include "../level/Tile/Tile.h"
 #include "../level/LevelRenderer.h"
 #include "../entity/component/Components.h"
-#include "../entity/enemy/Zombie.h"
+#include "../entity/EntityFactory.h"
 
 using namespace std::placeholders;
 
@@ -23,7 +23,6 @@ namespace State
 		, m_testFloat(0)
 		, m_window(window)
 		, m_camera()
-		, m_player()
 		, m_level(Test::WORLD_SIZE, Test::WORLD_SIZE)
 		, m_debugMenu(app->getResources().fonts.get("SourceCodePro-Regular"))
 		, m_worldGen(Test::WORLD_SIZE, Test::WORLD_SIZE, 2355)
@@ -43,9 +42,12 @@ namespace State
 		m_camera = sf::View(sf::Vector2f(0, 0), sf::Vector2f(static_cast<float>(window.getSize().x), static_cast<float>(window.getSize().y)));
 		window.setView(m_camera);
 
-		m_level.addEntity(&m_player);
-		m_level.player_id = m_player.getID();
-		std::cout << "Player ID: " << m_player.getID() << std::endl;
+		std::unique_ptr<Framework::Entity> player = Entity::EntityFactory::createPlayer();
+
+		m_level.player_id = player->getID();
+		std::cout << "Player ID: " << m_level.player_id << std::endl;
+
+		m_level.addEntity(std::move(player));
 
 		Level::Tile::Tile::loadTiles();
 
@@ -64,7 +66,7 @@ namespace State
             }
 
 		m_level.getEntity(m_level.player_id)->getComponent<Framework::PositionComponent>()->position = sf::Vector2f(data.playerPosition.x * 32, data.playerPosition.y * 32);
-		m_level.addEntity(new Framework::Zombie({ (float)data.playerPosition.x * 32 + 200, (float)data.playerPosition.y * 32 + 200 }));
+		m_level.addEntity(Entity::EntityFactory::createZombie({ (float)data.playerPosition.x * 32 + 200, (float)data.playerPosition.y * 32 + 200 }));
 	}
 
     void SPlaying::event(sf::Event& event)
@@ -87,8 +89,6 @@ namespace State
     {
 		m_level.update(ts);
 
-		m_player.update(ts);
-
 		int mouseX = Application::instance->mousePosition().x;
 		int mouseY = Application::instance->mousePosition().y;
 		int halfWidth = Application::instance->getWindow().getSize().x / 2;
@@ -96,7 +96,7 @@ namespace State
 		float offsetX = (mouseX - halfWidth) * 0.1f;
 		float offsetY = (mouseY - halfHeight) * 0.1f;
 
-		Framework::PositionComponent* c_pos = m_player.getComponent<Framework::PositionComponent>();
+		Framework::PositionComponent* c_pos = m_level.getEntity(m_level.player_id)->getComponent<Framework::PositionComponent>();
 		m_camera.setCenter(c_pos->position.x + offsetX, c_pos->position.y + offsetY);
 
         m_testFloat = ts.asSeconds();
