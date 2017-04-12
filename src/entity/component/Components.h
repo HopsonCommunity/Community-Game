@@ -8,4 +8,3 @@
 #include "SpriteComponent.h"
 #include "StatsComponent.h"
 #include "VelocityComponent.h"
-#include "AIComponent.h"

@@ -20,7 +20,6 @@ namespace Level
 		m_updateSystems.push_back(std::make_unique<Framework::MoveSystem>());
 		m_updateSystems.push_back(std::make_unique<Framework::StatsSystem>());
 		m_updateSystems.push_back(std::make_unique<Framework::AnimatorSystem>());
-		m_updateSystems.push_back(std::make_unique<Framework::AISystem>());
 	}
 
 	void Level::addEntity(Framework::Entity* entity)
