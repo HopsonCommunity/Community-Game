@@ -90,7 +90,7 @@ namespace Level
 		for (int x = x0; x < x1; x++)
 			for (int y = y0; y < y1; y++)
 			{
-				if (x < 0 || x >= m_width || y < 0 || y >= m_height)
+				if (x < 0 || static_cast<uint>(x) >= m_width || y < 0 || static_cast<uint>(y) >= m_height)
 					continue;
 
 				if (m_tiles[x + y * m_width] != nullptr)

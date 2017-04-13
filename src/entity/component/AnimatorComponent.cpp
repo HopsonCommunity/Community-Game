@@ -11,7 +11,7 @@ namespace Framework
 		: animator(Animator())
 	{
 		std::vector<nlohmann::json> animations = json["animations"];
-		for (int i = 0; i < animations.size(); i++)
+		for (unsigned int i = 0; i < animations.size(); i++)
 		{
 			nlohmann::json animation = animations[i];
 			animator.addAnimation(animation["name"], animation["positionX"], animation["positionY"], animation["stride"], animation["length"], animation["fps"]);

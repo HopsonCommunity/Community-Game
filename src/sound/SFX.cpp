@@ -1,4 +1,4 @@
-#include "SFX.h"
+﻿#include "SFX.h"
 
 #include "../Application.h"
 
@@ -28,7 +28,7 @@ namespace Sound
 
         void SFX::setVolume(const int volume)
         {
-            m_sound.setVolume(volume);
+            m_sound.setVolume(static_cast<float>(volume));
         }
     }
 }

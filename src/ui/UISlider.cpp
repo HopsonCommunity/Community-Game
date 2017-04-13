@@ -18,7 +18,7 @@ namespace UI
 		m_label.setPosition({ (float)rect.left + rect.width / 2, (float)rect.top + rect.height / 4 });
 
 		m_bgSprite.setTexture(textures[3]);
-		m_bgSprite.setPosition(m_rect.left, m_rect.top);
+		m_bgSprite.setPosition(static_cast<float>(m_rect.left), static_cast<float>(m_rect.top));
 		m_bgSprite.setScale((float)m_rect.width / 56.0f, (float)m_rect.height / 14.0f);
 
 		m_scaleX = (float)rect.width / 56.0f;
@@ -94,6 +94,6 @@ namespace UI
 
 	void UISlider::determineSliderPosition()
 	{
-		m_sliderSprite.setPosition(m_rect.left + m_sliderState * 50.0f * m_scaleX, m_rect.top);
+		m_sliderSprite.setPosition(static_cast<float>(m_rect.left + m_sliderState * 50.0f * m_scaleX), static_cast<float>(m_rect.top));
 	}
 }
