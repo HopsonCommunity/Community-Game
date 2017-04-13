@@ -9,7 +9,7 @@
 
 namespace Physics
 {
-	bool tileCollision(sf::Vector2i& position, Hitbox& hitBox, Level::Level& level)
+	bool tileCollision(const sf::Vector2i& position, const Hitbox& hitBox, Level::Level& level)
 	{
 		for (int c = 0; c < 4; c++)
 		{
