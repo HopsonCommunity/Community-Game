@@ -42,5 +42,5 @@ if (NOT UNIX)
 	    CXX_EXTENSIONS OFF
 	)
 else()
-	add_definitions(-std=c++1y)
+	add_definitions(-std=c++14)
 endif()
