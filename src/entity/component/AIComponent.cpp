@@ -2,18 +2,20 @@
 
 namespace Framework
 {
-	AIComponent::AIComponent()
+	AIComponent::AIComponent(double trackingDistance)
+		:findPath(&Util::AStar)
+		,trackingEntity(nullptr)
+		,trackingDistance(trackingDistance)
 	{
 
 	}
 
 	AIComponent::AIComponent(nlohmann::json json)
+		: findPath(&Util::AStar)
+		, trackingEntity(nullptr)
+		, trackingDistance(json["trackingDistance"])
 	{
-	}
-
-	std::vector<Node*> AIComponent::findPath(Vec2i start, Vec2i end, Level::Level* level)
-	{
-		return AStar::findPath(start, end, level);
+		
 	}
 
 	ComponentType* AIComponent::getStaticType()
