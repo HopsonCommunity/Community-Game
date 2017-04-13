@@ -1,0 +1,64 @@
+{
+  "name": "Zombie",
+  "components": [
+	{
+      "componentType": "AI"
+    },
+	{
+      "componentType": "Sprite",
+      "src": "entity/enemy/zombie",
+      "rect": {
+        "left": 0,
+        "top": 0,
+        "width": 32,
+        "height": 64
+      }
+    },
+    {
+      "componentType": "Position",
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "componentType": "Stats",
+      "base": {
+        "max_health": 50,
+        "health_regen": 0,
+        "armor": 10,
+        "magic_resist": 0
+      }
+    },
+    {
+      "componentType": "Velocity",
+      "movement_speed":  100,
+      "velocity": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "componentType": "Animator",
+      "animations": [
+        {
+          "name": "idle",
+          "positionX": 16,
+          "positionY": 0,
+          "stride": 64,
+          "length": 4,
+          "fps": 7
+        },
+        {
+          "name": "run",
+          "positionX": 16,
+          "positionY": 64,
+          "stride": 64,
+          "length": 4,
+          "fps": 14
+        }
+      ]
+    }
+  ]
+}
+	

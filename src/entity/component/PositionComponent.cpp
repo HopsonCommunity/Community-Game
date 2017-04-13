@@ -7,9 +7,9 @@ namespace Framework
 	{
 	}
 
-	PositionComponent::PositionComponent(nlohmann::json json) 
+	PositionComponent::PositionComponent(nlohmann::json json)
+		: position(sf::Vector2f(json["position"]["x"], json["position"]["y"]))
 	{
-		position = sf::Vector2f(json["x"], json["y"]);
 	}
 
 	ComponentType* PositionComponent::getStaticType()

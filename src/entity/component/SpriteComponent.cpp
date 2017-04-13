@@ -1,5 +1,7 @@
 ﻿#include "SpriteComponent.h"
 
+#include "../../Application.h"
+
 namespace Framework
 {
 	SpriteComponent::SpriteComponent(const sf::Sprite& sprite)
@@ -8,8 +10,8 @@ namespace Framework
 	}
 
 	SpriteComponent::SpriteComponent(nlohmann::json json) 
+		: sprite(sf::Sprite(Application::instance->getResources().textures.get(json["src"]), sf::IntRect(json["rect"]["left"], json["rect"]["top"], json["rect"]["width"], json["rect"]["height"])))
 	{
-		///@TODO: json parsing
 	};
 
 	ComponentType* SpriteComponent::getStaticType()

@@ -1,10 +1,13 @@
 ﻿#pragma once
 
-#include "../util/json.hpp"
 #include "Entity.h"
 
-namespace Entity {
-    class EntityFactory {
+#include "../util/json.hpp"
+
+namespace Framework 
+{    
+	class EntityFactory 
+	{
     public:
         static std::unique_ptr<Framework::Entity> createEntity(std::string filePath);
 

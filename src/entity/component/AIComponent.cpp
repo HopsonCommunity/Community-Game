@@ -9,7 +9,6 @@ namespace Framework
 
 	AIComponent::AIComponent(nlohmann::json json)
 	{
-
 	}
 
 	std::vector<Node*> AIComponent::findPath(Vec2i start, Vec2i end, Level::Level* level)
