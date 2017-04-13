@@ -20,7 +20,6 @@ add_executable(${PROJECT_NAME} ${SRC})
 include_directories(deps/SFML/include)
 add_definitions(-DSFML_STATIC)
 
-include_directories(tests)
 enable_testing()
 
 set(SFML_BUILD_DOC OFF CACHE BOOL "" FORCE)
@@ -31,7 +30,7 @@ add_subdirectory(deps/SFML)
 
 # Copy static files
 # Tired of manually copying it
-file(COPY res/ DESTINATION Debug/res/) 
+file(COPY res/ DESTINATION Debug/res/)
 
 target_link_libraries(${PROJECT_NAME} sfml-network sfml-graphics sfml-window sfml-system sfml-audio)
 
@@ -45,4 +44,3 @@ if (NOT UNIX)
 else()
 	add_definitions(-std=c++1y)
 endif()
-
