@@ -1,10 +1,12 @@
 {
   "name": "Zombie",
-  "components": [
-	{
-      "componentType": "AI"
+  "components": 
+  [
+	  {
+      "componentType": "AI",
+      "trackingDistance": 7
     },
-	{
+	  {
       "componentType": "Sprite",
       "src": "entity/enemy/zombie",
       "rect": {
