@@ -64,8 +64,8 @@ namespace Framework
 				Level::Tile::Tile* at = level->getTile(x + xi, y + yi);
 				if (!at)
 					continue;
-				if (at->isSolid())
-					continue;
+				//if (at->isSolid())
+				//	continue;
 
 				Vec2i a = { x + xi, y + yi };
 				double gCost = current->gCost + (distance(current->pos, a) == 1 ? 1 : 2);

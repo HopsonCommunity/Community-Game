@@ -119,4 +119,8 @@ namespace State
         m_debugMenu.render();
         m_ui.render();
     }
+
+	void SPlaying::tick()
+	{
+	}
 }

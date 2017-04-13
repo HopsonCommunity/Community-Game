@@ -11,31 +11,19 @@ namespace Framework
 {
 	void MoveSystem::update(const Timestep& ts, Entity* entity)
 	{
-		// This is how you can get components from an entity. 
-		// Returns nullptr if an entity doesn't have the specified component
-		// Prefix entity components with c_
 		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
 		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
 		CollisionComponent* c_col = entity->getComponent<CollisionComponent>();
 
-		// In this case for the movement system it requires that the entity has position and velocity components. 
-		// This if statement is the same as: "if (c_pos != nullptr && c_vel != nullptr)"
 		if (c_pos && c_vel)
 		{
-			// Here is defined what the system does to the entity.
-			// The movement system moves the entities position, taking it's velocity,
-			// speed and delta time into account
+			bool colliding = false;// Physics::tileCollision(sf::Vector2f(c_pos->position.x + c_vel->velocity.x * ts.asSeconds(), c_pos->position.y + c_vel->velocity.y * ts.asSeconds()), sf::FloatRect(2, 32, 26, 32), State::SPlaying::instance->m_level);
 
-			// For now collision is disabled
-			auto colliding = std::make_pair(false, false);
-			
-			if (!colliding.first)
-				c_pos->position.x += c_vel->velocity.x * c_vel->speed * ts.asSeconds();
-			if (!colliding.second)
-				c_pos->position.y += c_vel->velocity.y * c_vel->speed * ts.asSeconds();
-
-			c_vel->velocity.x = 0;
-			c_vel->velocity.y = 0;
+			if (!colliding)
+			{
+				c_pos->position.x += static_cast<int>(c_vel->velocity.x *= c_vel->acceleration * ts.asSeconds());
+				c_pos->position.y += static_cast<int>(c_vel->velocity.y *= c_vel->acceleration * ts.asSeconds());
+			}
 		}
 	}
 

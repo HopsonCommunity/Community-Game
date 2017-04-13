@@ -32,7 +32,7 @@
     },
     {
       "componentType": "Velocity",
-      "movement_speed":  200,
+	  "acceleration":  500,
       "velocity": {
         "x": 0,
         "y": 0

@@ -7,13 +7,13 @@
 
 namespace Physics
 {
-
-	std::pair<bool, bool> tileCollision(sf::Vector2f& position, sf::Vector2f& velocity, sf::FloatRect& hitBox, Level::Level& level, float dt)
+	bool tileCollision(sf::Vector2f& position, sf::FloatRect& hitBox, Level::Level& level)
 	{
-		int tileX0 = (int)((position.x + velocity.x * dt + hitBox.left) / Level::TILE_SIZE);
-		int tileX1 = (int)((position.x + velocity.x * dt + hitBox.left + hitBox.width) / Level::TILE_SIZE) + 2;
-		int tileY0 = (int)((position.y + velocity.y * dt + hitBox.top) / Level::TILE_SIZE);
-		int tileY1 = (int)((position.y + velocity.y * dt + hitBox.top + hitBox.height) / Level::TILE_SIZE) + 2;
+		/*
+		int tileX0 = (int)((position.x + velocity.x * dt) / Level::TILE_SIZE);
+		int tileX1 = (int)((position.x + velocity.x * dt) / Level::TILE_SIZE) + 2;
+		int tileY0 = (int)((position.y + velocity.y * dt) / Level::TILE_SIZE);
+		int tileY1 = (int)((position.y + velocity.y * dt) / Level::TILE_SIZE) + 2;
 
 		bool collidingX = false;
 		bool collidingY = false;
@@ -44,8 +44,19 @@ namespace Physics
 				}
 			}
 		}
+		*/
 
-		return std::make_pair(collidingX, collidingY);
+		bool colliding = false;
+
+		for (int c = 0; c < 4; c++)
+		{
+			int xt = int(hitBox.left + position.x - c % 2 * hitBox.width) >> 5;
+			int yt = int(hitBox.top + position.y - c / 2 * hitBox.height) >> 5;
+			if (level.getTile(xt, yt)->isSolid())
+				colliding = true;
+		}
+
+		return colliding;
 	}
 
 }
