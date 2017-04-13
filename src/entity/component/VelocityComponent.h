@@ -12,8 +12,8 @@ namespace Framework
 	class VelocityComponent : public Component
 	{
 	public:
-		float acceleration; // eg. 5 pixels/sec^2
-		sf::Vector2f velocity; // used for direction of movement
+		float speed;
+		sf::Vector2f velocity;
 		bool moving;
 	public:
 		VelocityComponent(const sf::Vector2f& velocity = {});

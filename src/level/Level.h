@@ -28,6 +28,8 @@ namespace Level
 			void setTile(unsigned int x, unsigned int y, Tile::Tile& tile);
             Tile::Tile* getTile(unsigned int x, unsigned int y);
             
+            Framework::Entity* getEntityOnTile(unsigned int x, unsigned int y);
+
 			void update(const Timestep& ts);
             void render(sf::RenderWindow& window);
 

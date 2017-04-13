@@ -1,10 +1,12 @@
 {
   "name": "Zombie",
-  "components": [
-	{
-      "componentType": "AI"
+  "components": 
+  [
+	  {
+      "componentType": "AI",
+      "trackingDistance": 7
     },
-	{
+	  {
       "componentType": "Sprite",
       "src": "entity/enemy/zombie",
       "rect": {
@@ -21,6 +23,15 @@
         "y": 0
       }
     },
+	{
+      "componentType": "Collision",
+      "aabb": {
+        "xMin": 16,
+        "yMin": 20,
+		"xMax": 32,
+		"yMax": 32
+      }
+    },
     {
       "componentType": "Stats",
       "base": {
@@ -32,7 +43,7 @@
     },
     {
       "componentType": "Velocity",
-      "acceleration":  400,
+      "speed":  100,
       "velocity": {
         "x": 0,
         "y": 0

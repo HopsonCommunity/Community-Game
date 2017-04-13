@@ -10,7 +10,7 @@ namespace Framework
 	}
 
 	VelocityComponent::VelocityComponent(nlohmann::json json) 
-		: velocity(sf::Vector2f(json["velocity"]["x"], json["velocity"]["y"])), acceleration(json["acceleration"])
+		: velocity(sf::Vector2f(json["velocity"]["x"], json["velocity"]["y"])), speed(json["speed"])
 	{
 	}
 
