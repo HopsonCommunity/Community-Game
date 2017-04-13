@@ -27,8 +27,11 @@ namespace State
             void input() override;
             void update(const Timestep& ts) override;
             void render(sf::RenderWindow& window) override;
+			void tick() override;
+
 			inline sf::View& getCamera() { return m_camera; }
-            void buttonCallback() { std::cout << "The testbutton has been pressed!" << std::endl; }
+            
+			void buttonCallback() { std::cout << "The testbutton has been pressed!" << std::endl; }
             void sliderCallback(float f) { std::cout << "The slider has the following value: " << f << std::endl; }
         private:
             //Level::Tile::Map m_tileMap;

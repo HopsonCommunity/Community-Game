@@ -2,14 +2,13 @@
 
 namespace Framework
 {
-	CollisionComponent::CollisionComponent(const sf::FloatRect& aabb)
+	CollisionComponent::CollisionComponent(const Hitbox& aabb)
 		: aabb(aabb)
 	{}
 
 	CollisionComponent::CollisionComponent(nlohmann::json json) 
-	{
-		//aabb = sf::FloatRect(json["width"], json["height"]);
-	}
+		: aabb({ json["aabb"]["xMin"], json["aabb"]["yMin"], json["aabb"]["xMax"], json["aabb"]["yMax"] })
+	{}
 
 	ComponentType* CollisionComponent::getStaticType()
 	{

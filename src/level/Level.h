@@ -23,6 +23,8 @@ namespace Level
             void addEntity(std::unique_ptr<Framework::Entity> entity);
             Framework::Entity* getEntity(const uint64& id);
 
+			Framework::Entity* getPlayer() { return getEntity(player_id); }
+
 			void setTile(unsigned int x, unsigned int y, Tile::Tile& tile);
             Tile::Tile* getTile(unsigned int x, unsigned int y);
             

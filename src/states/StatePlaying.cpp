@@ -68,7 +68,7 @@ namespace State
 		m_level.getEntity(m_level.player_id)->getComponent<Framework::PositionComponent>()->position = sf::Vector2f(data.playerPosition.x * 32, data.playerPosition.y * 32);
 
 		std::unique_ptr<Framework::Entity> zombie = Framework::EntityFactory::createEntity("enemy/Zombie");
-		zombie->getComponent<Framework::PositionComponent>()->position = sf::Vector2f(data.playerPosition.x * 32 + 200, data.playerPosition.y * 32 + 200); 
+		zombie->getComponent<Framework::PositionComponent>()->position = sf::Vector2f(data.playerPosition.x * 32 + 210, data.playerPosition.y * 32 + 210); 
 		
 		m_level.addEntity(std::move(zombie));
 	}
@@ -119,4 +119,8 @@ namespace State
         m_debugMenu.render();
         m_ui.render();
     }
+
+	void SPlaying::tick()
+	{
+	}
 }

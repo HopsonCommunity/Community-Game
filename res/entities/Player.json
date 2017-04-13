@@ -21,6 +21,15 @@
         "y": 0
       }
     },
+	{
+      "componentType": "Collision",
+      "aabb": {
+        "xMin": 16,
+        "yMin": 20,
+		"xMax": 32,
+		"yMax": 32
+      }
+    },
     {
       "componentType": "Stats",
       "base": {
@@ -32,7 +41,7 @@
     },
     {
       "componentType": "Velocity",
-      "movement_speed":  200,
+	  "speed":  180,
       "velocity": {
         "x": 0,
         "y": 0
