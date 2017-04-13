@@ -1,5 +1,11 @@
 language: cpp
 
+before_install:
+    - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+    - sudo apt-get update -qq
+    - sudo apt-get install -qq libyajl-dev libxml2-dev libxqilla-dev
+    - sudo apt-get install g++-4.8
+
 before_script:
   - sudo apt-get install -y libudev-dev libjpeg62-dev libsndfile1-dev libglew1.5 libglew1.5-dev libfreetype6 libjpeg-turbo8 libjpeg8 libopenal-data libopenal1 libopenal-dev libxrandr2 libxrender1 libsoil1
 
