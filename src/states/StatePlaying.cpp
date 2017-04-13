@@ -42,7 +42,7 @@ namespace State
 		m_camera = sf::View(sf::Vector2f(0, 0), sf::Vector2f(static_cast<float>(window.getSize().x), static_cast<float>(window.getSize().y)));
 		window.setView(m_camera);
 
-		std::unique_ptr<Framework::Entity> player = Entity::EntityFactory::createPlayer();
+		std::unique_ptr<Framework::Entity> player = Framework::EntityFactory::createEntity("Player");
 
 		m_level.player_id = player->getID();
 		std::cout << "Player ID: " << m_level.player_id << std::endl;
@@ -66,7 +66,11 @@ namespace State
             }
 
 		m_level.getEntity(m_level.player_id)->getComponent<Framework::PositionComponent>()->position = sf::Vector2f(data.playerPosition.x * 32, data.playerPosition.y * 32);
-		m_level.addEntity(Entity::EntityFactory::createZombie({ (float)data.playerPosition.x * 32 + 200, (float)data.playerPosition.y * 32 + 200 }));
+
+		std::unique_ptr<Framework::Entity> zombie = Framework::EntityFactory::createEntity("enemy/Zombie");
+		zombie->getComponent<Framework::PositionComponent>()->position = sf::Vector2f(data.playerPosition.x * 32 + 200, data.playerPosition.y * 32 + 200); 
+		
+		m_level.addEntity(std::move(zombie));
 	}
 
     void SPlaying::event(sf::Event& event)

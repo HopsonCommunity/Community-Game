@@ -9,7 +9,6 @@ namespace Framework
 
 	PlayerComponent::PlayerComponent(nlohmann::json json)
 	{
-
 	}
 
 	ComponentType* PlayerComponent::getStaticType()
@@ -22,6 +21,4 @@ namespace Framework
 	{
 		return getStaticType();
 	}
-
-
 }

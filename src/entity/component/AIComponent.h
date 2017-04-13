@@ -1,7 +1,9 @@
 ﻿#include "Component.h"
 
-#include "../ai/pathfind/AStar.h"
 #include <SFML/Graphics.hpp>
+
+#include "../ai/pathfind/AStar.h"
+
 #include "../../util/json.hpp"
 
 namespace Framework

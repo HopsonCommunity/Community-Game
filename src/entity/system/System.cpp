@@ -61,6 +61,7 @@ namespace Framework
 
 		if (c_sprite && c_anim)
 		{
+			// What if there is a projectile entity that doesn't have run and idle animations? -Repertoire
 			if (c_vel)
 				c_vel->moving ? c_anim->animator.setAnimation("run") : c_anim->animator.setAnimation("idle");
 

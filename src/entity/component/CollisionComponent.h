@@ -7,6 +7,10 @@
 
 namespace Framework
 {
+	//
+	// @Deprecated (for now)
+	// Later I'll work on physics and collisions.
+	//
 	class CollisionComponent : public Component
 	 {
 	public:

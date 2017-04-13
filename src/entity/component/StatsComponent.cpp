@@ -6,9 +6,15 @@ namespace Framework
 	{
 	}
 
-	StatsComponent::StatsComponent(nlohmann::json json) 
+	StatsComponent::StatsComponent(nlohmann::json json)
 	{
-		///@TODO: json parsing
+		base_health_boost = std::make_shared<HealthBoost>(DURATION_INFINITE, json["base"]["max_health"], json["base"]["health_regen"]);
+		base_defense = std::make_shared<Defense>(DURATION_INFINITE, json["base"]["armor"], json["base"]["magic_resist"]);
+		
+		addEffect(base_health_boost);
+		addEffect(base_defense);
+
+		stats.health = json["base"]["max_health"];
 	};
 
 	void StatsComponent::addEffect(std::shared_ptr<StatusEffect> effect)

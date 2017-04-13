@@ -1,0 +1,64 @@
+{
+  "name": "Player",
+  "components": [
+    {
+      "componentType": "Player"
+    },
+	{
+      "componentType": "Sprite",
+      "src": "entity/player_modelDefault",
+      "rect": {
+        "left": 0,
+        "top": 0,
+        "width": 32,
+        "height": 64
+      }
+    },
+    {
+      "componentType": "Position",
+      "position": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "componentType": "Stats",
+      "base": {
+        "max_health": 150,
+        "health_regen": 5,
+        "armor": 0,
+        "magic_resist": 0
+      }
+    },
+    {
+      "componentType": "Velocity",
+      "movement_speed":  200,
+      "velocity": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "componentType": "Animator",
+      "animations": [
+        {
+          "name": "idle",
+          "positionX": 0,
+          "positionY": 0,
+          "stride": 32,
+          "length": 8,
+          "fps": 7
+        },
+        {
+          "name": "run",
+          "positionX": 0,
+          "positionY": 64,
+          "stride": 32,
+          "length": 8,
+          "fps": 14
+        }
+      ]
+    }
+  ]
+}
+	
