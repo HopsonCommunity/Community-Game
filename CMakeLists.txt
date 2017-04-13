@@ -1,4 +1,4 @@
-﻿# Specify the minimum CMAKE version required
+# Specify the minimum CMAKE version required
 cmake_minimum_required(VERSION 2.8)
 
 # Your project's name
