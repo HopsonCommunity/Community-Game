@@ -101,11 +101,11 @@ namespace State
 		int mouseY = Application::instance->mousePosition().y;
 		int halfWidth = Application::instance->getWindow().getSize().x / 2;
 		int halfHeight = Application::instance->getWindow().getSize().y / 2;
-		float offsetX = (mouseX - halfWidth) * 0.1f;
-		float offsetY = (mouseY - halfHeight) * 0.1f;
+		int offsetX = static_cast<int>((mouseX - halfWidth) * 0.1f);
+		int offsetY = static_cast<int>((mouseY - halfHeight) * 0.1f);
 
 		Framework::PositionComponent* c_pos = m_level.getEntity(m_level.player_id)->getComponent<Framework::PositionComponent>();
-		m_camera.setCenter(c_pos->position.x + offsetX, c_pos->position.y + offsetY);
+		m_camera.setCenter(c_pos->position.x + offsetX, c_pos->position.y+0.01f +offsetY);
 
         m_testFloat = ts.asSeconds();
         m_testInt = static_cast<int>(ts.asMillis());
