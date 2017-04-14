@@ -4,13 +4,13 @@
     {
       "componentType": "Player"
     },
-	{
+	  { 
       "componentType": "Sprite",
       "src": "entity/player_modelDefault",
-	  "origin": {
-		"x": 18,
-		"y": 48
-	  },
+	    "origin": {
+		    "x": 15,
+		    "y": 48
+	    },
       "rect": {
         "left": 0,
         "top": 0,
@@ -25,13 +25,13 @@
         "y": 0
       }
     },
-	{
+	  {
       "componentType": "Collision",
       "aabb": {
-        "xMin": 2,
-        "yMin": 31,
-		"xMax": 28,
-		"yMax": 64
+        "xMin": 13,
+        "yMin": 16,
+		    "xMax": 26,
+		    "yMax": 32
       }
     },
     {
@@ -45,7 +45,7 @@
     },
     {
       "componentType": "Velocity",
-	  "speed":  188,
+	    "speed":  188,
       "velocity": {
         "x": 0,
         "y": 0

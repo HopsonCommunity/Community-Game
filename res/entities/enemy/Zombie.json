@@ -5,13 +5,13 @@
 	{
       "componentType": "AI",
       "trackingDistance": 7
-    },
+  },
 	{
 	  "componentType": "Sprite",
       "src": "entity/enemy/zombie",
       "origin": {
-		"x": 32,
-		"y": 48
+		  "x": 32,
+		  "y": 48
 	  },
 	  "rect": {
         "left": 0,
@@ -32,8 +32,8 @@
       "aabb": {
         "xMin": 16,
         "yMin": 28,
-		"xMax": 47,
-		"yMax": 64
+		    "xMax": 47,
+		    "yMax": 64
       }
     },
     {
