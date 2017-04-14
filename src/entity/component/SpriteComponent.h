@@ -11,6 +11,7 @@ namespace Framework
 	class SpriteComponent : public Component
 	{
 	public:
+		sf::Vector2f origin;
 		sf::Sprite sprite;
 		bool flipX, flipY;
 	public:

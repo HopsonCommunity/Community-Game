@@ -1,6 +1,7 @@
 ﻿#include "VelocityComponent.h"
 
-#include "../../util/Maths.h"
+#include "../../maths/vec2.h"
+#include "../../maths/Maths.h"
 
 namespace Framework
 {
@@ -15,9 +16,9 @@ namespace Framework
 
 	void VelocityComponent::move(float angle)
 	{
-		velocity.x += cos(Maths::toRadians(angle));
-		velocity.y += sin(Maths::toRadians(angle));
-		Maths::normalize(velocity);
+		velocity.x += cos(toRadians(angle));
+		velocity.y += sin(toRadians(angle));
+		normalize(velocity);
 
 		moving = true;
 	}
@@ -27,7 +28,7 @@ namespace Framework
 		velocity.x += (float)xa;
 		velocity.y += (float)ya;
 		if (xa != 0 || ya != 0)
-			Maths::normalize(velocity);
+			normalize(velocity);
 
 		moving = true;
 	}

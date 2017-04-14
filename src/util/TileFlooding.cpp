@@ -7,7 +7,7 @@ namespace Util
 		std::vector<std::pair<Vec2i, int>> tiles;
 		std::vector<std::pair<Vec2i, int>> temp;
 
-		tiles.push_back(std::make_pair(entityPos * 32, radius));
+		tiles.push_back(std::make_pair(sf::Vector2i(entityPos.x * 32, entityPos.y * 32), radius));
 
 		int currentCost = radius;
 		while (currentCost != 0)

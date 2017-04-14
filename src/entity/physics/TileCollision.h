@@ -4,18 +4,19 @@
 
 #include "Hitbox.h"
 
+#include "../../states/StatePlaying.h"
 #include "../../level/Level.h"
 #include "../../level/Tile/Tile.h"
 
 namespace Physics
 {
-	bool tileCollision(const sf::Vector2i& position, const Hitbox& hitBox, Level::Level& level)
+	bool tileCollision(const sf::Vector2i& position, const Hitbox& hitBox)
 	{
 		for (int c = 0; c < 4; c++)
 		{
-			int xt = int(position.x - c % 2 * hitBox.xMax + hitBox.xMin) >> 5;
-			int yt = int(position.y - c / 2 * hitBox.yMax + hitBox.yMin) >> 5;
-			if (level.getTile(xt, yt) != nullptr && level.getTile(xt, yt)->isSolid())
+			int xt = int(hitBox.xMin + position.x - (c % 2 == 0 ? (hitBox.xMax - hitBox.xMin) / 2 : -(hitBox.xMax - hitBox.xMin) / 2)) >> 5;
+			int yt = int(hitBox.yMin + position.y - (c / 2 == 1 ? (hitBox.yMax - hitBox.yMin) / 2 : (hitBox.yMax - hitBox.yMin))) >> 5;
+			if (State::SPlaying::instance->m_level.getTile(xt, yt) != nullptr && State::SPlaying::instance->m_level.getTile(xt, yt)->isSolid())
 				return true;
 		}
 
