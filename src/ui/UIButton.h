@@ -19,6 +19,7 @@ namespace UI
         void hover(int x, int y);
         void none();
         void render(sf::RenderWindow& window);
+
     private:
         std::function<void()> m_callback;
         sf::Sprite m_sprite;

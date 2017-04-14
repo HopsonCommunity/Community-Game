@@ -3,7 +3,10 @@
 
 namespace WGenerator
 {
-    Leaf::Leaf(Rectangle t_block, std::shared_ptr<Random::Generator<> > t_generator, uint t_minSize) : block(t_block), generator(t_generator), m_minSize(t_minSize)
+    Leaf::Leaf(Rectangle t_block, std::shared_ptr<Random::Generator<> > t_generator, uint t_minSize)
+    :   block       (t_block)
+    ,   generator   (t_generator)
+    ,   m_minSize   (t_minSize)
     {
     }
 
