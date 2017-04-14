@@ -1,40 +1,37 @@
 {
-  "name": "Projectile",
-  "components": 
-  [
+	"name": "Projectile",
+	"components": [
 	{
-      "componentType": "Sprite",
-      "src": "entity/temp/k1",
-      "origin": {
-		    "x": 8,
-		    "y": 8
-	  },
-	  "rect": {
-        "left": 0,
-        "top": 0,
-        "width": 16,
-        "height": 16
-      }
-    },
+		"componentType": "Sprite",
+		"src": "entity/temp/k1",
+		"origin": {
+			"x": 8,
+			"y": 8
+		},
+		"rect": {
+			"left": 0,
+			"top": 0,
+			"width": 16,
+			"height": 16
+		}
+	},
 	{
-      "componentType": "Move",
-      "type": "Sine-wave"
-    },
-    {
-      "componentType": "Position",
-      "position": {
-        "x": 0,
-        "y": 0
-      }
-    },
-    {
-      "componentType": "Velocity",
-      "speed":  70,
-      "velocity": {
-        "x": 1,
-        "y": 0
-      }
-    }
-  ]
+		"componentType": "Move",
+		"type": "Sine-wave"
+	},
+	{
+		"componentType": "Position",
+		"position": {
+			"x": 0,
+			"y": 0
+		}
+	},
+	{
+		"componentType": "Velocity",
+		"speed": 70,
+		"velocity": {
+			"x": 1,
+			"y": 0
+		}
+	}]
 }
-	
