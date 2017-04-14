@@ -7,7 +7,7 @@
 namespace Debug
 {
     DebugMenu::DebugMenu(const sf::Font& font)
-        : m_active(false)
+    : m_active(false)
     {
         menu[0].setFont         (font);
         menu[0].setOutlineColor (sf::Color::Black);

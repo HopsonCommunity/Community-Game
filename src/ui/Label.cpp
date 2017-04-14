@@ -36,15 +36,17 @@ namespace UI
 		sf::Vector2f size(rect.width, rect.height);
 		switch (m_alignment)
 		{
-		case Alignment::LEFT:
-			m_alignmentOffset.x = 0;
-			break;
-		case Alignment::CENTER:
-			m_alignmentOffset.x = -size.x * 0.5f;
-			break;
-		case Alignment::RIGHT:
-			m_alignmentOffset.x = -size.x;
-			break;
+            case Alignment::LEFT:
+                m_alignmentOffset.x = 0;
+                break;
+            case Alignment::CENTER:
+                m_alignmentOffset.x = -size.x * 0.5f;
+                break;
+            case Alignment::RIGHT:
+                m_alignmentOffset.x = -size.x;
+                break;
+            default:
+                break;
 		}
 	}
 }

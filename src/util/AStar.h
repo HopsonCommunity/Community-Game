@@ -13,11 +13,17 @@ namespace Util
 	{
 		Node* parent;
 		Vec2i pos;
-		
-		double fCost, gCost, hCost;
+
+		double fCost;
+		double hCost;
+		double gCost;
 
 		Node(Vec2i pos, Node* parent, double gCost, double hCost)
-		: parent(parent), pos(pos), fCost(gCost + hCost), hCost(hCost), gCost(gCost)
+		: parent(parent)
+		, pos(pos)
+		, fCost(gCost + hCost)
+		, hCost(hCost)
+		, gCost(gCost)
 		{
 		}
 	};

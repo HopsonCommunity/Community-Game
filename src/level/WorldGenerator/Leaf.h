@@ -26,8 +26,7 @@ namespace WGenerator
             void createHall(std::shared_ptr<Rectangle> left, std::shared_ptr<Rectangle> right);
             std::shared_ptr<Rectangle> getRoom();
 
-            uint m_minSize = 7;
-
             std::shared_ptr<Random::Generator<> > generator;
+            uint m_minSize = 7;
     };
 }

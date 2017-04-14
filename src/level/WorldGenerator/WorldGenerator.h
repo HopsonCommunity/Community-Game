@@ -29,10 +29,10 @@ namespace WGenerator
 
             sf::Vector2<uint> placePlayer(uint roomId);
 
-            uint m_minSize;
-            uint m_maxSize;
             uint m_width;
             uint m_height;
+            uint m_minSize;
+            uint m_maxSize;
             uint m_seed;
             Random::Generator<> m_generator;
             std::vector<std::shared_ptr<Leaf> > m_leafs;

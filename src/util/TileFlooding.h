@@ -1,5 +1,5 @@
 ﻿#include <vector>
-#include "../Entity/Entity.h"
+#include "../entity/Entity.h"
 #include "../level/Level.h"
 #include <SFML/Graphics.hpp>
 

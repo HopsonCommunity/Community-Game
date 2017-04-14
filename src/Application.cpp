@@ -7,9 +7,9 @@ Application* Application::instance = nullptr;
 
 Application::Application(std::string&& name, const WindowSettings& settings)
 :   m_title(std::move(name))
-,   m_windowSettings(settings)
 ,	m_inputScheme("Controls.json")
 ,	m_inputManager(&m_inputScheme)
+,   m_windowSettings(settings)
 {
 	instance = this;
 
@@ -33,12 +33,12 @@ void Application::start()
 	uint frames = 0;
 	uint updates = 0;
 
-	Timestep timestep(clock.getElapsedTime().asMilliseconds());
+	Timestep timestep(static_cast<float>(clock.getElapsedTime().asMilliseconds()));
 	BGM.loadMusic();
     BGM.menu.setVolume(3.0f);
     BGM.menu.setLoop(true);
     BGM.play(BGM.menu);
-  
+
 	while (m_window.isOpen())
 	{
 		m_window.clear();

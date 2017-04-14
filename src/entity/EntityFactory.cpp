@@ -17,7 +17,7 @@ namespace Framework
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
 		
 		std::vector<nlohmann::json> componentsJSON = json["components"];
-		for (int i = 0; i < componentsJSON.size(); i++)
+		for (unsigned int i = 0; i < componentsJSON.size(); i++)
 		{
 			nlohmann::json componentJSON = componentsJSON[i];
 

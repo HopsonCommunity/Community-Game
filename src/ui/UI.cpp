@@ -4,7 +4,7 @@ namespace UI
 {
 	UI::UI(sf::RenderWindow* owningWindow)
 		: m_owningWindow(owningWindow)
-		, m_uiView(sf::Vector2f(owningWindow->getSize().x / 2, owningWindow->getSize().y / 2), sf::Vector2f(owningWindow->getSize().x, owningWindow->getSize().y))
+		, m_uiView(sf::Vector2f(static_cast<float>(owningWindow->getSize().x / 2), static_cast<float>(owningWindow->getSize().y / 2)), sf::Vector2f(static_cast<float>(owningWindow->getSize().x), static_cast<float>(owningWindow->getSize().y)))
 	{
 
 	}

@@ -4,7 +4,11 @@
 namespace WGenerator
 {
     WorldGenerator::WorldGenerator(uint t_width, uint t_height, uint t_seed, uint t_minSize, uint t_maxSize)
-		: m_width(t_width), m_height(t_height), m_seed(t_seed), m_generator(), m_minSize(t_minSize), m_maxSize(t_maxSize)
+    :   m_width     (t_width)
+    ,   m_height    (t_height)
+    ,   m_minSize   (t_minSize)
+    ,   m_maxSize   (t_maxSize)
+        ,   m_seed      (t_seed)
     {
         m_generator.setSeed(m_seed);
     }
@@ -42,7 +46,7 @@ namespace WGenerator
 	std::vector<std::shared_ptr<Rectangle> > WorldGenerator::getRooms()
 	{
 		std::vector<std::shared_ptr<Rectangle> > rectangles;
-		for (int i=0; i < m_leafs.size(); i++)
+		for (unsigned int i=0; i < m_leafs.size(); i++)
 		{
 			if (m_leafs[i]->room)
 			{
@@ -55,7 +59,7 @@ namespace WGenerator
 	std::vector<std::shared_ptr<Rectangle> >  WorldGenerator::getRandomSquares()
 	{
 		std::vector<std::shared_ptr<Rectangle> > rooms;
-		for (int i=0; i < m_leafs.size(); i++)
+		for (unsigned int i=0; i < m_leafs.size(); i++)
 		{
 			if (m_leafs[i]->room)
 			{
@@ -63,7 +67,7 @@ namespace WGenerator
 			}
 		}
 		std::vector<std::shared_ptr<Rectangle> > rectangles;
-		for (int i=0; i < rooms.size(); i++)
+		for (unsigned int i=0; i < rooms.size(); i++)
 		{
 			for (int j=0; j < 10; j++)
 			{
@@ -83,9 +87,9 @@ namespace WGenerator
 	std::vector<std::shared_ptr<Rectangle> > WorldGenerator::getHalls()
 	{
 		std::vector<std::shared_ptr<Rectangle> > rectangles;
-		for (int i=0; i < m_leafs.size(); i++)
+		for (unsigned int i=0; i < m_leafs.size(); i++)
 		{
-			for (int j=0; j < m_leafs[i]->halls.size(); j++)
+			for (unsigned int j=0; j < m_leafs[i]->halls.size(); j++)
 			{
 				rectangles.push_back(std::make_shared<Rectangle>(m_leafs[i]->halls[j]));
 			}
@@ -96,13 +100,13 @@ namespace WGenerator
 	std::vector<std::vector<byte > > WorldGenerator::render(std::vector<std::pair<std::vector<std::shared_ptr<Rectangle> >, byte > > data)
 	{
 		std::vector<std::vector<byte> > map(m_width, std::vector<byte>(m_height, 0));
-		for (int i = 0; i < data.size(); i++)
+		for (unsigned int i = 0; i < data.size(); i++)
 		{
-			for (int j = 0; j < data[i].first.size(); j++)
+			for (unsigned int j = 0; j < data[i].first.size(); j++)
 			{
-				for (int k = 0; k < data[i].first[j]->width; k++)
+				for (unsigned int k = 0; k < data[i].first[j]->width; k++)
 				{
-					for (int l = 0; l < data[i].first[j]->height; l++)
+					for (unsigned int l = 0; l < data[i].first[j]->height; l++)
 					{
 						if (map.size() > data[i].first[j]->x + k)
 						{
@@ -126,7 +130,7 @@ namespace WGenerator
 		data.push_back(std::make_pair<std::vector<std::shared_ptr<Rectangle> >, byte >(getHalls(), 1));
 		map.tiles = render(data);
 		uint numberOfRooms = getRooms().size();
-		map.playerPosition = placePlayer(m_generator.uint64InRange(0, numberOfRooms));
+		map.playerPosition = placePlayer(static_cast<unsigned int>(m_generator.uint64InRange(0, numberOfRooms)));
 		return map;
 	}
 

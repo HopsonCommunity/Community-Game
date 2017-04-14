@@ -11,21 +11,21 @@ namespace Framework
 {
 	class VelocityComponent : public Component
 	{
-	public:
-		float speed;
-		sf::Vector2f velocity;
-		bool moving;
-	public:
-		VelocityComponent(const sf::Vector2f& velocity = {});
-		VelocityComponent(nlohmann::json json);
-    
-		// Move at an angle
-		void move(float angle);
+        public:
+            float speed;
+            sf::Vector2f velocity;
+            bool moving;
 
-		// Move x/y dir
-		void move(int xa, int ya);
+            VelocityComponent(const sf::Vector2f& velocity = {});
+            VelocityComponent(nlohmann::json json);
 
-		static ComponentType* getStaticType();
-		virtual ComponentType* getType() const override;;
+            // Move at an angle
+            void move(float angle);
+
+            // Move x/y direction
+            void move(int xa, int ya);
+
+            static ComponentType* getStaticType();
+            virtual ComponentType* getType() const override;;
 	};
 }

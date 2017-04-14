@@ -76,10 +76,10 @@ namespace Framework
 
 	void AnimatorSystem::update(const Timestep& ts, Entity* entity)
 	{
-		SpriteComponent* c_sprite = entity->getComponent<Framework::SpriteComponent>();
-		AnimatorComponent* c_anim = entity->getComponent<Framework::AnimatorComponent>();
-		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
-		CollisionComponent* c_col = entity->getComponent<CollisionComponent>();
+		SpriteComponent*    c_sprite = entity->getComponent<Framework::SpriteComponent>();
+		AnimatorComponent*  c_anim   = entity->getComponent<Framework::AnimatorComponent>();
+		VelocityComponent*  c_vel    = entity->getComponent<VelocityComponent>();
+		//CollisionComponent* c_col    = entity->getComponent<CollisionComponent>();
 
 		if (c_sprite && c_anim)
 		{
@@ -95,7 +95,7 @@ namespace Framework
 	{
 		PositionComponent* c_pos = entity->getComponent<Framework::PositionComponent>();
 		SpriteComponent* c_sprite = entity->getComponent<Framework::SpriteComponent>();
-		
+
 		if (c_pos && c_sprite)
 		{
 			c_sprite->sprite.setScale(static_cast<float>(c_sprite->flipX ? 1 : -1), 1.0f);
@@ -149,7 +149,7 @@ namespace Framework
 
 				Entity* player = State::SPlaying::instance->m_level.getEntity(State::SPlaying::instance->m_level.player_id);
 				PositionComponent* c_pos_player = player->getComponent<PositionComponent>();
-				
+
 				// Tile flooding for every entity is not ideal as it really kills the fps
 				//std::vector<Entity*> entities = TileFlooding::getAllEntitesNearOtherEntity((sf::Vector2i)c_pos->position, 6, &State::SPlaying::instance->m_level);
 				//for (Entity* ent : entities)
@@ -168,7 +168,7 @@ namespace Framework
 				}
 			}
 		}
-		
+
 	}
 
 	void PlayerInputSystem::update(const Timestep& ts, Entity* entity)
@@ -196,12 +196,12 @@ namespace Framework
 				c_vel->moving = false;
 
 			c_sprite->
-				flipX = Application::instance->mousePosition().x > Application::instance->getWindow().getSize().x / 2;
+				flipX = (int32)Application::instance->mousePosition().x > (int32)Application::instance->getWindow().getSize().x / 2;
 
 			if (c_vel->velocity.x > 0)
 				c_sprite->flipX = true;
 			else if (c_vel->velocity.x < 0)
-				c_sprite->flipX = false; 
+				c_sprite->flipX = false;
 		}
 	}
 }

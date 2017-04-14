@@ -13,22 +13,26 @@ namespace State
 
 	 SPlaying* SPlaying::instance = nullptr;
 
-    namespace Test
+    namespace
     {
         constexpr int WORLD_SIZE = 100;
+
+        float m_testFloat;
+        int m_testInt;
+        bool m_testBool;
     }
 
+
+
 	SPlaying::SPlaying(Application* app, sf::RenderWindow& window)
-		: SBase(app)
-		, m_testFloat(0)
-		, m_window(window)
-		, m_camera()
-		, m_level(Test::WORLD_SIZE, Test::WORLD_SIZE)
-		, m_debugMenu(app->getResources().fonts.get("SourceCodePro-Regular"))
-		, m_worldGen(Test::WORLD_SIZE, Test::WORLD_SIZE, 2355)
-		, m_ui(&window)
-		, m_button(UI::Label(sf::Text("Test Button", app->getResources().fonts.get("SourceCodePro-Regular"), 18)), sf::Rect<int>(10, 10, 150, 50), std::bind(&SPlaying::buttonCallback, this))
-		, m_slider(UI::Label(sf::Text("Test Slider", app->getResources().fonts.get("SourceCodePro-Regular"), 18)), sf::Rect<int>(10, 70, 150, 50), std::bind(&SPlaying::sliderCallback, this, _1))
+    :   SBase           (app)
+    ,   m_level         (WORLD_SIZE, WORLD_SIZE)
+    ,   m_window        (window)
+    ,   m_debugMenu     (app->getResources().fonts.get("SourceCodePro-Regular"))
+    ,   m_worldGen      (WORLD_SIZE, WORLD_SIZE, 2355)
+    ,   m_ui            (&window)
+    ,   m_button        (UI::Label(sf::Text("Test Button", app->getResources().fonts.get("SourceCodePro-Regular"), 18)), sf::Rect<int>(10, 10, 150, 50), std::bind(&SPlaying::buttonCallback, this))
+    ,   m_slider        (UI::Label(sf::Text("Test Slider", app->getResources().fonts.get("SourceCodePro-Regular"), 18)), sf::Rect<int>(10, 70, 150, 50), std::bind(&SPlaying::sliderCallback, this, _1))
     {
 		instance = this;
 
@@ -55,8 +59,8 @@ namespace State
 
         auto data = m_worldGen.getMap();
 
-        for (int x = 0; x < Test::WORLD_SIZE; x++)
-            for (int y = 0; y < Test::WORLD_SIZE; y++)
+        for (int x = 0; x < WORLD_SIZE; x++)
+            for (int y = 0; y < WORLD_SIZE; y++)
             {
                 auto n = data.tiles.at(x).at(y);
                 if (n == 1)
@@ -65,11 +69,11 @@ namespace State
                     m_level.setTile(x, y, *Level::Tile::Tile::stoneWall);
             }
 
-		m_level.getEntity(m_level.player_id)->getComponent<Framework::PositionComponent>()->position = sf::Vector2f(data.playerPosition.x * 32, data.playerPosition.y * 32);
+		m_level.getEntity(m_level.player_id)->getComponent<Framework::PositionComponent>()->position = sf::Vector2f(static_cast<float>(data.playerPosition.x * 32), static_cast<float>(data.playerPosition.y * 32));
 
 		std::unique_ptr<Framework::Entity> zombie = Framework::EntityFactory::createEntity("enemy/Zombie");
-		zombie->getComponent<Framework::PositionComponent>()->position = sf::Vector2f(data.playerPosition.x * 32 + 210, data.playerPosition.y * 32 + 210); 
-		
+		zombie->getComponent<Framework::PositionComponent>()->position = sf::Vector2f(static_cast<float>(data.playerPosition.x * 32 + 210), static_cast<float>(data.playerPosition.y * 32 + 210));
+
 		m_level.addEntity(std::move(zombie));
 	}
 
