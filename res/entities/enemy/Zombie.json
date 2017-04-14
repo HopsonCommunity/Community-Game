@@ -12,7 +12,7 @@
       "rect": {
         "left": 0,
         "top": 0,
-        "width": 32,
+        "width": 64,
         "height": 64
       }
     },
@@ -27,9 +27,9 @@
       "componentType": "Collision",
       "aabb": {
         "xMin": 16,
-        "yMin": 20,
-		"xMax": 32,
-		"yMax": 32
+        "yMin": 28,
+		"xMax": 47,
+		"yMax": 64
       }
     },
     {

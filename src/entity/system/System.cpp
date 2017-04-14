@@ -11,53 +11,48 @@
 
 namespace Framework
 {
-	void MoveSystem::update(const Timestep& ts, Entity* entity)
+	void move(sf::Vector2i dest, Entity* entity)
 	{
 		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
 		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
 		CollisionComponent* c_col = entity->getComponent<CollisionComponent>();
 
+		if (dest.x != c_pos->position.x && dest.y != c_pos->position.y)
+		{
+			move({ dest.x, (int)c_pos->position.y }, entity);
+			move({ (int)c_pos->position.x, dest.y }, entity);
+		}
+
+		if (c_col)
+		{
+			bool colliding = c_col ? Physics::tileCollision(dest, c_col->aabb) : false;
+			if (!colliding)
+			{
+				c_pos->position.x = (float)dest.x;
+				c_pos->position.y = (float)dest.y;
+			}
+		}
+		else
+		{
+			c_pos->position.x = (float)dest.x;
+			c_pos->position.y = (float)dest.y;
+		}
+	}
+
+	void MoveSystem::update(const Timestep& ts, Entity* entity)
+	{
+		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
+		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
+
 		if (c_pos && c_vel)
 		{
 			sf::Vector2i dest((int)round(c_pos->position.x + c_vel->velocity.x * c_vel->speed * ts.asSeconds()), (int)round(c_pos->position.y + c_vel->velocity.y * c_vel->speed * ts.asSeconds()));
 
-			if (!c_col)
-			{
-				c_pos->position.x = (float)dest.x;
-				c_pos->position.y = (float)dest.y;
-
-				c_vel->velocity.x = 0;
-				c_vel->velocity.y = 0;
-
-				return;
-			}
-
-			if (c_vel->velocity.x != 0 && c_vel->velocity.x != 0)
-			{
-				bool colliding = c_col ? Physics::tileCollision(sf::Vector2i(dest.x, (int)(c_pos->position.y)), c_col->aabb, State::SPlaying::instance->m_level) : false;
-
-				if (!colliding)
-					c_pos->position.x = (float)dest.x;
-
-				colliding = c_col ? Physics::tileCollision(sf::Vector2i((int)(c_pos->position.x), dest.y), c_col->aabb, State::SPlaying::instance->m_level) : false;
-
-				if (!colliding)
-					c_pos->position.y = (float)dest.y;
-			}
-			else
-			{
-				bool colliding = c_col ? Physics::tileCollision(dest, c_col->aabb, State::SPlaying::instance->m_level) : false;
-
-				if (!colliding)
-				{
-					c_pos->position.x = (float)dest.x;
-					c_pos->position.y = (float)dest.y;
-				}
-			}
-
-			c_vel->velocity.x = 0;
-			c_vel->velocity.y = 0;
+			move(dest, entity);
 		}
+
+		c_vel->velocity.x = 0;
+		c_vel->velocity.y = 0;
 	}
 
 	void StatsSystem::update(const Timestep& ts, Entity* entity)
@@ -79,11 +74,9 @@ namespace Framework
 		SpriteComponent*    c_sprite = entity->getComponent<Framework::SpriteComponent>();
 		AnimatorComponent*  c_anim   = entity->getComponent<Framework::AnimatorComponent>();
 		VelocityComponent*  c_vel    = entity->getComponent<VelocityComponent>();
-		//CollisionComponent* c_col    = entity->getComponent<CollisionComponent>();
 
 		if (c_sprite && c_anim)
 		{
-			// What if there is a projectile entity that doesn't have run and idle animations? -Repertoire
 			if (c_vel)
 				c_vel->moving ? c_anim->animator.setAnimation("run") : c_anim->animator.setAnimation("idle");
 

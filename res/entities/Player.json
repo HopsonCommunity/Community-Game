@@ -24,10 +24,10 @@
 	{
       "componentType": "Collision",
       "aabb": {
-        "xMin": 16,
-        "yMin": 20,
-		"xMax": 32,
-		"yMax": 32
+        "xMin": 2,
+        "yMin": 31,
+		"xMax": 28,
+		"yMax": 64
       }
     },
     {
