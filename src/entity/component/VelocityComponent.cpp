@@ -5,7 +5,7 @@
 
 namespace Framework
 {
-	VelocityComponent::VelocityComponent(const sf::Vector2f& velocity)
+	VelocityComponent::VelocityComponent(const vec2& velocity)
     : velocity(velocity)
 	{ }
 

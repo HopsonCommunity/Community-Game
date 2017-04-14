@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "../util/Types.h"
+#include "../maths/Maths.h"
 
 #include "component/Component.h"
 
@@ -15,7 +16,7 @@ namespace Framework
 	{
         public:
             Entity();
-            Entity(sf::Vector2f& position, sf::Sprite& sprite);
+            Entity(vec2& position, sf::Sprite& sprite);
 
 			uint64 getID() { return m_ID; }
 

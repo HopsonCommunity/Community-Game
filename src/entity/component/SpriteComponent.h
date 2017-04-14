@@ -5,13 +5,14 @@
 #include "Component.h"
 #include "../animation/Animator.h"
 #include "../../util/json.hpp"
+#include "../../maths/Maths.h"
 
 namespace Framework
 {
 	class SpriteComponent : public Component
 	{
 	public:
-		sf::Vector2f origin;
+		vec2 origin;
 		sf::Sprite sprite;
 		bool flipX, flipY;
 	public:

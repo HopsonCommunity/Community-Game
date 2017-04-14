@@ -43,7 +43,7 @@ namespace State
         m_ui.addComponent(m_button);
 		m_ui.addComponent(m_slider);
 
-		m_camera = sf::View(sf::Vector2f(0, 0), sf::Vector2f(static_cast<float>(window.getSize().x), static_cast<float>(window.getSize().y)));
+		m_camera = sf::View(vec2(0, 0), vec2(static_cast<float>(window.getSize().x), static_cast<float>(window.getSize().y)));
 		window.setView(m_camera);
 
 		std::unique_ptr<Framework::Entity> player = Framework::EntityFactory::createEntity("Player");
@@ -69,10 +69,10 @@ namespace State
                     m_level.setTile(x, y, *Level::Tile::Tile::stoneWall);
             }
 
-		m_level.getEntity(m_level.player_id)->getComponent<Framework::PositionComponent>()->position = sf::Vector2f(static_cast<float>(data.playerPosition.x * 32), static_cast<float>(data.playerPosition.y * 32));
+		m_level.getEntity(m_level.player_id)->getComponent<Framework::PositionComponent>()->position = vec2(static_cast<float>(data.playerPosition.x * 32), static_cast<float>(data.playerPosition.y * 32));
 
 		std::unique_ptr<Framework::Entity> zombie = Framework::EntityFactory::createEntity("enemy/Zombie");
-		zombie->getComponent<Framework::PositionComponent>()->position = sf::Vector2f(static_cast<float>(data.playerPosition.x * 32 + 210), static_cast<float>(data.playerPosition.y * 32 + 210));
+		zombie->getComponent<Framework::PositionComponent>()->position = vec2(static_cast<float>(data.playerPosition.x * 32 + 210), static_cast<float>(data.playerPosition.y * 32 + 210));
 
 		m_level.addEntity(std::move(zombie));
 	}

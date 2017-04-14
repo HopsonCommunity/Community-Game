@@ -4,15 +4,16 @@
 
 #include "Component.h"
 #include "../../util/json.hpp"
+#include "../../maths/Maths.h"
 
 namespace Framework
 {
 	class PositionComponent : public Component
 	{
 	public:
-		sf::Vector2f position;
+		vec2 position;
 	public:
-		PositionComponent(const sf::Vector2f& position = {0, 0});
+		PositionComponent(const vec2& position = {0, 0});
 		PositionComponent(nlohmann::json json);
 
 		static ComponentType* getStaticType();

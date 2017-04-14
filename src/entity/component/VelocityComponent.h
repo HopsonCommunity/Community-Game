@@ -6,6 +6,7 @@
 
 #include "../../util/json.hpp"
 #include "../../util/Types.h"
+#include "../../maths/Maths.h"
 
 namespace Framework
 {
@@ -13,10 +14,10 @@ namespace Framework
 	{
         public:
             float speed;
-            sf::Vector2f velocity;
+            vec2 velocity;
             bool moving;
 
-            VelocityComponent(const sf::Vector2f& velocity = {});
+            VelocityComponent(const vec2& velocity = {});
             VelocityComponent(nlohmann::json json);
 
             // Move at an angle
