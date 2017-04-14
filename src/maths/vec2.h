@@ -9,7 +9,7 @@ typedef sf::Vector2i vec2i;
 
 inline float magnitude(const vec2& vect)
 {
-	return sqrt(vect.x * vect.x + vect.y * vect.y);
+	return float(sqrt(vect.x * vect.x + vect.y * vect.y));
 }
 
 inline void normalize(vec2& vect)

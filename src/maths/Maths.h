@@ -2,6 +2,8 @@
 
 constexpr float PI = 3.14159265358f;
 
+#include "vec2.h"
+
 inline float toRadians(float degrees)
 {
 	return (float)(degrees * (PI / 180.0f));

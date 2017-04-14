@@ -2,13 +2,13 @@
 
 namespace Framework
 {
-	PositionComponent::PositionComponent(const sf::Vector2f& position)
+	PositionComponent::PositionComponent(const vec2& position)
 		: position(position)
 	{
 	}
 
 	PositionComponent::PositionComponent(nlohmann::json json)
-		: position(sf::Vector2f(json["position"]["x"], json["position"]["y"]))
+		: position(vec2(json["position"]["x"], json["position"]["y"]))
 	{
 	}
 

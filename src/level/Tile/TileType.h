@@ -4,6 +4,7 @@
 
 #include "TileID.h"
 #include "../../util/Types.h"
+#include "../../maths/Maths.h"
 
 namespace Level {
 namespace Tile
@@ -14,7 +15,7 @@ namespace Tile
             struct Data
             {
                 std::string     name;
-                sf::Vector2f    texCoords;
+                vec2    texCoords;
                 ID              id;
                 uint32          textureVariations;
             };

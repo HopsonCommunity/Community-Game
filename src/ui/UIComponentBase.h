@@ -3,6 +3,7 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include "../input/Input.h"
+#include "../maths/Maths.h"
 
 namespace UI
 {

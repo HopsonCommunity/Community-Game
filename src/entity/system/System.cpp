@@ -8,10 +8,11 @@
 #include "../../level/LevelRenderer.h"
 #include "../../util/TileFlooding.h"
 #include "../EntityFactory.h"
+#include "../../maths/Maths.h"
 
 namespace Framework
 {
-	void move(sf::Vector2f dest, Entity* entity)
+	void move(vec2 dest, Entity* entity)
 	{
 		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
 		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
@@ -25,7 +26,7 @@ namespace Framework
 
 		if (c_col)
 		{
-			bool colliding = c_col ? Physics::tileCollision(sf::Vector2i(dest), c_col->aabb) : false;
+			bool colliding = c_col ? Physics::tileCollision(vec2i(dest), c_col->aabb) : false;
 			if (!colliding)
 			{
 				c_pos->position.x = round(dest.x);
@@ -46,7 +47,7 @@ namespace Framework
 
 		if (c_pos && c_vel)
 		{
-			sf::Vector2f dest(c_pos->position.x + c_vel->velocity.x * c_vel->speed * ts.asSeconds(), c_pos->position.y + c_vel->velocity.y * c_vel->speed * ts.asSeconds());
+			vec2 dest(c_pos->position.x + c_vel->velocity.x * c_vel->speed * ts.asSeconds(), c_pos->position.y + c_vel->velocity.y * c_vel->speed * ts.asSeconds());
 
 			move(dest, entity);
 		}
@@ -91,8 +92,8 @@ namespace Framework
 
 		if (c_pos && c_sprite)
 		{
-			c_sprite->sprite.setScale(static_cast<float>(c_sprite->flipX ? 1 : -1), 1.0f);
 			c_sprite->sprite.setOrigin(c_sprite->origin);
+			c_sprite->sprite.setScale(static_cast<float>(c_sprite->flipX ? 1 : -1), 1.0f);
 			Level::LevelRenderer::renderEntitySprite(c_pos->position.x, c_pos->position.y, c_sprite->sprite);
 		}
 	}
@@ -188,8 +189,7 @@ namespace Framework
 			else
 				c_vel->moving = false;
 
-			c_sprite->
-				flipX = (int32)Application::instance->mousePosition().x > (int32)Application::instance->getWindow().getSize().x / 2;
+			c_sprite->flipX = (int32)Application::instance->mousePosition().x > (int32)Application::instance->getWindow().getSize().x / 2;
 
 			if (c_vel->velocity.x > 0)
 				c_sprite->flipX = true;
