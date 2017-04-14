@@ -4,7 +4,11 @@
 namespace WGenerator
 {
     WorldGenerator::WorldGenerator(uint t_width, uint t_height, uint t_seed, uint t_minSize, uint t_maxSize)
-		: m_width(t_width), m_height(t_height), m_seed(t_seed), m_generator(), m_minSize(t_minSize), m_maxSize(t_maxSize)
+    :   m_width     (t_width)
+    ,   m_height    (t_height)
+    ,   m_minSize   (t_minSize)
+    ,   m_maxSize   (t_maxSize)
+        ,   m_seed      (t_seed)
     {
         m_generator.setSeed(m_seed);
     }
