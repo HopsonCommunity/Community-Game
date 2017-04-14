@@ -18,7 +18,7 @@ namespace Framework
 
 		if (c_pos && c_vel)
 		{
-			sf::Vector2i dest((int)(c_pos->position.x + c_vel->velocity.x * c_vel->speed * ts.asSeconds()), (int)(c_pos->position.y + c_vel->velocity.y * c_vel->speed * ts.asSeconds()));
+			sf::Vector2i dest(round(c_pos->position.x + c_vel->velocity.x * c_vel->speed * ts.asSeconds()), round(c_pos->position.y + c_vel->velocity.y * c_vel->speed * ts.asSeconds()));
 
 			if (c_vel->velocity.x != 0 && c_vel->velocity.x != 0)
 			{
@@ -32,13 +32,15 @@ namespace Framework
 				if (!colliding)
 					c_pos->position.y = dest.y;
 			}
-
-			bool colliding = c_col ? Physics::tileCollision(dest, c_col->aabb, State::SPlaying::instance->m_level) : false;
-
-			if (!colliding)
+			else
 			{
-				c_pos->position.x = dest.x;
-				c_pos->position.y = dest.y;
+				bool colliding = c_col ? Physics::tileCollision(dest, c_col->aabb, State::SPlaying::instance->m_level) : false;
+
+				if (!colliding)
+				{
+					c_pos->position.x = dest.x;
+					c_pos->position.y = dest.y;
+				}
 			}
 
 			c_vel->velocity.x = 0;
