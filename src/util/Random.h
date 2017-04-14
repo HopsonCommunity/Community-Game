@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <random>
 #include <ctime>
@@ -17,12 +17,12 @@ namespace Random
         public:
             Generator(uint64 seed = std::time(nullptr))
             {
-                m_device.seed(seed);
+                m_device.seed(static_cast<unsigned int>(seed));
             }
 
             void setSeed(uint64 seed)
             {
-                m_device.seed(seed);
+                m_device.seed(static_cast<unsigned int>(seed));
             }
 
             int32 intInRange (int32 lowBound, int32 highBound)

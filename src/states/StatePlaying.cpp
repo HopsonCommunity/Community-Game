@@ -65,10 +65,10 @@ namespace State
                     m_level.setTile(x, y, *Level::Tile::Tile::stoneWall);
             }
 
-		m_level.getEntity(m_level.player_id)->getComponent<Framework::PositionComponent>()->position = sf::Vector2f(data.playerPosition.x * 32, data.playerPosition.y * 32);
+		m_level.getEntity(m_level.player_id)->getComponent<Framework::PositionComponent>()->position = sf::Vector2f(static_cast<float>(data.playerPosition.x * 32), static_cast<float>(data.playerPosition.y * 32));
 
 		std::unique_ptr<Framework::Entity> zombie = Framework::EntityFactory::createEntity("enemy/Zombie");
-		zombie->getComponent<Framework::PositionComponent>()->position = sf::Vector2f(data.playerPosition.x * 32 + 210, data.playerPosition.y * 32 + 210); 
+		zombie->getComponent<Framework::PositionComponent>()->position = sf::Vector2f(static_cast<float>(data.playerPosition.x * 32 + 210), static_cast<float>(data.playerPosition.y * 32 + 210));
 		
 		m_level.addEntity(std::move(zombie));
 	}

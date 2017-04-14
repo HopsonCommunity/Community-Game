@@ -33,7 +33,7 @@ void Application::start()
 	uint frames = 0;
 	uint updates = 0;
 
-	Timestep timestep(clock.getElapsedTime().asMilliseconds());
+	Timestep timestep(static_cast<float>(clock.getElapsedTime().asMilliseconds()));
 	BGM.loadMusic();
     BGM.menu.setVolume(3.0f);
     BGM.menu.setLoop(true);

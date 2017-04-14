@@ -12,7 +12,7 @@ namespace Util
 
 	bool vecInList(std::vector<Node*> list, const Vec2i& vec)
 	{
-		for (int i = 0; i < list.size(); i++)
+		for (unsigned int i = 0; i < list.size(); i++)
 			if (list[i]->pos.x == vec.x && list[i]->pos.y == vec.y) return true;
 
 		return false;
