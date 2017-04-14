@@ -120,7 +120,16 @@ namespace State
         m_ui.render();
     }
 
+	int i = 0;
 	void SPlaying::tick()
 	{
+		if (i == 0)
+		{
+			std::unique_ptr<Framework::Entity> e = Framework::EntityFactory::createEntity("Projectile");
+			e->getComponent<Framework::PositionComponent>()->position = m_level.getPlayer()->getComponent<Framework::PositionComponent>()->position;
+			e->getComponent<Framework::VelocityComponent>()->velocity.x = 10;
+			m_level.addEntity(std::move(e));
+		}
+		i++;
 	}
 }

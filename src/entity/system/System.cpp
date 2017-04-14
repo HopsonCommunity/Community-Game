@@ -7,6 +7,7 @@
 #include "../../states/StatePlaying.h"
 #include "../../level/LevelRenderer.h"
 #include "../../util/TileFlooding.h"
+#include "../EntityFactory.h"
 
 namespace Framework
 {
@@ -19,6 +20,17 @@ namespace Framework
 		if (c_pos && c_vel)
 		{
 			sf::Vector2i dest(round(c_pos->position.x + c_vel->velocity.x * c_vel->speed * ts.asSeconds()), round(c_pos->position.y + c_vel->velocity.y * c_vel->speed * ts.asSeconds()));
+
+			if (!c_col)
+			{
+				c_pos->position.x = dest.x;
+				c_pos->position.y = dest.y;
+
+				c_vel->velocity.x = 0;
+				c_vel->velocity.y = 0;
+
+				return;
+			}
 
 			if (c_vel->velocity.x != 0 && c_vel->velocity.x != 0)
 			{
