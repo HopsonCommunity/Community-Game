@@ -16,6 +16,7 @@ namespace Level
 		m_tiles.resize(width*height);
 
 		m_renderSystem = std::make_unique<Framework::RenderSystem>();
+		m_itemRenderSystem = std::make_unique<Item::SpriteDrawingSystem>();
 
 		m_updateSystems.push_back(std::make_unique<Framework::MoveSystem>());
 		m_updateSystems.push_back(std::make_unique<Framework::StatsSystem>());
@@ -99,6 +100,9 @@ namespace Level
 		
 		for (auto& entity : m_entities)
 			m_renderSystem->update(Timestep(0) /*Render doesn't need delta time*/, entity.get());
+
+		for (auto& item : m_items)
+			m_itemRenderSystem->update(Timestep(0), item.get());
 
 		LevelRenderer::drawAll();
 	}

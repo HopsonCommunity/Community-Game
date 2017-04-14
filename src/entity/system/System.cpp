@@ -25,12 +25,12 @@ namespace Framework
 				bool colliding = c_col ? Physics::tileCollision(sf::Vector2i(dest.x, (int)(c_pos->position.y)), c_col->aabb, State::SPlaying::instance->m_level) : false;
 
 				if (!colliding)
-					c_pos->position.x = dest.x;
+					c_pos->position.x = static_cast<float>(dest.x);
 
 				colliding = c_col ? Physics::tileCollision(sf::Vector2i((int)(c_pos->position.x), dest.y), c_col->aabb, State::SPlaying::instance->m_level) : false;
 
 				if (!colliding)
-					c_pos->position.y = dest.y;
+					c_pos->position.y = static_cast<float>(dest.y);
 			}
 			else
 			{
@@ -38,8 +38,8 @@ namespace Framework
 
 				if (!colliding)
 				{
-					c_pos->position.x = dest.x;
-					c_pos->position.y = dest.y;
+					c_pos->position.x = static_cast<float>(dest.x);
+					c_pos->position.y = static_cast<float>(dest.y);
 				}
 			}
 
@@ -184,7 +184,7 @@ namespace Framework
 				c_vel->moving = false;
 
 			c_sprite->
-				flipX = Application::instance->mousePosition().x > Application::instance->getWindow().getSize().x / 2;
+				flipX = Application::instance->mousePosition().x > static_cast<int>(Application::instance->getWindow().getSize().x / 2);
 
 			if (c_vel->velocity.x > 0)
 				c_sprite->flipX = true;

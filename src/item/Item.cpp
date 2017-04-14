@@ -3,8 +3,9 @@
 
 namespace Item
 {
-	Item::Item()
-		:m_ID(Random::uint64InRange(0, 18446744073709551614ULL))
+	Item::Item(Framework::Entity* owningEntity)
+		: m_ID(Random::uint64InRange(0, 18446744073709551614ULL))
+		, m_owningEntity(owningEntity)
 	{
 
 	}

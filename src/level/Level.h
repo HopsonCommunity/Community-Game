@@ -5,6 +5,7 @@
 #include "../util/Timestep.h"
 
 #include "../entity/system/System.h"
+#include "../item/system/DrawingSystems.h"
 
 namespace Framework
 {
@@ -39,9 +40,12 @@ namespace Level
             std::vector<Tile::Tile*> m_tiles;
 
 			std::vector<std::unique_ptr<Framework::Entity>> m_entities;
+            std::vector<std::shared_ptr<Item::Item>> m_items;
 
 			std::unique_ptr<Framework::System> m_renderSystem;
+            std::unique_ptr<Item::SpriteDrawingSystem> m_itemRenderSystem;
 			std::vector<std::unique_ptr<Framework::System>> m_updateSystems;
+            std::vector<std::unique_ptr<Item::System>> m_itemUpdateSystems;
 		public:
 			uint64 player_id;
 	};

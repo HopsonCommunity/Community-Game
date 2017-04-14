@@ -4,14 +4,15 @@
 #include <memory>
 #include <unordered_map>
 
-#include "Component.h"
+#include "component/Component.h"
+#include "../entity/Entity.h"
 
 namespace Item
 {
     class Item
     {
     public:
-        Item();
+        Item(Framework::Entity* owningEntity);
 
         void addComponent(std::unique_ptr<Component> component);
 
@@ -29,6 +30,16 @@ namespace Item
 
         uint64 getID() { return m_ID; }
 
+        void changeOwningEntity(Framework::Entity* entity) 
+        {
+            m_owningEntity = entity;
+        }
+
+        Framework::Entity* getOwningEntity()
+        {
+            return m_owningEntity;
+        }
+
     private:
         template <typename T>
         const Component* getComponentInternal() const
@@ -42,5 +53,6 @@ namespace Item
 
         uint64 m_ID;
         std::unordered_map<ComponentType*, std::unique_ptr<Component>> m_components;
+        Framework::Entity* m_owningEntity;
     };
 }
