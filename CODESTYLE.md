@@ -41,6 +41,14 @@ class Foo
 * Notice a space between the final class member/function and the next accessor!
 * Private members must be prefixed with "_m"
 
+* Initilzation lists:
+
+```C++
+Foo::Foo(int x, int y)
+:   m_x (x)
+,   m_y (y) { }
+```
+
 ## Namespaces
 
 * NO `using namespace std;` Your pull request will be denied if that is included.

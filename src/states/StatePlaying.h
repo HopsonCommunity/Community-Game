@@ -30,20 +30,19 @@ namespace State
 			void tick() override;
 
 			inline sf::View& getCamera() { return m_camera; }
-            
+
 			void buttonCallback() { std::cout << "The testbutton has been pressed!" << std::endl; }
             void sliderCallback(float f) { std::cout << "The slider has the following value: " << f << std::endl; }
+
         private:
-            //Level::Tile::Map m_tileMap;
 			sf::RenderWindow& m_window;
 			sf::View m_camera;
             Debug::DebugMenu m_debugMenu;
+            WGenerator::WorldGenerator m_worldGen;
+
             UI::UI m_ui;
             UI::UIButton m_button;
             UI::UISlider m_slider;
-            float m_testFloat;
-            int m_testInt;
-            bool m_testBool;
-            WGenerator::WorldGenerator m_worldGen;
+
     };
 }

@@ -55,7 +55,10 @@ class Application
 
 		sf::RenderWindow& getWindow();
 		Sound::BGM::BGM BGM;
+
     private:
+        std::string m_title;
+
 		uint m_framesPerSecond, m_updatesPerSecond;
 		float m_frameTime;
 
@@ -63,7 +66,7 @@ class Application
 		Input::InputScheme m_inputScheme;
 		Input::Input m_inputManager;
 
-        std::string m_title;
+
         WindowSettings m_windowSettings;
         sf::RenderWindow m_window;
         std::vector<std::unique_ptr<State::SBase>> m_states;
