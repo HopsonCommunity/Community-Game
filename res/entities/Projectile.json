@@ -5,7 +5,11 @@
 	{
       "componentType": "Sprite",
       "src": "entity/temp/k1",
-      "rect": {
+      "origin": {
+		"x": 8,
+		"y": 8
+	  },
+	  "rect": {
         "left": 0,
         "top": 0,
         "width": 16,

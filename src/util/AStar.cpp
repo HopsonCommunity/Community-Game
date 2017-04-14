@@ -67,7 +67,7 @@ namespace Util
 				if (at->isSolid())
 					continue;
 
-				Vec2i a = { x + xi, y + yi };
+				Vec2i a = { int(x + xi + 0.5), int(y + yi + 0.5) };
 				double gCost = current->gCost + (distance(current->pos, a) == 1 ? 1 : 2);
 				double hCost = distance(a, end);
 				Node* node = new Node(a, current, gCost, hCost);

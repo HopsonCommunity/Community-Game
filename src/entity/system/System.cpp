@@ -11,7 +11,7 @@
 
 namespace Framework
 {
-	void move(sf::Vector2i dest, Entity* entity)
+	void move(sf::Vector2f dest, Entity* entity)
 	{
 		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
 		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
@@ -19,23 +19,23 @@ namespace Framework
 
 		if (dest.x != c_pos->position.x && dest.y != c_pos->position.y)
 		{
-			move({ dest.x, (int)c_pos->position.y }, entity);
-			move({ (int)c_pos->position.x, dest.y }, entity);
+			move({ dest.x, c_pos->position.y }, entity);
+			move({ c_pos->position.x, dest.y }, entity);
 		}
 
 		if (c_col)
 		{
-			bool colliding = c_col ? Physics::tileCollision(dest, c_col->aabb) : false;
+			bool colliding = c_col ? Physics::tileCollision(sf::Vector2i(dest), c_col->aabb) : false;
 			if (!colliding)
 			{
-				c_pos->position.x = (float)dest.x;
-				c_pos->position.y = (float)dest.y;
+				c_pos->position.x = round(dest.x);
+				c_pos->position.y = round(dest.y);
 			}
 		}
 		else
 		{
-			c_pos->position.x = (float)dest.x;
-			c_pos->position.y = (float)dest.y;
+			c_pos->position.x = round(dest.x);
+			c_pos->position.y = round(dest.y);
 		}
 	}
 
@@ -46,7 +46,7 @@ namespace Framework
 
 		if (c_pos && c_vel)
 		{
-			sf::Vector2i dest((int)round(c_pos->position.x + c_vel->velocity.x * c_vel->speed * ts.asSeconds()), (int)round(c_pos->position.y + c_vel->velocity.y * c_vel->speed * ts.asSeconds()));
+			sf::Vector2f dest(c_pos->position.x + c_vel->velocity.x * c_vel->speed * ts.asSeconds(), c_pos->position.y + c_vel->velocity.y * c_vel->speed * ts.asSeconds());
 
 			move(dest, entity);
 		}
@@ -92,7 +92,7 @@ namespace Framework
 		if (c_pos && c_sprite)
 		{
 			c_sprite->sprite.setScale(static_cast<float>(c_sprite->flipX ? 1 : -1), 1.0f);
-			c_sprite->sprite.setOrigin(static_cast<float>(c_sprite->sprite.getTextureRect().width / 2), static_cast<float>(c_sprite->sprite.getTextureRect().height));
+			c_sprite->sprite.setOrigin(c_sprite->origin);
 			Level::LevelRenderer::renderEntitySprite(c_pos->position.x, c_pos->position.y, c_sprite->sprite);
 		}
 	}

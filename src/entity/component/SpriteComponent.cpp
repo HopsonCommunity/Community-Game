@@ -11,6 +11,7 @@ namespace Framework
 
 	SpriteComponent::SpriteComponent(nlohmann::json json) 
 		: sprite(sf::Sprite(Application::instance->getResources().textures.get(json["src"]), sf::IntRect(json["rect"]["left"], json["rect"]["top"], json["rect"]["width"], json["rect"]["height"])))
+		, origin({ json["origin"]["x"], json["origin"]["y"] })
 	{
 	};
 

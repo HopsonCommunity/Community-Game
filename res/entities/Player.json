@@ -7,6 +7,10 @@
 	{
       "componentType": "Sprite",
       "src": "entity/player_modelDefault",
+	  "origin": {
+		"x": 18,
+		"y": 48
+	  },
       "rect": {
         "left": 0,
         "top": 0,
@@ -41,7 +45,7 @@
     },
     {
       "componentType": "Velocity",
-	  "speed":  180,
+	  "speed":  188,
       "velocity": {
         "x": 0,
         "y": 0
