@@ -86,7 +86,6 @@ namespace Level
 			}
 		m_tiles.addTiles(0, x3);
 		x3.clear();
-
 	}
 
 	void Level::windowResize(Vec2 size)
