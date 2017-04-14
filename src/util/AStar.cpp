@@ -1,24 +1,24 @@
 ﻿#include "AStar.h"
 #include <math.h>
 
-namespace Framework
+namespace Util
 {
-	double AStar::distance(const Vec2i& v1, const Vec2i& v2)
+	double distance(const Vec2i& v1, const Vec2i& v2)
 	{
 		double dx = v1.x - v2.x;
 		double dy = v1.y - v2.y;
 		return sqrt(dx * dx + dy * dy);
 	}
 
-	bool AStar::vecInList(std::vector<Node*> list, const Vec2i& vec)
+	bool vecInList(std::vector<Node*> list, const Vec2i& vec)
 	{
-		for (int i = 0; i < list.size(); i++)
+		for (unsigned int i = 0; i < list.size(); i++)
 			if (list[i]->pos.x == vec.x && list[i]->pos.y == vec.y) return true;
 
 		return false;
 	}
 
-	std::vector<Node*> AStar::findPath(Vec2i start, Vec2i end, Level::Level* level)
+	std::vector<Node*> AStar(Vec2i start, Vec2i end, Level::Level* level)
 	{
 		// Keep track of all nodes added and delete those who are not inside path to prevent memory leaking
 		std::vector<Node*> allNodesAdded;

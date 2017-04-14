@@ -1,4 +1,4 @@
-#include "Application.h"
+﻿#include "Application.h"
 #include "states/StatePlaying.h"
 
 #include <iostream>
@@ -33,7 +33,7 @@ void Application::start()
 	uint frames = 0;
 	uint updates = 0;
 
-	Timestep timestep(clock.getElapsedTime().asMilliseconds());
+	Timestep timestep(static_cast<float>(clock.getElapsedTime().asMilliseconds()));
 	BGM.loadMusic();
     BGM.menu.setVolume(3.0f);
     BGM.menu.setLoop(true);
@@ -70,6 +70,7 @@ void Application::start()
 			timer += 1.0f;
 			m_framesPerSecond = frames;
 			m_updatesPerSecond = updates;
+			m_states.back()->tick();
 			std::cout << "FPS: " << m_framesPerSecond << ", UPS: " << m_updatesPerSecond << std::endl;
 			frames = 0;
 			updates = 0;

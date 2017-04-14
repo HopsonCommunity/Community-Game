@@ -3,20 +3,18 @@
 #include <SFML/System/Vector2.hpp>
 
 #include "Component.h"
+
+#include "../physics/Hitbox.h"
 #include "../../util/json.hpp"
 
 namespace Framework
 {
-	//
-	// @Deprecated (for now)
-	// Later I'll work on physics and collisions.
-	//
 	class CollisionComponent : public Component
 	 {
 	public:
-		sf::FloatRect aabb;
+		Hitbox aabb;
 	public:
-		CollisionComponent(const sf::FloatRect& position);
+		CollisionComponent(const Hitbox& hitbox);
 		CollisionComponent(nlohmann::json json);
 
 		static ComponentType* getStaticType();

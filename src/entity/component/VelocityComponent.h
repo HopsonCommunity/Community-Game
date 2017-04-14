@@ -3,7 +3,9 @@
 #include <SFML/Graphics.hpp>
 
 #include "Component.h"
+
 #include "../../util/json.hpp"
+#include "../../util/Types.h"
 
 namespace Framework
 {

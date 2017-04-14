@@ -52,7 +52,7 @@ namespace UI
 	void UIButton::setTexture(int mode)
 	{
 		m_sprite.setTexture(textures[mode]);
-		m_sprite.setPosition(m_rectangle.left, m_rectangle.top);
+		m_sprite.setPosition(static_cast<float>(m_rectangle.left), static_cast<float>(m_rectangle.top));
 		m_sprite.setScale((float)m_rectangle.width / 56.0f, (float)m_rectangle.height / 14.0f);
 		m_currentMode = mode;
 	}

@@ -14,8 +14,8 @@ namespace Level
 
 	void LevelRenderer::renderWallTileSide(uint32 x, uint32 y, sf::Sprite& sprite)
 	{
-		sf::Vector3f tilePosition(x, y + 32, 0);
-		sprite.setOrigin(0, 32);
+		sf::Vector3f tilePosition(static_cast<float>(x), static_cast<float>(y) + 32.0f, 0);
+		sprite.setOrigin(0, 32.0f);
 		sprites.push_back(std::make_pair(tilePosition, &sprite));
 	}
 

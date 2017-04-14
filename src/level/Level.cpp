@@ -52,6 +52,18 @@ namespace Level
             m_tiles[x + y * m_width];
     }
 
+	Framework::Entity* Level::getEntityOnTile(unsigned int x, unsigned int y)
+	{
+		for (const auto& entity : m_entities)
+		{
+			Framework::PositionComponent* c_pos = entity.get()->getComponent<Framework::PositionComponent>();
+			if (c_pos)
+				if (c_pos->position.x == x && c_pos->position.y == y)
+					return entity.get();
+		}
+		return nullptr;
+	}
+
 	void Level::update(const Timestep& ts)
 	{
 		for (auto& entity : m_entities)
@@ -78,7 +90,7 @@ namespace Level
 		for (int x = x0; x < x1; x++)
 			for (int y = y0; y < y1; y++)
 			{
-				if (x < 0 || x >= m_width || y < 0 || y >= m_height)
+				if (x < 0 || static_cast<uint>(x) >= m_width || y < 0 || static_cast<uint>(y) >= m_height)
 					continue;
 
 				if (m_tiles[x + y * m_width] != nullptr)
