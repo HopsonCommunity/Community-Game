@@ -19,12 +19,12 @@ namespace Framework
 
 		if (c_pos && c_vel)
 		{
-			sf::Vector2i dest(round(c_pos->position.x + c_vel->velocity.x * c_vel->speed * ts.asSeconds()), round(c_pos->position.y + c_vel->velocity.y * c_vel->speed * ts.asSeconds()));
+			sf::Vector2i dest((int)round(c_pos->position.x + c_vel->velocity.x * c_vel->speed * ts.asSeconds()), (int)round(c_pos->position.y + c_vel->velocity.y * c_vel->speed * ts.asSeconds()));
 
 			if (!c_col)
 			{
-				c_pos->position.x = dest.x;
-				c_pos->position.y = dest.y;
+				c_pos->position.x = (float)dest.x;
+				c_pos->position.y = (float)dest.y;
 
 				c_vel->velocity.x = 0;
 				c_vel->velocity.y = 0;
@@ -37,12 +37,12 @@ namespace Framework
 				bool colliding = c_col ? Physics::tileCollision(sf::Vector2i(dest.x, (int)(c_pos->position.y)), c_col->aabb, State::SPlaying::instance->m_level) : false;
 
 				if (!colliding)
-					c_pos->position.x = dest.x;
+					c_pos->position.x = (float)dest.x;
 
 				colliding = c_col ? Physics::tileCollision(sf::Vector2i((int)(c_pos->position.x), dest.y), c_col->aabb, State::SPlaying::instance->m_level) : false;
 
 				if (!colliding)
-					c_pos->position.y = dest.y;
+					c_pos->position.y = (float)dest.y;
 			}
 			else
 			{
@@ -50,8 +50,8 @@ namespace Framework
 
 				if (!colliding)
 				{
-					c_pos->position.x = dest.x;
-					c_pos->position.y = dest.y;
+					c_pos->position.x = (float)dest.x;
+					c_pos->position.y = (float)dest.y;
 				}
 			}
 
