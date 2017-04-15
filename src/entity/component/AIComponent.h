@@ -3,7 +3,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "../../util/AStar.h"
-
 #include "../../util/json.hpp"
 
 namespace Framework

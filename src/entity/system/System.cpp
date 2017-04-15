@@ -7,45 +7,52 @@
 #include "../../states/StatePlaying.h"
 #include "../../level/LevelRenderer.h"
 #include "../../util/TileFlooding.h"
+#include "../EntityFactory.h"
 
 namespace Framework
 {
-	void MoveSystem::update(const Timestep& ts, Entity* entity)
+	void move(sf::Vector2f dest, Entity* entity)
 	{
 		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
 		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
 		CollisionComponent* c_col = entity->getComponent<CollisionComponent>();
 
+		if (dest.x != c_pos->position.x && dest.y != c_pos->position.y)
+		{
+			move({ dest.x, c_pos->position.y }, entity);
+			move({ c_pos->position.x, dest.y }, entity);
+		}
+
+		if (c_col)
+		{
+			bool colliding = c_col ? Physics::tileCollision(sf::Vector2i(dest), c_col->aabb) : false;
+			if (!colliding)
+			{
+				c_pos->position.x = round(dest.x);
+				c_pos->position.y = round(dest.y);
+			}
+		}
+		else
+		{
+			c_pos->position.x = round(dest.x);
+			c_pos->position.y = round(dest.y);
+		}
+	}
+
+	void MoveSystem::update(const Timestep& ts, Entity* entity)
+	{
+		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
+		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
+
 		if (c_pos && c_vel)
 		{
-			sf::Vector2i dest(round(c_pos->position.x + c_vel->velocity.x * c_vel->speed * ts.asSeconds()), round(c_pos->position.y + c_vel->velocity.y * c_vel->speed * ts.asSeconds()));
+			sf::Vector2f dest(c_pos->position.x + c_vel->velocity.x * c_vel->speed * ts.asSeconds(), c_pos->position.y + c_vel->velocity.y * c_vel->speed * ts.asSeconds());
 
-			if (c_vel->velocity.x != 0 && c_vel->velocity.x != 0)
-			{
-				bool colliding = c_col ? Physics::tileCollision(sf::Vector2i(dest.x, (int)(c_pos->position.y)), c_col->aabb, State::SPlaying::instance->m_level) : false;
-
-				if (!colliding)
-					c_pos->position.x = static_cast<float>(dest.x);
-
-				colliding = c_col ? Physics::tileCollision(sf::Vector2i((int)(c_pos->position.x), dest.y), c_col->aabb, State::SPlaying::instance->m_level) : false;
-
-				if (!colliding)
-					c_pos->position.y = static_cast<float>(dest.y);
-			}
-			else
-			{
-				bool colliding = c_col ? Physics::tileCollision(dest, c_col->aabb, State::SPlaying::instance->m_level) : false;
-
-				if (!colliding)
-				{
-					c_pos->position.x = static_cast<float>(dest.x);
-					c_pos->position.y = static_cast<float>(dest.y);
-				}
-			}
-
-			c_vel->velocity.x = 0;
-			c_vel->velocity.y = 0;
+			move(dest, entity);
 		}
+
+		c_vel->velocity.x = 0;
+		c_vel->velocity.y = 0;
 	}
 
 	void StatsSystem::update(const Timestep& ts, Entity* entity)
@@ -67,11 +74,9 @@ namespace Framework
 		SpriteComponent*    c_sprite = entity->getComponent<Framework::SpriteComponent>();
 		AnimatorComponent*  c_anim   = entity->getComponent<Framework::AnimatorComponent>();
 		VelocityComponent*  c_vel    = entity->getComponent<VelocityComponent>();
-		//CollisionComponent* c_col    = entity->getComponent<CollisionComponent>();
 
 		if (c_sprite && c_anim)
 		{
-			// What if there is a projectile entity that doesn't have run and idle animations? -Repertoire
 			if (c_vel)
 				c_vel->moving ? c_anim->animator.setAnimation("run") : c_anim->animator.setAnimation("idle");
 
@@ -87,7 +92,7 @@ namespace Framework
 		if (c_pos && c_sprite)
 		{
 			c_sprite->sprite.setScale(static_cast<float>(c_sprite->flipX ? 1 : -1), 1.0f);
-			c_sprite->sprite.setOrigin(static_cast<float>(c_sprite->sprite.getTextureRect().width / 2), static_cast<float>(c_sprite->sprite.getTextureRect().height));
+			c_sprite->sprite.setOrigin(c_sprite->origin);
 			Level::LevelRenderer::renderEntitySprite(c_pos->position.x, c_pos->position.y, c_sprite->sprite);
 		}
 	}

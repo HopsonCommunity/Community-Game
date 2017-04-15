@@ -1,4 +1,4 @@
-#include "Application.h"
+﻿#include "Application.h"
 
 #include <iostream>
 
@@ -45,6 +45,7 @@ catch(std::out_of_range& e)
     errorMessage(msg);
     std::cin.ignore();
 }
+/*
 catch(std::runtime_error& e)
 {
     std::string msg = e.what();
@@ -62,6 +63,7 @@ catch(...)
     errorMessage("Unknown error.");
     std::cin.ignore();
 }
+*/
 
 /*
 This project is maintained by the  Community on Hopson97's Discord server.

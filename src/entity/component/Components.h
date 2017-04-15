@@ -10,3 +10,4 @@
 #include "VelocityComponent.h"
 #include "AIComponent.h"
 #include "PlayerComponent.h"
+#include "MoveComponent.h"
