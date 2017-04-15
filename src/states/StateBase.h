@@ -6,7 +6,7 @@ class Application;
 
 namespace sf
 {
-    //Forward delcare SFML stuff
+    //Forward declare SFML stuff
     class RenderWindow;
     class Event;
 }

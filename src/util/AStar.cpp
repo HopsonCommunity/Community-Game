@@ -1,15 +1,7 @@
 ﻿#include "AStar.h"
-#include <math.h>
 
 namespace Util
 {
-	double distance(const Vec2i& v1, const Vec2i& v2)
-	{
-		double dx = v1.x - v2.x;
-		double dy = v1.y - v2.y;
-		return sqrt(dx * dx + dy * dy);
-	}
-
 	bool vecInList(std::vector<Node*> list, const Vec2i& vec)
 	{
 		for (unsigned int i = 0; i < list.size(); i++)

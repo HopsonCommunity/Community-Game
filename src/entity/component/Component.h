@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include <iostream>
-#include <SFML/Graphics.hpp>
+#include "../../maths/Maths.h"
+#include "../../util/json.hpp"
 
 namespace Framework
 {

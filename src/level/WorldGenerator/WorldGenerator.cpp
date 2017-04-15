@@ -1,5 +1,6 @@
-﻿#include <iostream>
-#include "WorldGenerator.h"
+﻿#include "WorldGenerator.h"
+
+#include <iostream>
 
 namespace WGenerator
 {

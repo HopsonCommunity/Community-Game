@@ -1,4 +1,5 @@
 ﻿#include "Application.h"
+
 #include "states/StatePlaying.h"
 
 #include <iostream>

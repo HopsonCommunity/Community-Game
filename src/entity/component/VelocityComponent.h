@@ -1,11 +1,8 @@
 ﻿#pragma once
 
-#include <SFML/Graphics.hpp>
-
 #include "Component.h"
 
-#include "../../util/json.hpp"
-#include "../../util/Types.h"
+#include <SFML/Graphics.hpp>
 
 namespace Framework
 {
@@ -13,10 +10,10 @@ namespace Framework
 	{
         public:
             float speed;
-            sf::Vector2f velocity;
+            Vec2 velocity;
             bool moving;
 
-            VelocityComponent(const sf::Vector2f& velocity = {});
+            VelocityComponent(const Vec2& velocity = {});
             VelocityComponent(nlohmann::json json);
 
             // Move at an angle

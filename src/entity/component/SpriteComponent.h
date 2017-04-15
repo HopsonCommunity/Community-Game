@@ -1,17 +1,15 @@
 ﻿#pragma once
 
-#include <SFML/Graphics/Sprite.hpp>
-
 #include "Component.h"
-#include "../animation/Animator.h"
-#include "../../util/json.hpp"
+
+#include <SFML/Graphics/Sprite.hpp>
 
 namespace Framework
 {
 	class SpriteComponent : public Component
 	{
 	public:
-		sf::Vector2f origin;
+		Vec2 origin;
 		sf::Sprite sprite;
 		bool flipX, flipY;
 	public:

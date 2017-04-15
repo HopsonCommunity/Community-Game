@@ -1,9 +1,10 @@
-#pragma once
+﻿#pragma once
 
-#include <SFML/Graphics.hpp>
 #include "../util/FileUtil.h"
 #include "../util/json.hpp"
 #include "../util/Types.h"
+
+#include <SFML/Graphics.hpp>
 
 namespace Input 
 {

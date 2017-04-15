@@ -1,9 +1,7 @@
 ﻿#pragma once
 
-#include "../animation/Animator.h"
-
 #include "Component.h"
-#include "../../util/json.hpp"
+#include "../animation/Animator.h"
 
 namespace Framework
 {

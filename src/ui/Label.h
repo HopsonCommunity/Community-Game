@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "../maths/Maths.h"
+
 namespace UI
 {
 	// Wrapper for sf::Text with alignments
@@ -13,11 +15,11 @@ namespace UI
 			NONE = 0, LEFT, CENTER, RIGHT
 		};
 	private:
-		sf::Vector2f m_position;
+		Vec2 m_position;
 
 		sf::Text m_text;
 		Alignment m_alignment;
-		sf::Vector2f m_alignmentOffset;
+		Vec2 m_alignmentOffset;
 	public:
 		Label(sf::Text text, Alignment alignment = Alignment::LEFT);
 	
@@ -26,7 +28,7 @@ namespace UI
 		void setAlignment(const Alignment& alignment);
 		void setText(const std::string& text);
 
-		void setPosition(sf::Vector2f position);
+		void setPosition(Vec2 position);
 
 		inline sf::Text& getText() { return m_text; }
 		inline Alignment getAlignment() const { return m_alignment; }

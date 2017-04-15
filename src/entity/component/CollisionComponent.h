@@ -1,11 +1,7 @@
 ﻿#pragma once
 
-#include <SFML/System/Vector2.hpp>
-
 #include "Component.h"
-
 #include "../physics/Hitbox.h"
-#include "../../util/json.hpp"
 
 namespace Framework
 {

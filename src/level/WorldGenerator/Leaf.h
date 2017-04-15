@@ -1,8 +1,10 @@
-#pragma once
+﻿#pragma once
+
+#include "Rectangle.h"
+
+#include "../../util/Random.h"
 
 #include <memory>
-#include "Rectangle.h"
-#include "../../util/Random.h"
 
 namespace WGenerator
 {

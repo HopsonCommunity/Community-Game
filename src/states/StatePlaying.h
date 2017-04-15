@@ -1,15 +1,15 @@
 ﻿#pragma once
 
-#include <SFML/Graphics.hpp>
-
 #include "StateBase.h"
 
-#include "../level/Level.h"
 #include "../debug/DebugMenu.h"
+#include "../level/Level.h"
 #include "../level/WorldGenerator/WorldGenerator.h"
 #include "../ui/UI.h"
 #include "../ui/UIButton.h"
 #include "../ui/UISlider.h"
+
+#include <SFML/Graphics.hpp>
 
 class Application;
 

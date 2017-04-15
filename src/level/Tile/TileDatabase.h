@@ -1,10 +1,11 @@
 ﻿#pragma once
 
-#include <vector>
-
 #include "TileType.h"
 #include "TileID.h"
+
 #include "../../util/Types.h"
+
+#include <vector>
 
 namespace Level { 
 namespace Tile

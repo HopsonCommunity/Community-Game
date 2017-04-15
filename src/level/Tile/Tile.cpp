@@ -1,11 +1,13 @@
 ﻿#include "Tile.h"
 
-#include <iostream>
 #include "WallTile.h"
-#include "../../Application.h"
+
 #include "../Level.h"
+#include "../../Application.h"
 
 #include <SFML/Graphics/View.hpp>
+
+#include <iostream>
 
 namespace Level {
 namespace Tile

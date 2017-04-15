@@ -1,7 +1,5 @@
 ﻿#include "TileDatabase.h"
 
-#include "../../util/Types.h"
-
 namespace Level { 
 namespace Tile
 {
