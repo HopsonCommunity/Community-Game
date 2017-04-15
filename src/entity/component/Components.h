@@ -2,12 +2,12 @@
 
 // All components headers
 
+#include "AIComponent.h"
 #include "AnimatorComponent.h"
 #include "CollisionComponent.h"
+#include "MoveComponent.h"
+#include "PlayerComponent.h"
 #include "PositionComponent.h"
 #include "SpriteComponent.h"
 #include "StatsComponent.h"
 #include "VelocityComponent.h"
-#include "AIComponent.h"
-#include "PlayerComponent.h"
-#include "MoveComponent.h"

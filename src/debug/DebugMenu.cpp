@@ -1,8 +1,9 @@
-#include "DebugMenu.h"
+﻿#include "DebugMenu.h"
+
+#include <SFML/Window.hpp>
 
 #include <vector>
 #include <iostream>
-#include <SFML/Window.hpp>
 
 namespace Debug
 {

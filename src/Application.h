@@ -1,16 +1,17 @@
-#pragma once
-
-#include <memory>
-#include <vector>
-#include <SFML/Graphics.hpp>
+﻿#pragma once
 
 #include "util/Types.h"
+#include "util/Timestep.h"
 #include "states/StateBase.h"
 #include "resources/ResourceHolder.h"
 #include "input/InputScheme.h"
 #include "input/Input.h"
-#include "util/Timestep.h"
 #include "sound/BGM.h"
+
+#include <SFML/Graphics.hpp>
+
+#include <memory>
+#include <vector>
 
 constexpr bool VSYNC_ENABLED  = true;
 constexpr bool VSYNC_DISABLED = false;

@@ -25,7 +25,7 @@ namespace UI
 		updateBounds();
 	}
 
-	void Label::setPosition(sf::Vector2f position)
+	void Label::setPosition(Vec2 position)
 	{
 		m_position = position;
 	}
@@ -33,7 +33,7 @@ namespace UI
 	void Label::updateBounds()
 	{
 		sf::FloatRect rect = m_text.getLocalBounds();
-		sf::Vector2f size(rect.width, rect.height);
+		Vec2 size(rect.width, rect.height);
 		switch (m_alignment)
 		{
             case Alignment::LEFT:

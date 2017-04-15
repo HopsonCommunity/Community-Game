@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include <vector>
-
 #include "../Entity.h"
+
+#include <vector>
 
 struct Timestep;
 

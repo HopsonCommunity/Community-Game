@@ -1,9 +1,9 @@
 ﻿#include "WallTile.h"
 
-#include <iostream>
-
 #include "../Level.h"
 #include "../LevelRenderer.h"
+
+#include <iostream>
 
 namespace Level {
 namespace Tile

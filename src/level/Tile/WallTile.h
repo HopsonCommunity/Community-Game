@@ -1,7 +1,8 @@
 ﻿#pragma once
 
-#include "../../util/Types.h"
 #include "Tile.h"
+
+#include "../../util/Types.h"
 
 #include <SFML/Graphics.hpp>
 

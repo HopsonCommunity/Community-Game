@@ -1,9 +1,8 @@
-﻿#include "Component.h"
+﻿#pragma once
 
-#include <SFML/Graphics.hpp>
+#include "Component.h"
 
 #include "../../util/AStar.h"
-#include "../../util/json.hpp"
 
 namespace Framework
 {
@@ -13,7 +12,7 @@ namespace Framework
         AIComponent(double trackingDistance);
         AIComponent(nlohmann::json json);
 
-        std::function<std::vector<Util::Node*>(Util::Vec2i, Util::Vec2i, Level::Level*)> findPath;
+        std::function<std::vector<Util::Node*>(Vec2i, Vec2i, Level::Level*)> findPath;
         Entity* trackingEntity;
         double trackingDistance;
 

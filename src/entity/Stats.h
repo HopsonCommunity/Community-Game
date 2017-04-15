@@ -4,7 +4,7 @@
 
 namespace Framework
 {
-	// Do not change entities' stats directly. Use StatusEffects. Example in Player constructor.
+	// Do not change entities' stats directly. Use StatusEffects.
 	struct Stats
 	{
 		// Only change health directly
