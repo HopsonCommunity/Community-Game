@@ -26,7 +26,7 @@ namespace Tile
 		fMedStone   = std::make_unique<Tile>(1,     sf::Sprite(*tileset, sf::IntRect(0, static_cast<int>(TILE_SIZE) * 2, static_cast<int>(TILE_SIZE), static_cast<int>(TILE_SIZE))), false);
 		fDarkStone  = std::make_unique<Tile>(2,     sf::Sprite(*tileset, sf::IntRect(0, static_cast<int>(TILE_SIZE) * 3, static_cast<int>(TILE_SIZE), static_cast<int>(TILE_SIZE))), false);
 		stoneWall   = std::make_unique<WallTile>(3, sf::Sprite(*tileset, sf::IntRect(0, static_cast<int>(TILE_SIZE) * 4, static_cast<int>(TILE_SIZE), static_cast<int>(TILE_SIZE))), 
-													sf::Sprite(*tileset, sf::IntRect(0, 160, static_cast<int>(TILE_SIZE), static_cast<int>(TILE_SIZE))), TILE_SIZE, true);
+													sf::Sprite(*tileset, sf::IntRect(0, 160, static_cast<int>(TILE_SIZE), static_cast<int>(2 * TILE_SIZE))), 2 * TILE_SIZE, true);
 	}
 
 	Tile::Tile(byte id, sf::Sprite sprite, bool solid)
