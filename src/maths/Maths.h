@@ -2,7 +2,7 @@
 
 constexpr float PI = 3.14159265358f;
 
-#include "Vec2.h"
+#include "Vector2.h"
 #include "../util/Types.h"
 
 constexpr float toRadians(float degrees)
