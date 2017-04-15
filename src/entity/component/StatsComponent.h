@@ -1,12 +1,10 @@
 ﻿#pragma once
 
-#include <vector>
-#include <memory>
-
+#include "Component.h"
 #include "../Stats.h"
 
-#include "Component.h"
-#include "../../util/json.hpp"
+#include <vector>
+#include <memory>
 
 namespace Framework
 {

@@ -1,18 +1,18 @@
-# Code Style
+﻿# Code Style
 
 ## Naming conventions
 
-* File names: CamelCase
+* File names: PascalCase
 * Folder names: underscore_lower_case
 
-* Class names: CamelCase
-* Struct names: CamelCase
-* Class members: m_lowerCamelCase
+* Class names: PascalCase
+* Struct names: PascalCase
+* Class members: m_camelCase
 
-* Functions: lowerCamelCase
-* Local variables: lowerCamelCase
+* Functions: camelCase
+* Local variables: camelCase
 
-* Namespaces: CamelCase
+* Namespaces: PascalCase
 
 * Constants: SCREAMING_SNAKE_CASE
 
@@ -52,7 +52,7 @@ Foo::Foo(int x, int y)
 ## Namespaces
 
 * NO `using namespace std;` Your pull request will be denied if that is included.
-* Namespaces should be CamelCase
+* Namespaces should be PascalCase
 * Nested namespaces: 
 
 ```C++
@@ -64,6 +64,31 @@ namespace Bar
       
     }
 }}
+```
+## Includes
+* All headers should have header guards (#pragma once)
+
+* Includes in files should be in the following order:
+* "h file corresponding to this cpp file (if applicable)",
+* "headers from the same component",
+* "headers from other components",
+* "headers from SFML"
+* "system headers and standard lib headers"
+
+* Example:
+```
+#include "System.h"
+
+#include "../component/Components.h"
+#include "../Entity.h"
+
+#include "../../maths/MathFunctions.h"
+#include "../../util/json.hpp"
+
+#include <SFML/Graphics.hpp>
+
+#include <vector>
+#include <unordered_map>
 ```
 
 ## Constants

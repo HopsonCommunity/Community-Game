@@ -1,11 +1,12 @@
 ﻿#include "Level.h"
+
 #include "LevelRenderer.h"
 
-#include <iostream>
-
-#include "../entity/Entity.h"
 #include "../states/StatePlaying.h"
+#include "../entity/Entity.h"
 #include "../entity/component/Components.h"
+
+#include <iostream>
 
 namespace Level
 {

@@ -1,9 +1,11 @@
 ﻿#pragma once
 
-#include <memory>
-#include <SFML/Graphics.hpp>
 #include "../input/Input.h"
 #include "../maths/Maths.h"
+
+#include <SFML/Graphics.hpp>
+
+#include <memory>
 
 namespace UI
 {

@@ -1,9 +1,9 @@
 ﻿#pragma once
 
 #include "UIComponentBase.h"
+#include "Label.h"
 
 #include "../Application.h"
-#include "Label.h"
 
 #include <functional>
 

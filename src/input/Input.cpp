@@ -1,6 +1,6 @@
-#include "Input.h"
-/*
+﻿#include "Input.h"
 
+/*
 	How input works.
 
 	Input "actions" are defined in the 'Controls.json' file.
@@ -8,6 +8,7 @@
 	We query actions by using isInput(actionName) where actionName is the name
 	of the action as defined in 'Controls.json'.
 */
+
 namespace Input
 {
 	Input::Input(InputScheme * inputScheme)

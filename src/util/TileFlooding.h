@@ -1,12 +1,15 @@
-﻿#include <vector>
+﻿#pragma once
+
 #include "../entity/Entity.h"
 #include "../level/Level.h"
+#include "../maths/Maths.h"
+
 #include <SFML/Graphics.hpp>
+
+#include <vector>
 
 namespace Util
 {
-    typedef sf::Vector2<int32> Vec2i;
-
     class TileFlooding
     {
     public:

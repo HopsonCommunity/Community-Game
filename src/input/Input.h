@@ -1,6 +1,7 @@
-#pragma once
+﻿#pragma once
 
 #include "InputScheme.h"
+
 #include <SFML/Graphics.hpp>
 
 #define MOVE_UP "MOVE_UP"

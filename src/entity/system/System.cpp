@@ -1,18 +1,19 @@
 ﻿#include "System.h"
 
 #include "../Entity.h"
-#include "../component/Components.h"
-#include "../../util/Timestep.h"
-#include "../physics/TileCollision.h"
-#include "../../states/StatePlaying.h"
-#include "../../level/LevelRenderer.h"
-#include "../../util/TileFlooding.h"
 #include "../EntityFactory.h"
+#include "../component/Components.h"
+#include "../physics/TileCollision.h"
+
 #include "../../maths/Maths.h"
+#include "../../util/Timestep.h"
+#include "../../util/TileFlooding.h"
+#include "../../level/LevelRenderer.h"
+#include "../../states/StatePlaying.h"
 
 namespace Framework
 {
-	void move(vec2 dest, Entity* entity)
+	void move(Vec2 dest, Entity* entity)
 	{
 		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
 		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
@@ -26,7 +27,7 @@ namespace Framework
 
 		if (c_col)
 		{
-			bool colliding = c_col ? Physics::tileCollision(vec2i(dest), c_col->aabb) : false;
+			bool colliding = c_col ? Physics::tileCollision(Vec2i(dest), c_col->aabb) : false;
 			if (!colliding)
 			{
 				c_pos->position.x = round(dest.x);
@@ -47,7 +48,7 @@ namespace Framework
 
 		if (c_pos && c_vel)
 		{
-			vec2 dest(c_pos->position.x + c_vel->velocity.x * c_vel->speed * ts.asSeconds(), c_pos->position.y + c_vel->velocity.y * c_vel->speed * ts.asSeconds());
+			Vec2 dest(c_pos->position.x + c_vel->velocity.x * c_vel->speed * ts.asSeconds(), c_pos->position.y + c_vel->velocity.y * c_vel->speed * ts.asSeconds());
 
 			move(dest, entity);
 		}
@@ -119,7 +120,7 @@ namespace Framework
 
 					if (!path.empty())
 					{
-						Util::Vec2i vec = path.at(path.size() - 1)->pos;
+						Vec2i vec = path.at(path.size() - 1)->pos;
 						vec.x = vec.x << 5;
 						vec.y = vec.y << 5;
 						int offSet = 5; //Magic number. I'm using it to avoid zombie flickering in walls.
@@ -152,7 +153,7 @@ namespace Framework
 
 				///@TODO: Find better solution
 				//Using euclidean distance for now
-				if (Util::distance((Util::Vec2i)c_pos_player->position, (Util::Vec2i)c_pos->position) <= c_ai->trackingDistance * 32)
+				if (distance((Vec2i)c_pos_player->position, (Vec2i)c_pos->position) <= c_ai->trackingDistance * 32)
 					c_ai->trackingEntity = player;
 				else
 				{

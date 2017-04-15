@@ -1,11 +1,8 @@
 ﻿#include "VelocityComponent.h"
 
-#include "../../maths/vec2.h"
-#include "../../maths/Maths.h"
-
 namespace Framework
 {
-	VelocityComponent::VelocityComponent(const vec2& velocity)
+	VelocityComponent::VelocityComponent(const Vec2& velocity)
     : velocity(velocity)
 	{ }
 

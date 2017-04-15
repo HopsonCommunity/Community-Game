@@ -1,9 +1,11 @@
 ﻿#pragma once
 
-#include <SFML/System/Vector2.hpp>
+#include "Leaf.h"
+
 #include "../../util/Types.h"
 #include "../../util/Random.h"
-#include "Leaf.h"
+
+#include <SFML/System/Vector2.hpp>
 
 namespace WGenerator
 {
@@ -25,7 +27,7 @@ namespace WGenerator
             std::vector<std::shared_ptr<Rectangle> > getRooms();
             std::vector<std::shared_ptr<Rectangle> > getRandomSquares();
             std::vector<std::shared_ptr<Rectangle> > getHalls();
-            std::vector<std::vector<byte > > render(std::vector<std::pair<std::vector<std::shared_ptr<Rectangle> >, byte > > data);
+            std::vector<std::vector<byte>> render(std::vector<std::pair<std::vector<std::shared_ptr<Rectangle>>, byte>> data);
 
             sf::Vector2<uint> placePlayer(uint roomId);
 

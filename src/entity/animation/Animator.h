@@ -1,10 +1,11 @@
 ﻿#pragma once
 
-#include <vector>
-#include <SFML/Graphics.hpp>
-
 #include "../../util/Timestep.h"
 #include "../../util/Types.h"
+
+#include <SFML/Graphics.hpp>
+
+#include <vector>
 
 namespace Framework
 {

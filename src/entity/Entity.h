@@ -1,9 +1,8 @@
 ﻿#pragma once
 
-#include "../util/Types.h"
-#include "../maths/Maths.h"
-
 #include "component/Component.h"
+
+#include "../maths/Maths.h"
 
 #include <memory>
 #include <unordered_map>
@@ -15,11 +14,10 @@ namespace Framework
 	class Entity
 	{
         public:
-            Entity();
-            Entity(vec2& position, sf::Sprite& sprite);
+			Entity();
 
 			uint64 getID() { return m_ID; }
-
+			
             void addComponent(std::unique_ptr<Component> component);
 
             virtual void update(const Timestep& ts) {};

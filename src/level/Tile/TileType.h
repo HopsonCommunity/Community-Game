@@ -1,10 +1,10 @@
 ﻿#pragma once
 
-#include <SFML/Graphics.hpp>
-
 #include "TileID.h"
-#include "../../util/Types.h"
+
 #include "../../maths/Maths.h"
+
+#include <SFML/Graphics.hpp>
 
 namespace Level {
 namespace Tile
@@ -15,7 +15,7 @@ namespace Tile
             struct Data
             {
                 std::string     name;
-                vec2    texCoords;
+                Vec2    texCoords;
                 ID              id;
                 uint32          textureVariations;
             };

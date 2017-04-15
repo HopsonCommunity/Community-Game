@@ -1,10 +1,11 @@
 ﻿#pragma once
 
-#include "../../util/Types.h"
 #include "../LevelConstants.h"
+#include "../../util/Types.h"
+
+#include <SFML/Graphics.hpp>
 
 #include <memory>
-#include <SFML/Graphics.hpp>
 
 namespace Level {
 class Level;

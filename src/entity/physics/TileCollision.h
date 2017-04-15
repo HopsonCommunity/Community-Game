@@ -1,12 +1,12 @@
 ﻿#pragma once
 
-#include <map>
-
 #include "Hitbox.h"
 
 #include "../../states/StatePlaying.h"
 #include "../../level/Level.h"
 #include "../../level/Tile/Tile.h"
+
+#include <map>
 
 namespace Physics
 {

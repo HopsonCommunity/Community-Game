@@ -1,13 +1,13 @@
-#pragma once
+﻿#pragma once
 
-#include <string>
-#include <unordered_map>
+#include "../Application.h"
 
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include "../Application.h"
+#include <string>
+#include <unordered_map>
 
 namespace Debug
 {

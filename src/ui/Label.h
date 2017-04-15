@@ -15,11 +15,11 @@ namespace UI
 			NONE = 0, LEFT, CENTER, RIGHT
 		};
 	private:
-		vec2 m_position;
+		Vec2 m_position;
 
 		sf::Text m_text;
 		Alignment m_alignment;
-		vec2 m_alignmentOffset;
+		Vec2 m_alignmentOffset;
 	public:
 		Label(sf::Text text, Alignment alignment = Alignment::LEFT);
 	
@@ -28,7 +28,7 @@ namespace UI
 		void setAlignment(const Alignment& alignment);
 		void setText(const std::string& text);
 
-		void setPosition(vec2 position);
+		void setPosition(Vec2 position);
 
 		inline sf::Text& getText() { return m_text; }
 		inline Alignment getAlignment() const { return m_alignment; }
