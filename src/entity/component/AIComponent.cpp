@@ -17,15 +17,4 @@ namespace Entity
 	{
 		
 	}
-
-	ComponentType* AIComponent::getStaticType()
-	{
-		static ComponentType type({ "AI" });
-		return &type;
-	}
-
-	ComponentType* AIComponent::getType() const
-	{
-		return getStaticType();
-	}
 }

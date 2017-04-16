@@ -71,7 +71,6 @@ namespace Level
 		{
 			for (auto& system : m_updateSystems)
 				system->update(ts, entity.get());
-			entity.get()->update(ts);
 		}
 
 	}

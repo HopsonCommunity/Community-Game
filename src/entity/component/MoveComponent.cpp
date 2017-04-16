@@ -19,15 +19,4 @@ namespace Entity
 		: type(stringToEnum(json["type"]))
 	{
 	}
-
-	ComponentType* MoveComponent::getStaticType()
-	{
-		static ComponentType type({ "Move" });
-		return &type;
-	}
-
-	ComponentType * MoveComponent::getType() const
-	{
-		return getStaticType();
-	}
 }

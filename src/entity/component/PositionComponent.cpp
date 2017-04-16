@@ -12,15 +12,4 @@ namespace Entity
 	{
 	}
 
-	ComponentType* PositionComponent::getStaticType()
-	{
-		static ComponentType type({ "Position" });
-		return &type;
-	}
-
-	ComponentType* PositionComponent::getType() const
-	{
-		return getStaticType(); 
-	}
-
 }

@@ -5,13 +5,14 @@
 namespace Entity
 {
 	Entity::Entity()
-	: m_ID(Random::uint64InRange(0, 18446744073709551614ULL))
+	: m_ID(0)
 	{
+
 	}
 
-	void Entity::addComponent(std::unique_ptr<Component> component)
+	Entity::Entity(uint64 ID)
+		: m_ID(ID)
 	{
-		if (component->getType())
-			m_components[component->getType()] = std::move(component);
+
 	}
 }

@@ -15,37 +15,29 @@ namespace Entity
 	{
         public:
 			Entity();
+            Entity(uint64 ID);
 
 			uint64 getID() { return m_ID; }
 			
-            void addComponent(std::unique_ptr<Component> component);
-
-            virtual void update(const Timestep& ts) {};
-
             template<typename T>
-            const T* getComponent() const
+            void addComponent(std::unique_ptr<Component> component)
             {
-                return getComponentInternal<T>().get();
+                m_components[T::ID] = std::move(component);
             }
 
             template<typename T>
             T* getComponent()
             {
-                return (T*)getComponentInternal<T>();
+                int id = T::ID;
+                auto it = m_components.find(id);
+                if (it == m_components.end())
+                    return nullptr;
+                else 
+                    return dynamic_cast<T*>(it->second.get());
             }
 
         private:
-            template <typename T>
-            const Component* getComponentInternal() const
-            {
-                ComponentType* type = T::getStaticType();
-                auto it = m_components.find(type);
-                if (it == m_components.end())
-                    return nullptr;
-                return it->second.get();
-            }
-
             uint64 m_ID;
-            std::unordered_map<ComponentType*, std::unique_ptr<Component>> m_components;
+            std::unordered_map<int, std::unique_ptr<Component>> m_components;
 	};
 }

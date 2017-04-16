@@ -2,6 +2,8 @@
 
 #include "Component.h"
 
+#include "../../util/json.hpp"
+
 namespace Entity
 {
     class PlayerComponent : public Component
@@ -10,7 +12,6 @@ namespace Entity
         PlayerComponent();
         PlayerComponent(nlohmann::json json);
 
-        static ComponentType* getStaticType();
-        virtual ComponentType* getType() const override;;
+        static const int ID = 5;
     };
 }

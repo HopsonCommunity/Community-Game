@@ -62,7 +62,6 @@ namespace Entity
 		StatsComponent* c_stats = entity->getComponent<StatsComponent>();
 		if (c_stats)
 		{
-			c_stats->stats.reset();
 			for (auto effect : c_stats->active_effects)
 			{
 				effect->manageDuration();

@@ -9,17 +9,4 @@ namespace Entity
 	CollisionComponent::CollisionComponent(nlohmann::json json) 
 		: aabb({ json["aabb"]["xMin"], json["aabb"]["yMin"], json["aabb"]["xMax"], json["aabb"]["yMax"] })
 	{}
-
-	ComponentType* CollisionComponent::getStaticType()
-	{
-		static ComponentType type({ "Collision" });
-		return &type;
-	}
-
-	ComponentType* CollisionComponent::getType() const
-	{
-		return getStaticType();
-	}
-
-
 }

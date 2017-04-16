@@ -29,15 +29,4 @@ namespace Entity
 
 		moving = true;
 	}
-
-	ComponentType* VelocityComponent::getStaticType()
-	{
-		static ComponentType type({ "Velocity" });
-		return &type;
-	}
-
-	ComponentType* VelocityComponent::getType() const
-	{
-		return getStaticType();
-	}
 }

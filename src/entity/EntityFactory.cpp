@@ -23,23 +23,23 @@ namespace Entity
 			nlohmann::json componentJSON = componentsJSON[i];
 
 			if (componentJSON["componentType"].get<std::string>() == "AI")
-				entity->addComponent(std::make_unique<AIComponent>(componentJSON));
+				entity->addComponent<AIComponent>(std::make_unique<AIComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Animator")
-				entity->addComponent(std::make_unique<AnimatorComponent>(componentJSON));
+				entity->addComponent<AnimatorComponent>(std::make_unique<AnimatorComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Collision")
-				entity->addComponent(std::make_unique<CollisionComponent>(componentJSON));
+				entity->addComponent<CollisionComponent>(std::make_unique<CollisionComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Move")
-				entity->addComponent(std::make_unique<MoveComponent>(componentJSON));
+				entity->addComponent<MoveComponent>(std::make_unique<MoveComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Player")
-				entity->addComponent(std::make_unique<PlayerComponent>(componentJSON));
+				entity->addComponent<PlayerComponent>(std::make_unique<PlayerComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Position")
-				entity->addComponent(std::make_unique<PositionComponent>(componentJSON));
+				entity->addComponent<PositionComponent>(std::make_unique<PositionComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Sprite")
-				entity->addComponent(std::make_unique<SpriteComponent>(componentJSON));
+				entity->addComponent<SpriteComponent>(std::make_unique<SpriteComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Stats")
-				entity->addComponent(std::make_unique<StatsComponent>(componentJSON));
+				entity->addComponent<StatsComponent>(std::make_unique<StatsComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Velocity")
-				entity->addComponent(std::make_unique<VelocityComponent>(componentJSON));
+				entity->addComponent<VelocityComponent>(std::make_unique<VelocityComponent>(componentJSON));
 		}
 		return entity;
 	}

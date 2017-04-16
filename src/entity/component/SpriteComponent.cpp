@@ -14,15 +14,4 @@ namespace Entity
 		, origin({ json["origin"]["x"], json["origin"]["y"] })
 	{
 	};
-
-	ComponentType* SpriteComponent::getStaticType()
-	{
-		static ComponentType type({ "Sprite" });
-		return &type;
-	}
-
-	ComponentType* SpriteComponent::getType() const
-	{ 
-		return getStaticType(); 
-	}
 }
