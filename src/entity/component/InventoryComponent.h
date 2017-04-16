@@ -1,16 +1,19 @@
-//
-// Created by jakub on 15.04.17.
-//
+#pragma once
 
-#ifndef COMMUNITY_GAME_INVENTORYCOMPONENT_H
-#define COMMUNITY_GAME_INVENTORYCOMPONENT_H
+#include <vector>
+#include <memory>
+#include "../../item/Item.h"
+#include "../../util/json.hpp"
 
+namespace Framework {
+    class InventoryComponent : Component {
+    public:
+        InventoryComponent(std::vector<std::unique_ptr<Item::Item> > items);
+        InventoryComponent(nlohmann::json);
 
+        std::vector<std::unique_ptr<Item::Item> > items;
 
-class InventoryComponent {
-
-};
-
-
-
-#endif //COMMUNITY_GAME_INVENTORYCOMPONENT_H
+        static ComponentType* getStaticType();
+        virtual ComponentType* getType() const override;
+    };
+}
