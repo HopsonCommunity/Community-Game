@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Item.h"
+#include "../util/json.hpp"
 
 namespace Item
 {
@@ -8,5 +9,6 @@ namespace Item
     {
     public:
         static std::unique_ptr<Item> createItem(const std::string& item);
+        static std::unique_ptr<Item> createItem(nlohmann::json json);
     };
 }
