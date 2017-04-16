@@ -2,7 +2,7 @@
 
 #include "Entity.h"
 
-namespace Framework 
+namespace Entity
 {
 	class EntityFactory 
 	{

@@ -13,7 +13,7 @@ namespace Util
     class TileFlooding
     {
     public:
-        static std::vector<Framework::Entity*> getAllEntitesNearOtherEntity(Vec2i entityPos, int radius, Level::Level* level);
+        static std::vector<Entity::Entity*> getAllEntitesNearOtherEntity(Vec2i entityPos, int radius, Level::Level* level);
         static std::vector<std::pair<Vec2i, int>> tileFlooding(Vec2i entityPos, int radius, Level::Level* level);
         inline static bool hasCoord(const std::vector<std::pair<Vec2i, int>>& tiles, Vec2i toTest);
     };

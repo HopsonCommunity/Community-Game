@@ -2,7 +2,7 @@
 
 #include "Component.h"
 
-namespace Framework
+namespace Entity
 {
 	enum class MoveType
 	{

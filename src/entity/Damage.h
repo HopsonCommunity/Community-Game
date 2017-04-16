@@ -2,7 +2,7 @@
 
 #include "../util/Types.h"
 
-namespace Framework
+namespace Entity
 {
 	// Knowing the damage source is useful!
 	enum class DamageSource : byte

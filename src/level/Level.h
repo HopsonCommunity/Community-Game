@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-namespace Framework
+namespace Entity
 {
 	class Entity;
 	class Player;
@@ -21,15 +21,15 @@ namespace Level
             Level() {}
             Level(unsigned int width, unsigned int height);
 			
-            void addEntity(std::unique_ptr<Framework::Entity> entity);
-            Framework::Entity* getEntity(const uint64& id);
+            void addEntity(std::unique_ptr<Entity::Entity> entity);
+            Entity::Entity* getEntity(const uint64& id);
 
-			Framework::Entity* getPlayer() { return getEntity(player_id); }
+			Entity::Entity* getPlayer() { return getEntity(player_id); }
 
 			void setTile(unsigned int x, unsigned int y, Tile::Tile& tile);
             Tile::Tile* getTile(unsigned int x, unsigned int y);
             
-            Framework::Entity* getEntityOnTile(unsigned int x, unsigned int y);
+            Entity::Entity* getEntityOnTile(unsigned int x, unsigned int y);
 
 			void update(const Timestep& ts);
             void render(sf::RenderWindow& window);
@@ -39,10 +39,10 @@ namespace Level
             uint m_height;
             std::vector<Tile::Tile*> m_tiles;
 
-			std::vector<std::unique_ptr<Framework::Entity>> m_entities;
+			std::vector<std::unique_ptr<Entity::Entity>> m_entities;
 
-			std::unique_ptr<Framework::System> m_renderSystem;
-			std::vector<std::unique_ptr<Framework::System>> m_updateSystems;
+			std::unique_ptr<Entity::System> m_renderSystem;
+			std::vector<std::unique_ptr<Entity::System>> m_updateSystems;
 		public:
 			uint64 player_id;
 	};

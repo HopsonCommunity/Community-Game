@@ -11,7 +11,7 @@
 #include "../../level/LevelRenderer.h"
 #include "../../states/StatePlaying.h"
 
-namespace Framework
+namespace Entity
 {
 	void move(Vec2 dest, Entity* entity)
 	{
@@ -73,8 +73,8 @@ namespace Framework
 
 	void AnimatorSystem::update(const Timestep& ts, Entity* entity)
 	{
-		SpriteComponent*    c_sprite = entity->getComponent<Framework::SpriteComponent>();
-		AnimatorComponent*  c_anim   = entity->getComponent<Framework::AnimatorComponent>();
+		SpriteComponent*    c_sprite = entity->getComponent<SpriteComponent>();
+		AnimatorComponent*  c_anim   = entity->getComponent<AnimatorComponent>();
 		VelocityComponent*  c_vel    = entity->getComponent<VelocityComponent>();
 
 		if (c_sprite && c_anim)
@@ -88,8 +88,8 @@ namespace Framework
 
 	void RenderSystem::update(const Timestep& ts, Entity* entity)
 	{
-		PositionComponent* c_pos = entity->getComponent<Framework::PositionComponent>();
-		SpriteComponent* c_sprite = entity->getComponent<Framework::SpriteComponent>();
+		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
+		SpriteComponent* c_sprite = entity->getComponent<SpriteComponent>();
 
 		if (c_pos && c_sprite)
 		{

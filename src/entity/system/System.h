@@ -6,7 +6,7 @@
 
 struct Timestep;
 
-namespace Framework
+namespace Entity
 {
 	class System
 	{

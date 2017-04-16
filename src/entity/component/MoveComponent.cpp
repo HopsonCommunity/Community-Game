@@ -1,6 +1,6 @@
 ﻿#include "MoveComponent.h"
 
-namespace Framework
+namespace Entity
 {
 	MoveType MoveComponent::stringToEnum(const std::string& string)
 	{

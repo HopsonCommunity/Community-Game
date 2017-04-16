@@ -1,6 +1,6 @@
 ﻿#include "PlayerComponent.h"
 
-namespace Framework
+namespace Entity
 {
 	PlayerComponent::PlayerComponent()
 	{

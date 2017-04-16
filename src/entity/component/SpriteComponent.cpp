@@ -2,7 +2,7 @@
 
 #include "../../Application.h"
 
-namespace Framework
+namespace Entity
 {
 	SpriteComponent::SpriteComponent(const sf::Sprite& sprite)
 		: sprite(sprite)

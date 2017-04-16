@@ -1,6 +1,6 @@
 ﻿#include "AnimatorComponent.h"
 
-namespace Framework
+namespace Entity
 {
 	AnimatorComponent::AnimatorComponent(Animator animator)
 		: animator(animator)

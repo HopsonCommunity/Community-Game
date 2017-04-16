@@ -1,6 +1,6 @@
 ﻿#include "StatsComponent.h"
 
-namespace Framework
+namespace Entity
 {
 	StatsComponent::StatsComponent()
 	{

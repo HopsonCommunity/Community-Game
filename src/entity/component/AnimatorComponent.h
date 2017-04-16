@@ -3,7 +3,7 @@
 #include "Component.h"
 #include "../animation/Animator.h"
 
-namespace Framework
+namespace Entity
 {
 	class AnimatorComponent : public Component
 	{

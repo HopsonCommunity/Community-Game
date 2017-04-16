@@ -1,6 +1,6 @@
 ﻿#include "VelocityComponent.h"
 
-namespace Framework
+namespace Entity
 {
 	VelocityComponent::VelocityComponent(const Vec2& velocity)
     : velocity(velocity)

@@ -1,6 +1,6 @@
 ﻿#include "PositionComponent.h"
 
-namespace Framework
+namespace Entity
 {
 	PositionComponent::PositionComponent(const Vec2& position)
 		: position(position)

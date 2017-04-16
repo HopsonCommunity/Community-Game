@@ -1,6 +1,6 @@
 #include "Stats.h"
 
-namespace Framework
+namespace Entity
 {
 	StatusEffect::StatusEffect(int32 duration)
 		: m_duration(duration)

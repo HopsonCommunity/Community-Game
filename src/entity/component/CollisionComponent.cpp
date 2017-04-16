@@ -1,6 +1,6 @@
 ﻿#include "CollisionComponent.h"
 
-namespace Framework
+namespace Entity
 {
 	CollisionComponent::CollisionComponent(const Hitbox& aabb)
 		: aabb(aabb)

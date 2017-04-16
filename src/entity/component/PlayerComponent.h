@@ -2,7 +2,7 @@
 
 #include "Component.h"
 
-namespace Framework
+namespace Entity
 {
     class PlayerComponent : public Component
     {

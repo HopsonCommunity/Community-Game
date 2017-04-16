@@ -4,7 +4,7 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 
-namespace Framework
+namespace Entity
 {
 	class SpriteComponent : public Component
 	{

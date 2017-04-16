@@ -4,7 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace Framework
+namespace Entity
 {
 	class VelocityComponent : public Component
 	{

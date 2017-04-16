@@ -2,7 +2,7 @@
 
 #include "../util/Random.h"
 
-namespace Framework
+namespace Entity
 {
 	Entity::Entity()
 	: m_ID(Random::uint64InRange(0, 18446744073709551614ULL))

@@ -2,7 +2,7 @@
 
 #include "../util/Types.h"
 
-namespace Framework
+namespace Entity
 {
 	// Do not change entities' stats directly. Use StatusEffects.
 	struct Stats

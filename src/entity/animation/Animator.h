@@ -7,7 +7,7 @@
 
 #include <vector>
 
-namespace Framework
+namespace Entity
 {
 	struct Animation
 	{

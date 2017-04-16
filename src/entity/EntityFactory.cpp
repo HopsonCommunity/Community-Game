@@ -8,7 +8,7 @@
 
 #include <fstream>
 
-namespace Framework 
+namespace Entity
 {
 	std::unique_ptr<Entity> EntityFactory::createEntity(std::string filePath) {
 		

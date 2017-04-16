@@ -3,7 +3,7 @@
 #include "Component.h"
 #include "../physics/Hitbox.h"
 
-namespace Framework
+namespace Entity
 {
 	class CollisionComponent : public Component
 	 {

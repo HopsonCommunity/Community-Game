@@ -46,7 +46,7 @@ namespace State
 		m_camera = sf::View(Vec2(0, 0), Vec2(static_cast<float>(window.getSize().x), static_cast<float>(window.getSize().y)));
 		window.setView(m_camera);
 
-		std::unique_ptr<Framework::Entity> player = Framework::EntityFactory::createEntity("Player");
+		std::unique_ptr<Entity::Entity> player = Entity::EntityFactory::createEntity("Player");
 
 		m_level.player_id = player->getID();
 		std::cout << "Player ID: " << m_level.player_id << std::endl;
@@ -69,10 +69,10 @@ namespace State
                     m_level.setTile(x, y, *Level::Tile::Tile::stoneWall);
             }
 
-		m_level.getEntity(m_level.player_id)->getComponent<Framework::PositionComponent>()->position = Vec2(static_cast<float>(data.playerPosition.x * 32), static_cast<float>(data.playerPosition.y * 32));
+		m_level.getEntity(m_level.player_id)->getComponent<Entity::PositionComponent>()->position = Vec2(static_cast<float>(data.playerPosition.x * 32), static_cast<float>(data.playerPosition.y * 32));
 
-		std::unique_ptr<Framework::Entity> zombie = Framework::EntityFactory::createEntity("enemy/Zombie");
-		zombie->getComponent<Framework::PositionComponent>()->position = Vec2(static_cast<float>(data.playerPosition.x * 32 + 210), static_cast<float>(data.playerPosition.y * 32 + 210));
+		std::unique_ptr<Entity::Entity> zombie = Entity::EntityFactory::createEntity("enemy/Zombie");
+		zombie->getComponent<Entity::PositionComponent>()->position = Vec2(static_cast<float>(data.playerPosition.x * 32 + 210), static_cast<float>(data.playerPosition.y * 32 + 210));
 
 		m_level.addEntity(std::move(zombie));
 	}
@@ -104,7 +104,7 @@ namespace State
 		int offsetX = static_cast<int>((mouseX - halfWidth) * 0.1f);
 		int offsetY = static_cast<int>((mouseY - halfHeight) * 0.1f);
 
-		Framework::PositionComponent* c_pos = m_level.getEntity(m_level.player_id)->getComponent<Framework::PositionComponent>();
+		Entity::PositionComponent* c_pos = m_level.getEntity(m_level.player_id)->getComponent<Entity::PositionComponent>();
 		m_camera.setCenter(c_pos->position.x + offsetX, c_pos->position.y+0.01f +offsetY);
 
         m_testFloat = ts.asSeconds();
@@ -129,9 +129,9 @@ namespace State
 	{
 		if (i == 0)
 		{
-			std::unique_ptr<Framework::Entity> e = Framework::EntityFactory::createEntity("Projectile");
-			e->getComponent<Framework::PositionComponent>()->position = m_level.getPlayer()->getComponent<Framework::PositionComponent>()->position;
-			e->getComponent<Framework::VelocityComponent>()->velocity.x = 10;
+			std::unique_ptr<Entity::Entity> e = Entity::EntityFactory::createEntity("Projectile");
+			e->getComponent<Entity::PositionComponent>()->position = m_level.getPlayer()->getComponent<Entity::PositionComponent>()->position;
+			e->getComponent<Entity::VelocityComponent>()->velocity.x = 10;
 			m_level.addEntity(std::move(e));
 		}
 		i++;

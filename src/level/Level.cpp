@@ -16,21 +16,21 @@ namespace Level
 	{
 		m_tiles.resize(width*height);
 
-		m_renderSystem = std::make_unique<Framework::RenderSystem>();
+		m_renderSystem = std::make_unique<Entity::RenderSystem>();
 
-		m_updateSystems.push_back(std::make_unique<Framework::MoveSystem>());
-		m_updateSystems.push_back(std::make_unique<Framework::StatsSystem>());
-		m_updateSystems.push_back(std::make_unique<Framework::AISystem>());
-		m_updateSystems.push_back(std::make_unique<Framework::PlayerInputSystem>());
-		m_updateSystems.push_back(std::make_unique<Framework::AnimatorSystem>());
+		m_updateSystems.push_back(std::make_unique<Entity::MoveSystem>());
+		m_updateSystems.push_back(std::make_unique<Entity::StatsSystem>());
+		m_updateSystems.push_back(std::make_unique<Entity::AISystem>());
+		m_updateSystems.push_back(std::make_unique<Entity::PlayerInputSystem>());
+		m_updateSystems.push_back(std::make_unique<Entity::AnimatorSystem>());
 	}
 
-	void Level::addEntity(std::unique_ptr<Framework::Entity> entity)
+	void Level::addEntity(std::unique_ptr<Entity::Entity> entity)
 	{
 		m_entities.push_back(std::move(entity));
 	}
 
-	Framework::Entity* Level::getEntity(const uint64 & id)
+	Entity::Entity* Level::getEntity(const uint64 & id)
 	{
 		for (auto& entity : m_entities)
 		{
@@ -53,11 +53,11 @@ namespace Level
             m_tiles[x + y * m_width];
     }
 
-	Framework::Entity* Level::getEntityOnTile(unsigned int x, unsigned int y)
+	Entity::Entity* Level::getEntityOnTile(unsigned int x, unsigned int y)
 	{
 		for (const auto& entity : m_entities)
 		{
-			Framework::PositionComponent* c_pos = entity.get()->getComponent<Framework::PositionComponent>();
+			Entity::PositionComponent* c_pos = entity.get()->getComponent<Entity::PositionComponent>();
 			if (c_pos)
 				if (c_pos->position.x == x && c_pos->position.y == y)
 					return entity.get();

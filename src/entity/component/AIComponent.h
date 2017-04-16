@@ -4,7 +4,7 @@
 
 #include "../../util/AStar.h"
 
-namespace Framework
+namespace Entity
 {
     class AIComponent : public Component
     {

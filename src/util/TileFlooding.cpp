@@ -44,15 +44,15 @@ namespace Util
 		return tiles;
 	}
 
-	std::vector<Framework::Entity*> TileFlooding::getAllEntitesNearOtherEntity(Vec2i entityPos, int radius, Level::Level* level)
+	std::vector<Entity::Entity*> TileFlooding::getAllEntitesNearOtherEntity(Vec2i entityPos, int radius, Level::Level* level)
 	{
 		auto tiles = tileFlooding(entityPos, radius, level);
 
-		std::vector<Framework::Entity*> entities;
+		std::vector<Entity::Entity*> entities;
 		
 		for (const auto& tile : tiles)
 		{
-			Framework::Entity* entity = level->getEntityOnTile(tile.first.x, tile.first.y);
+			Entity::Entity* entity = level->getEntityOnTile(tile.first.x, tile.first.y);
 			if (entity != nullptr)
 				entities.push_back(entity);
 		}

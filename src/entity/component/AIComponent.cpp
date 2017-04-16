@@ -1,6 +1,6 @@
 ﻿#include "AIComponent.h"
 
-namespace Framework
+namespace Entity
 {
 	AIComponent::AIComponent(double trackingDistance)
 		:findPath(&Util::AStar)

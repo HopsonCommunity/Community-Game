@@ -3,7 +3,7 @@
 #include "../../maths/Maths.h"
 #include "../../util/json.hpp"
 
-namespace Framework
+namespace Entity
 {
 	struct ComponentType
 	{

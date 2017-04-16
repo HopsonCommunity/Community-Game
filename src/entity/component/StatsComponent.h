@@ -6,7 +6,7 @@
 #include <vector>
 #include <memory>
 
-namespace Framework
+namespace Entity
 {
 	class StatsComponent : public Component
 	{
