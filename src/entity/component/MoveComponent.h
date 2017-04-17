@@ -25,6 +25,11 @@ namespace Entity
 		MoveComponent(const MoveType& type);
 		MoveComponent(nlohmann::json json);
 
+        std::unique_ptr<Component> clone() override
+        {
+            return std::make_unique<MoveComponent>(*this);
+        }
+
         static const int ID = 4;
 	};
 }

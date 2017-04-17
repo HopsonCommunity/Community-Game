@@ -66,6 +66,11 @@ namespace Entity
         StatsComponent();
         StatsComponent(nlohmann::json json);
 
+        std::unique_ptr<Component> clone() override
+        {
+            return std::make_unique<StatsComponent>(*this);
+        }
+
         static const int ID = 8;
     };
 

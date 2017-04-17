@@ -12,6 +12,11 @@ namespace Entity
         PlayerComponent();
         PlayerComponent(nlohmann::json json);
 
+        std::unique_ptr<Component> clone() override
+        {
+            return std::make_unique<PlayerComponent>(*this);
+        }
+
         static const int ID = 5;
     };
 }

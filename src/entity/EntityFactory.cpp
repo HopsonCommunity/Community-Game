@@ -10,7 +10,20 @@
 
 namespace Entity
 {
-	std::unique_ptr<Entity> EntityFactory::createEntity(std::string filePath) {
+	EntityFactory::EntityFactory()
+	{
+
+	}
+
+	std::unique_ptr<Entity> EntityFactory::createEntity(std::string name)
+	{
+		if (m_templates.find(name) == m_templates.end())
+			createTemplate(name);
+
+		return m_templates.find(name)->second->clone(++m_lastID);
+	}
+
+	void EntityFactory::createTemplate(std::string filePath) {
 		
 		std::string source = getFileContents("res/entities/" + filePath + ".json");
 		nlohmann::json json = nlohmann::json::parse(source.c_str());
@@ -41,6 +54,7 @@ namespace Entity
 			if (componentJSON["componentType"].get<std::string>() == "Velocity")
 				entity->addComponent<VelocityComponent>(std::make_unique<VelocityComponent>(componentJSON));
 		}
-		return entity;
+	
+		m_templates[filePath] = std::move(entity);
 	}
 }

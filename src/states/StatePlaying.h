@@ -8,6 +8,7 @@
 #include "../ui/UI.h"
 #include "../ui/UIButton.h"
 #include "../ui/UISlider.h"
+#include "../entity/EntityFactory.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -44,5 +45,6 @@ namespace State
             UI::UIButton m_button;
             UI::UISlider m_slider;
 
+            Entity::EntityFactory m_entityFactory;
     };
 }

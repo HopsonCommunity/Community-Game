@@ -33,6 +33,7 @@ namespace State
     ,   m_ui            (&window)
     ,   m_button        (UI::Label(sf::Text("Test Button", app->getResources().fonts.get("SourceCodePro-Regular"), 18)), sf::Rect<int>(10, 10, 150, 50), std::bind(&SPlaying::buttonCallback, this))
     ,   m_slider        (UI::Label(sf::Text("Test Slider", app->getResources().fonts.get("SourceCodePro-Regular"), 18)), sf::Rect<int>(10, 70, 150, 50), std::bind(&SPlaying::sliderCallback, this, _1))
+	,   m_entityFactory ()
     {
 		instance = this;
 
@@ -46,7 +47,7 @@ namespace State
 		m_camera = sf::View(Vec2(0, 0), Vec2(static_cast<float>(window.getSize().x), static_cast<float>(window.getSize().y)));
 		window.setView(m_camera);
 
-		std::unique_ptr<Entity::Entity> player = Entity::EntityFactory::createEntity("Player");
+		std::unique_ptr<Entity::Entity> player = m_entityFactory.createEntity("Player");
 
 		m_level.player_id = player->getID();
 		std::cout << "Player ID: " << m_level.player_id << std::endl;
@@ -71,7 +72,7 @@ namespace State
 
 		m_level.getEntity(m_level.player_id)->getComponent<Entity::PositionComponent>()->position = Vec2(static_cast<float>(data.playerPosition.x * 32), static_cast<float>(data.playerPosition.y * 32));
 
-		std::unique_ptr<Entity::Entity> zombie = Entity::EntityFactory::createEntity("enemy/Zombie");
+		std::unique_ptr<Entity::Entity> zombie = m_entityFactory.createEntity("enemy/Zombie");
 		zombie->getComponent<Entity::PositionComponent>()->position = Vec2(static_cast<float>(data.playerPosition.x * 32 + 210), static_cast<float>(data.playerPosition.y * 32 + 210));
 
 		m_level.addEntity(std::move(zombie));
@@ -129,7 +130,7 @@ namespace State
 	{
 		if (i == 0)
 		{
-			std::unique_ptr<Entity::Entity> e = Entity::EntityFactory::createEntity("Projectile");
+			std::unique_ptr<Entity::Entity> e = m_entityFactory.createEntity("Projectile");
 			e->getComponent<Entity::PositionComponent>()->position = m_level.getPlayer()->getComponent<Entity::PositionComponent>()->position;
 			e->getComponent<Entity::VelocityComponent>()->velocity.x = 10;
 			m_level.addEntity(std::move(e));

@@ -18,6 +18,11 @@ namespace Entity
         AIComponent(double trackingDistance);
         AIComponent(nlohmann::json json);
 
+        std::unique_ptr<Component> clone() override
+        {
+            return std::make_unique<AIComponent>(*this);
+        }
+
         static const int ID = 1;
     };
 }

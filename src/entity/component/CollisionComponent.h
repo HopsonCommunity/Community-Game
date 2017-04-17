@@ -15,6 +15,11 @@ namespace Entity
 		CollisionComponent(const Hitbox& hitbox);
 		CollisionComponent(nlohmann::json json);
 
+        std::unique_ptr<Component> clone() override
+        {
+            return std::make_unique<CollisionComponent>(*this);
+        }
+
         static const int ID = 3;
 	};
 }

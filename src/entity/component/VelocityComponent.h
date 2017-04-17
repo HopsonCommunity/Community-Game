@@ -24,6 +24,11 @@ namespace Entity
         // Move x/y direction
         void move(int xa, int ya);
 
+        std::unique_ptr<Component> clone() override
+        {
+            return std::make_unique<VelocityComponent>(*this);
+        }
+
         static const int ID = 9;
     };
 }

@@ -36,6 +36,7 @@ namespace Entity
                     return dynamic_cast<T*>(it->second.get());
             }
 
+            std::unique_ptr<Entity> clone(uint64 id);
         private:
             uint64 m_ID;
             std::unordered_map<int, std::unique_ptr<Component>> m_components;
