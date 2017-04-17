@@ -72,7 +72,7 @@ namespace State
 
 		m_level.getEntity(m_level.player_id)->getComponent<Entity::PositionComponent>()->position = Vec2(static_cast<float>(data.playerPosition.x * 32), static_cast<float>(data.playerPosition.y * 32));
 
-		std::unique_ptr<Entity::Entity> zombie = m_entityFactory.createEntity("enemy/Zombie");
+		std::unique_ptr<Entity::Entity> zombie = m_entityFactory.createHostileEntity();
 		zombie->getComponent<Entity::PositionComponent>()->position = Vec2(static_cast<float>(data.playerPosition.x * 32 + 210), static_cast<float>(data.playerPosition.y * 32 + 210));
 
 		m_level.addEntity(std::move(zombie));

@@ -6,6 +6,9 @@
 		"trackingDistance": 7
 	},
 	{
+		"componentType": "Hostile"
+	},
+	{
 		"componentType": "Sprite",
 		"src": "entity/enemy/zombie",
 		"origin": {

@@ -5,15 +5,23 @@
 #include "../Application.h"
 #include "../util/FileUtil.h" 
 #include "../util/json.hpp"
+#include "../util/Random.h"
 
 #include <fstream>
+#include <sstream>
+#include <iostream>
 
 namespace Entity
 {
 	EntityFactory::EntityFactory()
 		: m_lastID(0)
 	{
+		std::string source = getFileContents("res/entities/Entities.txt");
+		std::istringstream sstream(source);
+		std::string line;
 
+		while (std::getline(sstream, line))
+			createTemplate(line);
 	}
 
 	std::unique_ptr<Entity> EntityFactory::createEntity(std::string name)
@@ -22,6 +30,13 @@ namespace Entity
 			createTemplate(name);
 
 		return m_templates.find(name)->second->clone(++m_lastID);
+	}
+
+	std::unique_ptr<Entity> EntityFactory::createHostileEntity()
+	{
+		int hostileMob = Random::intInRange(0, m_hostileMobs.size() - 1);
+
+		return createEntity(m_hostileMobs[hostileMob]);
 	}
 
 	void EntityFactory::createTemplate(std::string filePath) {
@@ -54,8 +69,13 @@ namespace Entity
 				entity->addComponent<StatsComponent>(std::make_unique<StatsComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Velocity")
 				entity->addComponent<VelocityComponent>(std::make_unique<VelocityComponent>(componentJSON));
+			if (componentJSON["componentType"].get<std::string>() == "Hostile")
+				entity->addComponent<HostileComponent>(std::make_unique<HostileComponent>(componentJSON));
 		}
 	
+		if (entity->getComponent<HostileComponent>())
+			m_hostileMobs.push_back(filePath);
+
 		m_templates[filePath] = std::move(entity);
 	}
 }
