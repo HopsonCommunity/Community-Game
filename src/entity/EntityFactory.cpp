@@ -11,6 +11,7 @@
 namespace Entity
 {
 	EntityFactory::EntityFactory()
+		: m_lastID(0)
 	{
 
 	}
