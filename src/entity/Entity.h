@@ -22,13 +22,13 @@ namespace Entity
             template<typename T>
             void addComponent(std::unique_ptr<Component> component)
             {
-                m_components[T::ID] = std::move(component);
+                m_components[int(T::ID)] = std::move(component);
             }
 
             template<typename T>
             T* getComponent()
             {
-                int id = T::ID;
+                int id = int(T::ID);
                 auto it = m_components.find(id);
                 if (it == m_components.end())
                     return nullptr;
