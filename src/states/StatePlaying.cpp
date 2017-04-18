@@ -48,8 +48,8 @@ namespace State
 
 		std::unique_ptr<Framework::Entity> player = Framework::EntityFactory::createEntity("Player");
 
-		m_level.player_id = player->getID();
-		std::cout << "Player ID: " << m_level.player_id << std::endl;
+		m_level.player = player.get();
+		std::cout << "Player ID: " << m_level.player->getID() << std::endl;
 
 		m_level.addEntity(std::move(player));
 
@@ -69,7 +69,7 @@ namespace State
                     m_level.setTile(x, y, *Level::Tile::Tile::stoneWall);
             }
 
-		m_level.getEntity(m_level.player_id)->getComponent<Framework::PositionComponent>()->position = Vec2(static_cast<float>(data.playerPosition.x * 32), static_cast<float>(data.playerPosition.y * 32));
+		m_level.getPlayer()->getComponent<Framework::PositionComponent>()->position = Vec2(static_cast<float>(data.playerPosition.x * 32), static_cast<float>(data.playerPosition.y * 32));
 
 		std::unique_ptr<Framework::Entity> zombie = Framework::EntityFactory::createEntity("enemy/Zombie");
 		zombie->getComponent<Framework::PositionComponent>()->position = Vec2(static_cast<float>(data.playerPosition.x * 32 + 210), static_cast<float>(data.playerPosition.y * 32 + 210));
@@ -104,7 +104,7 @@ namespace State
 		int offsetX = static_cast<int>((mouseX - halfWidth) * 0.1f);
 		int offsetY = static_cast<int>((mouseY - halfHeight) * 0.1f);
 
-		Framework::PositionComponent* c_pos = m_level.getEntity(m_level.player_id)->getComponent<Framework::PositionComponent>();
+		Framework::PositionComponent* c_pos = m_level.getPlayer()->getComponent<Framework::PositionComponent>();
 		m_camera.setCenter(c_pos->position.x + offsetX, c_pos->position.y+0.01f +offsetY);
 
         m_testFloat = ts.asSeconds();

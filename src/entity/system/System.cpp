@@ -30,14 +30,14 @@ namespace Framework
 			bool colliding = c_col ? Physics::tileCollision(Vec2i(dest), c_col->aabb) : false;
 			if (!colliding)
 			{
-				c_pos->position.x = round(dest.x);
-				c_pos->position.y = round(dest.y);
+				c_pos->position.x = dest.x;
+				c_pos->position.y = dest.y;
 			}
 		}
 		else
 		{
-			c_pos->position.x = round(dest.x);
-			c_pos->position.y = round(dest.y);
+			c_pos->position.x = dest.x;
+			c_pos->position.y = dest.y;
 		}
 	}
 
@@ -142,7 +142,7 @@ namespace Framework
 				// Check if player is in distance of this entity and set it as target if it is,
 				// otherwise set target to non-moving, necessary for the right animation to play
 
-				Entity* player = State::SPlaying::instance->m_level.getEntity(State::SPlaying::instance->m_level.player_id);
+				Entity* player = State::SPlaying::instance->m_level.player;
 				PositionComponent* c_pos_player = player->getComponent<PositionComponent>();
 
 				// Tile flooding for every entity is not ideal as it really kills the fps
