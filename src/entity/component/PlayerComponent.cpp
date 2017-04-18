@@ -4,7 +4,6 @@ namespace Entity
 {
 	PlayerComponent::PlayerComponent()
 	{
-
 	}
 
 	PlayerComponent::PlayerComponent(nlohmann::json json)

@@ -1,28 +1,29 @@
 ﻿#pragma once
 
 #include "Component.h"
+#include "../Entity.h"
 
-#include "../../util/AStar.h"
+#include "../../maths/AStar.h"
 #include "../../util/json.hpp"
 
 namespace Entity
 {
-    class AIComponent : public Component
-    {
-    public:
-        Entity* trackingEntity;
-        double trackingDistance;
+	class AIComponent : public Component
+	{
+	public:
+		Entity* trackingEntity;
+		double trackingDistance;
 
-        std::function<std::vector<Util::Node*>(Vec2i, Vec2i, Level::Level*)> findPath;
+		std::function<std::vector<Util::Node*>(Vec2i, Vec2i)> findPath;
 
-        AIComponent(double trackingDistance);
-        AIComponent(nlohmann::json json);
+		AIComponent(double trackingDistance);
+		AIComponent(nlohmann::json json);
 
-        std::unique_ptr<Component> clone() override
-        {
-            return std::make_unique<AIComponent>(*this);
-        }
+		std::unique_ptr<Component> clone() override
+		{
+			return std::make_unique<AIComponent>(*this);
+		}
 
-        static const int ID = 1;
-    };
+		static const int ID = 1;
+	};
 }

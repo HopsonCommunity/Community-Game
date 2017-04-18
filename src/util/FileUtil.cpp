@@ -1,4 +1,4 @@
-#include "FileUtil.h"
+﻿#include "FileUtil.h"
 
 #include <iostream>
 #include <fstream>
@@ -6,13 +6,13 @@
 
 std::string getFileContents(const std::string& filePath)
 {
-    std::ifstream inFile(filePath);
-    if (!inFile.is_open())
-    {
-        std::cerr << "Unable to read " << filePath << "\n";
-    }
+	std::ifstream inFile(filePath);
+	if (!inFile.is_open())
+	{
+		std::cerr << "Unable to read " << filePath << "\n";
+	}
 
-    std::stringstream stream;
-    stream << inFile.rdbuf();
-    return stream.str();
+	std::stringstream stream;
+	stream << inFile.rdbuf();
+	return stream.str();
 }

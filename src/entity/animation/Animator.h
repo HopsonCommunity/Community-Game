@@ -1,7 +1,7 @@
 ﻿#pragma once
 
+#include "../../Types.h"
 #include "../../util/Timestep.h"
-#include "../../util/Types.h"
 
 #include <SFML/Graphics.hpp>
 

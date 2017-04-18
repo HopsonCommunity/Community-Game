@@ -3,13 +3,13 @@
 #include "../Entity.h"
 #include "../EntityFactory.h"
 #include "../component/Components.h"
-#include "../physics/TileCollision.h"
+#include "../../level/tile/TileCollision.h"
 
 #include "../../maths/Maths.h"
 #include "../../util/Timestep.h"
-#include "../../util/TileFlooding.h"
-#include "../../level/LevelRenderer.h"
-#include "../../states/StatePlaying.h"
+#include "../../level/tile/TileFlooding.h"
+#include "../../app/Application.h"
+// #include "../../app/states/StatePlaying.h"
 
 namespace Entity
 {
@@ -73,8 +73,8 @@ namespace Entity
 	void AnimatorSystem::update(const Timestep& ts, Entity* entity)
 	{
 		SpriteComponent*    c_sprite = entity->getComponent<SpriteComponent>();
-		AnimatorComponent*  c_anim   = entity->getComponent<AnimatorComponent>();
-		VelocityComponent*  c_vel    = entity->getComponent<VelocityComponent>();
+		AnimatorComponent*  c_anim = entity->getComponent<AnimatorComponent>();
+		VelocityComponent*  c_vel = entity->getComponent<VelocityComponent>();
 
 		if (c_sprite && c_anim)
 		{
@@ -94,7 +94,8 @@ namespace Entity
 		{
 			c_sprite->sprite.setOrigin(c_sprite->origin);
 			c_sprite->sprite.setScale(static_cast<float>(c_sprite->flipX ? 1 : -1), 1.0f);
-			Level::LevelRenderer::renderEntitySprite(c_pos->position.x, c_pos->position.y, c_sprite->sprite);
+			///TODO: Fix this when level render is ready
+			// Level::LevelRenderer::renderEntitySprite(c_pos->position.x, c_pos->position.y, c_sprite->sprite);
 		}
 	}
 
@@ -111,6 +112,8 @@ namespace Entity
 
 				if (c_vel && c_enemy_pos)
 				{
+					///TODO: Fix this..
+					/*
 					std::vector<Util::Node*> path = c_ai->findPath({ (int32)c_pos->position.x >> 5, (int32)c_pos->position.y >> 5 }, { (int32)c_enemy_pos->position.x >> 5, (int32)c_enemy_pos->position.y >> 5 }, &State::SPlaying::instance->m_level);
 					int xa = 0, ya = 0;
 
@@ -134,6 +137,7 @@ namespace Entity
 						c_vel->move(xa, ya);
 					else
 						c_vel->moving = false;
+						*/
 				}
 			}
 			else
@@ -141,8 +145,8 @@ namespace Entity
 				// Check if player is in distance of this entity and set it as target if it is,
 				// otherwise set target to non-moving, necessary for the right animation to play
 
-				Entity* player = State::SPlaying::instance->m_level.getEntity(State::SPlaying::instance->m_level.player_id);
-				PositionComponent* c_pos_player = player->getComponent<PositionComponent>();
+				// Entity* player = State::SPlaying::instance->m_level.getEntity(State::SPlaying::instance->m_level.player_id);
+				// PositionComponent* c_pos_player = player->getComponent<PositionComponent>();
 
 				// Tile flooding for every entity is not ideal as it really kills the fps
 				//std::vector<Entity*> entities = TileFlooding::getAllEntitesNearOtherEntity((sf::Vector2i)c_pos->position, 6, &State::SPlaying::instance->m_level);
@@ -152,9 +156,9 @@ namespace Entity
 
 				///@TODO: Find better solution
 				//Using euclidean distance for now
-				if (distance((Vec2i)c_pos_player->position, (Vec2i)c_pos->position) <= c_ai->trackingDistance * 32)
-					c_ai->trackingEntity = player;
-				else
+				//if (distance((Vec2i)c_pos_player->position, (Vec2i)c_pos->position) <= c_ai->trackingDistance * 32)
+				//	c_ai->trackingEntity = player;
+				//else
 				{
 					VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
 					if (c_vel)
@@ -162,7 +166,6 @@ namespace Entity
 				}
 			}
 		}
-
 	}
 
 	void PlayerInputSystem::update(const Timestep& ts, Entity* entity)
@@ -195,6 +198,22 @@ namespace Entity
 				c_sprite->flipX = true;
 			else if (c_vel->velocity.x < 0)
 				c_sprite->flipX = false;
+		}
+	}
+
+	void LifeSystem::update(const Timestep& ts, Entity* entity)
+	{
+		LifeComponent* c_life = entity->getComponent<LifeComponent>();
+
+		if (c_life)
+		{
+			if (c_life->done)
+				///@TODO: Remove from level
+			{
+			}
+			c_life->life -= ts.asSeconds();
+			if (c_life->life <= 0)
+				c_life->done = 1;
 		}
 	}
 }

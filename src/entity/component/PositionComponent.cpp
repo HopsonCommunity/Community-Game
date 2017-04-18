@@ -11,5 +11,4 @@ namespace Entity
 		: position(Vec2(json["position"]["x"], json["position"]["y"]))
 	{
 	}
-
 }

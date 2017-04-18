@@ -18,7 +18,13 @@ namespace Entity
 	{
 	public:
 		void update(const Timestep& ts, Entity* entity) override;
-	}; 
+	};
+
+	class LifeSystem : public System
+	{
+	public:
+		void update(const Timestep& ts, Entity* entity) override;
+	};
 
 	class StatsSystem : public System
 	{
@@ -37,15 +43,15 @@ namespace Entity
 		void update(const Timestep& ts, Entity* entity) override;
 	};
 
-    class AISystem : public System
-    {
-    public:
-        void update(const Timestep& ts, Entity* entity) override;
-    };
+	class AISystem : public System
+	{
+	public:
+		void update(const Timestep& ts, Entity* entity) override;
+	};
 
-    class PlayerInputSystem : public System
-    {
-    public:
-        void update(const Timestep& ts, Entity* entity) override;
-    };
+	class PlayerInputSystem : public System
+	{
+	public:
+		void update(const Timestep& ts, Entity* entity) override;
+	};
 }

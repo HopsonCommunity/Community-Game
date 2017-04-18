@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "../util/Types.h"
+#include "../Types.h"
 
 namespace Entity
 {

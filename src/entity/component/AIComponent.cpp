@@ -4,10 +4,9 @@ namespace Entity
 {
 	AIComponent::AIComponent(double trackingDistance)
 		:findPath(&Util::AStar)
-		,trackingEntity(nullptr)
-		,trackingDistance(trackingDistance)
+		, trackingEntity(nullptr)
+		, trackingDistance(trackingDistance)
 	{
-
 	}
 
 	AIComponent::AIComponent(nlohmann::json json)
@@ -15,6 +14,5 @@ namespace Entity
 		, trackingEntity(nullptr)
 		, trackingDistance(json["trackingDistance"])
 	{
-		
 	}
 }

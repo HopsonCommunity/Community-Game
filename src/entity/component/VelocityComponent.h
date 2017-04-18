@@ -8,27 +8,27 @@
 
 namespace Entity
 {
-    class VelocityComponent : public Component
-    {
-    public:
-        float speed;
-        Vec2 velocity;
-        bool moving;
+	class VelocityComponent : public Component
+	{
+	public:
+		float speed;
+		Vec2 velocity;
+		bool moving;
 
-        VelocityComponent(const Vec2& velocity = {});
-        VelocityComponent(nlohmann::json json);
+		VelocityComponent(const Vec2& velocity = {});
+		VelocityComponent(nlohmann::json json);
 
-        // Move at an angle
-        void move(float angle);
+		// Move at an angle
+		void move(float angle);
 
-        // Move x/y direction
-        void move(int xa, int ya);
+		// Move x/y direction
+		void move(int xa, int ya);
 
-        std::unique_ptr<Component> clone() override
-        {
-            return std::make_unique<VelocityComponent>(*this);
-        }
+		std::unique_ptr<Component> clone() override
+		{
+			return std::make_unique<VelocityComponent>(*this);
+		}
 
-        static const int ID = 9;
-    };
+		static const int ID = 9;
+	};
 }

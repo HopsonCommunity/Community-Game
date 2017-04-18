@@ -2,10 +2,9 @@
 
 #include <SFML/Audio.hpp>
 
-namespace Sound {
-namespace BGM //for music files that are too long to be loaded directly to RAM
+namespace Sound 
 {
-	class BGM
+	class BGM // Background music
 	{
 	public:
 		sf::Music challenge;
@@ -18,5 +17,4 @@ namespace BGM //for music files that are too long to be loaded directly to RAM
 
 		void pause(sf::Music &music);
 	};
-}
 }

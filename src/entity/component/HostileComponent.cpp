@@ -1,14 +1,12 @@
-#include "HostileComponent.h"
+﻿#include "HostileComponent.h"
 
 namespace Entity
 {
-    HostileComponent::HostileComponent()
-    {
+	HostileComponent::HostileComponent()
+	{
+	}
 
-    }
-
-    HostileComponent::HostileComponent(nlohmann::json json)
-    {
-        
-    }
+	HostileComponent::HostileComponent(nlohmann::json json)
+	{
+	}
 }

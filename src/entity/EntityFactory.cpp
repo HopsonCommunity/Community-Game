@@ -2,10 +2,9 @@
 
 #include "component/Components.h"
 
-#include "../Application.h"
-#include "../util/FileUtil.h" 
+#include "../app/Application.h"
+#include "../util/FileUtil.h"
 #include "../util/json.hpp"
-#include "../util/Random.h"
 
 #include <fstream>
 #include <sstream>
@@ -40,12 +39,11 @@ namespace Entity
 	}
 
 	void EntityFactory::createTemplate(std::string filePath) {
-		
 		std::string source = getFileContents("res/entities/" + filePath + ".json");
 		nlohmann::json json = nlohmann::json::parse(source.c_str());
 
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
-		
+
 		std::vector<nlohmann::json> componentsJSON = json["components"];
 		for (unsigned int i = 0; i < componentsJSON.size(); i++)
 		{
@@ -72,7 +70,7 @@ namespace Entity
 			if (componentJSON["componentType"].get<std::string>() == "Hostile")
 				entity->addComponent<HostileComponent>(std::make_unique<HostileComponent>(componentJSON));
 		}
-	
+
 		if (entity->getComponent<HostileComponent>())
 			m_hostileMobs.push_back(filePath);
 

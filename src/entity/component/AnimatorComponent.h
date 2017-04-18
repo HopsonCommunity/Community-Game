@@ -9,17 +9,17 @@ namespace Entity
 {
 	class AnimatorComponent : public Component
 	{
-    public:
+	public:
 		Animator animator;
 
 		AnimatorComponent(Animator animator);
 		AnimatorComponent(nlohmann::json json);
 
-        std::unique_ptr<Component> clone() override
-        {
-            return std::make_unique<AnimatorComponent>(*this);
-        }
+		std::unique_ptr<Component> clone() override
+		{
+			return std::make_unique<AnimatorComponent>(*this);
+		}
 
-        static const int ID = 2;
+		static const int ID = 2;
 	};
 }

@@ -1,40 +1,58 @@
 ﻿#pragma once
 
-#include "../LevelConstants.h"
-#include "../../util/Types.h"
+#include "../../maths/Maths.h"
 
 #include <SFML/Graphics.hpp>
 
 #include <memory>
 
-namespace Level {
-class Level;
-namespace Tile
+namespace Level
 {
+	class Level;
+
+	enum class TileFlags : int32
+	{
+		PASSABLE = 0x0001,
+		BREAKABLE = 0x0002
+	};
+
+	enum class TileID : byte
+	{
+		Void = 0,
+		Cobblestone = 1,
+
+		End
+	};
+
+	struct TileData
+	{
+		byte id;
+		int32 flags;
+		sf::IntRect texture;
+	};
+
 	class Tile
 	{
-        public:
-            static const sf::Texture* tileset;
-            static std::unique_ptr<Tile> fLightStone;
-            static std::unique_ptr<Tile> fMedStone;
-            static std::unique_ptr<Tile> fDarkStone;
-            static std::unique_ptr<Tile> stoneWall;
+	public:
+		Tile(byte id, int32 flags, sf::IntRect texture);
 
-            static void loadTiles();
+		// Each tile can have its own render logic
+		virtual void render(uint32 x, uint32 y, Level& level, sf::RenderWindow& window) = 0;
 
-        protected:
-            byte m_id;
-            sf::Sprite m_sprite;
-			bool m_solid;
+		// Fancy function returns :D (I don't even know if this would compile in GCC)
+		inline auto getID() -> byte const { return m_data.id; }
 
-        private:
-            Tile() {}
+		inline auto hasFlag(int32 flag) -> bool const { return (bool)(m_data.flags & flag); }
 
-        public:
-            Tile(byte id, sf::Sprite sprite, bool solid);
-
-            virtual void render(uint32 x, uint32 y, Level& level, sf::RenderWindow& window);
-
-			inline bool isSolid() { return m_solid; }
+	private:
+		TileData m_data;
 	};
-}}
+
+	class TileDefault : public Tile
+	{
+	public:
+		TileDefault(byte id, int32 flags, sf::IntRect texture);
+
+		void render(uint32 x, uint32 y, Level& level, sf::RenderWindow& window) override;
+	};
+}

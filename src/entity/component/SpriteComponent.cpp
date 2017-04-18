@@ -1,6 +1,6 @@
 ﻿#include "SpriteComponent.h"
 
-#include "../../Application.h"
+#include "../../app/Application.h"
 
 namespace Entity
 {
@@ -9,7 +9,7 @@ namespace Entity
 	{
 	}
 
-	SpriteComponent::SpriteComponent(nlohmann::json json) 
+	SpriteComponent::SpriteComponent(nlohmann::json json)
 		: sprite(sf::Sprite(Application::instance->getResources().textures.get(json["src"]), sf::IntRect(json["rect"]["left"], json["rect"]["top"], json["rect"]["width"], json["rect"]["height"])))
 		, origin({ json["origin"]["x"], json["origin"]["y"] })
 	{
