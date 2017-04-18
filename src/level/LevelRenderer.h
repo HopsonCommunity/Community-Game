@@ -17,7 +17,7 @@ namespace Level
 
 	public:
 		static void setRenderWindow(sf::RenderWindow* window);
-		static void renderWallTileSide(uint32 x, uint32 y, sf::Sprite& sprite);
+		static void renderWallTileSide(uint32 x, uint32 y, sf::Sprite& sprite, float height);
 		static void renderWallTileTop(uint32 x, uint32 y, float height, sf::Sprite& sprite);
 		static void renderEntitySprite(float x, float y, sf::Sprite& sprite);
 		static void drawAll();

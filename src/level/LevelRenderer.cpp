@@ -12,17 +12,16 @@ namespace Level
 		renderWindow = window;
 	}
 
-	void LevelRenderer::renderWallTileSide(uint32 x, uint32 y, sf::Sprite& sprite)
+	void LevelRenderer::renderWallTileSide(uint32 x, uint32 y, sf::Sprite& sprite, float height)
 	{
 		sf::Vector3f tilePosition(static_cast<float>(x), static_cast<float>(y) + 32.0f, 0);
-		sprite.setOrigin(0, 32.0f);
+		sprite.setOrigin(0, height + 1.0f * (1 - sprite.getScale().y) * sprite.getTextureRect().height);
 		sprites.push_back(std::make_pair(tilePosition, &sprite));
 	}
 
 	void LevelRenderer::renderWallTileTop(uint32 x, uint32 y, float height, sf::Sprite& sprite)
 	{
-		sf::Vector3f tilePosition(static_cast<float>(x), static_cast<float>(y + 32), height);
-		sprite.setOrigin(0, 32);
+		sf::Vector3f tilePosition(static_cast<float>(x), static_cast<float>(y), height);
 		sprites.push_back(std::make_pair(tilePosition, &sprite));
 	}
 
