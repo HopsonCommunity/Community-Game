@@ -1,88 +1,72 @@
 ﻿#include "AStar.h"
 
-namespace Util
+namespace AStar
 {
-	bool vecInList(std::vector<Node*> list, const Vec2i& vec)
+	std::vector<Location> neighbors(Location id)
 	{
-		for (unsigned int i = 0; i < list.size(); i++)
-			if (list[i]->pos.x == vec.x && list[i]->pos.y == vec.y) return true;
+		int x, y, dx, dy;
+		std::tie(x, y) = id;
+		std::vector<Location> results;
 
-		return false;
+		for (auto dir : directions)
+		{
+			std::tie(dx, dy) = dir;
+			Location next(x + dx, y + dy);
+			///@TODO: Check level tiles to see if they are out of bounds or if they are passable 
+			results.push_back(next);
+		}
+
+		if ((x + y) % 2 == 0)
+			std::reverse(results.begin(), results.end());
+
+		return results;
 	}
 
-	std::vector<Node*> AStar(Vec2i start, Vec2i end)
+	void search(Location start, Location goal, std::unordered_map<Location, Location>& came_from, std::unordered_map<Location, double>& cost_so_far)
 	{
-		// Keep track of all nodes added and delete those who are not inside path to prevent memory leaking
-		std::vector<Node*> allNodesAdded;
+		PriorityQueue<Location, double> frontier;
+		frontier.put(start, 0);
 
-		std::vector<Node*> path;
+		came_from[start] = start;
+		cost_so_far[start] = 0;
 
-		std::vector<Node*> openList;
-		std::vector<Node*> closedList;
-		double dist = distance(start, end);
-		Node* current = new Node(start, nullptr, 0, dist);
-		allNodesAdded.push_back(current);
-		openList.push_back(current);
-		while (openList.size() > 0)
+		while (!frontier.empty())
 		{
-			std::sort(openList.begin(), openList.end(),
-				[](Node* lhs, Node* rhs) {
-				return lhs->fCost < rhs->fCost;
-			});
+			auto current = frontier.get();
 
-			current = openList[0];
-			if (current->pos == end)
-			{
-				while (current->parent)
-				{
-					path.push_back(current);
-					current = current->parent;
-				}
+			if (current == goal)
 				break;
-			}
-			openList.erase(std::remove(openList.begin(), openList.end(), current), openList.end());
-			closedList.push_back(current);
 
-			for (uint i = 0; i < 9; ++i)
+			for (auto next : neighbors(current))
 			{
-				if (i == 4)
-					continue;
-
-				int32 x = current->pos.x;
-				int32 y = current->pos.y;
-				int32 xi = (i % 3) - 1;
-				int32 yi = (i / 3) - 1;
-
-				//Level::Tile::Tile* at = level->getTile(x + xi, y + yi);
-				//if (!at)
-				//	continue;
-				//if (at->isSolid())
-				//	continue;
-
-				Vec2i a = { int(x + xi + 0.5), int(y + yi + 0.5) };
-				double gCost = current->gCost + (distance(current->pos, a) == 1 ? 1 : 2);
-				double hCost = distance(a, end);
-				Node* node = new Node(a, current, gCost, hCost);
-				allNodesAdded.push_back(node);
-				if (vecInList(closedList, a) && gCost >= node->gCost)
-					continue;
-				if (!vecInList(openList, a) || gCost < node->gCost)
-					openList.push_back(node);
+				double new_cost = cost_so_far[current] + distance(current, next);
+				if (!cost_so_far.count(next) || new_cost < cost_so_far[next])
+				{
+					cost_so_far[next] = new_cost;
+					double priority = new_cost + heuristic(next, goal);
+					frontier.put(next, priority);
+					came_from[next] = current;
+				}
 			}
 		}
+	}
 
-		// Temporary memory-leak fix
-		for (Node* node : allNodesAdded)
+	std::vector<Location> constructPath(Location start, Location goal)
+	{
+		std::unordered_map<Location, Location> came_from;
+		std::unordered_map<Location, double> cost_so_far;
+		search(start, goal, came_from, cost_so_far);
+
+		std::vector<Location> path;
+		Location current = goal;
+		path.push_back(current);
+		while (current != start)
 		{
-			bool contains = false;
-			for (Node* pathNode : path)
-				if (pathNode == node)
-					contains = true;
-
-			if (!contains)
-				delete node;
+			current = came_from[current];
+			path.push_back(current);
 		}
-
+		path.push_back(start);
+		std::reverse(path.begin(), path.end());
 		return path;
 	}
 }

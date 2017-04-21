@@ -14,8 +14,8 @@ namespace Entity
 		Entity* trackingEntity;
 		double trackingDistance;
 
-		std::function<std::vector<Util::Node*>(Vec2i, Vec2i)> findPath;
-
+		std::function<std::vector<AStar::Location>(AStar::Location, AStar::Location)> findPath;
+	public:
 		AIComponent(double trackingDistance);
 		AIComponent(nlohmann::json json);
 
