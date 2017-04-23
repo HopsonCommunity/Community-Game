@@ -27,6 +27,8 @@ namespace Level
 
 		Tile* getTile(byte id);
 
+        const TileData getTileData(byte id) const { return m_tiles[id]->getData(); };
+
 	private:
 		std::vector<std::unique_ptr<Tile>> m_tiles;
 	};
