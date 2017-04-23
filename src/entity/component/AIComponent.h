@@ -8,15 +8,31 @@
 
 namespace Entity
 {
-	class AIComponent : public Component
+	class Behaviour
 	{
 	public:
-		Entity* trackingEntity;
+		virtual void behave(Entity* target) {};
+	};
+
+	class FollowPlayer : public Behaviour
+	{
+	public:
+		Entity* target;
 		double trackingDistance;
 
 		std::function<std::vector<AStar::Location>(AStar::Location, AStar::Location)> findPath;
 	public:
-		AIComponent(double trackingDistance);
+		FollowPlayer(double trackingDistance, std::function<std::vector<AStar::Location>(AStar::Location, AStar::Location)> func);
+
+		void behave(Entity* entity) override;
+	};
+
+	class AIComponent : public Component
+	{
+	public:
+		Behaviour behaviour;
+	public:
+		AIComponent(Behaviour behaviour);
 		AIComponent(nlohmann::json json);
 
 		std::unique_ptr<Component> clone() override

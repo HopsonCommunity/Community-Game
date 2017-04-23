@@ -103,69 +103,9 @@ namespace Entity
 	{
 		AIComponent* c_ai = entity->getComponent<AIComponent>();
 		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
-		if (c_ai && c_pos)
-		{
-			if (c_ai->trackingEntity)
-			{
-				PositionComponent* c_enemy_pos = c_ai->trackingEntity->getComponent<PositionComponent>();
-				VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
-
-				if (c_vel && c_enemy_pos)
-				{
-					///TODO: Fix this..
-					/*
-					std::vector<Util::Node*> path = c_ai->findPath({ (int32)c_pos->position.x >> 5, (int32)c_pos->position.y >> 5 }, { (int32)c_enemy_pos->position.x >> 5, (int32)c_enemy_pos->position.y >> 5 }, &State::SPlaying::instance->m_level);
-					int xa = 0, ya = 0;
-
-					if (path.size() > c_ai->trackingDistance * 1.5)
-						c_ai->trackingEntity = nullptr;
-
-					if (!path.empty())
-					{
-						Vec2i vec = path.at(path.size() - 1)->pos;
-						vec.x = vec.x << 5;
-						vec.y = vec.y << 5;
-						int offSet = 5; //Magic number. I'm using it to avoid zombie flickering in walls.
-						if (c_pos->position.x < vec.x + offSet) xa++;
-						if (c_pos->position.x > vec.x + offSet) xa--;
-						if (c_pos->position.y < vec.y + offSet) ya++;
-						if (c_pos->position.y > vec.y + offSet) ya--;
-						path.clear();
-					}
-
-					if (xa != 0 || ya != 0)
-						c_vel->move(xa, ya);
-					else
-						c_vel->moving = false;
-						*/
-				}
-			}
-			else
-			{
-				// Check if player is in distance of this entity and set it as target if it is,
-				// otherwise set target to non-moving, necessary for the right animation to play
-
-				// Entity* player = State::SPlaying::instance->m_level.getEntity(State::SPlaying::instance->m_level.player_id);
-				// PositionComponent* c_pos_player = player->getComponent<PositionComponent>();
-
-				// Tile flooding for every entity is not ideal as it really kills the fps
-				//std::vector<Entity*> entities = TileFlooding::getAllEntitesNearOtherEntity((sf::Vector2i)c_pos->position, 6, &State::SPlaying::instance->m_level);
-				//for (Entity* ent : entities)
-				//	if (ent == player)
-				//		c_ai->trackingEntity = player;
-
-				///@TODO: Find better solution
-				//Using euclidean distance for now
-				//if (distance((Vec2i)c_pos_player->position, (Vec2i)c_pos->position) <= c_ai->trackingDistance * 32)
-				//	c_ai->trackingEntity = player;
-				//else
-				{
-					VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
-					if (c_vel)
-						c_vel->moving = false;
-				}
-			}
-		}
+		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
+		if (c_ai && c_pos && c_vel)
+			c_ai->behaviour.behave(entity);
 	}
 
 	void PlayerInputSystem::update(const Timestep& ts, Entity* entity)
