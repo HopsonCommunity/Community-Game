@@ -1,4 +1,5 @@
 ﻿#include "WorldGenerator.h"
+#include "../Tile/TileMap.h"
 
 namespace WGenerator
 {
@@ -96,9 +97,9 @@ namespace WGenerator
 		return rectangles;
 	}
 
-	std::vector<std::vector<byte > > WorldGenerator::render(std::vector<std::pair<std::vector<std::shared_ptr<Rectangle> >, byte > > data)
+	Level::TileMap WorldGenerator::render(std::vector<std::pair<std::vector<std::shared_ptr<Rectangle> >, byte > > data)
 	{
-		std::vector<std::vector<byte> > map(m_width, std::vector<byte>(m_height, 0));
+		Level::TileMap tileMap(m_width, m_height);
 		for (unsigned int i = 0; i < data.size(); i++)
 		{
 			for (unsigned int j = 0; j < data[i].first.size(); j++)
@@ -107,18 +108,18 @@ namespace WGenerator
 				{
 					for (unsigned int l = 0; l < data[i].first[j]->height; l++)
 					{
-						if (map.size() > data[i].first[j]->x + k)
+						if (tileMap.width > data[i].first[j]->x + k)
 						{
-							if (map[data[i].first[j]->x + k].size() > data[i].first[j]->y + l)
+							if (tileMap.height > data[i].first[j]->y + l)
 							{
-								map[k + data[i].first[j]->x][l + data[i].first[j]->y] = data[i].second;
+								tileMap.addTile(0, k + data[i].first[j]->x, l + data[i].first[j]->y, data[i].second, 0);
 							}
 						}
 					}
 				}
 			}
 		}
-		return map;
+		return tileMap;
 	}
 
 	Map WorldGenerator::getMap() {
@@ -127,7 +128,7 @@ namespace WGenerator
 		data.push_back(std::make_pair<std::vector<std::shared_ptr<Rectangle> >, byte >(getRooms(), 1));
 		data.push_back(std::make_pair<std::vector<std::shared_ptr<Rectangle> >, byte >(getRandomSquares(), 1));
 		data.push_back(std::make_pair<std::vector<std::shared_ptr<Rectangle> >, byte >(getHalls(), 1));
-		map.tiles = render(data);
+		map.tileMap = render(data);
 		uint numberOfRooms = getRooms().size();
 		map.playerPosition = placePlayer(static_cast<unsigned int>(m_generator.uint64InRange(0, numberOfRooms)));
 		return map;

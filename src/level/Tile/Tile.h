@@ -42,6 +42,8 @@ namespace Level
 		// Fancy function returns :D (I don't even know if this would compile in GCC)
 		inline auto getID() -> byte const { return m_data.id; }
 
+        inline auto getData() -> TileData const { return m_data; }
+
 		inline auto hasFlag(int32 flag) -> bool const { return (bool)(m_data.flags & flag); }
 
 	private:
