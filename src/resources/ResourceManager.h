@@ -18,18 +18,14 @@ public:
 		std::string full = m_path + name + m_extension;
 
 		if (m_resourceMap.find(full) == m_resourceMap.end())
-		{
 			add(full);
-		}
 
 		return qGet(full);
 	}
 
 	const Resource& qGet(const std::string& name)
 	{
-		///@TODO Maybe change to use operator []?
-		// What's the difference? -Repertoi-e
-		return m_resourceMap.at(name);
+		return m_resourceMap[name];
 	}
 
 	void add(const std::string& name)

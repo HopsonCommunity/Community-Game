@@ -9,7 +9,6 @@
 #endif // __WIN32
 
 #include "maths/Random.h"
-#include "util/Exceptions.h"
 
 namespace
 {
@@ -44,13 +43,7 @@ catch (std::out_of_range& e)
 	errorMessage(msg);
 	std::cin.ignore();
 }
-catch (std::runtime_error& e)
-{
-	std::string msg = e.what();
-	errorMessage(msg);
-	std::cin.ignore();
-}
-catch (Exceptions::CannotGetResource& e)
+catch(std::runtime_error& e)
 {
 	std::string msg = e.what();
 	errorMessage(msg);
