@@ -1,8 +1,9 @@
 ﻿#include "Application.h"
 
 #include "states/StateMenu.h"
+#include "states/StatePlaying.h"
 
-#include <iostream>
+#include "../util/Log.h"
 
 Application* Application::instance = nullptr;
 
@@ -14,12 +15,19 @@ Application::Application(std::string&& name, const WindowSettings& settings)
 {
 	instance = this;
 
-	auto style = settings.isFullscreen ? sf::Style::Fullscreen : sf::Style::Default;
+	LOG_WARN("Launching window");
+	LOG_WARN("------------------------------------");
+	LOG_WARN("  Resolution: ", settings.width, " x ", settings.height);
+	LOG_WARN("  Fullscreen: ", settings.fullscreen);
+	LOG_WARN("  VSync: ", settings.vsync);
+	LOG_WARN("------------------------------------");
+
+	auto style = settings.fullscreen ? sf::Style::Fullscreen : sf::Style::Default;
 
 	m_window.create({ settings.width, settings.height }, m_title, style);
-	m_window.setVerticalSyncEnabled(settings.isVsyncEnabled);
+	m_window.setVerticalSyncEnabled(settings.vsync);
 
-	pushState(std::make_unique<State::Menu>(this, &m_window));
+	pushState(std::make_unique<State::Playing>(this, &m_window));
 }
 
 void Application::start()
@@ -55,14 +63,14 @@ void Application::start()
 			timestep.update(now);
 			updates++;
 			upTimer += UP_TICK;
-			m_states.back()->input();
-			m_states.back()->update(timestep);
+			m_states.top()->input();
+			m_states.top()->update(timestep);
 		}
 
 		//Runs as fast as possible
 		frames++;
 		sf::Clock frametime;
-		m_states.back()->render(m_window);
+		m_states.top()->render(m_window);
 		m_frameTime = float(frametime.getElapsedTime().asMilliseconds());
 
 		// Runs each second
@@ -71,8 +79,8 @@ void Application::start()
 			timer += 1.0f;
 			m_framesPerSecond = frames;
 			m_updatesPerSecond = updates;
-			m_states.back()->tick();
-			std::cout << "FPS: " << m_framesPerSecond << ", UPS: " << m_updatesPerSecond << std::endl;
+			m_states.top()->tick();
+			LOG_INFO("FPS: ", m_framesPerSecond, ", UPS: ", m_updatesPerSecond);
 			frames = 0;
 			updates = 0;
 		}
@@ -105,20 +113,20 @@ void Application::handleEvents(sf::Event& event)
 		break;
 	}
 
-	m_states.back()->event(event);
+	m_states.top()->event(event);
 }
 
 void Application::pushState(std::unique_ptr<State::Base> state)
 {
-	m_states.push_back(std::move(state));
+	m_states.push(std::move(state));
 }
 
 void Application::popState()
 {
-	m_states.pop_back();
+	m_states.pop();
 }
 
-const Application::WindowSettings& Application::getSettings() const
+const WindowSettings& Application::getSettings() const
 {
 	return m_windowSettings;
 }
@@ -135,7 +143,7 @@ sf::RenderWindow& Application::getWindow()
 
 void Application::setVSync(bool enabled)
 {
-	m_windowSettings.isVsyncEnabled = enabled;
+	m_windowSettings.vsync = enabled;
 	m_window.setVerticalSyncEnabled(enabled);
 }
 

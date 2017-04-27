@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "util/Log.h"
+
 #ifdef __WIN32
 #include "windows.h"
 #endif // __WIN32
@@ -22,7 +24,7 @@ namespace
 		const std::string command = "osascript -e 'tell app \"System Events\" to display dialog \"" + message + "\" buttons {\"OK\"} default button 1 with icon caution with title \"Error\"'";
 		system(command.c_str());
 #else
-		std::cerr << message << std::endl;
+		LOG_ERROR(message);
 		std::cin.ignore();
 #endif
 	}

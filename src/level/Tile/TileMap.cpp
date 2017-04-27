@@ -1,4 +1,4 @@
-#include "TileMap.h"
+﻿#include "TileMap.h"
 #include "TileDatabase.h"
 #include "../../resources/ResourceHolder.h"
 #include "../../app/Application.h"
@@ -23,9 +23,10 @@ namespace Level {
 		}
 	}
 
-	 TileData TileMap::getTileData(uint layer, uint x, uint y) {
-		TileData data = TileDatabase::get().getTileData(m_layers[layer].tiles[x][y].getID());
-	}
+	 TileData TileMap::getTileData(uint layer, uint x, uint y) 
+	 {
+		return TileDatabase::get().getTileData(m_layers[layer].tiles[x][y].getID());
+	 }
 
 	void TileMap::generateVertexArray(byte layer) {
 		m_vertexArrays[layer].resize(width * height * 4);
@@ -55,8 +56,8 @@ namespace Level {
 	void TileMap::setQuadTextureCoords(TileMap::Quad &quad, TileMapNode tile) {
 		sf::IntRect texCoords = TileDatabase::get().getTileData(tile.getID()).texture;
 
-		int tx = texCoords.left * TILE_SIZE;
-		int ty = texCoords.top * TILE_SIZE;
+		float tx = (float)(texCoords.left * TILE_SIZE);
+		float ty = (float)(texCoords.top * TILE_SIZE);
 
 		quad.topLeft.texCoords = {tx, ty};
 		quad.topRight.texCoords = {tx + TILE_SIZE, ty};
@@ -65,10 +66,10 @@ namespace Level {
 	}
 
 	void TileMap::setQuadVertexCoords(TileMap::Quad &quad, int x, int y, TileMapNode tile) {
-		quad.topLeft.position = {x, y};
-		quad.topRight.position = {x + TILE_SIZE, y};
-		quad.bottomLeft.position = {x, y + TILE_SIZE};
-		quad.bottomRight.position = {x + TILE_SIZE, y + TILE_SIZE};
+		quad.topLeft.position = {(float)x, (float)y};
+		quad.topRight.position = { (float)x + TILE_SIZE, (float)y};
+		quad.bottomLeft.position = { (float)x, (float)y + TILE_SIZE};
+		quad.bottomRight.position = { (float)x + TILE_SIZE, (float)y + TILE_SIZE};
 	}
 
 	void TileMap::draw(sf::RenderWindow& window) {

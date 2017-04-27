@@ -28,7 +28,7 @@ namespace State
 		UI::UIButton m_multiplayer;
 		UI::UIButton m_credits;
 
-		void singleplayerCallback() {}
+		void singleplayerCallback();
 		void multiplayerCallback() {}
 		void creditsCallback() {}
 	};

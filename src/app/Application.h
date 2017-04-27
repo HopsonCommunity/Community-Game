@@ -1,17 +1,16 @@
 ﻿#pragma once
 
-#include "../Types.h"
-#include "../util/Timestep.h"
+#include "../Common.h"
+
+#include "WindowSettings.h"
 #include "states/StateBase.h"
-#include "../resources/ResourceHolder.h"
+
 #include "input/InputScheme.h"
 #include "input/Input.h"
 #include "../sound/BGM.h"
-
+#include "../resources/ResourceHolder.h"
+#include "../util/Timestep.h"
 #include <SFML/Graphics.hpp>
-
-#include <memory>
-#include <vector>
 
 constexpr bool VSYNC_ENABLED = true;
 constexpr bool VSYNC_DISABLED = false;
@@ -19,15 +18,6 @@ const std::string consoleAppInfo = "+-------------------------------------------
 
 class Application
 {
-public:
-	struct WindowSettings
-	{
-		uint width;
-		uint height;
-		bool isFullscreen;
-		bool isVsyncEnabled;
-	};
-
 public:
 	static Application* instance;
 
@@ -69,5 +59,5 @@ private:
 
 	WindowSettings m_windowSettings;
 	sf::RenderWindow m_window;
-	std::vector<std::unique_ptr<State::Base>> m_states;
+	std::stack<std::unique_ptr<State::Base>> m_states;
 };

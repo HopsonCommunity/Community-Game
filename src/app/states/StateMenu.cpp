@@ -1,5 +1,6 @@
 ﻿#include "StateMenu.h"
 
+#include "StatePlaying.h"
 #include "../Application.h"
 
 #include "../../Common.h"
@@ -56,6 +57,10 @@ namespace State
 	}
 
 	void Menu::tick()
+	{
+	}
+
+	void Menu::singleplayerCallback()
 	{
 	}
 }
