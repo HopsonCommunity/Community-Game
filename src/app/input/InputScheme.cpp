@@ -1,5 +1,7 @@
 ﻿#include "InputScheme.h"
 
+#include "../../util/Log.h"
+
 namespace Input
 {
 	InputScheme::InputScheme(std::string fileName)
@@ -13,7 +15,7 @@ namespace Input
 		for (json::iterator it = json_.begin(); it != json_.end(); ++it)
 		{
 			m_actionMap[it.key()] = m_nameMap[it.value()];
-			std::cout << "Mapped " << it.key() << " to " << m_nameMap[it.value()] << std::endl;
+			LOG_INFO("Mapped ", it.key().c_str(), " to ", m_nameMap[it.value()]);
 		}
 	}
 
