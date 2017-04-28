@@ -9,8 +9,13 @@ namespace State
 {
 	Playing::Playing(Application* app, sf::RenderWindow* window)
 		: Base(app)
-		// , m_level(Level::TileMap(20, 20))
 	{
+		m_level = new Level::TileMap(20, 20);
+	}
+
+	Playing::~Playing()
+	{
+		delete m_level;
 	}
 
 	void Playing::event(sf::Event & event)
@@ -27,6 +32,7 @@ namespace State
 
 	void Playing::render(sf::RenderWindow& window)
 	{
+		m_level->draw(window);
 	}
 
 	void Playing::tick()

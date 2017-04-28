@@ -37,7 +37,7 @@ class Foo
 };
 ```
 
-* public functions and members at top, protected in middle, private at bottom
+* Public functions and members at top, protected in middle, private at bottom
 * Notice a space between the final class member/function and the next accessor!
 * Private members must be prefixed with "_m"
 
@@ -65,6 +65,7 @@ namespace Bar
     }
 }}
 ```
+
 ## Includes
 * All headers should have header guards (#pragma once)
 
