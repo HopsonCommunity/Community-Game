@@ -24,7 +24,7 @@ namespace Level
             void addEntity(std::unique_ptr<Framework::Entity> entity);
             Framework::Entity* getEntity(const uint64& id);
 
-			Framework::Entity* getPlayer() { return getEntity(player_id); }
+			Framework::Entity* getPlayer() { return player; }
 
 			void setTile(unsigned int x, unsigned int y, Tile::Tile& tile);
             Tile::Tile* getTile(unsigned int x, unsigned int y);
@@ -44,6 +44,6 @@ namespace Level
 			std::unique_ptr<Framework::System> m_renderSystem;
 			std::vector<std::unique_ptr<Framework::System>> m_updateSystems;
 		public:
-			uint64 player_id;
+			Framework::Entity* player;
 	};
 }
