@@ -50,6 +50,6 @@ namespace Level
 
 		auto uv = json_["Texture"].get<std::vector<short>>();
 
-		m_tiles.push_back(std::make_unique<T>((byte)id, passable | breakable, sf::IntRect(uv[0] * TILE_SIZE, uv[1] * TILE_SIZE, TILE_SIZE, TILE_SIZE)));
+		m_tiles[(byte)id] = std::make_unique<T>((byte)id, passable | breakable, sf::IntRect(uv[0] * TILE_SIZE, uv[1] * TILE_SIZE, TILE_SIZE, TILE_SIZE));
 	}
 }

@@ -62,5 +62,6 @@ namespace State
 
 	void Menu::singleplayerCallback()
 	{
+		Application::instance->pushState(std::make_unique<State::Playing>(Application::instance, &Application::instance->getWindow()));
 	}
 }

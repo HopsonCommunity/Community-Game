@@ -97,9 +97,9 @@ namespace WGenerator
 		return rectangles;
 	}
 
-	Level::TileMap WorldGenerator::render(std::vector<std::pair<std::vector<std::shared_ptr<Rectangle> >, byte > > data)
+	std::vector<std::vector<byte >> WorldGenerator::render(std::vector<std::pair<std::vector<std::shared_ptr<Rectangle> >, byte > > data)
 	{
-		Level::TileMap tileMap(m_width, m_height);
+		std::vector<std::vector<byte> > map(m_width, std::vector<byte>(m_height, 0));
 		for (unsigned int i = 0; i < data.size(); i++)
 		{
 			for (unsigned int j = 0; j < data[i].first.size(); j++)
@@ -108,33 +108,35 @@ namespace WGenerator
 				{
 					for (unsigned int l = 0; l < data[i].first[j]->height; l++)
 					{
-						if (tileMap.width > data[i].first[j]->x + k)
+						if (map.size() > data[i].first[j]->x + k)
 						{
-							if (tileMap.height > data[i].first[j]->y + l)
+							if (map[data[i].first[j]->x + k].size() > data[i].first[j]->y + l)
 							{
-								tileMap.addTile(0, k + data[i].first[j]->x, l + data[i].first[j]->y, data[i].second, 0);
+								map[k + data[i].first[j]->x][l + data[i].first[j]->y] = data[i].second;
 							}
 						}
 					}
 				}
 			}
 		}
-		return tileMap;
+		return map;
 	}
 
-	Map WorldGenerator::getMap() {
+	Map WorldGenerator::getMap()
+	{
 		Map map;
 		std::vector<std::pair<std::vector<std::shared_ptr<Rectangle> >, byte > > data;
 		data.push_back(std::make_pair<std::vector<std::shared_ptr<Rectangle> >, byte >(getRooms(), 1));
 		data.push_back(std::make_pair<std::vector<std::shared_ptr<Rectangle> >, byte >(getRandomSquares(), 1));
 		data.push_back(std::make_pair<std::vector<std::shared_ptr<Rectangle> >, byte >(getHalls(), 1));
-		map.tileMap = render(data);
+		map.tiles = render(data);
 		uint numberOfRooms = getRooms().size();
 		map.playerPosition = placePlayer(static_cast<unsigned int>(m_generator.uint64InRange(0, numberOfRooms)));
 		return map;
 	}
 
-	sf::Vector2<uint> WorldGenerator::placePlayer(uint roomId) {
+	sf::Vector2<uint> WorldGenerator::placePlayer(uint roomId)
+	{
 		std::vector<std::shared_ptr<Rectangle> > rooms = getRooms();
 		return sf::Vector2<uint>(((rooms[roomId]->x * 2) + rooms[roomId]->width) / 2, ((rooms[roomId]->y * 2) + rooms[roomId]->height) / 2);
 	}

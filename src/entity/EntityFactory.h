@@ -10,6 +10,7 @@ namespace Entity
 	{
 	public:
 		EntityFactory();
+	
 		std::unique_ptr<Entity> createEntity(std::string name);
 		std::unique_ptr<Entity> createHostileEntity();
 	private:

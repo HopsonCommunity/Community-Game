@@ -203,3 +203,14 @@ namespace Log
 
 #define LOG_INFO(...) Log::logMessage(LEVEL_INFO, true, PREFIX, __VA_ARGS__)
 #define LOG_INFO_APPEND(...) Log::logMessage(LEVEL_INFO, false, __VA_ARGS__)
+
+#define ASSERT(x, ...) \
+		if (!(x)) {\
+			LOG_FATAL("===================="); \
+			LOG_FATAL("    ASSERT FAIL!    "); \
+			LOG_FATAL("===================="); \
+			LOG_FATAL(__FILE__, ": ", __LINE__); \
+			LOG_FATAL("Condition: ", #x); \
+			LOG_FATAL(__VA_ARGS__); \
+			__debugbreak(); \
+		}

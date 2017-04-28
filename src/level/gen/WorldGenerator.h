@@ -11,7 +11,7 @@
 namespace WGenerator
 {
 	struct Map {
-		Level::TileMap tileMap;
+		std::vector<std::vector<byte>> tiles;
 		sf::Vector2<uint> playerPosition;
 	};
 
@@ -28,7 +28,7 @@ namespace WGenerator
 		std::vector<std::shared_ptr<Rectangle> > getRooms();
 		std::vector<std::shared_ptr<Rectangle> > getRandomSquares();
 		std::vector<std::shared_ptr<Rectangle> > getHalls();
-		Level::TileMap render(std::vector<std::pair<std::vector<std::shared_ptr<Rectangle>>, byte>> data);
+		std::vector<std::vector<byte>> render(std::vector<std::pair<std::vector<std::shared_ptr<Rectangle>>, byte>> data);
 
 		sf::Vector2<uint> placePlayer(uint roomId);
 

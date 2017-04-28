@@ -59,5 +59,5 @@ private:
 
 	WindowSettings m_windowSettings;
 	sf::RenderWindow m_window;
-	std::stack<std::unique_ptr<State::Base>> m_states;
+	std::vector<std::unique_ptr<State::Base>> m_states;
 };

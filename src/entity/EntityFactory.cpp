@@ -38,7 +38,8 @@ namespace Entity
 		return createEntity(m_hostileMobs[hostileMob]);
 	}
 
-	void EntityFactory::createTemplate(std::string filePath) {
+	void EntityFactory::createTemplate(std::string filePath) 
+	{
 		std::string source = getFileContents("res/entities/" + filePath + ".json");
 		nlohmann::json json = nlohmann::json::parse(source.c_str());
 

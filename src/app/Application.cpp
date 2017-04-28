@@ -27,7 +27,7 @@ Application::Application(std::string&& name, const WindowSettings& settings)
 	m_window.create({ settings.width, settings.height }, m_title, style);
 	m_window.setVerticalSyncEnabled(settings.vsync);
 
-	pushState(std::make_unique<State::Playing>(this, &m_window));
+	pushState(std::make_unique<State::Menu>(this, &m_window));
 }
 
 void Application::start()
@@ -63,14 +63,14 @@ void Application::start()
 			timestep.update(now);
 			updates++;
 			upTimer += UP_TICK;
-			m_states.top()->input();
-			m_states.top()->update(timestep);
+			m_states.back()->input();
+			m_states.back()->update(timestep);
 		}
 
 		//Runs as fast as possible
 		frames++;
 		sf::Clock frametime;
-		m_states.top()->render(m_window);
+		m_states.back()->render(m_window);
 		m_frameTime = float(frametime.getElapsedTime().asMilliseconds());
 
 		// Runs each second
@@ -79,7 +79,7 @@ void Application::start()
 			timer += 1.0f;
 			m_framesPerSecond = frames;
 			m_updatesPerSecond = updates;
-			m_states.top()->tick();
+			m_states.back()->tick();
 			LOG_INFO("FPS: ", m_framesPerSecond, ", UPS: ", m_updatesPerSecond);
 			frames = 0;
 			updates = 0;
@@ -113,17 +113,17 @@ void Application::handleEvents(sf::Event& event)
 		break;
 	}
 
-	m_states.top()->event(event);
+	m_states.back()->event(event);
 }
 
 void Application::pushState(std::unique_ptr<State::Base> state)
 {
-	m_states.push(std::move(state));
+	m_states.push_back(std::move(state));
 }
 
 void Application::popState()
 {
-	m_states.pop();
+	m_states.pop_back();
 }
 
 const WindowSettings& Application::getSettings() const

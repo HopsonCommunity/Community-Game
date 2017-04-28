@@ -21,6 +21,9 @@ namespace Level
 
     class TileMap
     {
+	public:
+		typedef std::vector<std::tuple<uint, uint, byte, byte>> AddList;
+	private:
         struct TileLayer
         {
             std::vector<std::vector<TileMapNode>> tiles;
@@ -32,6 +35,8 @@ namespace Level
 
         void addLayer();
         void addTile(uint layer, uint x, uint y, byte id, byte metadata);
+		void addTiles(uint layer, const AddList& tiles);
+
         void draw(sf::RenderWindow& window);
 
         TileData getTileData(uint layer, uint x, uint y);
@@ -40,10 +45,11 @@ namespace Level
         uint height;
     private:
 
-		sf::Vertex* m_buffer;
-		uint m_indexCount;
+		std::vector<sf::Vertex> m_vertexArray;
 
-        void generateVertexArray(byte layer);
+		void qAddTile(uint layer, uint x, uint y, byte id, byte metadata);
+
+		void generateVertexArray(byte layer);
         void addTileVertices(byte layer, uint x, uint y, TileMapNode tile);
 
         std::vector<TileLayer> m_layers;
