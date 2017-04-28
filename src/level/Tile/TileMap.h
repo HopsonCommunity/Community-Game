@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <vector>
 #include "../../Types.h"
@@ -21,16 +21,9 @@ namespace Level
 
     class TileMap
     {
-        struct Quad
-        {
-            sf::Vertex topLeft;
-            sf::Vertex topRight;
-            sf::Vertex bottomLeft;
-            sf::Vertex bottomRight;
-        };
         struct TileLayer
         {
-            std::vector<std::vector<TileMapNode> > tiles;
+            std::vector<std::vector<TileMapNode>> tiles;
         };
 
     public:
@@ -47,14 +40,13 @@ namespace Level
         uint height;
     private:
 
+		sf::Vertex* m_buffer;
+		uint m_indexCount;
+
         void generateVertexArray(byte layer);
         void addTileVertices(byte layer, uint x, uint y, TileMapNode tile);
 
-        void setQuadTextureCoords(Quad& quad, TileMapNode tile);
-        void setQuadVertexCoords(Quad& quad, int x, int y, TileMapNode tile);
-
         std::vector<TileLayer> m_layers;
-        std::vector<sf::VertexArray> m_vertexArrays;
-        const sf::Texture *m_tileTexture;
+        const sf::Texture* m_tileTexture;
     };
 }

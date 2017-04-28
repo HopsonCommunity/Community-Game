@@ -9,6 +9,7 @@ namespace State
 	{
 	public:
 		Playing(Application* app, sf::RenderWindow* window);
+		~Playing();
 
 		void event(sf::Event& event) override;
 		void input() override;
@@ -17,7 +18,7 @@ namespace State
 		void tick() override;
 
 	private:
-		// Level::TileMap m_level;
+		Level::TileMap* m_level;
 
 		void singleplayerCallback() {}
 		void multiplayerCallback() {}
