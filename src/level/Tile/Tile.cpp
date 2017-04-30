@@ -3,6 +3,7 @@
 namespace Level
 {
 	Tile::Tile(byte id, int32 flags, sf::IntRect texture)
+		: m_data({id, flags, texture}) // ARE YOU **$& SERIOUS
 	{
 	}
 

@@ -15,12 +15,14 @@ namespace Entity
 	EntityFactory::EntityFactory()
 		: m_lastID(0)
 	{
+		/*
 		std::string source = getFileContents("res/entities/Entities.txt");
 		std::istringstream sstream(source);
 		std::string line;
 
 		while (std::getline(sstream, line))
 			createTemplate(line);
+		*/
 	}
 
 	std::unique_ptr<Entity> EntityFactory::createEntity(std::string name)
@@ -40,6 +42,7 @@ namespace Entity
 
 	void EntityFactory::createTemplate(std::string filePath) 
 	{
+		// filePath.erase(std::remove(filePath.begin(), filePath.end(), '\0'), filePath.end());
 		std::string source = getFileContents("res/entities/" + filePath + ".json");
 		nlohmann::json json = nlohmann::json::parse(source.c_str());
 

@@ -6,46 +6,27 @@
 #include "../../Common.h"
 #include "../../maths/Random.h"
 #include "../../util/Log.h"
-
-#define WORLD_SIZE 100
+#include "../../entity/EntityFactory.h"
 
 namespace State
 {
 	Playing::Playing(Application* app, sf::RenderWindow* window)
 		: Base(app)
-		, m_level(new Level::TileMap(WORLD_SIZE, WORLD_SIZE))
+		, m_level(WORLD_SIZE, WORLD_SIZE)
 	{
-		WGenerator::WorldGenerator m_worldGen(WORLD_SIZE, WORLD_SIZE, 2355);
-		m_worldGen.generateMap();
+		Entity::EntityFactory factory;
 
-		auto data = m_worldGen.getMap();
+		std::unique_ptr<Entity::Entity> player = factory.createEntity("Player");
+		LOG_INFO("Player ID: ", player.get()->getID());
 
-		Level::TileMap::AddList addList;
-
-		for (int x = 0; x < WORLD_SIZE; x++)
-			for (int y = 0; y < WORLD_SIZE; y++)
-			{
-				auto n = data.tiles[x][y];
-				if (n == (byte)Level::TileID::Cobblestone)
-					addList.push_back({x, y, (byte)Level::TileID::Cobblestone, 0});
-			}
-
-		m_level->addTiles(0, addList);
-
-		//std::unique_ptr<Entity::Entity> player = Entity::EntityFactory::get().createEntity("Player");
-		//LOG_INFO("Player ID: ", player.get()->getID());
-
-		// m_level.player = player.get();
-		// m_level.addEntity(std::move(player));
+		m_level.player = player.get();
+		m_level.addEntity(std::move(player));
 	}
 
-	Playing::~Playing()
+	void Playing::event(sf::Event& event)
 	{
-		delete m_level;
-	}
-
-	void Playing::event(sf::Event & event)
-	{
+		if (event.type == sf::Event::Resized)
+			m_level.windowResize({ static_cast<float>(event.size.width), static_cast<float>(event.size.height) });
 	}
 
 	void Playing::input()
@@ -54,11 +35,12 @@ namespace State
 
 	void Playing::update(const Timestep& ts)
 	{
+		m_level.update(ts);
 	}
 
 	void Playing::render(sf::RenderWindow& window)
 	{
-		m_level->draw(window);
+		m_level.render(window);
 	}
 
 	void Playing::tick()

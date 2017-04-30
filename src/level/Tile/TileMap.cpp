@@ -5,28 +5,26 @@
 
 namespace Level 
 {
-	TileMap::TileMap() 
-	{
-	}
-	
 	TileMap::TileMap(uint width, uint height) 
 		: width(width)
 		, height(height)
 	{
 		addLayer();
 		generateVertexArray(0);
-		m_tileTexture = &Application::instance->getResources().textures.get("/tiles/atlas");
+		m_atlas = &Application::instance->getResources().textures.get("/tiles/atlas");
 	}
 	
 	void TileMap::addLayer() 
 	{
-		TileLayer layer = {std::vector<std::vector<TileMapNode>>(width, std::vector<TileMapNode>(height, TileMapNode(0, 0)))};
-		m_layers.push_back(layer);
+		auto layer = std::make_unique<TileLayer>();
+		layer.get()->tiles = std::vector<std::vector<TileNode>>(width, std::vector<TileNode>(height, TileNode{}));
+		layer.get()->vertexArray.reserve(width * height * 4);
+		m_layers.push_back(std::move(layer));
 	}
 
 	void TileMap::addTile(uint x, uint y, uint layer, byte id, byte metadata) 
 	{
-		qAddTile(layer, x, y, id, metadata);
+		addTiles(layer, { {x, y, id, metadata} });
 		generateVertexArray(layer);
 	}
 
@@ -47,42 +45,67 @@ namespace Level
 	void TileMap::qAddTile(uint layer, uint x, uint y, byte id, byte metadata)
 	{
 		if (m_layers.size() > layer)
-			m_layers[layer].tiles[x][y] = TileMapNode(id, metadata);
+			m_layers[layer]->tiles[x][y] = TileNode{ id, metadata };
 	}
 
 	TileData TileMap::getTileData(uint layer, uint x, uint y) 
 	{
-		return TileDatabase::get().getTileData(m_layers[layer].tiles[x][y].getID());
+		return TileDatabase::get().getTileData(std::get<TILE_ID>(m_layers[layer]->tiles[x][y]));
 	}
 
 	void TileMap::generateVertexArray(byte layer)
 	{
-		m_vertexArray.reserve(width * height * 4);
-	
-		for (uint y=0; y < height; y++)
-			for (uint x=0; x < width; x++)
-				addTileVertices(layer, x * TILE_SIZE, y * TILE_SIZE, m_layers[layer].tiles[x][y]);
+		for (uint y = 0; y < height; y++)
+			for (uint x = 0; x < width; x++)
+				addTileVertices(layer, x * TILE_SIZE, y * TILE_SIZE, m_layers[layer]->tiles[x][y]);
 	}
 
-	void TileMap::addTileVertices(byte layer, uint x, uint y, TileMapNode tile) 
+	void TileMap::addTileVertices(byte layer, uint x, uint y, TileNode tile)
 	{
-		if (tile.getID() == (byte)TileID::Void) 
+		if (std::get<TILE_ID>(tile) == (byte)TileID::Void)
 			return;
 
-		sf::IntRect uvs = TileDatabase::get().getTileData(tile.getID()).texture;
+		Quad quad;
 
-		m_vertexArray.push_back({ { (float)x + TILE_SIZE, (float)y - TILE_SIZE }, { (float)uvs.left, (float)uvs.top } });
-		m_vertexArray.push_back({ { (float)x, (float)y - TILE_SIZE },{ (float)uvs.left + (float)uvs.width, (float)uvs.top } });
-		m_vertexArray.push_back({ { (float)x, (float)y},{ (float)uvs.left, (float)uvs.top + (float)uvs.height } });
-		m_vertexArray.push_back({ { (float)x + TILE_SIZE, (float)y},{ (float)uvs.left + (float)uvs.width, (float)uvs.top + (float)uvs.height } });
+		setQuadVertexCoords(quad, x, y, tile);
+		setQuadTextureCoords(quad, tile);
+
+		auto l = m_layers[layer].get();
+
+		l->vertexArray.push_back(quad.topLeft);
+		l->vertexArray.push_back(quad.topRight);
+		l->vertexArray.push_back(quad.bottomRight);
+		l->vertexArray.push_back(quad.bottomLeft);
 	}
 
-	void TileMap::draw(sf::RenderWindow& window) 
+	void TileMap::setQuadTextureCoords(TileMap::Quad &quad, TileNode tile)
+	{
+		sf::IntRect texCoords = TileDatabase::get().getTileData(std::get<TILE_ID>(tile)).texture;
+
+		float tx = texCoords.left * TILE_SIZE;
+		float ty = texCoords.top * TILE_SIZE;
+
+		quad.topLeft.texCoords = { tx, ty };
+		quad.topRight.texCoords = { tx + TILE_SIZE, ty };
+		quad.bottomLeft.texCoords = { tx, ty + TILE_SIZE };
+		quad.bottomRight.texCoords = { tx + TILE_SIZE, ty + TILE_SIZE };
+	}
+
+	void TileMap::setQuadVertexCoords(TileMap::Quad &quad, float x, float y, TileNode tile)
+	{
+		quad.topLeft.position = {x, y};
+		quad.topRight.position = {x + TILE_SIZE, y};
+		quad.bottomLeft.position = {x, y + TILE_SIZE};
+		quad.bottomRight.position = {x + TILE_SIZE, y + TILE_SIZE};
+	}
+
+	void TileMap::render(sf::RenderWindow& window) 
 	{
 		sf::RenderStates states;
-		states.texture = m_tileTexture;
+		states.texture = m_atlas;
 
-		window.draw(m_vertexArray.data(), m_vertexArray.size(), sf::PrimitiveType::Quads, states);
+		for (auto& layer : m_layers)
+			window.draw(layer->vertexArray.data(), layer->vertexArray.size(), sf::PrimitiveType::Quads, states);
 	}
 }
 

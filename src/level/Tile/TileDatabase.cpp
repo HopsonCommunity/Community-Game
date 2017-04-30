@@ -15,6 +15,7 @@ namespace Level
 	{
 		loadTile<TileDefault>(TileID::Void, "Void");
 		loadTile<TileDefault>(TileID::Cobblestone, "dungeon/Cobblestone");
+		LOG_INFO(getTile((BYTE)TileID::Cobblestone)->getData().texture.left, " | ", getTile((BYTE)TileID::Cobblestone)->getData().texture.top);
 		ASSERT(getTile((byte)TileID::Void), "Void");
 		ASSERT(getTile((byte)TileID::Cobblestone), "Cobblestone");
 	}

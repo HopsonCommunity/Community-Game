@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "../../level/tile/TileMap.h"
+#include "../../level/Level.h"
 #include "StateBase.h"
 
 namespace State
@@ -9,8 +9,7 @@ namespace State
 	{
 	public:
 		Playing(Application* app, sf::RenderWindow* window);
-		~Playing();
-
+		
 		void event(sf::Event& event) override;
 		void input() override;
 		void update(const Timestep& ts) override;
@@ -18,7 +17,7 @@ namespace State
 		void tick() override;
 
 	private:
-		Level::TileMap* m_level;
+		Level::Level m_level;
 
 		void singleplayerCallback() {}
 		void multiplayerCallback() {}

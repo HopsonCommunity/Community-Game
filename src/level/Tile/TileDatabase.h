@@ -4,13 +4,11 @@
 
 #include "../../Common.h"
 #include "../../maths/Maths.h"
+#include "../../util/Log.h"
 #include "../../util/json.hpp"
 #include "../../util/FileUtil.h"
 
 #include <SFML/Graphics.hpp>
-
-#include <memory>
-#include <vector>
 
 namespace Level
 {
@@ -43,13 +41,11 @@ namespace Level
 
 		///TODO: Metadata
 
-		//bool& b_passable = json_["Passable"].get<bool>;
-		//bool& b_breakable = json_["Breakable"].get<bool>;
-		int32 passable = true ? (int32)TileFlags::PASSABLE : 0x0;
-		int32 breakable = false ? (int32)TileFlags::BREAKABLE : 0x0;
+		int32 passable = json_["Passable"] ? (int32)TileFlags::PASSABLE : 0x0;
+		int32 breakable = json_["Breakable"] ? (int32)TileFlags::BREAKABLE : 0x0;
 
-		auto uv = json_["Texture"].get<std::vector<short>>();
+		auto uv = json_["Texture"].get<std::vector<int32>>();
 
-		m_tiles[(byte)id] = std::make_unique<T>((byte)id, passable | breakable, sf::IntRect(uv[0] * TILE_SIZE, uv[1] * TILE_SIZE, TILE_SIZE, TILE_SIZE));
+		m_tiles[(byte)id] = std::make_unique<T>((byte)id, passable | breakable, sf::IntRect(uv[0], uv[1], 1, 1));
 	}
 }

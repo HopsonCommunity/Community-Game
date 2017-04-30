@@ -6,10 +6,10 @@
 #include "../../level/tile/TileCollision.h"
 
 #include "../../maths/Maths.h"
+#include "../../util/Log.h"
 #include "../../util/Timestep.h"
 #include "../../level/tile/TileFlooding.h"
 #include "../../app/Application.h"
-// #include "../../app/states/StatePlaying.h"
 
 namespace Entity
 {
@@ -27,7 +27,7 @@ namespace Entity
 
 		if (c_col)
 		{
-			bool colliding = c_col ? Physics::tileCollision(Vec2i(dest), c_col->aabb) : false;
+			bool colliding = false; // c_col ? Physics::tileCollision(Vec2i(dest), c_col->aabb) : false;
 			if (!colliding)
 			{
 				c_pos->position.x = round(dest.x);
@@ -49,7 +49,7 @@ namespace Entity
 		if (c_pos && c_vel)
 		{
 			Vec2 dest(c_pos->position.x + c_vel->velocity.x * c_vel->speed * ts.asSeconds(), c_pos->position.y + c_vel->velocity.y * c_vel->speed * ts.asSeconds());
-
+			
 			move(dest, entity);
 		}
 
@@ -93,9 +93,12 @@ namespace Entity
 		if (c_pos && c_sprite)
 		{
 			c_sprite->sprite.setOrigin(c_sprite->origin);
-			c_sprite->sprite.setScale(static_cast<float>(c_sprite->flipX ? 1 : -1), 1.0f);
-			///TODO: Fix this when level render is ready
-			// Level::LevelRenderer::renderEntitySprite(c_pos->position.x, c_pos->position.y, c_sprite->sprite);
+			c_sprite->sprite.setScale(c_sprite->flipX ? 1.0f : -1.0f, 1.0f);
+			
+			sf::RenderStates states;
+			states.transform.translate(c_pos->position);
+
+			Application::instance->getWindow().draw(c_sprite->sprite, states);
 		}
 	}
 
