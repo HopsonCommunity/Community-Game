@@ -27,7 +27,7 @@ namespace Entity
 
 		if (c_col)
 		{
-			bool colliding = false; // c_col ? Physics::tileCollision(Vec2i(dest), c_col->aabb) : false;
+			bool colliding = c_col ? Physics::tileCollision(Vec2i(dest), c_col->aabb) : false;
 			if (!colliding)
 			{
 				c_pos->position.x = round(dest.x);

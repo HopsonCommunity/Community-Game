@@ -22,12 +22,15 @@ namespace Level
 			for (int y = 0; y < WORLD_SIZE; y++)
 			{
 				auto n = data.tiles[x][y];
-				if (n == (byte)TileID::Cobblestone)
-					addList.push_back({ x, y, (byte)TileID::Cobblestone, 0 });
+				if (n == 1)
+					addList.push_back({ x, y, (byte)TileID::Dungeon_BrickFloor, 0 });
+				else
+					addList.push_back({ x, y, (byte)TileID::Dungeon_BrickWall, 0 });
 			}
 
 		m_tiles.addTiles(0, addList);
 
+		player_spawn = Vec2i(data.playerPosition);
 
 		m_renderSystem = std::make_unique<Entity::RenderSystem>();
 

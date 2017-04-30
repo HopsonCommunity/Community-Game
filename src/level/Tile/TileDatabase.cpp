@@ -14,10 +14,11 @@ namespace Level
 		: m_tiles((uint)TileID::End)
 	{
 		loadTile<TileDefault>(TileID::Void, "Void");
-		loadTile<TileDefault>(TileID::Cobblestone, "dungeon/Cobblestone");
-		LOG_INFO(getTile((BYTE)TileID::Cobblestone)->getData().texture.left, " | ", getTile((BYTE)TileID::Cobblestone)->getData().texture.top);
+		loadTile<TileDefault>(TileID::Dungeon_BrickWall, "dungeon/BrickWall");
+		loadTile<TileDefault>(TileID::Dungeon_BrickFloor, "dungeon/BrickFloor");
 		ASSERT(getTile((byte)TileID::Void), "Void");
-		ASSERT(getTile((byte)TileID::Cobblestone), "Cobblestone");
+		ASSERT(getTile((byte)TileID::Dungeon_BrickWall), "BrickWall");
+		ASSERT(getTile((byte)TileID::Dungeon_BrickFloor), "BrickFloor");
 	}
 
 	inline Tile* TileDatabase::getTile(byte id)

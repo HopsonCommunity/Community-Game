@@ -1,6 +1,7 @@
 ﻿#include "AIComponent.h"
 
 #include "Components.h"
+#include "../../app/states/StatePlaying.h"
 
 namespace Entity
 {
@@ -22,9 +23,9 @@ namespace Entity
 
 	void FollowPlayer::behave(Entity* entity)
 	{
+		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
 		if (target)
 		{
-			PositionComponent* c_pos = entity->getComponent<PositionComponent>();
 			VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
 
 			PositionComponent* c_target_pos = target->getComponent<PositionComponent>();
@@ -63,8 +64,8 @@ namespace Entity
 			// Check if player is in distance of this entity and set it as target if it is,
 			// otherwise set target to non-moving, necessary for the right animation to play
 
-			// Entity* player = State::SPlaying::instance->m_level.getEntity(State::SPlaying::instance->m_level.player_id);
-			// PositionComponent* c_pos_player = player->getComponent<PositionComponent>();
+			Entity* player = State::Playing::instance->getLevel().player;
+			PositionComponent* c_pos_player = player->getComponent<PositionComponent>();
 
 			// Tile flooding for every entity is not ideal as it really kills the fps
 			//std::vector<Entity*> entities = TileFlooding::getAllEntitesNearOtherEntity((sf::Vector2i)c_pos->position, 6, &State::SPlaying::instance->m_level);
@@ -75,10 +76,9 @@ namespace Entity
 			///@TODO: Find better solution
 			// Using euclidean distance for now
 
-			///@TODO: Fix this when we  have level.
-			//if (distance((Vec2i)c_pos_player->position, (Vec2i)c_pos->position) <= c_ai->trackingDistance * 32)
-			//	c_ai->trackingEntity = player;
-			// else
+			if (distance((Vec2i)c_pos_player->position, (Vec2i)c_pos->position) <= trackingDistance * 32)
+				target = player;
+			 else
 			{
 				VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
 				if (c_vel)

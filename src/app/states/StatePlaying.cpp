@@ -7,13 +7,18 @@
 #include "../../maths/Random.h"
 #include "../../util/Log.h"
 #include "../../entity/EntityFactory.h"
+#include "../../entity/component/PositionComponent.h"
 
 namespace State
 {
+	Playing* Playing::instance;
+
 	Playing::Playing(Application* app, sf::RenderWindow* window)
 		: Base(app)
 		, m_level(WORLD_SIZE, WORLD_SIZE)
 	{
+		instance = this;
+
 		Entity::EntityFactory factory;
 
 		std::unique_ptr<Entity::Entity> player = factory.createEntity("Player");
@@ -21,6 +26,13 @@ namespace State
 
 		m_level.player = player.get();
 		m_level.addEntity(std::move(player));
+
+		m_level.player->getComponent<Entity::PositionComponent>()->position = { m_level.player_spawn.x * 32.0f, m_level.player_spawn.x * 32.0f };
+
+		std::unique_ptr<Entity::Entity> zombie = factory.createEntity("enemy/Zombie");
+		zombie->getComponent<Entity::PositionComponent>()->position = { m_level.player_spawn.x * 32.0f + 210, m_level.player_spawn.x * 32.0f + 210 };
+
+		m_level.addEntity(std::move(zombie));
 	}
 
 	void Playing::event(sf::Event& event)

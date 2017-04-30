@@ -21,6 +21,8 @@ namespace Level
 		void update(const Timestep& ts);
 		void windowResize(Vec2 size);
 
+		TileMap& getTiles() { return m_tiles; }
+
 	private:
 		sf::View m_view;
 		TileMap m_tiles;
@@ -31,5 +33,6 @@ namespace Level
 		std::vector<std::unique_ptr<Entity::System>> m_updateSystems;
 	public:
 		Entity::Entity* player;
+		Vec2i player_spawn;
 	};
 }

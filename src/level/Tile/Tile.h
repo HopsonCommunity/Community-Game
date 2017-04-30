@@ -19,7 +19,8 @@ namespace Level
 	enum class TileID : byte
 	{
 		Void = 0,
-		Cobblestone = 1,
+		Dungeon_BrickWall = 1,
+		Dungeon_BrickFloor = 2,
 
 		End
 	};
