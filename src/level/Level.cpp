@@ -4,6 +4,7 @@
 
 #include "../util/Timestep.h"
 #include "../app/Application.h"
+#include "../entity/component/PhysicsComponent.h"
 #include "../entity/component/PositionComponent.h"
 
 namespace Level
@@ -34,10 +35,10 @@ namespace Level
 
 		m_renderSystem = std::make_unique<Entity::RenderSystem>();
 
+		m_updateSystems.push_back(std::make_unique<Entity::PlayerInputSystem>());
+		m_updateSystems.push_back(std::make_unique<Entity::AISystem>());
 		m_updateSystems.push_back(std::make_unique<Entity::MoveSystem>());
 		m_updateSystems.push_back(std::make_unique<Entity::StatsSystem>());
-		m_updateSystems.push_back(std::make_unique<Entity::AISystem>());
-		m_updateSystems.push_back(std::make_unique<Entity::PlayerInputSystem>());
 		m_updateSystems.push_back(std::make_unique<Entity::AnimatorSystem>());
 
 		m_view = sf::View(Vec2(0, 0), Vec2(static_cast<float>(Application::instance->getWindow().getSize().x), static_cast<float>(Application::instance->getWindow().getSize().y)));
@@ -70,8 +71,8 @@ namespace Level
 		int offsetX = static_cast<int>((mouseX - halfWidth) * 0.1f);
 		int offsetY = static_cast<int>((mouseY - halfHeight) * 0.1f);
 
-		Entity::PositionComponent* c_pos = player->getComponent<Entity::PositionComponent>();
-		m_view.setCenter(c_pos->position.x + offsetX, c_pos->position.y + 0.01 + offsetY);
+		Entity::PhysicsComponent* c_pos = player->getComponent<Entity::PhysicsComponent>();
+		m_view.setCenter(c_pos->object.pos.x + offsetX, c_pos->object.pos.y + 0.01f + offsetY);
 	}
 
 	void Level::windowResize(Vec2 size)

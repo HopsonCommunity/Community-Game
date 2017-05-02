@@ -13,6 +13,7 @@ namespace Entity
 	public:
 		Vec2 origin;
 		sf::Sprite sprite;
+		bool flipOnVelocity; // flipX based on +- velocity
 		bool flipX, flipY;
 
 		SpriteComponent(const sf::Sprite& sprite);

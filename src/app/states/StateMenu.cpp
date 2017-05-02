@@ -10,7 +10,7 @@ namespace State
 {
 	Menu::Menu(Application* app, sf::RenderWindow* window)
 		: Base(app)
-		, m_backGround(Vec2(app->getWindow().getSize().x, app->getWindow().getSize().y))
+		, m_backGround(Vec2((float)app->getWindow().getSize().x, (float)app->getWindow().getSize().y))
 		, m_devBuildLabel(sf::Text("DEV BUILD", app->getResources().fonts.get("SourceCodePro-Regular"), 30), UI::Label::Alignment::LEFT)
 		, m_UI(window)
 		, m_singleplayer(UI::Label(sf::Text("Singleplayer", app->getResources().fonts.get("SourceCodePro-Regular"), 18)), sf::Rect<int>(app->getWindow().getSize().x / 2 - 75, app->getWindow().getSize().y / 2 - 30, 150, 50), METHOD(&Menu::singleplayerCallback))

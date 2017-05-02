@@ -7,6 +7,7 @@
 #include "../../maths/Random.h"
 #include "../../util/Log.h"
 #include "../../entity/EntityFactory.h"
+#include "../../entity/component/PhysicsComponent.h"
 #include "../../entity/component/PositionComponent.h"
 
 namespace State
@@ -21,16 +22,16 @@ namespace State
 
 		Entity::EntityFactory factory;
 
-		std::unique_ptr<Entity::Entity> player = factory.createEntity("Player");
+		std::unique_ptr<Entity::Entity> player = factory.createEntity("Player.json");
 		LOG_INFO("Player ID: ", player.get()->getID());
 
 		m_level.player = player.get();
 		m_level.addEntity(std::move(player));
 
-		m_level.player->getComponent<Entity::PositionComponent>()->position = { m_level.player_spawn.x * 32.0f, m_level.player_spawn.x * 32.0f };
+		m_level.player->getComponent<Entity::PhysicsComponent>()->object.pos = { m_level.player_spawn.x * 32.0f, m_level.player_spawn.x * 32.0f };
 
-		std::unique_ptr<Entity::Entity> zombie = factory.createEntity("enemy/Zombie");
-		zombie->getComponent<Entity::PositionComponent>()->position = { m_level.player_spawn.x * 32.0f + 210, m_level.player_spawn.x * 32.0f + 210 };
+		std::unique_ptr<Entity::Entity> zombie = factory.createEntity("enemy/Zombie.json");
+		zombie->getComponent<Entity::PositionComponent>()->position = { m_level.player_spawn.x * 32.0f + 170, m_level.player_spawn.x * 32.0f + 170 };
 
 		m_level.addEntity(std::move(zombie));
 	}

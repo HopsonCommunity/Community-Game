@@ -21,7 +21,10 @@ namespace Entity
 		std::string line;
 
 		while (std::getline(sstream, line))
+		{
+			line.pop_back();
 			createTemplate(line);
+		}
 		*/
 	}
 
@@ -42,8 +45,7 @@ namespace Entity
 
 	void EntityFactory::createTemplate(std::string filePath) 
 	{
-		// filePath.erase(std::remove(filePath.begin(), filePath.end(), '\0'), filePath.end());
-		std::string source = getFileContents("res/entities/" + filePath + ".json");
+		std::string source = getFileContents("res/entities/" + filePath);
 		nlohmann::json json = nlohmann::json::parse(source.c_str());
 
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
@@ -57,8 +59,8 @@ namespace Entity
 				entity->addComponent<AIComponent>(std::make_unique<AIComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Animator")
 				entity->addComponent<AnimatorComponent>(std::make_unique<AnimatorComponent>(componentJSON));
-			if (componentJSON["componentType"].get<std::string>() == "Collision")
-				entity->addComponent<CollisionComponent>(std::make_unique<CollisionComponent>(componentJSON));
+			if (componentJSON["componentType"].get<std::string>() == "Physics")
+				entity->addComponent<PhysicsComponent>(std::make_unique<PhysicsComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Move")
 				entity->addComponent<MoveComponent>(std::make_unique<MoveComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Player")

@@ -27,6 +27,14 @@ Application::Application(std::string&& name, const WindowSettings& settings)
 	m_window.create({ settings.width, settings.height }, m_title, style);
 	m_window.setVerticalSyncEnabled(settings.vsync);
 
+	m_labelView = sf::View(Vec2(static_cast<float>(m_window.getSize().x / 2), static_cast<float>(m_window.getSize().y / 2)), Vec2(static_cast<float>(m_window.getSize().x), static_cast<float>(m_window.getSize().y)));
+
+	m_fpsLabel = new UI::Label(sf::Text("", getResources().fonts.get("SourceCodePro-Regular"), 22), UI::Label::Alignment::RIGHT);
+	m_frameTimeLabel = new UI::Label(sf::Text("", getResources().fonts.get("SourceCodePro-Regular"), 22), UI::Label::Alignment::RIGHT);
+	
+	m_fpsLabel->setPosition(Vec2(m_labelView.getCenter().x + m_labelView.getSize().x / 2 - 20, m_labelView.getCenter().y - m_labelView.getSize().y / 2 + 10));
+	m_frameTimeLabel->setPosition(Vec2(m_labelView.getCenter().x + m_labelView.getSize().x / 2 - 20, m_labelView.getCenter().y - m_labelView.getSize().y / 2 + 38));
+
 	pushState(std::make_unique<State::Menu>(this, &m_window));
 }
 
@@ -72,7 +80,14 @@ void Application::start()
 		sf::Clock frametime;
 		m_states.back()->render(m_window);
 		m_frameTime = float(frametime.getElapsedTime().asMilliseconds());
+		m_frameTimeLabel->setText(std::to_string((int)round(m_frameTime)) + " ms");
 
+		sf::View oldView = m_window.getView();
+		m_window.setView(m_labelView);
+		m_fpsLabel->render(m_window);
+		m_frameTimeLabel->render(m_window);
+		m_window.setView(oldView);
+		
 		// Runs each second
 		if (clock.getElapsedTime().asSeconds() - timer > 1.0f)
 		{
@@ -80,6 +95,7 @@ void Application::start()
 			m_framesPerSecond = frames;
 			m_updatesPerSecond = updates;
 			m_states.back()->tick();
+			m_fpsLabel->setText(std::to_string(m_framesPerSecond)+ " fps");
 			LOG_INFO("FPS: ", m_framesPerSecond, ", UPS: ", m_updatesPerSecond);
 			frames = 0;
 			updates = 0;

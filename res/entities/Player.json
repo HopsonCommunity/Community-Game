@@ -1,74 +1,80 @@
-{
+﻿{
 	"name": "Player",
 	"components": [
-	{
-		"componentType": "Player"
-	},
-	{
-		"componentType": "Sprite",
-		"src": "entity/player_modelDefault",
-		"origin": {
-			"x": 15,
-			"y": 48
-		},
-		"rect": {
-			"left": 0,
-			"top": 0,
-			"width": 32,
-			"height": 64
-		}
-	},
-	{
-		"componentType": "Position",
-		"position": {
-			"x": 0,
-			"y": 0
-		}
-	},
-	{
-		"componentType": "Collision",
-		"aabb": {
-			"xMin": 13,
-			"yMin": 16,
-			"xMax": 26,
-			"yMax": 32
-		}
-	},
-	{
-		"componentType": "Stats",
-		"base": {
-			"max_health": 150,
-			"health_regen": 5,
-			"armor": 0,
-			"magic_resist": 0
-		}
-	},
-	{
-		"componentType": "Velocity",
-		"speed": 188,
-		"velocity": {
-			"x": 0,
-			"y": 0
-		}
-	},
-	{
-		"componentType": "Animator",
-		"animations": [
 		{
-			"name": "idle",
-			"positionX": 0,
-			"positionY": 0,
-			"stride": 32,
-			"length": 8,
-			"fps": 7
+			"componentType": "Player"
 		},
 		{
-			"name": "run",
-			"positionX": 0,
-			"positionY": 64,
-			"stride": 32,
-			"length": 8,
-			"fps": 14
-		}]
-	}]
+			"componentType": "Sprite",
+			"src": "entity/player_modelDefault",
+			"flipOnVelocity": true,
+			"origin": {
+				"x": 15,
+				"y": 48
+			},
+			"rect": {
+				"left": 0,
+				"top": 0,
+				"width": 32,
+				"height": 64
+			}
+		},
+		{
+			"componentType": "Position",
+			"position": {
+				"x": 0,
+				"y": 0
+			}
+		},
+		{
+			"componentType": "Physics",
+			"aabb": {
+				"xMin": 0,
+				"yMin": 0,
+				"xMax": 32,
+				"yMax": 32
+			},
+			"mass": 10,
+			"density": 0.4,
+			"restitution": 0.1
+		},
+		{
+			"componentType": "Stats",
+			"base": {
+				"max_health": 150,
+				"health_regen": 5,
+				"armor": 0,
+				"magic_resist": 0
+			}
+		},
+		{
+			"componentType": "Velocity",
+			"speed": 188,
+			"velocity": {
+				"x": 0,
+				"y": 0
+			}
+		},
+		{
+			"componentType": "Animator",
+			"animations": [
+				{
+					"name": "idle",
+					"positionX": 0,
+					"positionY": 0,
+					"stride": 32,
+					"length": 8,
+					"fps": 7
+				},
+				{
+					"name": "run",
+					"positionX": 0,
+					"positionY": 64,
+					"stride": 32,
+					"length": 8,
+					"fps": 14
+				}
+			]
+		}
+	]
 }

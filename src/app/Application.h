@@ -4,13 +4,13 @@
 
 #include "WindowSettings.h"
 #include "states/StateBase.h"
-
 #include "input/InputScheme.h"
 #include "input/Input.h"
+
+#include "../util/Timestep.h"
 #include "../sound/BGM.h"
 #include "../resources/ResourceHolder.h"
-#include "../util/Timestep.h"
-#include <SFML/Graphics.hpp>
+#include "../ui/UILabel.h"
 
 constexpr bool VSYNC_ENABLED = true;
 constexpr bool VSYNC_DISABLED = false;
@@ -52,6 +52,10 @@ private:
 
 	uint m_framesPerSecond, m_updatesPerSecond;
 	float m_frameTime;
+	
+	sf::View m_labelView;
+	UI::Label* m_fpsLabel;
+	UI::Label* m_frameTimeLabel;
 
 	ResourceHolder m_resources;
 	Input::InputScheme m_inputScheme;

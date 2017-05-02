@@ -30,9 +30,9 @@ namespace Entity
 	class AIComponent : public Component
 	{
 	public:
-		Behaviour behaviour;
+		///@TODO: Make this smart ptr
+		Behaviour* behaviour;
 	public:
-		AIComponent(Behaviour behaviour);
 		AIComponent(nlohmann::json json);
 
 		std::unique_ptr<Component> clone() override

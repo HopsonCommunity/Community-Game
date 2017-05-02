@@ -5,15 +5,10 @@
 
 namespace Entity
 {
-	AIComponent::AIComponent(Behaviour behaviour)
-		: behaviour(behaviour)
-	{
-	}
-
 	AIComponent::AIComponent(nlohmann::json json)
 	{
 		if (json["behaviour"]["type"] == "FollowPlayer")
-			behaviour = FollowPlayer(json["behaviour"]["trackingDistance"], &AStar::constructPath);
+			behaviour = new FollowPlayer(json["behaviour"]["trackingDistance"], &AStar::constructPath);
 	}
 
 	FollowPlayer::FollowPlayer(double trackingDistance, std::function<std::vector<AStar::Location>(AStar::Location, AStar::Location)> func)
