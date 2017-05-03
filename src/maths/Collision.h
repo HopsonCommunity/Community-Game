@@ -55,9 +55,9 @@ static void ResolveCollision(Manifold& m, Object A, Object B)
 
 	float j = -(1 + e) * velAlongNormal;
 	j /= A.inv_mass + B.inv_mass;
-	LOG_INFO(j);
 	Vec2 impulse = j * m.normal;
 	A.velocity += impulse * A.inv_mass;
+	LOG_INFO(A.velocity.x, " | ", A.velocity.y);
 
 	B.velocity += impulse * B.inv_mass;
 }

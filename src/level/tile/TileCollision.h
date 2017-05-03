@@ -3,7 +3,7 @@
 #include "../../maths/Collision.h"
 
 #include "../../app/states/StatePlaying.h"
-#include "../../level/Tile/Tile.h"
+#include "../../level/tile/Tile.h"
 
 #include "../../util/Log.h"
 
