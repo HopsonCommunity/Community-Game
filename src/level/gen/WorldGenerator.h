@@ -4,7 +4,7 @@
 
 #include "../../Types.h"
 #include "../../maths/Random.h"
-#include "../Tile/TileMap.h"
+#include "../tile/TileMap.h"
 
 #include <SFML/System/Vector2.hpp>
 

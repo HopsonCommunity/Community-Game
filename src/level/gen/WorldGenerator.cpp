@@ -1,5 +1,4 @@
 ﻿#include "WorldGenerator.h"
-#include "../Tile/TileMap.h"
 
 namespace WGenerator
 {
