@@ -64,8 +64,8 @@ static void ResolveCollision(Manifold& m, Object A, Object B)
 
 static void PositionalCorrection(Manifold& m, Object A, Object B)
 {
-	const float percent = 0.2;
-	const float slop = 0.01;
+	const float percent = 0.2f;
+	const float slop = 0.01f;
 	Vec2 n = B.pos - A.pos;
 	Vec2 correction = std::max(m.penetration - slop, 0.0f) / (A.inv_mass + B.inv_mass) * percent * n;
 	A.pos -= A.inv_mass * correction;

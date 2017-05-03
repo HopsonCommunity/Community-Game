@@ -36,12 +36,12 @@ namespace Entity
 			if (c_physics->object.inv_mass == 0.0f)
 				return;
 
-			c_physics->object.velocity += (c_physics->object.force * c_physics->object.inv_mass) * (ts.asSeconds() / 2.0f);
+			c_physics->object.velocity += (c_physics->object.force * c_physics->object.inv_mass) * (ts.asSeconds() * 5.0f);
 
 			Physics::tileCollision(c_physics->object);
 
 			c_physics->object.pos += c_physics->object.velocity * ts.asSeconds();
-			
+			LOG_INFO(c_physics->object.mass, ", ", c_physics->object.inv_mass);
 			c_physics->object.force = { 0, 0 };
 
 			return;

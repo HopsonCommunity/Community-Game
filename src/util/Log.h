@@ -199,11 +199,10 @@ namespace Log
 
 #define ASSERT(x, ...) \
 		if (!(x)) {\
-			LOG_FATAL("===================="); \
-			LOG_FATAL("    ASSERT FAIL!    "); \
-			LOG_FATAL("===================="); \
+			LOG_FATAL("========================="); \
+			LOG_FATAL("    ASSERTION FAILED!    "); \
+			LOG_FATAL("========================="); \
 			LOG_FATAL(__FILE__, ": ", __LINE__); \
 			LOG_FATAL("Condition: ", #x); \
 			LOG_FATAL(__VA_ARGS__); \
-			__debugbreak(); \
 		}
