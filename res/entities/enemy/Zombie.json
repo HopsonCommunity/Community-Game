@@ -16,7 +16,7 @@
 			"src": "entity/enemy/zombie",
 			"flipOnVelocity": true,
 			"origin": {
-				"x": 32,
+				"x": 16,
 				"y": 48
 			},
 			"rect": {
@@ -27,11 +27,14 @@
 			}
 		},
 		{
-			"componentType": "Position",
-			"position": {
-				"x": 0,
-				"y": 0
-			}
+			"componentType": "Physics",
+					"aabb": {
+						"xMin": -16,
+						"yMin": -16,
+						"xMax": 32,
+						"yMax": 32
+					},
+			"movespeed": 90
 		},
 		{
 			"componentType": "Stats",
@@ -40,14 +43,6 @@
 				"health_regen": 0,
 				"armor": 10,
 				"magic_resist": 0
-			}
-		},
-		{
-			"componentType": "Velocity",
-			"speed": 100,
-			"velocity": {
-				"x": 0,
-				"y": 0
 			}
 		},
 		{

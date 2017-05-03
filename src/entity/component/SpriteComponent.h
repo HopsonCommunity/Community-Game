@@ -14,7 +14,7 @@ namespace Entity
 		Vec2 origin;
 		sf::Sprite sprite;
 		bool flipOnVelocity; // flipX based on +- velocity
-		bool flipX, flipY;
+		bool flipX;
 
 		SpriteComponent(const sf::Sprite& sprite);
 		SpriteComponent(nlohmann::json json);

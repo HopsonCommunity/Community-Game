@@ -1,5 +1,7 @@
 ﻿#include "AStar.h"
 
+#include "../app/states/StatePlaying.h"
+
 namespace AStar
 {
 	std::vector<Location> neighbors(Location id)
@@ -12,8 +14,8 @@ namespace AStar
 		{
 			std::tie(dx, dy) = dir;
 			Location next(x + dx, y + dy);
-			///@TODO: Check level tiles to see if they are out of bounds or if they are passable 
-			results.push_back(next);
+			if (State::Playing::instance->getLevel().getTiles().getTileData(0, std::get<0>(next), std::get<1>(next)).flags & (int32)Level::TileFlags::PASSABLE)
+				results.push_back(next);
 		}
 
 		if ((x + y) % 2 == 0)

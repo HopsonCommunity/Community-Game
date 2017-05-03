@@ -8,30 +8,29 @@
 #include "../../util/Log.h"
 #include "../../entity/EntityFactory.h"
 #include "../../entity/component/PhysicsComponent.h"
-#include "../../entity/component/PositionComponent.h"
 
 namespace State
 {
 	Playing* Playing::instance;
+	Entity::EntityFactory* Playing::entityFactory;
 
 	Playing::Playing(Application* app, sf::RenderWindow* window)
 		: Base(app)
 		, m_level(WORLD_SIZE, WORLD_SIZE)
 	{
 		instance = this;
+		entityFactory = new Entity::EntityFactory();
 
-		Entity::EntityFactory factory;
-
-		std::unique_ptr<Entity::Entity> player = factory.createEntity("Player.json");
+		std::unique_ptr<Entity::Entity> player = entityFactory->createEntity("Player.json");
 		LOG_INFO("Player ID: ", player.get()->getID());
 
 		m_level.player = player.get();
 		m_level.addEntity(std::move(player));
 
-		m_level.player->getComponent<Entity::PhysicsComponent>()->object.pos = { m_level.player_spawn.x * 32.0f, m_level.player_spawn.x * 32.0f };
+		m_level.player->getComponent<Entity::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f, m_level.player_spawn.x * 32.0f };
 
-		std::unique_ptr<Entity::Entity> zombie = factory.createEntity("enemy/Zombie.json");
-		zombie->getComponent<Entity::PositionComponent>()->position = { m_level.player_spawn.x * 32.0f + 170, m_level.player_spawn.x * 32.0f + 170 };
+		std::unique_ptr<Entity::Entity> zombie = entityFactory->createEntity("enemy/Zombie.json");
+		zombie->getComponent<Entity::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f + 170, m_level.player_spawn.x * 32.0f + 170 };
 
 		m_level.addEntity(std::move(zombie));
 	}

@@ -2,6 +2,7 @@
 
 #include "Components.h"
 #include "../../app/states/StatePlaying.h"
+#include "../EntityFactory.h"
 
 namespace Entity
 {
@@ -18,16 +19,14 @@ namespace Entity
 
 	void FollowPlayer::behave(Entity* entity)
 	{
-		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
+		PhysicsComponent* c_physics = entity->getComponent<PhysicsComponent>();
 		if (target)
 		{
-			VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
+			PhysicsComponent* c_target_physics = target->getComponent<PhysicsComponent>();
 
-			PositionComponent* c_target_pos = target->getComponent<PositionComponent>();
-
-			if (c_vel && c_target_pos)
+			if (c_target_physics)
 			{
-				std::vector<AStar::Location> path = AStar::constructPath({ (int32)c_pos->position.x >> 5, (int32)c_pos->position.y >> 5 }, { (int32)c_target_pos->position.x >> 5, (int32)c_target_pos->position.y >> 5 });
+				std::vector<AStar::Location> path = AStar::constructPath({ (int32)c_physics->pos.x >> 5, (int32)c_physics->pos.y >> 5 }, { (int32)c_target_physics->pos.x >> 5, (int32)c_target_physics->pos.y >> 5 });
 
 				int xa = 0, ya = 0;
 
@@ -41,17 +40,17 @@ namespace Entity
 					vec.x = vec.x << 5;
 					vec.y = vec.y << 5;
 					int offSet = 0;
-					if (c_pos->position.x < vec.x + offSet) xa++;
-					if (c_pos->position.x > vec.x + offSet) xa--;
-					if (c_pos->position.y < vec.y + offSet) ya++;
-					if (c_pos->position.y > vec.y + offSet) ya--;
+					if (c_physics->pos.x < vec.x + offSet) xa++;
+					if (c_physics->pos.x > vec.x + offSet) xa--;
+					if (c_physics->pos.y < vec.y + offSet) ya++;
+					if (c_physics->pos.y > vec.y + offSet) ya--;
 					path.clear();
 				}
 
 				if (xa != 0 || ya != 0)
-					c_vel->move(xa, ya);
+					c_physics->setVelocity(xa, ya);
 				else
-					c_vel->moving = false;
+					c_physics->moving = false;
 			}
 		}
 		else
@@ -60,7 +59,7 @@ namespace Entity
 			// otherwise set target to non-moving, necessary for the right animation to play
 
 			Entity* player = State::Playing::instance->getLevel().player;
-			PositionComponent* c_pos_player = player->getComponent<PositionComponent>();
+			PhysicsComponent* c_pos_player = player->getComponent<PhysicsComponent>();
 
 			// Tile flooding for every entity is not ideal as it really kills the fps
 			//std::vector<Entity*> entities = TileFlooding::getAllEntitesNearOtherEntity((sf::Vector2i)c_pos->position, 6, &State::SPlaying::instance->m_level);
@@ -71,14 +70,10 @@ namespace Entity
 			///@TODO: Find better solution
 			// Using euclidean distance for now
 
-			if (distance((Vec2i)c_pos_player->position, (Vec2i)c_pos->position) <= trackingDistance * 32)
+			if (distance((Vec2i)c_pos_player->pos, (Vec2i)c_physics->pos) <= trackingDistance * 32)
 				target = player;
-			 else
-			{
-				VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
-				if (c_vel)
-					c_vel->moving = false;
-			}
+			else
+				c_physics->moving = false;
 		}
 	}
 }

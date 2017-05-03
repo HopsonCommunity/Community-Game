@@ -2,7 +2,7 @@
 
 #include "Component.h"
 
-#include "../../maths/Collision.h"
+#include "../../maths/AABB.h"
 #include "../../util/json.hpp"
 
 namespace Entity
@@ -10,9 +10,14 @@ namespace Entity
 	class PhysicsComponent : public Component
 	{
 	public:
-		Object object;
+		AABB aabb;
+		Vec2 pos, velocity;
+		bool moving;
+		float movespeed;
 
-		PhysicsComponent(const Object& hitbox);
+		void setVelocity(float xa, float ya);
+
+		PhysicsComponent(const AABB& hitbox);
 		PhysicsComponent(nlohmann::json json);
 
 		std::unique_ptr<Component> clone() override

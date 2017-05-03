@@ -5,7 +5,6 @@
 #include "../util/Timestep.h"
 #include "../app/Application.h"
 #include "../entity/component/PhysicsComponent.h"
-#include "../entity/component/PositionComponent.h"
 
 namespace Level
 {
@@ -72,7 +71,7 @@ namespace Level
 		int offsetY = static_cast<int>((mouseY - halfHeight) * 0.1f);
 
 		Entity::PhysicsComponent* c_pos = player->getComponent<Entity::PhysicsComponent>();
-		m_view.setCenter(c_pos->object.pos.x + offsetX, c_pos->object.pos.y + 0.01f + offsetY);
+		m_view.setCenter(c_pos->pos.x + offsetX, c_pos->pos.y + 0.01f + offsetY);
 	}
 
 	void Level::windowResize(Vec2 size)

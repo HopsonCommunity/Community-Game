@@ -1,43 +1,48 @@
 ﻿#pragma once
 
-#include "../../maths/Collision.h"
+#include "../../maths/AABB.h"
 
 #include "../../app/states/StatePlaying.h"
 #include "../../level/tile/Tile.h"
 
-#include "../../util/Log.h"
-
 namespace Physics
 {
-	bool tileCollision(Object& player)
+	std::pair<bool, bool> tileCollision(Vec2 position, Vec2 velocity, AABB& hitBox, float dt)
 	{
-		for (int x = -1; x < 2; x++)
-			for (int y = -1; y < 2; y++)
-			{
-				int xt = x + player.pos.x / 32;
-				int yt = y + player.pos.y / 32;
+		int tileX0 = (int)((position.x + velocity.x * dt + hitBox.min.x) / TILE_SIZE);
+		int tileX1 = (int)((position.x + velocity.x * dt + hitBox.min.x + hitBox.max.x) / TILE_SIZE) + 2;
+		int tileY0 = (int)((position.y + velocity.y * dt + hitBox.min.y) / TILE_SIZE);
+		int tileY1 = (int)((position.y + velocity.y * dt + hitBox.min.y + hitBox.max.y) / TILE_SIZE) + 2;
 
-				Level::TileData data = State::Playing::instance->getLevel().getTiles().getTileData(0, xt, yt);
+		bool collidingX = false;
+		bool collidingY = false;
+		for (int x = tileX0; x < tileX1; x++)
+		{
+			for (int y = tileY0; y < tileY1; y++)
+			{
+				Level::TileData data = State::Playing::instance->getLevel().getTiles().getTileData(0, x, y);
 				if (!(bool)(data.flags & (int32)Level::TileFlags::PASSABLE))
 				{
-					Manifold* m = new Manifold();
-					Object tileObject;
-					tileObject.pos = { xt * 32.0f, yt * 32.0f };
-					tileObject.aabb = { { 0, 0 }, { 32, 32 } };
+					float x0 = x * TILE_SIZE;
+					float y0 = y * TILE_SIZE;
+					float x1 = x0 + TILE_SIZE;
+					float y1 = y0 + TILE_SIZE;
 
-					tileObject.density = 0;
-					tileObject.restitution = .4f;
-
-					tileObject.initMass();
-
-					m->A = &player;
-					m->B = &tileObject;
-					AABBtoAABB(m);
-					ResolveCollision(*m, player, tileObject);
-					PositionalCorrection(*m, player, tileObject);
+					if (position.x + velocity.x * dt + hitBox.min.x + hitBox.max.x > x0
+						&& position.x + velocity.x * dt + hitBox.min.x < x1
+						&& position.y + hitBox.min.y + hitBox.max.y > y0
+						&& position.y + hitBox.min.y < y1)
+						collidingX = true;
+	
+					if (position.x + hitBox.min.x + hitBox.max.x > x0
+						&& position.x + hitBox.min.x < x1
+						&& position.y + velocity.y * dt + hitBox.min.y + hitBox.max.y > y0
+						&& position.y + velocity.y * dt + hitBox.min.y < y1)
+						collidingY = true;
 				}
 			}
+		}
 
-		return false;
+		return std::make_pair(collidingX, collidingY);
 	}
 }

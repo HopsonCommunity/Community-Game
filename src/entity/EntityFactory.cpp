@@ -65,14 +65,10 @@ namespace Entity
 				entity->addComponent<MoveComponent>(std::make_unique<MoveComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Player")
 				entity->addComponent<PlayerComponent>(std::make_unique<PlayerComponent>(componentJSON));
-			if (componentJSON["componentType"].get<std::string>() == "Position")
-				entity->addComponent<PositionComponent>(std::make_unique<PositionComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Sprite")
 				entity->addComponent<SpriteComponent>(std::make_unique<SpriteComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Stats")
 				entity->addComponent<StatsComponent>(std::make_unique<StatsComponent>(componentJSON));
-			if (componentJSON["componentType"].get<std::string>() == "Velocity")
-				entity->addComponent<VelocityComponent>(std::make_unique<VelocityComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Hostile")
 				entity->addComponent<HostileComponent>(std::make_unique<HostileComponent>(componentJSON));
 		}
