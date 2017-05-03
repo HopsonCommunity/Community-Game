@@ -57,12 +57,9 @@ static void ResolveCollision(Manifold& m, Object A, Object B)
 	j /= A.inv_mass + B.inv_mass;
 	LOG_INFO(j);
 	Vec2 impulse = j * m.normal;
-	float mass_sum = A.mass + B.mass;
-	float ratio = A.mass / mass_sum;
-	A.velocity += impulse;
+	A.velocity += impulse * A.inv_mass;
 
-	ratio = B.mass / mass_sum;
-	B.velocity += ratio * impulse;
+	B.velocity += impulse * B.inv_mass;
 }
 
 static void PositionalCorrection(Manifold& m, Object A, Object B)

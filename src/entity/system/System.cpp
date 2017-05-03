@@ -148,8 +148,10 @@ namespace Entity
 			if (Application::instance->inputPressed(MOVE_RIGHT))
 				xa++;
 
-			if (xa != 0 || ya != 0)
-				c_physics->object.force += { xa * 120.0f, ya * 120.0f};
+			xa *= 100;
+			ya *= 100;
+
+			c_physics->object.force += { xa, ya };
 
 			c_sprite->flipX = (int32)Application::instance->mousePosition().x > (int32)Application::instance->getWindow().getSize().x / 2;
 		}

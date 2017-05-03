@@ -40,7 +40,7 @@ namespace Log
 	struct has_iterator
 	{
 		template<class U> static char(&test(typename U::iterator const*))[1];
-		template<class U> static char(&test(...))[2]{ return; }
+		template<class U> static char(&test(...))[2];
 		static const bool value = (sizeof(test<T>(0)) == 1);
 	};
 	
