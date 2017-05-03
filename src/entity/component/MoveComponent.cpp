@@ -1,6 +1,6 @@
 ﻿#include "MoveComponent.h"
 
-namespace Framework
+namespace Entity
 {
 	MoveType MoveComponent::stringToEnum(const std::string& string)
 	{
@@ -18,16 +18,5 @@ namespace Framework
 	MoveComponent::MoveComponent(nlohmann::json json)
 		: type(stringToEnum(json["type"]))
 	{
-	}
-
-	ComponentType* MoveComponent::getStaticType()
-	{
-		static ComponentType type({ "Move" });
-		return &type;
-	}
-
-	ComponentType * MoveComponent::getType() const
-	{
-		return getStaticType();
 	}
 }

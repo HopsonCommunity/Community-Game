@@ -1,0 +1,31 @@
+﻿#pragma once
+
+#include "../../level/Level.h"
+#include "StateBase.h"
+
+namespace State
+{
+	class Playing : public Base
+	{
+	public:
+		static Playing* instance;
+		
+	public:
+		Playing(Application* app, sf::RenderWindow* window);
+		
+		void event(sf::Event& event) override;
+		void input() override;
+		void update(const Timestep& ts) override;
+		void render(sf::RenderWindow& window) override;
+		void tick() override;
+
+		Level::Level& getLevel() { return m_level; }
+
+	private:
+		Level::Level m_level;
+
+		void singleplayerCallback() {}
+		void multiplayerCallback() {}
+		void creditsCallback() {}
+	};
+}

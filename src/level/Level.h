@@ -1,49 +1,38 @@
 ﻿#pragma once
 
-#include "Tile/Tile.h"
+#include "../Common.h"
 
+#include "tile/TileMap.h"
+#include "../entity/Entity.h"
 #include "../entity/system/System.h"
-#include "../util/Timestep.h"
 
-#include <iostream>
-
-namespace Framework
-{
-	class Entity;
-	class Player;
-}
+#define WORLD_SIZE 100
 
 namespace Level
 {
 	class Level
 	{
-        public:
-            Level() {}
-            Level(unsigned int width, unsigned int height);
-			
-            void addEntity(std::unique_ptr<Framework::Entity> entity);
-            Framework::Entity* getEntity(const uint64& id);
+	public:
+		Level(uint width, uint height);
 
-			Framework::Entity* getPlayer() { return player; }
+		void addEntity(std::unique_ptr<Entity::Entity> entity);
 
-			void setTile(unsigned int x, unsigned int y, Tile::Tile& tile);
-            Tile::Tile* getTile(unsigned int x, unsigned int y);
-            
-            Framework::Entity* getEntityOnTile(unsigned int x, unsigned int y);
+		void render(sf::RenderWindow& window);
+		void update(const Timestep& ts);
+		void windowResize(Vec2 size);
 
-			void update(const Timestep& ts);
-            void render(sf::RenderWindow& window);
+		TileMap& getTiles() { return m_tiles; }
 
-        private:
-            uint m_width;
-            uint m_height;
-            std::vector<Tile::Tile*> m_tiles;
+	private:
+		sf::View m_view;
+		TileMap m_tiles;
 
-			std::vector<std::unique_ptr<Framework::Entity>> m_entities;
+		std::unique_ptr<Entity::System> m_renderSystem;
 
-			std::unique_ptr<Framework::System> m_renderSystem;
-			std::vector<std::unique_ptr<Framework::System>> m_updateSystems;
-		public:
-			Framework::Entity* player;
+		std::vector<std::unique_ptr<Entity::Entity>> m_entities;
+		std::vector<std::unique_ptr<Entity::System>> m_updateSystems;
+	public:
+		Entity::Entity* player;
+		Vec2i player_spawn;
 	};
 }

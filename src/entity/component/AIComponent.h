@@ -1,22 +1,45 @@
 ﻿#pragma once
 
 #include "Component.h"
+#include "../Entity.h"
 
-#include "../../util/AStar.h"
+#include "../../maths/AStar.h"
+#include "../../util/json.hpp"
 
-namespace Framework
+namespace Entity
 {
-    class AIComponent : public Component
-    {
-    public:
-        AIComponent(double trackingDistance);
-        AIComponent(nlohmann::json json);
+	class Behaviour
+	{
+	public:
+		virtual void behave(Entity* target) {};
+	};
 
-        std::function<std::vector<Util::Node*>(Vec2i, Vec2i, Level::Level*)> findPath;
-        Entity* trackingEntity;
-        double trackingDistance;
+	class FollowPlayer : public Behaviour
+	{
+	public:
+		Entity* target;
+		double trackingDistance;
 
-        static ComponentType* getStaticType();
-        virtual ComponentType* getType() const override;
-    };
+		std::function<std::vector<AStar::Location>(AStar::Location, AStar::Location)> findPath;
+	public:
+		FollowPlayer(double trackingDistance, std::function<std::vector<AStar::Location>(AStar::Location, AStar::Location)> func);
+
+		void behave(Entity* entity) override;
+	};
+
+	class AIComponent : public Component
+	{
+	public:
+		///@TODO: Make this smart ptr
+		Behaviour* behaviour;
+	public:
+		AIComponent(nlohmann::json json);
+
+		std::unique_ptr<Component> clone() override
+		{
+			return std::make_unique<AIComponent>(*this);
+		}
+
+		static const int ID = 1;
+	};
 }

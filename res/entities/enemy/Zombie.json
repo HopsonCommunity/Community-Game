@@ -1,75 +1,75 @@
-{
+﻿{
 	"name": "Zombie",
 	"components": [
-	{
-		"componentType": "AI",
-		"trackingDistance": 7
-	},
-	{
-		"componentType": "Sprite",
-		"src": "entity/enemy/zombie",
-		"origin": {
-			"x": 32,
-			"y": 48
-		},
-		"rect": {
-			"left": 0,
-			"top": 0,
-			"width": 64,
-			"height": 64
-		}
-	},
-	{
-		"componentType": "Position",
-		"position": {
-			"x": 0,
-			"y": 0
-		}
-	},
-	{
-		"componentType": "Collision",
-		"aabb": {
-			"xMin": 16,
-			"yMin": 28,
-			"xMax": 47,
-			"yMax": 64
-		}
-	},
-	{
-		"componentType": "Stats",
-		"base": {
-			"max_health": 50,
-			"health_regen": 0,
-			"armor": 10,
-			"magic_resist": 0
-		}
-	},
-	{
-		"componentType": "Velocity",
-		"speed": 100,
-		"velocity": {
-			"x": 0,
-			"y": 0
-		}
-	},
-	{
-		"componentType": "Animator",
-		"animations": [
 		{
-			"name": "idle",
-			"positionX": 16,
-			"positionY": 0,
-			"stride": 64,
-			"length": 4,
-			"fps": 7
+			"componentType": "AI",
+			"behaviour": {
+				"type": "FollowPlayer",
+				"trackingDistance": 7
+			}
 		},
 		{
-			"name": "run",
-			"positionX": 16,
-			"positionY": 64,
-			"stride": 64,
-			"length": 4,
-			"fps": 14
-		}]
-	}]
+			"componentType": "Hostile"
+		},
+		{
+			"componentType": "Sprite",
+			"src": "entity/enemy/zombie",
+			"flipOnVelocity": true,
+			"origin": {
+				"x": 32,
+				"y": 48
+			},
+			"rect": {
+				"left": 0,
+				"top": 0,
+				"width": 64,
+				"height": 64
+			}
+		},
+		{
+			"componentType": "Position",
+			"position": {
+				"x": 0,
+				"y": 0
+			}
+		},
+		{
+			"componentType": "Stats",
+			"base": {
+				"max_health": 50,
+				"health_regen": 0,
+				"armor": 10,
+				"magic_resist": 0
+			}
+		},
+		{
+			"componentType": "Velocity",
+			"speed": 100,
+			"velocity": {
+				"x": 0,
+				"y": 0
+			}
+		},
+		{
+			"componentType": "Animator",
+			"animations": [
+				{
+					"name": "idle",
+					"positionX": 16,
+					"positionY": 0,
+					"stride": 64,
+					"length": 4,
+					"fps": 7
+				},
+				{
+					"name": "run",
+					"positionX": 16,
+					"positionY": 64,
+					"stride": 64,
+					"length": 4,
+					"fps": 14
+				}
+			]
+		}
+	]
 }

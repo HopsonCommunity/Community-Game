@@ -1,6 +1,6 @@
 ﻿#include "AnimatorComponent.h"
 
-namespace Framework
+namespace Entity
 {
 	AnimatorComponent::AnimatorComponent(Animator animator)
 		: animator(animator)
@@ -16,16 +16,5 @@ namespace Framework
 			nlohmann::json animation = animations[i];
 			animator.addAnimation(animation["name"], animation["positionX"], animation["positionY"], animation["stride"], animation["length"], animation["fps"]);
 		}
-	}
-
-	ComponentType* AnimatorComponent::getStaticType()
-	{
-		static ComponentType type({ "Animator" });
-		return &type;
-	}
-
-	ComponentType* AnimatorComponent::getType() const
-	{
-		return getStaticType();
 	}
 }

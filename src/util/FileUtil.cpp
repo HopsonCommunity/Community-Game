@@ -16,22 +16,22 @@ std::string getFileContents(const std::string& filePath)
 	std::stringstream ss;
 	int encoding = ENCODING_ASCII;
 
-	if (!ifs.is_open()) 
+	if (!ifs.is_open())
 	{
 		result.clear(); // Unable to read file
 		return result;
 	}
 	else if (ifs.eof())
 		result.clear();
-	else 
+	else
 	{
 		int ch1 = ifs.get();
 		int ch2 = ifs.get();
-		
+
 		int ch3 = ifs.get();
-		if (ch1 == 0xef && ch2 == 0xbb && ch3 == 0xbf) 
+		if (ch1 == 0xef && ch2 == 0xbb && ch3 == 0xbf)
 			encoding = ENCODING_UTF8; // The file contains UTF-8 BOM
-		else 
+		else
 		{
 			encoding = ENCODING_ASCII; // The file does not have BOM
 			ifs.seekg(0);

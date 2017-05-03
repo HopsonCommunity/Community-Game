@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace Framework
+namespace Entity
 {
 	void Animator::setAnimation(std::string name)
 	{

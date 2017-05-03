@@ -4,7 +4,9 @@
 
 #include "AIComponent.h"
 #include "AnimatorComponent.h"
-#include "CollisionComponent.h"
+#include "PhysicsComponent.h"
+#include "HostileComponent.h"
+#include "LifeComponent.h"
 #include "MoveComponent.h"
 #include "PlayerComponent.h"
 #include "PositionComponent.h"

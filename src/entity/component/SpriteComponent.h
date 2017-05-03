@@ -2,21 +2,28 @@
 
 #include "Component.h"
 
+#include "../../util/json.hpp"
+
 #include <SFML/Graphics/Sprite.hpp>
 
-namespace Framework
+namespace Entity
 {
 	class SpriteComponent : public Component
 	{
 	public:
 		Vec2 origin;
 		sf::Sprite sprite;
+		bool flipOnVelocity; // flipX based on +- velocity
 		bool flipX, flipY;
-	public:
+
 		SpriteComponent(const sf::Sprite& sprite);
 		SpriteComponent(nlohmann::json json);
 
-		static ComponentType* getStaticType();
-		virtual ComponentType* getType() const override;;
+		std::unique_ptr<Component> clone() override
+		{
+			return std::make_unique<SpriteComponent>(*this);
+		}
+
+		static const int ID = 7;
 	};
 }

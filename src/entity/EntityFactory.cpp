@@ -2,45 +2,84 @@
 
 #include "component/Components.h"
 
-#include "../Application.h"
-#include "../util/FileUtil.h" 
+#include "../app/Application.h"
+#include "../util/FileUtil.h"
 #include "../util/json.hpp"
 
 #include <fstream>
+#include <sstream>
+#include <iostream>
 
-namespace Framework 
+namespace Entity
 {
-	std::unique_ptr<Entity> EntityFactory::createEntity(std::string filePath) {
-		
-		std::string source = getFileContents("res/entities/" + filePath + ".json");
+	EntityFactory::EntityFactory()
+		: m_lastID(0)
+	{
+		/*
+		std::string source = getFileContents("res/entities/Entities.txt");
+		std::istringstream sstream(source);
+		std::string line;
+
+		while (std::getline(sstream, line))
+		{
+			line.pop_back();
+			createTemplate(line);
+		}
+		*/
+	}
+
+	std::unique_ptr<Entity> EntityFactory::createEntity(std::string name)
+	{
+		if (m_templates.find(name) == m_templates.end())
+			createTemplate(name);
+
+		return m_templates.find(name)->second->clone(++m_lastID);
+	}
+
+	std::unique_ptr<Entity> EntityFactory::createHostileEntity()
+	{
+		int hostileMob = Random::intInRange(0, m_hostileMobs.size() - 1);
+
+		return createEntity(m_hostileMobs[hostileMob]);
+	}
+
+	void EntityFactory::createTemplate(std::string filePath) 
+	{
+		std::string source = getFileContents("res/entities/" + filePath);
 		nlohmann::json json = nlohmann::json::parse(source.c_str());
 
 		std::unique_ptr<Entity> entity = std::make_unique<Entity>();
-		
+
 		std::vector<nlohmann::json> componentsJSON = json["components"];
 		for (unsigned int i = 0; i < componentsJSON.size(); i++)
 		{
 			nlohmann::json componentJSON = componentsJSON[i];
 
 			if (componentJSON["componentType"].get<std::string>() == "AI")
-				entity->addComponent(std::make_unique<AIComponent>(componentJSON));
+				entity->addComponent<AIComponent>(std::make_unique<AIComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Animator")
-				entity->addComponent(std::make_unique<AnimatorComponent>(componentJSON));
-			if (componentJSON["componentType"].get<std::string>() == "Collision")
-				entity->addComponent(std::make_unique<CollisionComponent>(componentJSON));
+				entity->addComponent<AnimatorComponent>(std::make_unique<AnimatorComponent>(componentJSON));
+			if (componentJSON["componentType"].get<std::string>() == "Physics")
+				entity->addComponent<PhysicsComponent>(std::make_unique<PhysicsComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Move")
-				entity->addComponent(std::make_unique<MoveComponent>(componentJSON));
+				entity->addComponent<MoveComponent>(std::make_unique<MoveComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Player")
-				entity->addComponent(std::make_unique<PlayerComponent>(componentJSON));
+				entity->addComponent<PlayerComponent>(std::make_unique<PlayerComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Position")
-				entity->addComponent(std::make_unique<PositionComponent>(componentJSON));
+				entity->addComponent<PositionComponent>(std::make_unique<PositionComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Sprite")
-				entity->addComponent(std::make_unique<SpriteComponent>(componentJSON));
+				entity->addComponent<SpriteComponent>(std::make_unique<SpriteComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Stats")
-				entity->addComponent(std::make_unique<StatsComponent>(componentJSON));
+				entity->addComponent<StatsComponent>(std::make_unique<StatsComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Velocity")
-				entity->addComponent(std::make_unique<VelocityComponent>(componentJSON));
+				entity->addComponent<VelocityComponent>(std::make_unique<VelocityComponent>(componentJSON));
+			if (componentJSON["componentType"].get<std::string>() == "Hostile")
+				entity->addComponent<HostileComponent>(std::make_unique<HostileComponent>(componentJSON));
 		}
-		return entity;
+
+		if (entity->getComponent<HostileComponent>())
+			m_hostileMobs.push_back(filePath);
+
+		m_templates[filePath] = std::move(entity);
 	}
 }

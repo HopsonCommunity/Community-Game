@@ -2,17 +2,23 @@
 
 #include "Component.h"
 
-namespace Framework
+#include "../../util/json.hpp"
+
+namespace Entity
 {
 	class PositionComponent : public Component
 	{
 	public:
 		Vec2 position;
-	public:
-		PositionComponent(const Vec2& position = {0, 0});
+
+		PositionComponent(const Vec2& position = { 0, 0 });
 		PositionComponent(nlohmann::json json);
 
-		static ComponentType* getStaticType();
-		virtual ComponentType* getType() const override;;
+		std::unique_ptr<Component> clone() override
+		{
+			return std::make_unique<PositionComponent>(*this);
+		}
+
+		static const int ID = 6;
 	};
 }

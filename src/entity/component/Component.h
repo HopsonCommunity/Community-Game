@@ -3,18 +3,16 @@
 #include "../../maths/Maths.h"
 #include "../../util/json.hpp"
 
-namespace Framework
-{
-	struct ComponentType
-	{
-		std::string name;
-	};
+#include <memory>
 
+namespace Entity
+{
 	class Component
 	{
 	public:
 		Component() {};
+		virtual ~Component() {};
 
-		virtual ComponentType* getType() const { return nullptr; }
+		virtual std::unique_ptr<Component> clone() { return std::make_unique<Component>(*this); };
 	};
 }

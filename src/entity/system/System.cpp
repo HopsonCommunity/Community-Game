@@ -3,53 +3,66 @@
 #include "../Entity.h"
 #include "../EntityFactory.h"
 #include "../component/Components.h"
-#include "../physics/TileCollision.h"
+#include "../../level/tile/TileCollision.h"
 
 #include "../../maths/Maths.h"
+#include "../../util/Log.h"
 #include "../../util/Timestep.h"
-#include "../../util/TileFlooding.h"
-#include "../../level/LevelRenderer.h"
-#include "../../states/StatePlaying.h"
+#include "../../level/tile/TileFlooding.h"
+#include "../../app/Application.h"
 
-namespace Framework
+namespace Entity
 {
 	void move(Vec2 dest, Entity* entity)
 	{
 		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
 		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
-		CollisionComponent* c_col = entity->getComponent<CollisionComponent>();
-
+		
 		if (dest.x != c_pos->position.x && dest.y != c_pos->position.y)
 		{
 			move({ dest.x, c_pos->position.y }, entity);
 			move({ c_pos->position.x, dest.y }, entity);
 		}
 
-		if (c_col)
-		{
-			bool colliding = c_col ? Physics::tileCollision(Vec2i(dest), c_col->aabb) : false;
-			if (!colliding)
-			{
-				c_pos->position.x = dest.x;
-				c_pos->position.y = dest.y;
-			}
-		}
-		else
-		{
-			c_pos->position.x = dest.x;
-			c_pos->position.y = dest.y;
-		}
+		c_pos->position.x = dest.x;
+		c_pos->position.y = dest.y;
 	}
 
 	void MoveSystem::update(const Timestep& ts, Entity* entity)
 	{
+		PhysicsComponent* c_physics = entity->getComponent<PhysicsComponent>();
+		if (c_physics)
+		{
+			if (c_physics->object.inv_mass == 0.0f)
+				return;
+
+			c_physics->object.velocity += (c_physics->object.force * c_physics->object.mass) * (ts.asSeconds() / 2);
+
+			Physics::tileCollision(c_physics->object);
+
+			c_physics->object.pos += c_physics->object.velocity * ts.asSeconds();
+			c_physics->object.force = { 0, 0 };
+
+			return;
+		}
+
 		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
 		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
+		SpriteComponent* c_sprite = entity->getComponent<SpriteComponent>();
+
+		if (c_sprite)
+			if (c_sprite->flipOnVelocity)
+			{
+				if (c_vel->velocity.x > 0)
+					c_sprite->flipX = true;
+				else if (c_vel->velocity.x < 0)
+					c_sprite->flipX = false;
+			}
 
 		if (c_pos && c_vel)
 		{
 			Vec2 dest(c_pos->position.x + c_vel->velocity.x * c_vel->speed * ts.asSeconds(), c_pos->position.y + c_vel->velocity.y * c_vel->speed * ts.asSeconds());
-
+			
 			move(dest, entity);
 		}
 
@@ -62,7 +75,6 @@ namespace Framework
 		StatsComponent* c_stats = entity->getComponent<StatsComponent>();
 		if (c_stats)
 		{
-			c_stats->stats.reset();
 			for (auto effect : c_stats->active_effects)
 			{
 				effect->manageDuration();
@@ -73,9 +85,9 @@ namespace Framework
 
 	void AnimatorSystem::update(const Timestep& ts, Entity* entity)
 	{
-		SpriteComponent*    c_sprite = entity->getComponent<Framework::SpriteComponent>();
-		AnimatorComponent*  c_anim   = entity->getComponent<Framework::AnimatorComponent>();
-		VelocityComponent*  c_vel    = entity->getComponent<VelocityComponent>();
+		SpriteComponent*    c_sprite = entity->getComponent<SpriteComponent>();
+		AnimatorComponent*  c_anim = entity->getComponent<AnimatorComponent>();
+		VelocityComponent*  c_vel = entity->getComponent<VelocityComponent>();
 
 		if (c_sprite && c_anim)
 		{
@@ -88,14 +100,22 @@ namespace Framework
 
 	void RenderSystem::update(const Timestep& ts, Entity* entity)
 	{
-		PositionComponent* c_pos = entity->getComponent<Framework::PositionComponent>();
-		SpriteComponent* c_sprite = entity->getComponent<Framework::SpriteComponent>();
+		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
+		PhysicsComponent* c_physics = entity->getComponent<PhysicsComponent>();
+		SpriteComponent* c_sprite = entity->getComponent<SpriteComponent>();
 
 		if (c_pos && c_sprite)
 		{
 			c_sprite->sprite.setOrigin(c_sprite->origin);
-			c_sprite->sprite.setScale(static_cast<float>(c_sprite->flipX ? 1 : -1), 1.0f);
-			Level::LevelRenderer::renderEntitySprite(c_pos->position.x, c_pos->position.y, c_sprite->sprite);
+			c_sprite->sprite.setScale(c_sprite->flipX ? 1.0f : -1.0f, 1.0f);
+			
+			sf::RenderStates states;
+			if (!c_physics)
+				states.transform.translate(c_pos->position);
+			else
+				states.transform.translate(c_physics->object.pos);
+
+			Application::instance->getWindow().draw(c_sprite->sprite, states);
 		}
 	}
 
@@ -103,78 +123,20 @@ namespace Framework
 	{
 		AIComponent* c_ai = entity->getComponent<AIComponent>();
 		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
-		if (c_ai && c_pos)
-		{
-			if (c_ai->trackingEntity)
-			{
-				PositionComponent* c_enemy_pos = c_ai->trackingEntity->getComponent<PositionComponent>();
-				VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
-
-				if (c_vel && c_enemy_pos)
-				{
-					std::vector<Util::Node*> path = c_ai->findPath({ (int32)c_pos->position.x >> 5, (int32)c_pos->position.y >> 5 }, { (int32)c_enemy_pos->position.x >> 5, (int32)c_enemy_pos->position.y >> 5 }, &State::SPlaying::instance->m_level);
-					int xa = 0, ya = 0;
-
-					if (path.size() > c_ai->trackingDistance * 1.5)
-						c_ai->trackingEntity = nullptr;
-
-					if (!path.empty())
-					{
-						Vec2i vec = path.at(path.size() - 1)->pos;
-						vec.x = vec.x << 5;
-						vec.y = vec.y << 5;
-						int offSet = 5; //Magic number. I'm using it to avoid zombie flickering in walls.
-						if (c_pos->position.x < vec.x + offSet) xa++;
-						if (c_pos->position.x > vec.x + offSet) xa--;
-						if (c_pos->position.y < vec.y + offSet) ya++;
-						if (c_pos->position.y > vec.y + offSet) ya--;
-						path.clear();
-					}
-
-					if (xa != 0 || ya != 0)
-						c_vel->move(xa, ya);
-					else
-						c_vel->moving = false;
-				}
-			}
-			else
-			{
-				// Check if player is in distance of this entity and set it as target if it is,
-				// otherwise set target to non-moving, necessary for the right animation to play
-
-				Entity* player = State::SPlaying::instance->m_level.player;
-				PositionComponent* c_pos_player = player->getComponent<PositionComponent>();
-
-				// Tile flooding for every entity is not ideal as it really kills the fps
-				//std::vector<Entity*> entities = TileFlooding::getAllEntitesNearOtherEntity((sf::Vector2i)c_pos->position, 6, &State::SPlaying::instance->m_level);
-				//for (Entity* ent : entities)
-				//	if (ent == player)
-				//		c_ai->trackingEntity = player;
-
-				///@TODO: Find better solution
-				//Using euclidean distance for now
-				if (distance((Vec2i)c_pos_player->position, (Vec2i)c_pos->position) <= c_ai->trackingDistance * 32)
-					c_ai->trackingEntity = player;
-				else
-				{
-					VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
-					if (c_vel)
-						c_vel->moving = false;
-				}
-			}
-		}
-
+		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
+		if (c_ai && c_pos && c_vel)
+			c_ai->behaviour->behave(entity);
 	}
 
 	void PlayerInputSystem::update(const Timestep& ts, Entity* entity)
 	{
-		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
+		PhysicsComponent* c_physics = entity->getComponent<PhysicsComponent>();
 		PlayerComponent* c_player = entity->getComponent<PlayerComponent>();
 		SpriteComponent* c_sprite = entity->getComponent<SpriteComponent>();
 
-		if (c_player && c_vel)
+		if (c_player && c_physics)
 		{
-			int xa = 0, ya = 0;
+			float xa = 0, ya = 0;
 
 			if (Application::instance->inputPressed(MOVE_UP))
 				ya--;
@@ -185,17 +147,28 @@ namespace Framework
 			if (Application::instance->inputPressed(MOVE_RIGHT))
 				xa++;
 
-			if (xa != 0 || ya != 0)
-				c_vel->move(xa, ya);
-			else
-				c_vel->moving = false;
+			xa *= 2;
+			ya *= 2;
+
+			c_physics->object.force += { xa, ya };
 
 			c_sprite->flipX = (int32)Application::instance->mousePosition().x > (int32)Application::instance->getWindow().getSize().x / 2;
+		}
+	}
 
-			if (c_vel->velocity.x > 0)
-				c_sprite->flipX = true;
-			else if (c_vel->velocity.x < 0)
-				c_sprite->flipX = false;
+	void LifeSystem::update(const Timestep& ts, Entity* entity)
+	{
+		LifeComponent* c_life = entity->getComponent<LifeComponent>();
+
+		if (c_life)
+		{
+			if (c_life->done)
+				///@TODO: Remove from level
+			{
+			}
+			c_life->life -= ts.asSeconds();
+			if (c_life->life <= 0)
+				c_life->done = 1;
 		}
 	}
 }

@@ -1,27 +1,26 @@
 ﻿#include "BGM.h"
 
-#include "../Application.h"
+#include "../app/Application.h"
 
-namespace Sound {
-namespace BGM
+namespace Sound 
 {
+	void BGM::loadMusic()
+	{
+		BGM::challenge.openFromFile("res/music/Challenge.ogg");
+		BGM::lunar_streams.openFromFile("res/music/LunarStreams.ogg");
+		BGM::menu.openFromFile("res/music/Menu.ogg");
 
-    void BGM::loadMusic()
-    {
-        BGM::challenge.openFromFile("res/music/Challenge.ogg");
-        BGM::lunar_streams.openFromFile("res/music/LunarStreams.ogg");
-        BGM::menu.openFromFile("res/music/Menu.ogg");
+		sf::Music music;
+	}
 
-        sf::Music music;
-    }
+	void BGM::play(sf::Music& music)
+	{
+		music.play();
+	}
 
-    void BGM::play(sf::Music& music)
-    {
-        music.play();
-    }
-
-    void BGM::pause(sf::Music& music)
-    {
-        music.pause();
-    }
-}}
+	void BGM::pause(sf::Music& music)
+	{
+		music.pause();
+	}
+	
+}
