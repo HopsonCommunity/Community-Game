@@ -33,10 +33,14 @@ namespace Entity
 		PhysicsComponent* c_physics = entity->getComponent<PhysicsComponent>();
 		if (c_physics)
 		{
+			if (c_physics->object.inv_mass == 0.0f)
+				return;
+
+			c_physics->object.velocity += (c_physics->object.force * c_physics->object.inv_mass) * (ts.asSeconds() / 2.0f);
+
 			Physics::tileCollision(c_physics->object);
 
-			c_physics->object.velocity += (c_physics->object.inv_mass * c_physics->object.force);
-			c_physics->object.pos += c_physics->object.velocity;
+			c_physics->object.pos += c_physics->object.velocity * ts.asSeconds();
 			
 			c_physics->object.force = { 0, 0 };
 

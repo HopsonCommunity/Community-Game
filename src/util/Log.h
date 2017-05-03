@@ -45,70 +45,63 @@ namespace Log
 	};
 	
 	template <typename T>
-	static const char* to_string_internal(const T& v, const std::true_type& ignored)
+	inline const char* to_string_internal(const T& v, const std::true_type& ignored)
 	{
 		sprintf(to_string_buffer, "Container of size: %d, contents: %s", v.size(), format_iterators(v.begin(), v.end()).c_str());
 		return to_string_buffer;
 	}
 
 	template <typename T>
-	static const char* to_string_internal(const T& t, const std::false_type& ignored)
+	inline const char* to_string_internal(const T& t, const std::false_type& ignored)
 	{
 		auto x = std::to_string(t);
 		return strcpy(to_string_buffer, x.c_str());
 	}
 
 	template <typename T>
-	static const char* to_string(const T& t)
+	inline const char* to_string(const T& t)
 	{
 		return to_string_internal<T>(t, std::integral_constant<bool, has_iterator<T>::value>());
 	}
 
 	template <>
-	static const char* to_string<char>(const char& t)
+	inline const char* to_string<char>(const char& t)
 	{
 		return &t;
 	}
 
 	template <>
-	static const char* to_string<char*>(char* const& t)
+	inline const char* to_string<char*>(char* const& t)
 	{
 		return t;
 	}
 
 	template <>
-	static const char* to_string<unsigned char const*>(unsigned char const* const& t)
+	inline const char* to_string<unsigned char const*>(unsigned char const* const& t)
 	{
 		return (const char*)t;
 	}
 
 	template <>
-	static const char* to_string<const char*>(const char* const& t)
+	inline const char* to_string<const char*>(const char* const& t)
 	{
 		return t;
 	}
 
 	template <>
-	static const char* to_string<std::string>(const std::string& t)
+	inline const char* to_string<std::string>(const std::string& t)
 	{
 		return t.c_str();
 	}
 
 	template <>
-	static const char* to_string<bool>(const bool& t)
+	inline const char* to_string<bool>(const bool& t)
 	{
 		return t ? "true" : "false";
 	}
 
-	template<typename X, typename Y>
-	static const char* to_string(const std::pair<typename X, typename Y>& v)
-	{
-		sprintf(to_string_buffer, "(Key: %s, Value: %s)", to_string(v.first), to_string(v.second));
-		return to_string_buffer;
-	}
-
 	template <typename First>
-	static void print_log_internal(char* buffer, int32& position, First&& first)
+	inline void print_log_internal(char* buffer, int32& position, First&& first)
 	{
 		const char* formatted = Log::to_string<First>(first);
 		int32 length = strlen(formatted);
@@ -117,7 +110,7 @@ namespace Log
 	}
 
 	template <typename First, typename... Args>
-	static void print_log_internal(char* buffer, int32& position, First&& first, Args&&... args)
+	inline void print_log_internal(char* buffer, int32& position, First&& first, Args&&... args)
 	{
 		const char* formatted = Log::to_string<First>(first);
 		int32 length = strlen(formatted);
@@ -128,7 +121,7 @@ namespace Log
 	}
 
 	template <typename... Args>
-	static void logMessage(int32 level, bool newline, Args... args)
+	inline void logMessage(int32 level, bool newline, Args... args)
 	{
 		char buffer[1024 * 10];
 		int32 position = 0;
@@ -168,7 +161,7 @@ namespace Log
 namespace Log
 {
 	template<>
-	static const char* to_string<WindowSettings>(const WindowSettings& v)
+	inline const char* to_string<WindowSettings>(const WindowSettings& v)
 	{
 		std::string string = std::string("WindowSettings: (") + to_string(v.width) + " x " + to_string(v.height) + ", Fullscreen: "
 			+ to_string(v.fullscreen) + ", VSync: " + to_string(v.vsync) + ")";
@@ -178,7 +171,7 @@ namespace Log
 	}
 
 	template<>
-	static const char* to_string<sf::Keyboard::Key>(const sf::Keyboard::Key& v)
+	inline const char* to_string<sf::Keyboard::Key>(const sf::Keyboard::Key& v)
 	{
 		std::string string = "";
 		// 300 lines of switch statement deserves its own file
