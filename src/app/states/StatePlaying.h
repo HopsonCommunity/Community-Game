@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "../../level/Level.h"
+#include "../../entity/EntityFactory.h"
 #include "StateBase.h"
 
 namespace State
@@ -9,6 +10,7 @@ namespace State
 	{
 	public:
 		static Playing* instance;
+		static Entity::EntityFactory* entityFactory;
 		
 	public:
 		Playing(Application* app, sf::RenderWindow* window);

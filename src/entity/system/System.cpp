@@ -13,61 +13,32 @@
 
 namespace Entity
 {
-	void move(Vec2 dest, Entity* entity)
-	{
-		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
-		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
-		
-		if (dest.x != c_pos->position.x && dest.y != c_pos->position.y)
-		{
-			move({ dest.x, c_pos->position.y }, entity);
-			move({ c_pos->position.x, dest.y }, entity);
-		}
-
-		c_pos->position.x = dest.x;
-		c_pos->position.y = dest.y;
-	}
-
 	void MoveSystem::update(const Timestep& ts, Entity* entity)
 	{
+		SpriteComponent* c_sprite = entity->getComponent<SpriteComponent>();
 		PhysicsComponent* c_physics = entity->getComponent<PhysicsComponent>();
+
 		if (c_physics)
 		{
-			if (c_physics->object.inv_mass == 0.0f)
-				return;
-
-			c_physics->object.velocity += (c_physics->object.force * c_physics->object.mass) * (ts.asSeconds() / 2);
-
-			Physics::tileCollision(c_physics->object);
-
-			c_physics->object.pos += c_physics->object.velocity * ts.asSeconds();
-			c_physics->object.force = { 0, 0 };
-
-			return;
-		}
-
-		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
-		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
-		SpriteComponent* c_sprite = entity->getComponent<SpriteComponent>();
-
-		if (c_sprite)
-			if (c_sprite->flipOnVelocity)
-			{
-				if (c_vel->velocity.x > 0)
-					c_sprite->flipX = true;
-				else if (c_vel->velocity.x < 0)
-					c_sprite->flipX = false;
-			}
-
-		if (c_pos && c_vel)
-		{
-			Vec2 dest(c_pos->position.x + c_vel->velocity.x * c_vel->speed * ts.asSeconds(), c_pos->position.y + c_vel->velocity.y * c_vel->speed * ts.asSeconds());
+			auto colliding = Physics::tileCollision(c_physics->pos, c_physics->velocity, c_physics->aabb, ts.asSeconds());
+					
+			if (!colliding.first)
+				c_physics->pos.x += round(c_physics->velocity.x * ts.asSeconds());
+			if (!colliding.second)
+				c_physics->pos.y += round(c_physics->velocity.y * ts.asSeconds());
 			
-			move(dest, entity);
-		}
+			if (c_sprite)
+				if (c_sprite->flipOnVelocity)
+				{
+					if (c_physics->velocity.x > 0)
+						c_sprite->flipX = false;
+					else if (c_physics->velocity.x < 0)
+						c_sprite->flipX = true;
+				}
 
-		c_vel->velocity.x = 0;
-		c_vel->velocity.y = 0;
+			c_physics->velocity.x = 0;
+			c_physics->velocity.y = 0;
+		}
 	}
 
 	void StatsSystem::update(const Timestep& ts, Entity* entity)
@@ -87,12 +58,12 @@ namespace Entity
 	{
 		SpriteComponent*    c_sprite = entity->getComponent<SpriteComponent>();
 		AnimatorComponent*  c_anim = entity->getComponent<AnimatorComponent>();
-		VelocityComponent*  c_vel = entity->getComponent<VelocityComponent>();
+		PhysicsComponent*  c_physics = entity->getComponent<PhysicsComponent>();
 
 		if (c_sprite && c_anim)
 		{
-			if (c_vel)
-				c_vel->moving ? c_anim->animator.setAnimation("run") : c_anim->animator.setAnimation("idle");
+			if (c_physics)
+				c_physics->moving ? c_anim->animator.setAnimation("run") : c_anim->animator.setAnimation("idle");
 
 			c_anim->animator.update(ts, c_sprite->sprite);
 		}
@@ -100,20 +71,25 @@ namespace Entity
 
 	void RenderSystem::update(const Timestep& ts, Entity* entity)
 	{
-		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
 		PhysicsComponent* c_physics = entity->getComponent<PhysicsComponent>();
 		SpriteComponent* c_sprite = entity->getComponent<SpriteComponent>();
 
-		if (c_pos && c_sprite)
+		if (c_physics && c_sprite)
 		{
 			c_sprite->sprite.setOrigin(c_sprite->origin);
-			c_sprite->sprite.setScale(c_sprite->flipX ? 1.0f : -1.0f, 1.0f);
+			c_sprite->sprite.setScale(c_sprite->flipX ? -1.0f : 1.0f, 1.0f);
 			
 			sf::RenderStates states;
-			if (!c_physics)
-				states.transform.translate(c_pos->position);
-			else
-				states.transform.translate(c_physics->object.pos);
+			states.transform.translate(c_physics->pos);
+			
+			// Draws AABB outline (for debugging purposes)
+			auto rs = sf::RectangleShape(c_physics->aabb.max);
+			rs.setPosition(c_physics->aabb.min);
+			rs.setFillColor({ 0, 0, 0, 0 });
+			rs.setOutlineColor({ 255, 0, 0, 255 });
+			rs.setOutlineThickness(1);
+			Application::instance->getWindow().draw(rs, states);
+			//
 
 			Application::instance->getWindow().draw(c_sprite->sprite, states);
 		}
@@ -122,9 +98,8 @@ namespace Entity
 	void AISystem::update(const Timestep& ts, Entity* entity)
 	{
 		AIComponent* c_ai = entity->getComponent<AIComponent>();
-		PositionComponent* c_pos = entity->getComponent<PositionComponent>();
-		VelocityComponent* c_vel = entity->getComponent<VelocityComponent>();
-		if (c_ai && c_pos && c_vel)
+		PhysicsComponent* c_physics = entity->getComponent<PhysicsComponent>();
+		if (c_ai && c_physics)
 			c_ai->behaviour->behave(entity);
 	}
 
@@ -147,12 +122,12 @@ namespace Entity
 			if (Application::instance->inputPressed(MOVE_RIGHT))
 				xa++;
 
-			xa *= 2;
-			ya *= 2;
+			if (xa != 0 || ya != 0)
+				c_physics->setVelocity(xa, ya);
+			else
+				c_physics->moving = false;
 
-			c_physics->object.force += { xa, ya };
-
-			c_sprite->flipX = (int32)Application::instance->mousePosition().x > (int32)Application::instance->getWindow().getSize().x / 2;
+			c_sprite->flipX = (int32)Application::instance->mousePosition().x < (int32)Application::instance->getWindow().getSize().x / 2;
 		}
 	}
 
