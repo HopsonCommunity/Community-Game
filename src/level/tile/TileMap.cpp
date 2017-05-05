@@ -50,6 +50,9 @@ namespace Level
 
 	TileData TileMap::getTileData(uint layer, uint x, uint y) 
 	{
+		if (x >= width || y >= height)
+			return TileDatabase::get().getTileData((byte)TileID::Void);
+
 		return TileDatabase::get().getTileData(std::get<TILE_ID>(m_layers[layer]->tiles[x][y]));
 	}
 
