@@ -5,6 +5,7 @@
 #include "tile/TileMap.h"
 #include "../entity/Entity.h"
 #include "../entity/system/System.h"
+#include "../item/system/DrawingSystems.h"
 
 #define WORLD_SIZE 100
 

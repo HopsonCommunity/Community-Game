@@ -15,7 +15,6 @@ namespace Level
 		m_worldGen.generateMap();
 
 		auto data = m_worldGen.getMap();
-
 		TileMap::AddList addList;
 
 		for (int x = 0; x < WORLD_SIZE; x++)
