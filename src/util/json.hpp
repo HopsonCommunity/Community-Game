@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 __ _____ _____ _____
 __|  |   __|     |   | |  JSON for Modern C++
 |  |  |__   |  |  | | | |  version 2.1.1
@@ -105,7 +105,6 @@ SOFTWARE.
 */
 namespace nlohmann
 {
-
 	/*!
 	@brief unnamed namespace with internal helper functions
 
@@ -366,8 +365,6 @@ namespace nlohmann
 			{}
 		};
 
-
-
 		///////////////////////////
 		// JSON type enumeration //
 		///////////////////////////
@@ -442,7 +439,6 @@ namespace nlohmann
 				order[static_cast<std::size_t>(rhs)];
 		}
 
-
 		/////////////
 		// helpers //
 		/////////////
@@ -483,7 +479,6 @@ namespace nlohmann
 		// dispatch utility (taken from ranges-v3)
 		template<unsigned N> struct priority_tag : priority_tag < N - 1 > {};
 		template<> struct priority_tag<0> {};
-
 
 		//////////////////
 		// constructors //
@@ -615,7 +610,6 @@ namespace nlohmann
 			}
 		};
 
-
 		////////////////////////
 		// has_/is_ functions //
 		////////////////////////
@@ -647,7 +641,6 @@ namespace nlohmann
 		NLOHMANN_JSON_HAS_HELPER(iterator);
 
 #undef NLOHMANN_JSON_HAS_HELPER
-
 
 		template<bool B, class RealType, class CompatibleObjectType>
 		struct is_compatible_object_type_impl : std::false_type {};
@@ -723,7 +716,6 @@ namespace nlohmann
 				RealIntegerType, CompatibleNumberIntegerType > ::value;
 		};
 
-
 		// trait checking if JSONSerializer<T>::from_json(json const&, udt&) exists
 		template<typename BasicJsonType, typename T>
 		struct has_from_json
@@ -772,7 +764,6 @@ namespace nlohmann
 			static constexpr bool value = std::is_integral<decltype(detect(
 				std::declval<typename BasicJsonType::template json_serializer<T, void>>()))>::value;
 		};
-
 
 		/////////////
 		// to_json //
@@ -1145,14 +1136,12 @@ namespace nlohmann
 		constexpr T static_const<T>::value;
 	} // namespace detail
 
-
 	  /// namespace to hold default `to_json` / `from_json` functions
 	namespace
 	{
 		constexpr const auto& to_json = detail::static_const<detail::to_json_fn>::value;
 		constexpr const auto& from_json = detail::static_const<detail::from_json_fn>::value;
 	}
-
 
 	/*!
 	@brief default JSONSerializer template argument
@@ -1196,7 +1185,6 @@ namespace nlohmann
 			::nlohmann::to_json(j, std::forward<ValueType>(val));
 		}
 	};
-
 
 	/*!
 	@brief a class to store JSON values
@@ -1308,7 +1296,6 @@ namespace nlohmann
 		template<typename T, typename SFINAE>
 		using json_serializer = JSONSerializer<T, SFINAE>;
 
-
 		////////////////
 		// exceptions //
 		////////////////
@@ -1316,7 +1303,6 @@ namespace nlohmann
 		/// @name exceptions
 		/// Classes to implement user-defined exceptions.
 		/// @{
-
 		/// @copydoc detail::exception
 		using exception = detail::exception;
 		/// @copydoc detail::parse_error
@@ -1332,7 +1318,6 @@ namespace nlohmann
 
 		/// @}
 
-
 		/////////////////////
 		// container types //
 		/////////////////////
@@ -1341,7 +1326,6 @@ namespace nlohmann
 		/// The canonic container types to use @ref basic_json like any other STL
 		/// container.
 		/// @{
-
 		/// the type of elements in a basic_json container
 		using value_type = basic_json;
 
@@ -1373,7 +1357,6 @@ namespace nlohmann
 		using const_reverse_iterator = json_reverse_iterator<typename basic_json::const_iterator>;
 
 		/// @}
-
 
 		/*!
 		@brief returns the allocator associated with the container
@@ -1458,7 +1441,6 @@ namespace nlohmann
 			return result;
 		}
 
-
 		///////////////////////////
 		// JSON value data types //
 		///////////////////////////
@@ -1467,7 +1449,6 @@ namespace nlohmann
 		/// The data types to store a JSON value. These types are derived from
 		/// the template arguments passed to class @ref basic_json.
 		/// @{
-
 		/*!
 		@brief a type for an object
 
@@ -2152,7 +2133,6 @@ namespace nlohmann
 			parse_event_t event,
 			basic_json& parsed)>;
 
-
 		//////////////////
 		// constructors //
 		//////////////////
@@ -2161,7 +2141,6 @@ namespace nlohmann
 		/// Constructors of class @ref basic_json, copy/move constructor, copy
 		/// assignment, static functions creating objects, and the destructor.
 		/// @{
-
 		/*!
 		@brief create an empty value with a given type
 
@@ -2646,7 +2625,6 @@ namespace nlohmann
 			assert_invariant();
 		}
 
-
 		///////////////////////////////////////
 		// other constructors and destructor //
 		///////////////////////////////////////
@@ -2866,7 +2844,6 @@ namespace nlohmann
 		/// @name object inspection
 		/// Functions to inspect the type of a JSON value.
 		/// @{
-
 		/*!
 		@brief serialization
 
@@ -3396,7 +3373,6 @@ namespace nlohmann
 		/// @name value access
 		/// Direct access to the stored value of a JSON value.
 		/// @{
-
 		/*!
 		@brief get special-case overload
 
@@ -3744,7 +3720,6 @@ namespace nlohmann
 
 		/// @}
 
-
 		////////////////////
 		// element access //
 		////////////////////
@@ -3752,7 +3727,6 @@ namespace nlohmann
 		/// @name element access
 		/// Access to the JSON value.
 		/// @{
-
 		/*!
 		@brief access specified array element with bounds checking
 
@@ -4813,14 +4787,12 @@ namespace nlohmann
 
 		/// @}
 
-
 		////////////
 		// lookup //
 		////////////
 
 		/// @name lookup
 		/// @{
-
 		/*!
 		@brief find an element in a JSON object
 
@@ -4900,14 +4872,12 @@ namespace nlohmann
 
 		/// @}
 
-
 		///////////////
 		// iterators //
 		///////////////
 
 		/// @name iterators
 		/// @{
-
 		/*!
 		@brief returns an iterator to the first element
 
@@ -5212,14 +5182,12 @@ namespace nlohmann
 
 		/// @}
 
-
 		//////////////
 		// capacity //
 		//////////////
 
 		/// @name capacity
 		/// @{
-
 		/*!
 		@brief checks whether the container is empty
 
@@ -5417,14 +5385,12 @@ namespace nlohmann
 
 		/// @}
 
-
 		///////////////
 		// modifiers //
 		///////////////
 
 		/// @name modifiers
 		/// @{
-
 		/*!
 		@brief clears the contents
 
@@ -6120,7 +6086,6 @@ namespace nlohmann
 
 		/// @name lexicographical comparison operators
 		/// @{
-
 		/*!
 		@brief comparison: equal
 
@@ -6458,14 +6423,12 @@ namespace nlohmann
 
 		/// @}
 
-
 		///////////////////
 		// serialization //
 		///////////////////
 
 		/// @name serialization
 		/// @{
-
 	private:
 		/*!
 		@brief wrapper around the serialization functions
@@ -7105,14 +7068,12 @@ namespace nlohmann
 
 		/// @}
 
-
 		/////////////////////
 		// deserialization //
 		/////////////////////
 
 		/// @name deserialization
 		/// @{
-
 		/*!
 		@brief deserialize from an array
 
@@ -7424,7 +7385,6 @@ namespace nlohmann
 
 		/// @name binary serialization/deserialization support
 		/// @{
-
 	private:
 		/*!
 		@note Some code in the switch cases has been copied, because otherwise
@@ -8035,7 +7995,6 @@ namespace nlohmann
 			}
 			}
 		}
-
 
 		/*
 		@brief checks if given lengths do not exceed the size of a given vector
@@ -8904,16 +8863,16 @@ namespace nlohmann
 		boolean         | `false`                           | false            | 0xc2
 		number_integer  | -9223372036854775808..-2147483649 | int64            | 0xd3
 		number_integer  | -2147483648..-32769               | int32            | 0xd2
-		number_integer  | -32768..-129                      | int16            | 0xd1
+		number_integer  | -32768..-129                      | int16            |Â 0xd1
 		number_integer  | -128..-33                         | int8             | 0xd0
 		number_integer  | -32..-1                           | negative fixint  | 0xe0..0xff
 		number_integer  | 0..127                            | positive fixint  | 0x00..0x7f
-		number_integer  | 128..255                          | uint 8           | 0xcc
+		number_integer  | 128..255                          | uint 8           |Â 0xcc
 		number_integer  | 256..65535                        | uint 16          | 0xcd
 		number_integer  | 65536..4294967295                 | uint 32          | 0xce
 		number_integer  | 4294967296..18446744073709551615  | uint 64          | 0xcf
 		number_unsigned | 0..127                            | positive fixint  | 0x00..0x7f
-		number_unsigned | 128..255                          | uint 8           | 0xcc
+		number_unsigned | 128..255                          | uint 8           |Â 0xcc
 		number_unsigned | 256..65535                        | uint 16          | 0xcd
 		number_unsigned | 65536..4294967295                 | uint 32          | 0xce
 		number_unsigned | 4294967296..18446744073709551615  | uint 64          | 0xcf
@@ -9171,7 +9130,7 @@ namespace nlohmann
 		map                    | object          | 0xbb
 		map                    | object          | 0xbf
 		False                  | `false`         | 0xf4
-		True                   | `true`          | 0xf5
+		True                   |Â `true`          | 0xf5
 		Nill                   | `null`          | 0xf6
 		Half-Precision Float   | number_float    | 0xf9
 		Single-Precision Float | number_float    | 0xfa
@@ -9269,7 +9228,6 @@ namespace nlohmann
 			}
 		}
 
-
 	private:
 		//////////////////////
 		// member variables //
@@ -9280,7 +9238,6 @@ namespace nlohmann
 
 		/// the value of the current element
 		json_value m_value = {};
-
 
 	private:
 		///////////////
@@ -10269,7 +10226,6 @@ namespace nlohmann
 			}
 		};
 
-
 	private:
 		//////////////////////
 		// lexer and parser //
@@ -10508,7 +10464,6 @@ namespace nlohmann
 					// remember the begin of the token
 					m_start = m_cursor;
 					assert(m_start != nullptr);
-
 
 					{
 						lexer_char_t yych;
@@ -11541,7 +11496,6 @@ namespace nlohmann
 							goto basic_json_parser_32;
 						}
 					}
-
 				}
 
 				position += static_cast<size_t>((m_cursor - m_start));
@@ -11824,7 +11778,6 @@ namespace nlohmann
 
 				return result;
 			}
-
 
 			/*!
 			@brief parse string into a built-in arithmetic type as if the current
@@ -13078,7 +13031,6 @@ namespace nlohmann
 
 		/// @name JSON Pointer functions
 		/// @{
-
 		/*!
 		@brief access specified element via JSON Pointer
 
@@ -13297,7 +13249,6 @@ namespace nlohmann
 
 		/// @name JSON Patch functions
 		/// @{
-
 		/*!
 		@brief applies a JSON patch
 
@@ -13787,7 +13738,6 @@ namespace nlohmann
 	using json = basic_json<>;
 } // namespace nlohmann
 
-
   ///////////////////////
   // nonmember support //
   ///////////////////////
@@ -13841,7 +13791,6 @@ namespace std
 			return nlohmann::detail::operator<(lhs, rhs);
 		}
 	};
-
 } // namespace std
 
   /*!

@@ -1,4 +1,5 @@
 ﻿#include "UISlider.h"
+
 namespace UI
 {
 	UISlider::UISlider(Label label, sf::Rect<int> rect, std::function<void(float)> callback)

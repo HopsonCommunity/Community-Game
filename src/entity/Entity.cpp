@@ -1,26 +1,24 @@
 ﻿#include "Entity.h"
 
-#include "component/Components.h"
-
-#include "../util/Random.h"
-
-namespace Framework
+namespace Entity
 {
 	Entity::Entity()
-	: m_ID(Random::uint64InRange(0, 18446744073709551614ULL))
+		: m_ID(0)
 	{
 	}
 
-	Entity::Entity(sf::Vector2f& position, sf::Sprite& sprite)
-	: m_ID(Random::uint64InRange(0, 18446744073709551614ULL))
+	Entity::Entity(uint64 ID)
+		: m_ID(ID)
 	{
-		addComponent(std::make_unique<PositionComponent>(position));
-		addComponent(std::make_unique<SpriteComponent>(sprite));
 	}
 
-	void Entity::addComponent(std::unique_ptr<Component> component)
+	std::unique_ptr<Entity> Entity::clone(uint64 id)
 	{
-		if (component->getType())
-			m_components[component->getType()] = std::move(component);
+		std::unique_ptr<Entity> cloned = std::make_unique<Entity>(id);
+
+		for (auto& pair : m_components)
+			cloned->m_components[pair.first] = pair.second->clone();
+
+		return cloned;
 	}
 }

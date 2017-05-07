@@ -1,109 +1,80 @@
 ﻿#include "Level.h"
-#include "LevelRenderer.h"
 
-#include <iostream>
+#include "gen/WorldGenerator.h"
 
-#include "../entity/Entity.h"
-#include "../states/StatePlaying.h"
-#include "../entity/component/Components.h"
+#include "../util/Timestep.h"
+#include "../app/Application.h"
+#include "../entity/component/PhysicsComponent.h"
 
 namespace Level
 {
-	Level::Level(unsigned int width, unsigned int height)
-		: m_width(width),
-		m_height(height)
+	Level::Level(uint width, uint height)
+		: m_tiles(TileMap(width, height))
 	{
-		m_tiles.resize(width*height);
+		WGenerator::WorldGenerator m_worldGen(WORLD_SIZE, WORLD_SIZE, 2355);
+		m_worldGen.generateMap();
 
-		m_renderSystem = std::make_unique<Framework::RenderSystem>();
-		m_itemRenderSystem = std::make_unique<Item::SpriteDrawingSystem>();
+		auto data = m_worldGen.getMap();
+		TileMap::AddList addList;
 
-		m_updateSystems.push_back(std::make_unique<Framework::MoveSystem>());
-		m_updateSystems.push_back(std::make_unique<Framework::StatsSystem>());
-		m_updateSystems.push_back(std::make_unique<Framework::AISystem>());
-		m_updateSystems.push_back(std::make_unique<Framework::PlayerInputSystem>());
-		m_updateSystems.push_back(std::make_unique<Framework::AnimatorSystem>());
+		for (int x = 0; x < WORLD_SIZE; x++)
+			for (int y = 0; y < WORLD_SIZE; y++)
+			{
+				auto n = data.tiles[x][y];
+				if (n == 1)
+					addList.push_back(std::make_tuple(x, y, (byte)TileID::Dungeon_BrickFloor, 0 ));
+				else
+					addList.push_back(std::make_tuple( x, y, (byte)TileID::Dungeon_BrickWall, 0 ));
+			}
+
+		m_tiles.addTiles(0, addList);
+
+		player_spawn = Vec2i(data.playerPosition);
+
+		m_renderSystem = std::make_unique<Entity::RenderSystem>();
+
+		m_updateSystems.push_back(std::make_unique<Entity::PlayerInputSystem>());
+		m_updateSystems.push_back(std::make_unique<Entity::AISystem>());
+		m_updateSystems.push_back(std::make_unique<Entity::MoveSystem>());
+		m_updateSystems.push_back(std::make_unique<Entity::StatsSystem>());
+		m_updateSystems.push_back(std::make_unique<Entity::AnimatorSystem>());
+
+		m_view = sf::View(Vec2(0, 0), Vec2(static_cast<float>(Application::instance->getWindow().getSize().x), static_cast<float>(Application::instance->getWindow().getSize().y)));
 	}
 
-	void Level::addEntity(std::unique_ptr<Framework::Entity> entity)
+	void Level::addEntity(std::unique_ptr<Entity::Entity> entity)
 	{
 		m_entities.push_back(std::move(entity));
 	}
 
-	Framework::Entity* Level::getEntity(const uint64 & id)
+	void Level::render(sf::RenderWindow& window)
 	{
+		window.setView(m_view);
+		m_tiles.render(window);
+
 		for (auto& entity : m_entities)
-		{
-			if (entity->getID() == id)
-				return entity.get();
-		}
-		return nullptr;
-	}
-
-	void Level::setTile(unsigned int x, unsigned int y, Tile::Tile& tile)
-	{
-		m_tiles[x + y * m_width] = &tile;
-	}
-
-    Tile::Tile* Level::getTile(unsigned int x, unsigned int y)
-    {
-        if (x < 0 || x >= m_width || y < 0 || y >= m_height)
-            return nullptr;
-        return
-            m_tiles[x + y * m_width];
-    }
-
-	Framework::Entity* Level::getEntityOnTile(unsigned int x, unsigned int y)
-	{
-		for (const auto& entity : m_entities)
-		{
-			Framework::PositionComponent* c_pos = entity.get()->getComponent<Framework::PositionComponent>();
-			if (c_pos)
-				if (c_pos->position.x == x && c_pos->position.y == y)
-					return entity.get();
-		}
-		return nullptr;
+			m_renderSystem->update(Timestep(0), entity.get());
 	}
 
 	void Level::update(const Timestep& ts)
 	{
 		for (auto& entity : m_entities)
-		{
 			for (auto& system : m_updateSystems)
 				system->update(ts, entity.get());
-			entity.get()->update(ts);
-		}
 
+		int mouseX = Application::instance->mousePosition().x;
+		int mouseY = Application::instance->mousePosition().y;
+		int halfWidth = Application::instance->getWindow().getSize().x / 2;
+		int halfHeight = Application::instance->getWindow().getSize().y / 2;
+		int offsetX = static_cast<int>((mouseX - halfWidth) * 0.1f);
+		int offsetY = static_cast<int>((mouseY - halfHeight) * 0.1f);
+
+		Entity::PhysicsComponent* c_pos = player->getComponent<Entity::PhysicsComponent>();
+		m_view.setCenter(c_pos->pos.x + offsetX, c_pos->pos.y + 0.01f + offsetY);
 	}
 
-	void Level::render(sf::RenderWindow& window)
+	void Level::windowResize(Vec2 size)
 	{
-		sf::View view = State::SPlaying::instance->getCamera();
-		float left = view.getCenter().x - view.getSize().x / 2;
-		float right = view.getCenter().x + view.getSize().x / 2;
-		float top = view.getCenter().y - view.getSize().y / 2;
-		float bottom = view.getCenter().y + view.getSize().y / 2;
-		int x0 = (int)(left / TILE_SIZE);
-		int y0 = (int)(top / TILE_SIZE);
-		int x1 = (int)(right / TILE_SIZE) + 1;
-		int y1 = (int)(bottom / TILE_SIZE) + 2;
-
-		for (int x = x0; x < x1; x++)
-			for (int y = y0; y < y1; y++)
-			{
-				if (x < 0 || static_cast<uint>(x) >= m_width || y < 0 || static_cast<uint>(y) >= m_height)
-					continue;
-
-				if (m_tiles[x + y * m_width] != nullptr)
-					m_tiles[x + y * m_width]->render(x, y, *this, window);
-			}
-		
-		for (auto& entity : m_entities)
-			m_renderSystem->update(Timestep(0) /*Render doesn't need delta time*/, entity.get());
-
-		for (auto& item : m_items)
-			m_itemRenderSystem->update(Timestep(0), item.get());
-
-		LevelRenderer::drawAll();
+		m_view.setSize(size.x, size.y);
 	}
 }

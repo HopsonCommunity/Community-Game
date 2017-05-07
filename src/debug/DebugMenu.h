@@ -1,73 +1,73 @@
-#pragma once
+﻿#pragma once
 
-#include <string>
-#include <unordered_map>
+#include "../app/Application.h"
 
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include "../Application.h"
+#include <string>
+#include <unordered_map>
 
 namespace Debug
 {
-    const int GUI_WIDTH = 1280;
-    const int GUI_HEIGHT = 720;
+	const int GUI_WIDTH = 1280;
+	const int GUI_HEIGHT = 720;
 
-    const int GUI_DISPLAY_VARS = 3;
-    
-    struct DebugMenuIntEntry
-    {
-        const std::string name;
-        int* value;
-        int rangeBeg;
-        int rangeEnd;
-    };
+	const int GUI_DISPLAY_VARS = 3;
 
-    struct DebugMenuFloatEntry
-    {
-        const std::string name;
-        float* value;
-        float rangeBeg;
-        float rangeEnd;
-    };
+	struct DebugMenuIntEntry
+	{
+		const std::string name;
+		int* value;
+		int rangeBeg;
+		int rangeEnd;
+	};
 
-    struct DebugMenuBoolEntry
-    {
-        const std::string name;
-        bool* value;
-    };
+	struct DebugMenuFloatEntry
+	{
+		const std::string name;
+		float* value;
+		float rangeBeg;
+		float rangeEnd;
+	};
 
-    class DebugMenu
-    {
-    public:
-        DebugMenu(const sf::Font& font);
+	struct DebugMenuBoolEntry
+	{
+		const std::string name;
+		bool* value;
+	};
 
-        void addEntry(const std::string& name, bool* value);
-        void addEntry(const std::string& name, int* value, int rangeBeg, int rangeEnd);
-        void addEntry(const std::string& name, float* value, float rangeBeg, float rangeEnd);
+	class DebugMenu
+	{
+	public:
+		DebugMenu(const sf::Font& font);
 
-        void removeEntry(const std::string& name);
+		void addEntry(const std::string& name, bool* value);
+		void addEntry(const std::string& name, int* value, int rangeBeg, int rangeEnd);
+		void addEntry(const std::string& name, float* value, float rangeBeg, float rangeEnd);
 
-        void input();
-        void update();
-        void render();
-    private:
-        std::unordered_map<std::string, DebugMenuBoolEntry> m_boolMap;
-        std::unordered_map<std::string, DebugMenuIntEntry> m_intMap;
-        std::unordered_map<std::string, DebugMenuFloatEntry> m_floatMap;
+		void removeEntry(const std::string& name);
 
-        bool m_active;
-        int m_selectedEntry;
-        int m_numEntries;
+		void input();
+		void update();
+		void render();
+	private:
+		std::unordered_map<std::string, DebugMenuBoolEntry> m_boolMap;
+		std::unordered_map<std::string, DebugMenuIntEntry> m_intMap;
+		std::unordered_map<std::string, DebugMenuFloatEntry> m_floatMap;
 
-        std::string createText(DebugMenuBoolEntry& entry);
-        std::string createText(DebugMenuIntEntry& entry);
-        std::string createText(DebugMenuFloatEntry& entry);
-        
-        sf::RenderWindow m_window;
+		bool m_active;
+		int m_selectedEntry;
+		int m_numEntries;
 
-        int actualSelectedItem;
-        sf::Text menu[3];
-    };
+		std::string createText(DebugMenuBoolEntry& entry);
+		std::string createText(DebugMenuIntEntry& entry);
+		std::string createText(DebugMenuFloatEntry& entry);
+
+		sf::RenderWindow m_window;
+
+		int actualSelectedItem;
+		sf::Text menu[3];
+	};
 }

@@ -13,11 +13,11 @@ Just join our public discord, where all of the development happens.
 # Building and Contributing
 
 If you want to know how to contribute to this project,
-look at `CONTRIBUTING.md`. The document will tell you how you can get the project
+look at [`CONTRIBUTING.md`](CONTRIBUTING.md). The document will tell you how you can get the project
 files with git, and how to contribute your code back into this
 main repository.
 
-Also take a look at the `CODESTYLE.md` file. It tells you how you should program
+Also take a look at the [`CODESTYLE.md`](CODESTYLE.md) file. It tells you how you should program
 when you want your Pull Request mergerd into the project.
 
 Don't know what to add? Check out the Trello here: https://trello.com/b/Kc93SBo2/hopson-community-project

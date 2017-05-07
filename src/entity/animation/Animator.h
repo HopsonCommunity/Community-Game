@@ -1,12 +1,13 @@
 ﻿#pragma once
 
-#include <vector>
+#include "../../Types.h"
+#include "../../util/Timestep.h"
+
 #include <SFML/Graphics.hpp>
 
-#include "../../util/Timestep.h"
-#include "../../util/Types.h"
+#include <vector>
 
-namespace Framework
+namespace Entity
 {
 	struct Animation
 	{

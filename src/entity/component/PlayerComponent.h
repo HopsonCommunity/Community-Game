@@ -1,17 +1,22 @@
 ﻿#pragma once
 
 #include "Component.h"
+
 #include "../../util/json.hpp"
 
-namespace Framework
+namespace Entity
 {
-    class PlayerComponent : public Component
-    {
-    public:
-        PlayerComponent();
-        PlayerComponent(nlohmann::json json);
+	class PlayerComponent : public Component
+	{
+	public:
+		PlayerComponent();
+		PlayerComponent(nlohmann::json json);
 
-        static ComponentType* getStaticType();
-        virtual ComponentType* getType() const override;;
-    };
+		std::unique_ptr<Component> clone() override
+		{
+			return std::make_unique<PlayerComponent>(*this);
+		}
+
+		static const int ID = 5;
+	};
 }

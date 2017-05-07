@@ -1,52 +1,39 @@
 ﻿#pragma once
 
-#include "Tile/Tile.h"
-#include <iostream>
-#include "../util/Timestep.h"
+#include "../Common.h"
 
+#include "tile/TileMap.h"
+#include "../entity/Entity.h"
 #include "../entity/system/System.h"
 #include "../item/system/DrawingSystems.h"
 
-namespace Framework
-{
-	class Entity;
-	class Player;
-}
+#define WORLD_SIZE 100
 
 namespace Level
 {
 	class Level
 	{
-        public:
-            Level() {}
-            Level(unsigned int width, unsigned int height);
-			
-            void addEntity(std::unique_ptr<Framework::Entity> entity);
-            Framework::Entity* getEntity(const uint64& id);
+	public:
+		Level(uint width, uint height);
 
-			Framework::Entity* getPlayer() { return getEntity(player_id); }
+		void addEntity(std::unique_ptr<Entity::Entity> entity);
 
-			void setTile(unsigned int x, unsigned int y, Tile::Tile& tile);
-            Tile::Tile* getTile(unsigned int x, unsigned int y);
-            
-            Framework::Entity* getEntityOnTile(unsigned int x, unsigned int y);
+		void render(sf::RenderWindow& window);
+		void update(const Timestep& ts);
+		void windowResize(Vec2 size);
 
-			void update(const Timestep& ts);
-            void render(sf::RenderWindow& window);
+		TileMap& getTiles() { return m_tiles; }
 
-        private:
-            uint m_width;
-            uint m_height;
-            std::vector<Tile::Tile*> m_tiles;
+	private:
+		sf::View m_view;
+		TileMap m_tiles;
 
-			std::vector<std::unique_ptr<Framework::Entity>> m_entities;
-            std::vector<std::shared_ptr<Item::Item>> m_items;
+		std::unique_ptr<Entity::System> m_renderSystem;
 
-			std::unique_ptr<Framework::System> m_renderSystem;
-            std::unique_ptr<Item::SpriteDrawingSystem> m_itemRenderSystem;
-			std::vector<std::unique_ptr<Framework::System>> m_updateSystems;
-            std::vector<std::unique_ptr<Item::System>> m_itemUpdateSystems;
-		public:
-			uint64 player_id;
+		std::vector<std::unique_ptr<Entity::Entity>> m_entities;
+		std::vector<std::unique_ptr<Entity::System>> m_updateSystems;
+	public:
+		Entity::Entity* player;
+		Vec2i player_spawn;
 	};
 }

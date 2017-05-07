@@ -4,16 +4,18 @@
 #include <memory>
 #include "../../item/Item.h"
 #include "../../util/json.hpp"
+#include "Component.h"
+#include "../../item/ItemFactory.h"
 
-namespace Framework {
-    class InventoryComponent : Component {
+namespace Entity {
+    class InventoryComponent : public Component {
     public:
-        InventoryComponent(std::vector<std::unique_ptr<Item::Item> > items);
+        std::vector<std::shared_ptr<Item::Item> > items;
+    public:
+        InventoryComponent(std::vector<std::shared_ptr<Item::Item> > items);
         InventoryComponent(nlohmann::json);
 
-        std::vector<std::unique_ptr<Item::Item> > items;
+        static const int ID = 100;
 
-        static ComponentType* getStaticType();
-        virtual ComponentType* getType() const override;
     };
 }

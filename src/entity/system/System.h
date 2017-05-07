@@ -1,12 +1,12 @@
 ﻿#pragma once
 
-#include <vector>
-
 #include "../Entity.h"
+
+#include <vector>
 
 struct Timestep;
 
-namespace Framework
+namespace Entity
 {
 	class System
 	{
@@ -18,7 +18,13 @@ namespace Framework
 	{
 	public:
 		void update(const Timestep& ts, Entity* entity) override;
-	}; 
+	};
+
+	class LifeSystem : public System
+	{
+	public:
+		void update(const Timestep& ts, Entity* entity) override;
+	};
 
 	class StatsSystem : public System
 	{
@@ -37,15 +43,15 @@ namespace Framework
 		void update(const Timestep& ts, Entity* entity) override;
 	};
 
-    class AISystem : public System
-    {
-    public:
-        void update(const Timestep& ts, Entity* entity) override;
-    };
+	class AISystem : public System
+	{
+	public:
+		void update(const Timestep& ts, Entity* entity) override;
+	};
 
-    class PlayerInputSystem : public System
-    {
-    public:
-        void update(const Timestep& ts, Entity* entity) override;
-    };
+	class PlayerInputSystem : public System
+	{
+	public:
+		void update(const Timestep& ts, Entity* entity) override;
+	};
 }

@@ -1,24 +1,29 @@
 ﻿#pragma once
 
-#include <SFML/Graphics/Sprite.hpp>
-
 #include "Component.h"
-#include "../animation/Animator.h"
+
 #include "../../util/json.hpp"
 
-namespace Framework
+#include <SFML/Graphics/Sprite.hpp>
+
+namespace Entity
 {
 	class SpriteComponent : public Component
 	{
 	public:
-		sf::Vector2f origin;
+		Vec2 origin;
 		sf::Sprite sprite;
-		bool flipX, flipY;
-	public:
+		bool flipOnVelocity; // flipX based on +- velocity
+		bool flipX;
+
 		SpriteComponent(const sf::Sprite& sprite);
 		SpriteComponent(nlohmann::json json);
 
-		static ComponentType* getStaticType();
-		virtual ComponentType* getType() const override;;
+		std::unique_ptr<Component> clone() override
+		{
+			return std::make_unique<SpriteComponent>(*this);
+		}
+
+		static const int ID = 7;
 	};
 }

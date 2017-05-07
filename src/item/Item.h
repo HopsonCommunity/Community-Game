@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "../util/Types.h"
+#include "../Types.h"
 #include <memory>
 #include <unordered_map>
 
@@ -12,7 +12,7 @@ namespace Item
     class Item
     {
     public:
-        Item(Framework::Entity* owningEntity);
+        Item(Entity::Entity* owningEntity);
 
         void addComponent(std::unique_ptr<Component> component);
 
@@ -30,12 +30,12 @@ namespace Item
 
         uint64 getID() { return m_ID; }
 
-        void changeOwningEntity(Framework::Entity* entity) 
+        void changeOwningEntity(Entity::Entity* entity)
         {
             m_owningEntity = entity;
         }
 
-        Framework::Entity* getOwningEntity()
+        Entity::Entity* getOwningEntity()
         {
             return m_owningEntity;
         }
@@ -53,6 +53,6 @@ namespace Item
 
         uint64 m_ID;
         std::unordered_map<ComponentType*, std::unique_ptr<Component>> m_components;
-        Framework::Entity* m_owningEntity;
+        Entity::Entity* m_owningEntity;
     };
 }

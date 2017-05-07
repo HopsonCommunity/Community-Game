@@ -1,18 +1,15 @@
-#pragma once
+﻿#pragma once
 
-#include "../util/Types.h"
+#include "../Types.h"
 
-namespace Framework
+namespace Entity
 {
-	// Knowing the damage source WILL be useful later if there are stats, buffs
-	// or potions reducing specific types of dmg. (eg. Fire Resist or Magic Resist)
-	//
-	// (True damage ignores defences.)
+	// Knowing the damage source is useful!
 	enum class DamageSource : byte
 	{
 		Physical = 0,
 		Magic = 1,
-		True = 2
+		True = 2 // ignores defenses
 	};
 
 	// Damage struct holding some data about damage instances.

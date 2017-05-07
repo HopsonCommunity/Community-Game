@@ -3,11 +3,11 @@
 namespace UI
 {
 	UIButton::UIButton(Label label, sf::Rect<int> rect, std::function<void()> callback)
-	:   UIComponent(rect)
-	,   m_callback(callback)
-	,   m_sprite()
-	,   m_rectangle(rect)
-	,   m_label(label)
+		: UIComponent(rect)
+		, m_callback(callback)
+		, m_sprite()
+		, m_rectangle(rect)
+		, m_label(label)
 	{
 		m_label.setAlignment(Label::Alignment::CENTER);
 
@@ -27,7 +27,6 @@ namespace UI
 
 	void UIButton::clickAndHold(int x, int y)
 	{
-
 	}
 
 	void UIButton::hover(int x, int y)
@@ -45,7 +44,7 @@ namespace UI
 	void UIButton::render(sf::RenderWindow& window)
 	{
 		window.draw(m_sprite);
-		m_label.setPosition({(float)m_rectangle.left + m_rectangle.width / 2, (float)m_rectangle.top + m_rectangle.height / 4});
+		m_label.setPosition({ (float)m_rectangle.left + m_rectangle.width / 2, (float)m_rectangle.top + m_rectangle.height / 4 });
 		m_label.render(window);
 	}
 

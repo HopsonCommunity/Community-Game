@@ -1,9 +1,9 @@
 ﻿#include "Item.h"
-#include "../util/Random.h"
+#include "../maths/Random.h"
 
 namespace Item
 {
-	Item::Item(Framework::Entity* owningEntity)
+	Item::Item(Entity::Entity* owningEntity)
 		: m_ID(Random::uint64InRange(0, 18446744073709551614ULL))
 		, m_owningEntity(owningEntity)
 	{

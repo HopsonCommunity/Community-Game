@@ -1,5 +1,5 @@
 #include "SpriteComponent.h"
-#include "../../Application.h"
+#include "../../app/Application.h"
 
 namespace Item {
 	SpriteComponent::SpriteComponent(nlohmann::json json)

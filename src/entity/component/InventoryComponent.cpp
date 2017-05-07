@@ -1,9 +1,8 @@
 #include "InventoryComponent.h"
-#include "../../item/ItemFactory.h"
 
-namespace Framework
+namespace Entity
 {
-	InventoryComponent::InventoryComponent(std::vector<std::unique_ptr<Item::Item> > items)
+	InventoryComponent::InventoryComponent(std::vector<std::shared_ptr<Item::Item> > items)
 		: items(items)
 	{}
 
@@ -12,16 +11,5 @@ namespace Framework
 		{
 			items.push_back(Item::ItemFactory::createItem(json));
 		}
-	}
-
-	ComponentType* InventoryComponent::getStaticType()
-	{
-		static ComponentType type({ "Inventory" });
-		return &type;
-	}
-
-	ComponentType* InventoryComponent::getType() const
-	{
-		return getStaticType();
 	}
 }

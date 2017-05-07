@@ -1,28 +1,23 @@
-#pragma once
+﻿#pragma once
 
 #include <SFML/Audio.hpp>
 
-namespace Sound
+namespace Sound 
 {
+	class SFX // Sound effects
+	{
+	public:
+		static const sf::SoundBuffer* explosion;
 
-namespace SFX //for short music files. Loads to memory
-{
+		static void loadSounds();
 
-        class SFX
-        {
-        public:
-            static const sf::SoundBuffer* explosion;
+	protected:
+		sf::Sound m_sound;
 
-            static void loadSounds();
+	public:
+		SFX(sf::Sound sound);
 
-        protected:
-            sf::Sound m_sound;
-
-        public:
-            SFX(sf::Sound sound);
-
-            virtual void play(const sf::SoundBuffer& buffer);
-            virtual void setVolume(const int volume);
-        };
-}
+		virtual void play(const sf::SoundBuffer& buffer);
+		virtual void setVolume(const int volume);
+	};
 }

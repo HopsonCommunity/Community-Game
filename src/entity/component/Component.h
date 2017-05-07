@@ -1,20 +1,18 @@
 ﻿#pragma once
 
-#include <iostream>
-#include <SFML/Graphics.hpp>
+#include "../../maths/Maths.h"
+#include "../../util/json.hpp"
 
-namespace Framework
+#include <memory>
+
+namespace Entity
 {
-	struct ComponentType
-	{
-		std::string name;
-	};
-
 	class Component
 	{
 	public:
 		Component() {};
+		virtual ~Component() {};
 
-		virtual ComponentType* getType() const { return nullptr; }
+		virtual std::unique_ptr<Component> clone() { return std::make_unique<Component>(*this); };
 	};
 }
