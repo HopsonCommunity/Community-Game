@@ -8,7 +8,14 @@ namespace Item
     class ItemFactory
     {
     public:
-        static std::unique_ptr<Item> createItem(const std::string& item);
-        static std::unique_ptr<Item> createItem(nlohmann::json json);
+        ItemFactory();
+
+        std::unique_ptr<Item> createItem(std::string name);
+
+    private:
+        void createTemplate(std::string filePath);
+
+        std::unordered_map<std::string, std::unique_ptr<Item>> m_templates;
+        uint64 m_lastID;
     };
 }
