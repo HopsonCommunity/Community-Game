@@ -1,20 +1,13 @@
 ﻿#pragma once
 
-#include <iostream>
-#include <SFML/Graphics.hpp>
-
 namespace Item
 {
-    struct ComponentType
-    {
-        std::string name;
-    };
-
     class Component
     {
     public:
         Component() {};
+        virtual ~Component() {};
 
-        virtual ComponentType* getType() const { return nullptr; }
+        virtual std::unique_ptr<Component> clone() { return std::make_unique<Component>(*this); };
     };
 }
