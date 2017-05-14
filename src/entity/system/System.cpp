@@ -20,22 +20,16 @@ namespace Entity
 
 		if (c_physics)
 		{
-			auto colliding = Physics::tileCollision(c_physics->pos, c_physics->velocity, c_physics->aabb, ts.asSeconds());
+			auto colliding = Level::tileCollision(c_physics->pos, c_physics->velocity, c_physics->aabb, ts);
 					
 			if (!colliding.first)
-				c_physics->pos.x += round(c_physics->velocity.x * ts.asSeconds());
+				c_physics->pos.x += c_physics->velocity.x * ts.asSeconds();
 			if (!colliding.second)
-				c_physics->pos.y += round(c_physics->velocity.y * ts.asSeconds());
+				c_physics->pos.y += c_physics->velocity.y * ts.asSeconds();
 			
-			if (c_sprite)
-				if (c_sprite->flipOnVelocity)
-				{
-					if (c_physics->velocity.x > 0)
-						c_sprite->flipX = false;
-					else if (c_physics->velocity.x < 0)
-						c_sprite->flipX = true;
-				}
-
+			if (c_sprite && c_sprite->flipOnVelocity)
+				c_sprite->flipX = c_physics->velocity.x != 0 ? (c_physics->velocity.x > 0 ? false : true) : c_sprite->flipX;
+				
 			c_physics->velocity.x = 0;
 			c_physics->velocity.y = 0;
 		}
@@ -69,6 +63,17 @@ namespace Entity
 		}
 	}
 
+	void LightingSystem::update(const Timestep& ts, Entity* entity)
+	{
+		PhysicsComponent* c_physics = entity->getComponent<PhysicsComponent>();
+		LightComponent* c_light = entity->getComponent<LightComponent>();
+
+		if (c_physics && c_light)
+		{
+			State::Playing::instance->getLevel().getTiles().getLightMap()->addIntensity(c_physics->pos.x / 32, c_physics->pos.y / 32, c_light->color, c_light->intensity);
+		}
+	}
+
 	void RenderSystem::update(const Timestep& ts, Entity* entity)
 	{
 		PhysicsComponent* c_physics = entity->getComponent<PhysicsComponent>();
@@ -98,8 +103,7 @@ namespace Entity
 	void AISystem::update(const Timestep& ts, Entity* entity)
 	{
 		AIComponent* c_ai = entity->getComponent<AIComponent>();
-		PhysicsComponent* c_physics = entity->getComponent<PhysicsComponent>();
-		if (c_ai && c_physics)
+		if (c_ai)
 			c_ai->behaviour->behave(entity);
 	}
 

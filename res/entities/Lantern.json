@@ -1,0 +1,35 @@
+﻿{
+	"name": "Lantern",
+	"components": [
+		{
+			"componentType": "Sprite",
+			"src": "entity/dinolantern",
+			"flipOnVelocity": false,
+			"origin": {
+				"x": 0,
+				"y": 0
+			},
+			"rect": {
+				"left": 0,
+				"top": 0,
+				"width": 32,
+				"height": 48
+			}
+		},
+			{
+				"componentType": "Light",
+				"intensity": 70,
+				"color": [ 255, 190, 0 ]
+			},
+		{
+			"componentType": "Physics",
+			"aabb": {
+				"xMin": 0,
+				"yMin": 0,
+				"xMax": 0,
+				"yMax": 0
+			},
+			"movespeed": 0
+		}
+	]
+}

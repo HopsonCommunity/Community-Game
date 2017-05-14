@@ -1,5 +1,6 @@
 ﻿#include "StatePlaying.h"
 
+#include "../../level/tile/TileDatabase.h"
 #include "../../level/gen/WorldGenerator.h"
 
 #include "../Application.h"
@@ -29,10 +30,10 @@ namespace State
 
 		m_level.player->getComponent<Entity::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f, m_level.player_spawn.x * 32.0f };
 
-		std::unique_ptr<Entity::Entity> zombie = entityFactory->createEntity("enemy/Zombie.json");
-		zombie->getComponent<Entity::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f + 170, m_level.player_spawn.x * 32.0f + 170 };
+		std::unique_ptr<Entity::Entity> lantern = entityFactory->createEntity("Lantern.json");
+		lantern->getComponent<Entity::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f + 170, m_level.player_spawn.x * 32.0f + 170 };
 
-		m_level.addEntity(std::move(zombie));
+		m_level.addEntity(std::move(lantern));
 	}
 
 	void Playing::event(sf::Event& event)
@@ -57,5 +58,10 @@ namespace State
 
 	void Playing::tick()
 	{
+	}
+	bool Playing::isTilePassable(byte layer, uint x, uint y)
+	{
+		Level::TileNode* tile = getLevel().getTiles().getTile(layer, x, y);
+		return tile ? Level::TileDatabase::get().getTileData(byte(tile->id)).flags & int32(Level::TileFlags::PASSABLE) : true;
 	}
 }

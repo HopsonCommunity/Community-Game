@@ -19,7 +19,7 @@ namespace State
 	{
 		m_backGround.setTexture(&app->getResources().textures.get("gui/menu/dev/background"));
 
-		m_devBuildLabel.setPosition(Vec2(18, app->getWindow().getSize().y - 40));
+		m_devBuildLabel.setPosition(Vec2(18.f, static_cast<float>(app->getWindow().getSize().y) - 40.f));
 		m_devBuildLabel.getText().setFillColor(sf::Color(255, 235, 0, 255));
 
 		m_UI.addComponent(m_singleplayer);

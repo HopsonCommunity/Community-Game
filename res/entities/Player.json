@@ -30,6 +30,11 @@
 			"movespeed": 150
 		},
 		{
+			"componentType": "Light",
+			"intensity": 70,
+			"color": [ 255, 0, 0 ]
+		},
+		{
 			"componentType": "Stats",
 			"base": {
 				"max_health": 150,

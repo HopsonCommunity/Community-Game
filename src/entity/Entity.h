@@ -32,8 +32,7 @@ namespace Entity
 			auto it = m_components.find(id);
 			if (it == m_components.end())
 				return nullptr;
-			else
-				return dynamic_cast<T*>(it->second.get());
+			return dynamic_cast<T*>(it->second.get());
 		}
 
 		std::unique_ptr<Entity> clone(uint64 id);

@@ -4,11 +4,11 @@
 
 #include "../Types.h"
 
-struct Rectangle
+struct Rect
 {
 	int32 x, y, width, height;
 
-	Rectangle();
-	Rectangle(int32 x, int32 y, int32 width, int32 height);
-	Rectangle(Vec2 min, Vec2 max);
+	Rect();
+	Rect(int32 x, int32 y, int32 width, int32 height);
+	Rect(Vec2 min, Vec2 max);
 };

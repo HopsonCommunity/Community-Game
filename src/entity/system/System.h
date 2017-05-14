@@ -37,6 +37,12 @@ namespace Entity
 		void update(const Timestep& ts, Entity* entity) override;
 	};
 
+	class LightingSystem : public System
+	{
+	public:
+		void update(const Timestep& ts, Entity* entity) override;
+	};
+
 	class RenderSystem : public System
 	{
 	public:

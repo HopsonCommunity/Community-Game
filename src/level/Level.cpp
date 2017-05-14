@@ -9,7 +9,7 @@
 namespace Level
 {
 	Level::Level(uint width, uint height)
-		: m_tiles(TileMap(width, height))
+		: m_tiles(TileMap(width, height)), player(nullptr)
 	{
 		WGenerator::WorldGenerator m_worldGen(WORLD_SIZE, WORLD_SIZE, 2355);
 		m_worldGen.generateMap();
@@ -23,9 +23,9 @@ namespace Level
 			{
 				auto n = data.tiles[x][y];
 				if (n == 1)
-					addList.push_back({ x, y, (byte)TileID::Dungeon_BrickFloor, 0 });
+					addList.push_back({x, y, byte(TileID::Dungeon_BrickFloor), 0});
 				else
-					addList.push_back({ x, y, (byte)TileID::Dungeon_BrickWall, 0 });
+					addList.push_back({x, y, byte(TileID::Dungeon_BrickWall), 0});
 			}
 
 		m_tiles.addTiles(0, addList);
@@ -34,6 +34,7 @@ namespace Level
 
 		m_renderSystem = std::make_unique<Entity::RenderSystem>();
 
+		m_updateSystems.push_back(std::make_unique<Entity::LightingSystem>());
 		m_updateSystems.push_back(std::make_unique<Entity::PlayerInputSystem>());
 		m_updateSystems.push_back(std::make_unique<Entity::AISystem>());
 		m_updateSystems.push_back(std::make_unique<Entity::MoveSystem>());
@@ -55,13 +56,19 @@ namespace Level
 
 		for (auto& entity : m_entities)
 			m_renderSystem->update(Timestep(0), entity.get());
+
+		m_tiles.getLightMap()->renderLight(window);
 	}
 
 	void Level::update(const Timestep& ts)
 	{
+		m_tiles.getLightMap()->resetLight();
+
 		for (auto& entity : m_entities)
 			for (auto& system : m_updateSystems)
 				system->update(ts, entity.get());
+
+		m_tiles.getLightMap()->rebuildLight();
 
 		int mouseX = Application::instance->mousePosition().x;
 		int mouseY = Application::instance->mousePosition().y;
@@ -72,6 +79,18 @@ namespace Level
 
 		Entity::PhysicsComponent* c_pos = player->getComponent<Entity::PhysicsComponent>();
 		m_view.setCenter(c_pos->pos.x + offsetX, c_pos->pos.y + 0.01f + offsetY);
+
+		TileMap::AddList x3;
+		for (int i = -1; i <= 1; i++)
+			for (int j = -1; j <= 1; j++)
+			{
+				int x = int(c_pos->pos.x) / 32 + i;
+				int y = int(c_pos->pos.y) / 32 + j;
+
+				x3.push_back({x, y, byte(TileID::Dungeon_BrickFloor), 0 });
+			}
+		m_tiles.addTiles(0, x3);
+		x3.clear();
 	}
 
 	void Level::windowResize(Vec2 size)
