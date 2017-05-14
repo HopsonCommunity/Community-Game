@@ -23,9 +23,9 @@ namespace Level
 			{
 				auto n = data.tiles[x][y];
 				if (n == 1)
-					addList.push_back({x, y, byte(TileID::Dungeon_BrickFloor), 0});
+					addList.push_back(std::make_tuple(x, y, (byte)TileID::Dungeon_BrickFloor, 0 ));
 				else
-					addList.push_back({x, y, byte(TileID::Dungeon_BrickWall), 0});
+					addList.push_back(std::make_tuple( x, y, (byte)TileID::Dungeon_BrickWall, 0 ));
 			}
 
 		m_tiles.addTiles(0, addList);
