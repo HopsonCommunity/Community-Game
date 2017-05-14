@@ -47,7 +47,7 @@ namespace Level
 
 	void TileMap::addTile(uint x, uint y, uint layer, byte id, byte metadata) 
 	{
-		qAddTile(layer, x, y, id, metadata);
+		addTiles(layer, { std::make_tuple(x, y, id, metadata) });
 		generateVertexArray(layer);
 	}
 

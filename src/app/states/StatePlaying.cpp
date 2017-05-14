@@ -29,7 +29,7 @@ namespace State
 		m_level.addEntity(std::move(player));
 
 		m_level.player->getComponent<Entity::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f, m_level.player_spawn.x * 32.0f };
-
+      
 		std::unique_ptr<Entity::Entity> lantern = entityFactory->createEntity("Lantern.json");
 		lantern->getComponent<Entity::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f + 170, m_level.player_spawn.x * 32.0f + 170 };
 

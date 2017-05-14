@@ -40,8 +40,9 @@ namespace Entity
 		{
 			PhysicsComponent* c_target_physics = target->getComponent<PhysicsComponent>();
 
-			if (!c_target_physics)
-				return;
+			if (c_target_physics)
+			{
+				std::vector<AStar::Location> path = AStar::constructPath(std::make_tuple((int32)c_physics->pos.x >> 5, (int32)c_physics->pos.y >> 5), std::make_tuple((int32)c_target_physics->pos.x >> 5, (int32)c_target_physics->pos.y >> 5 ));
 
 			std::vector<AStar::Location> path = AStar::constructPath(
 			{ (int32)c_entity_physics->pos.x >> 5, (int32)c_entity_physics->pos.y >> 5 }, 
