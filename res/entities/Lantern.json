@@ -18,8 +18,8 @@
 		},
 			{
 				"componentType": "Light",
-				"intensity": 70,
-				"color": [ 255, 190, 0 ]
+				"intensity": 80,
+				"color": [ 255, 190, 255 ]
 			},
 		{
 			"componentType": "Physics",

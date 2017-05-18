@@ -3,9 +3,9 @@
 namespace Entity
 {
 	LightComponent::LightComponent(nlohmann::json json)
-		: intensity(json["intensity"])
+		: added(false)
 	{
 		std::vector<nlohmann::json> rgb = json["color"];
-		color = sf::Color(rgb[0], rgb[1], rgb[2], 255);
+		light = Level::StaticLight{0, 0, sf::Color(rgb[0], rgb[1], rgb[2], 255), json["intensity"]};
 	}
 }

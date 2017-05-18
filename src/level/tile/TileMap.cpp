@@ -19,8 +19,6 @@ namespace Level
 		generateVertexArray(0);
 	
 		m_renderState.texture = &Application::instance->getResources().textures.get("/tiles/atlas");
-
-		m_lmap = new LightMap(&m_layers[0]->tiles, width, height);
 	}
 
 	TileMap::~TileMap()
@@ -31,7 +29,7 @@ namespace Level
 	
 	void TileMap::addLayer() 
 	{
-		auto layer = std::make_unique<TileLayer>();
+		auto layer = std::make_unique<TileLayer>(width, height);
 
 		for (uint i = 0; i < width; i++)
 		{
@@ -80,11 +78,9 @@ namespace Level
 			{
 				node->id = TileID(id);
 				node->metadata = metadata;
-				byte absorb = 5;
-				if (TileID(id) == TileID::Dungeon_BrickFloor)
-					absorb = 6;
-				else if (TileID(id) == TileID::Dungeon_BrickWall)
-					absorb = 20;
+				byte absorb = 2;
+				if (TileID(id) == TileID::Dungeon_BrickWall)
+					absorb = 30;
 				node->light.absorb = absorb;
 			}
 		}
@@ -106,7 +102,10 @@ namespace Level
 	void TileMap::render(sf::RenderWindow& window)
 	{
 		for (auto& layer : m_layers)
+		{
 			window.draw(layer->vertexArray.data(), layer->vertexArray.size(), sf::PrimitiveType::Quads, m_renderState);
+			layer->lightMap.renderLight(window);
+		}
 	}
 
 	void TileMap::generateVertexArray(byte layer)
@@ -115,6 +114,8 @@ namespace Level
 		l->vertexArray.clear();
 
 		FOR_EACH_TILE(addTileVertices(l.get(), uint(x * TILE_SIZE), uint(y * TILE_SIZE), m_layers[layer]->tiles[x][y]))
+
+		l->lightMap.requestRebuild();
 	}
 
 	void TileMap::addTileVertices(TileLayer* layer, uint xa, uint ya, TileNode* tile)
@@ -133,6 +134,32 @@ namespace Level
 		layer->vertexArray.push_back({ {x + TILE_SIZE, y },              { tx + TILE_SIZE, ty } });
 		layer->vertexArray.push_back({ { x + TILE_SIZE, y + TILE_SIZE }, { tx + TILE_SIZE, ty + TILE_SIZE } });
 		layer->vertexArray.push_back({ { x, y + TILE_SIZE },             { tx, ty + TILE_SIZE } });
+	}
+
+	void TileMap::addLight(uint layer, uint x, uint y, sf::Color color, byte intensity)
+	{
+		m_layers[layer]->lightMap.addIntensity(x, y, color, intensity);
+	}
+
+	void TileMap::addStaticLight(uint layer, StaticLight* light)
+	{
+		m_layers[layer]->lightMap.addStaticLight(light);
+	}
+
+	void TileMap::removeStaticLight(uint layer, StaticLight* light)
+	{
+		m_layers[layer]->lightMap.removeStaticLight(light);
+	}
+
+	void TileMap::requestRebuild(uint layer)
+	{
+		m_layers[layer]->lightMap.requestRebuild();
+	}
+
+	void TileMap::light()
+	{
+		for (auto& layer : m_layers)
+			layer->lightMap.rebuildLight();
 	}
 }
 

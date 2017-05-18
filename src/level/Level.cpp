@@ -23,9 +23,9 @@ namespace Level
 			{
 				auto n = data.tiles[x][y];
 				if (n == 1)
-					addList.push_back(std::make_tuple(x, y, (byte)TileID::Dungeon_BrickFloor, 0 ));
+					addList.push_back(std::make_tuple(x, y, byte(TileID::Dungeon_BrickFloor), 0 ));
 				else
-					addList.push_back(std::make_tuple( x, y, (byte)TileID::Dungeon_BrickWall, 0 ));
+					addList.push_back(std::make_tuple( x, y, byte(TileID::Dungeon_BrickWall), 0 ));
 			}
 
 		m_tiles.addTiles(0, addList);
@@ -56,29 +56,20 @@ namespace Level
 
 		for (auto& entity : m_entities)
 			m_renderSystem->update(Timestep(0), entity.get());
-
-		m_tiles.getLightMap()->renderLight(window);
 	}
 
 	void Level::update(const Timestep& ts)
 	{
-		m_tiles.getLightMap()->resetLight();
-
 		for (auto& entity : m_entities)
 			for (auto& system : m_updateSystems)
 				system->update(ts, entity.get());
 
-		m_tiles.getLightMap()->rebuildLight();
-
-		int mouseX = Application::instance->mousePosition().x;
-		int mouseY = Application::instance->mousePosition().y;
-		int halfWidth = Application::instance->getWindow().getSize().x / 2;
-		int halfHeight = Application::instance->getWindow().getSize().y / 2;
-		int offsetX = static_cast<int>((mouseX - halfWidth) * 0.1f);
-		int offsetY = static_cast<int>((mouseY - halfHeight) * 0.1f);
+		m_tiles.light();
 
 		Entity::PhysicsComponent* c_pos = player->getComponent<Entity::PhysicsComponent>();
-		m_view.setCenter(c_pos->pos.x + offsetX, c_pos->pos.y + 0.01f + offsetY);
+
+		Vec2 offset = (Vec2(Application::instance->mousePosition()) - Vec2(Application::instance->getWindow().getSize()) / 2.f) * .1f;
+		m_view.setCenter(c_pos->pos.x + offset.x, c_pos->pos.y + offset.y);
 
 		TileMap::AddList x3;
 		for (int i = -1; i <= 1; i++)
@@ -87,7 +78,8 @@ namespace Level
 				int x = int(c_pos->pos.x) / 32 + i;
 				int y = int(c_pos->pos.y) / 32 + j;
 
-				x3.push_back({x, y, byte(TileID::Dungeon_BrickFloor), 0 });
+				if (m_tiles.getTile(0, x, y)->id != TileID::Dungeon_BrickFloor)
+					x3.push_back({x, y, byte(TileID::Dungeon_BrickFloor), 0 });
 			}
 		m_tiles.addTiles(0, x3);
 		x3.clear();

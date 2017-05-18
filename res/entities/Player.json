@@ -31,8 +31,8 @@
 		},
 		{
 			"componentType": "Light",
-			"intensity": 70,
-			"color": [ 255, 0, 0 ]
+			"intensity": 60,
+			"color": [ 255, 255, 0 ]
 		},
 		{
 			"componentType": "Stats",

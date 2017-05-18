@@ -70,7 +70,17 @@ namespace Entity
 
 		if (c_physics && c_light)
 		{
-			State::Playing::instance->getLevel().getTiles().getLightMap()->addIntensity(c_physics->pos.x / 32, c_physics->pos.y / 32, c_light->color, c_light->intensity);
+			sf::Vector2<uint> old = { c_light->light.x, c_light->light.y };
+			c_light->light.x = c_physics->pos.x / TILE_SIZE;
+			c_light->light.y = c_physics->pos.y / TILE_SIZE;
+			if (old.x != c_light->light.x || old.y != c_light->light.y)
+				State::Playing::instance->getLevel().getTiles().requestRebuild(0);
+
+			if (!c_light->added)
+			{
+				State::Playing::instance->getLevel().getTiles().addStaticLight(0, &c_light->light);
+				c_light->added = true;
+			}
 		}
 	}
 

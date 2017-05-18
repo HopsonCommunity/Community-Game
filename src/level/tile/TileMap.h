@@ -23,8 +23,13 @@ namespace Level
 	private:
         struct TileLayer
         {
+			LightMap lightMap;
             std::vector<std::vector<TileNode*>> tiles;
 			std::vector<sf::Vertex> vertexArray;
+
+			TileLayer(uint width, uint height)
+				: lightMap(&tiles, width, height)
+			{}
         };
 	
 	public:
@@ -34,18 +39,21 @@ namespace Level
         void addLayer();
         void addTile(uint layer, uint x, uint y, byte id, byte metadata);
 		void addTiles(uint layer, const AddList& tiles);
+		
+		void addLight(uint layer, uint x, uint y, sf::Color color, byte intensity);
+		void addStaticLight(uint layer, StaticLight* light);
+		void removeStaticLight(uint layer, StaticLight* light);
+		void requestRebuild(uint layer);
 
+		void light();
 		void render(sf::RenderWindow& window);
-
-		LightMap* getLightMap() const { return m_lmap; }
+		
 		TileNode* getTile(uint layer, uint x, uint y);
 
         uint width;
         uint height;
    
 	private:
-		LightMap* m_lmap;
-
 		void qAddTile(uint layer, uint x, uint y, byte id, byte metadata);
 
 		void generateVertexArray(byte layer);

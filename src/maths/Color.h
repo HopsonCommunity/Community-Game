@@ -17,6 +17,11 @@ inline sf::Color mixColors(const sf::Color& c1, const sf::Color& c2)
 {
 	sf::Color result;
 
+	// result.a = 255;
+	// result.r = .5f * c1.r + .5f * c2.r;
+	// result.g = .5f * c1.g + .5f * c2.g;
+	// result.b = .5f * c1.b + .5f * c2.b;
+
 	result.a = 255;
 	result.r = c1.r > c2.r ? c1.r : c2.r;
 	result.g = c1.g > c2.g ? c1.g : c2.g;

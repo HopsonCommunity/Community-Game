@@ -9,6 +9,7 @@
 #include "../../util/Log.h"
 #include "../../entity/EntityFactory.h"
 #include "../../entity/component/PhysicsComponent.h"
+#include "../../entity/component/LightComponent.h"
 
 namespace State
 {
