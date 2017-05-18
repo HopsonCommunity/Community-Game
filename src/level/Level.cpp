@@ -34,12 +34,12 @@ namespace Level
 
 		m_renderSystem = std::make_unique<Entity::RenderSystem>();
 
-		m_updateSystems.push_back(std::make_unique<Entity::LightingSystem>());
-		m_updateSystems.push_back(std::make_unique<Entity::PlayerInputSystem>());
-		m_updateSystems.push_back(std::make_unique<Entity::AISystem>());
-		m_updateSystems.push_back(std::make_unique<Entity::MoveSystem>());
-		m_updateSystems.push_back(std::make_unique<Entity::StatsSystem>());
-		m_updateSystems.push_back(std::make_unique<Entity::AnimatorSystem>());
+		m_updateSystems.push_back(std::move(std::make_unique<Entity::LightingSystem>()));
+		m_updateSystems.push_back(std::move(std::make_unique<Entity::PlayerInputSystem>()));
+		m_updateSystems.push_back(std::move(std::make_unique<Entity::AISystem>()));
+		m_updateSystems.push_back(std::move(std::make_unique<Entity::MoveSystem>()));
+		m_updateSystems.push_back(std::move(std::make_unique<Entity::StatsSystem>()));
+		m_updateSystems.push_back(std::move(std::make_unique<Entity::AnimatorSystem>()));
 
 		m_view = sf::View(Vec2(0, 0), Vec2(static_cast<float>(Application::instance->getWindow().getSize().x), static_cast<float>(Application::instance->getWindow().getSize().y)));
 	}
