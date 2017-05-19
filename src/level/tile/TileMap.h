@@ -42,7 +42,6 @@ namespace Level
         void addTile(uint layer, uint x, uint y, byte id, byte metadata);
 		void addTiles(uint layer, const AddList& tiles);
 		
-		void addLight(uint layer, uint x, uint y, sf::Color color, byte intensity);
 		void addStaticLight(uint layer, StaticLight* light);
 		void removeStaticLight(uint layer, StaticLight* light);
 		void requestRebuild(uint layer);

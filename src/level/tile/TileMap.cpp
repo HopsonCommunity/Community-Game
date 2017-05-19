@@ -136,11 +136,6 @@ namespace Level
 		layer->vertexArray.push_back({ { x, y + TILE_SIZE },             { tx, ty + TILE_SIZE } });
 	}
 
-	void TileMap::addLight(uint layer, uint x, uint y, sf::Color color, byte intensity)
-	{
-		m_layers[layer]->lightMap->addIntensity(x, y, color, intensity);
-	}
-
 	void TileMap::addStaticLight(uint layer, StaticLight* light)
 	{
 		m_layers[layer]->lightMap->addStaticLight(light);
