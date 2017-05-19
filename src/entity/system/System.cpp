@@ -97,14 +97,14 @@ namespace Entity
 			sf::RenderStates states;
 			states.transform.translate(c_physics->pos);
 			
-			// Draws AABB outline (for debugging purposes)
+			/* Draws AABB outline (for debugging purposes)
 			auto rs = sf::RectangleShape(c_physics->aabb.max);
 			rs.setPosition(c_physics->aabb.min);
 			rs.setFillColor({ 0, 0, 0, 0 });
 			rs.setOutlineColor({ 255, 0, 0, 255 });
 			rs.setOutlineThickness(1);
 			Application::instance->getWindow().draw(rs, states);
-			//
+			*/
 
 			Application::instance->getWindow().draw(c_sprite->sprite, states);
 		}

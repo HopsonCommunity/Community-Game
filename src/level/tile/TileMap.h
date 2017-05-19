@@ -23,13 +23,9 @@ namespace Level
 	private:
         struct TileLayer
         {
-			LightMap lightMap;
+			LightMap* lightMap;
             std::vector<std::vector<TileNode*>> tiles;
 			std::vector<sf::Vertex> vertexArray;
-
-			TileLayer(uint width, uint height)
-				: lightMap(&tiles, width, height)
-			{}
         };
 	
 	public:

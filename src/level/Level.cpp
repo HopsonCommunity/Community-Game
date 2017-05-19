@@ -32,7 +32,7 @@ namespace Level
 
 		player_spawn = Vec2i(data.playerPosition);
 
-		m_renderSystem = std::make_unique<Entity::RenderSystem>();
+		m_renderSystem = std::move(std::make_unique<Entity::RenderSystem>());
 
 		m_updateSystems.push_back(std::move(std::make_unique<Entity::LightingSystem>()));
 		m_updateSystems.push_back(std::move(std::make_unique<Entity::PlayerInputSystem>()));
@@ -71,6 +71,7 @@ namespace Level
 		Vec2 offset = (Vec2(Application::instance->mousePosition()) - Vec2(Application::instance->getWindow().getSize()) / 2.f) * .1f;
 		m_view.setCenter(c_pos->pos.x + offset.x, c_pos->pos.y + offset.y);
 
+		/*
 		TileMap::AddList x3;
 		for (int i = -1; i <= 1; i++)
 			for (int j = -1; j <= 1; j++)
@@ -83,6 +84,7 @@ namespace Level
 			}
 		m_tiles.addTiles(0, x3);
 		x3.clear();
+		*/
 	}
 
 	void Level::windowResize(Vec2 size)

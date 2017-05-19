@@ -24,13 +24,17 @@ namespace Level
 	TileMap::~TileMap()
 	{
 		for (auto& l : m_layers)
+		{
 			l->tiles.clear();
+			delete l->lightMap;
+		}
 	}
 	
 	void TileMap::addLayer() 
 	{
-		auto layer = std::make_unique<TileLayer>(width, height);
-
+		auto layer = std::make_unique<TileLayer>();
+		
+		layer->lightMap = new LightMap(&layer->tiles, width, height);
 		for (uint i = 0; i < width; i++)
 		{
 			std::vector<TileNode*> col;
@@ -104,7 +108,7 @@ namespace Level
 		for (auto& layer : m_layers)
 		{
 			window.draw(layer->vertexArray.data(), layer->vertexArray.size(), sf::PrimitiveType::Quads, m_renderState);
-			layer->lightMap.renderLight(window);
+			layer->lightMap->renderLight(window);
 		}
 	}
 
@@ -115,7 +119,7 @@ namespace Level
 
 		FOR_EACH_TILE(addTileVertices(l.get(), uint(x * TILE_SIZE), uint(y * TILE_SIZE), m_layers[layer]->tiles[x][y]))
 
-		l->lightMap.requestRebuild();
+		l->lightMap->requestRebuild();
 	}
 
 	void TileMap::addTileVertices(TileLayer* layer, uint xa, uint ya, TileNode* tile)
@@ -138,28 +142,28 @@ namespace Level
 
 	void TileMap::addLight(uint layer, uint x, uint y, sf::Color color, byte intensity)
 	{
-		m_layers[layer]->lightMap.addIntensity(x, y, color, intensity);
+		m_layers[layer]->lightMap->addIntensity(x, y, color, intensity);
 	}
 
 	void TileMap::addStaticLight(uint layer, StaticLight* light)
 	{
-		m_layers[layer]->lightMap.addStaticLight(light);
+		m_layers[layer]->lightMap->addStaticLight(light);
 	}
 
 	void TileMap::removeStaticLight(uint layer, StaticLight* light)
 	{
-		m_layers[layer]->lightMap.removeStaticLight(light);
+		m_layers[layer]->lightMap->removeStaticLight(light);
 	}
 
 	void TileMap::requestRebuild(uint layer)
 	{
-		m_layers[layer]->lightMap.requestRebuild();
+		m_layers[layer]->lightMap->requestRebuild();
 	}
 
 	void TileMap::light()
 	{
 		for (auto& layer : m_layers)
-			layer->lightMap.rebuildLight();
+			layer->lightMap->rebuildLight();
 	}
 }
 
