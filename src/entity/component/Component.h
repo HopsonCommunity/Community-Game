@@ -7,6 +7,23 @@
 
 namespace Entity
 {
+	namespace ComponentID
+	{
+		enum ComponentID : uint
+		{
+			AI = 1 << 0,
+			Animator = 1 << 1,
+			Hostile = 1 << 2,
+			Life = 1 << 3,
+			Light = 1 << 4,
+			Move = 1 << 5,
+			Physics = 1 << 6,
+			Player = 1 << 7,
+			Sprite = 1 << 8,
+			Stats = 1 << 9
+		};
+	}
+	
 	class Component
 	{
 	public:

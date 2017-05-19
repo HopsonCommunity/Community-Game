@@ -13,6 +13,6 @@ namespace Entity
 		LifeComponent(float life);
 		LifeComponent(nlohmann::json json);
 
-		static const int ID = 11;
+		static const uint ID = ComponentID::Life;
 	};
 }

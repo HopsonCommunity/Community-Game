@@ -141,7 +141,7 @@ namespace Entity
 			else
 				c_physics->moving = false;
 
-			c_sprite->flipX = (int32)Application::instance->mousePosition().x < (int32)Application::instance->getWindow().getSize().x / 2;
+			c_sprite->flipX = static_cast<int32>(Application::instance->mousePosition().x) < static_cast<int32>(Application::instance->getWindow().getSize().x) / 2;
 		}
 	}
 
@@ -152,9 +152,7 @@ namespace Entity
 		if (c_life)
 		{
 			if (c_life->done)
-				///@TODO: Remove from level
-			{
-			}
+				State::Playing::instance->getLevel().removeEntity(entity);
 			c_life->life -= ts.asSeconds();
 			if (c_life->life <= 0)
 				c_life->done = 1;

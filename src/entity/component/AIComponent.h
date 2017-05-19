@@ -38,6 +38,6 @@ namespace Entity
 			return std::make_unique<AIComponent>(*this);
 		}
 
-		static const int ID = 1;
+		static const uint ID = ComponentID::AI;
 	};
 }

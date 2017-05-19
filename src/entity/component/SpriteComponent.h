@@ -24,6 +24,6 @@ namespace Entity
 			return std::make_unique<SpriteComponent>(*this);
 		}
 
-		static const int ID = 7;
+		static const uint ID = ComponentID::Sprite;
 	};
 }

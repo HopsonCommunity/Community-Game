@@ -20,6 +20,7 @@ namespace Entity
 		{
 			return std::make_unique<LightComponent>(*this);
 		}
-		static const int ID = 20;
+
+		static const uint ID = ComponentID::Light;
 	};
 }

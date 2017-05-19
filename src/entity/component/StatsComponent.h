@@ -71,6 +71,6 @@ namespace Entity
 			return std::make_unique<StatsComponent>(*this);
 		}
 
-		static const int ID = 8;
+		static const uint ID = ComponentID::Stats;
 	};
 }

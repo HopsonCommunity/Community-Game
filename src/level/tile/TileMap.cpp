@@ -23,11 +23,7 @@ namespace Level
 
 	TileMap::~TileMap()
 	{
-		for (auto& l : m_layers)
-		{
-			l->tiles.clear();
-			delete l->lightMap;
-		}
+		m_layers.clear();
 	}
 	
 	void TileMap::addLayer() 

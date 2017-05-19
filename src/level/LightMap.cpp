@@ -9,8 +9,14 @@ namespace Level
 	LightMap::LightMap(std::vector<std::vector<TileNode*>>* tiles, int32 width, int32 height)
 		: width(width)
 		, height(height)
+		, m_requestedRebuild(false)
 		, m_tiles(tiles)
 	{
+	}
+
+	LightMap::~LightMap()
+	{
+		m_staticLights.clear();
 	}
 
 	void LightMap::rebuildLight()

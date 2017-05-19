@@ -20,6 +20,6 @@ namespace Entity
 			return std::make_unique<AnimatorComponent>(*this);
 		}
 
-		static const int ID = 2;
+		static const uint ID = ComponentID::Animator;
 	};
 }

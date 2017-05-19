@@ -13,6 +13,6 @@ namespace Entity
 		HostileComponent();
 		HostileComponent(nlohmann::json json);
 
-		static const int ID = 10;
+		static const uint ID = ComponentID::Hostile;
 	};
 }

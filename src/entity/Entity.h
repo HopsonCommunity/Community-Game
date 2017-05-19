@@ -28,7 +28,7 @@ namespace Entity
 		template<typename T>
 		T* getComponent()
 		{
-			int id = int(T::ID);
+			uint id = T::ID;
 			auto it = m_components.find(id);
 			if (it == m_components.end())
 				return nullptr;
@@ -38,6 +38,6 @@ namespace Entity
 		std::unique_ptr<Entity> clone(uint64 id);
 	private:
 		uint64 m_ID;
-		std::unordered_map<int, std::unique_ptr<Component>> m_components;
+		std::unordered_map<uint, std::unique_ptr<Component>> m_components;
 	};
 }

@@ -25,6 +25,6 @@ namespace Entity
 			return std::make_unique<PhysicsComponent>(*this);
 		}
 
-		static const int ID = 3;
+		static const uint ID = ComponentID::Physics;
 	};
 }

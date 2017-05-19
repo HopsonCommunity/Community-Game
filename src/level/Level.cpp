@@ -91,4 +91,16 @@ namespace Level
 	{
 		m_view.setSize(size.x, size.y);
 	}
+
+	void Level::removeEntity(Entity::Entity* entity)
+	{
+		for (uint i = 0; i < m_entities.size(); i++)
+		{
+			if (m_entities[i].get() == entity)
+			{
+				m_entities.erase(m_entities.begin() + i);
+				break;
+			}
+		}
+	}
 }

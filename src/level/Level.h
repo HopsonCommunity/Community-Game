@@ -16,6 +16,7 @@ namespace Level
 		Level(uint width, uint height);
 
 		void addEntity(std::unique_ptr<Entity::Entity> entity);
+		void removeEntity(Entity::Entity* entity);
 
 		void render(sf::RenderWindow& window);
 		void update(const Timestep& ts);

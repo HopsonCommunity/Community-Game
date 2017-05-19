@@ -26,6 +26,12 @@ namespace Level
 			LightMap* lightMap;
             std::vector<std::vector<TileNode*>> tiles;
 			std::vector<sf::Vertex> vertexArray;
+
+			~TileLayer()
+			{
+				tiles.clear();
+				delete lightMap;
+			}
         };
 	
 	public:
