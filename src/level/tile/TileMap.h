@@ -56,6 +56,6 @@ namespace Level
 	    static void addTileVertices(TileLayer* layer, uint x, uint y, TileNode* tile);
 
 		sf::RenderStates m_renderState;
-		std::vector<std::unique_ptr<TileLayer>> m_layers;
+		std::vector<TileLayer*> m_layers;
     };
 }

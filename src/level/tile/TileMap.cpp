@@ -32,7 +32,7 @@ namespace Level
 	
 	void TileMap::addLayer() 
 	{
-		auto layer = std::make_unique<TileLayer>();
+		auto layer = new TileLayer();
 		
 		layer->lightMap = new LightMap(&layer->tiles, width, height);
 		for (uint i = 0; i < width; i++)
@@ -44,7 +44,7 @@ namespace Level
 		}
 
 		layer->vertexArray.reserve(width * height * 4);
-		m_layers.push_back(std::move(layer));
+		m_layers.push_back(layer);
 	}
 
 	void TileMap::addTile(uint x, uint y, uint layer, byte id, byte metadata) 
@@ -105,7 +105,7 @@ namespace Level
 
 	void TileMap::render(sf::RenderWindow& window)
 	{
-		for (auto& layer : m_layers)
+		for (auto layer : m_layers)
 		{
 			window.draw(layer->vertexArray.data(), layer->vertexArray.size(), sf::PrimitiveType::Quads, m_renderState);
 			layer->lightMap->renderLight(window);
@@ -114,10 +114,10 @@ namespace Level
 
 	void TileMap::generateVertexArray(byte layer)
 	{
-		auto& l = m_layers[layer];
+		auto l = m_layers[layer];
 		l->vertexArray.clear();
 
-		FOR_EACH_TILE(addTileVertices(l.get(), uint(x * TILE_SIZE), uint(y * TILE_SIZE), m_layers[layer]->tiles[x][y]))
+		FOR_EACH_TILE(addTileVertices(l, uint(x * TILE_SIZE), uint(y * TILE_SIZE), m_layers[layer]->tiles[x][y]))
 
 		l->lightMap->requestRebuild();
 	}
