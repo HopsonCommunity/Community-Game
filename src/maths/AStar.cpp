@@ -14,7 +14,7 @@ namespace AStar
 		{
 			std::tie(dx, dy) = dir;
 			Location next(x + dx, y + dy);
-			if (State::Playing::instance->getLevel().getTiles().getTileData(0, std::get<0>(next), std::get<1>(next)).flags & (int32)Level::TileFlags::PASSABLE)
+			if (State::Playing::instance->isTilePassable(0, std::get<0>(next), std::get<1>(next)))
 				results.push_back(next);
 		}
 

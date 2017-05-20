@@ -30,6 +30,6 @@ namespace Entity
 			return std::make_unique<MoveComponent>(*this);
 		}
 
-		static const int ID = 4;
+		static const uint ID = ComponentID::Move;
 	};
 }

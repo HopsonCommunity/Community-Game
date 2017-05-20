@@ -17,6 +17,6 @@ namespace Entity
 			return std::make_unique<PlayerComponent>(*this);
 		}
 
-		static const int ID = 5;
+		static const uint ID = ComponentID::Player;
 	};
 }

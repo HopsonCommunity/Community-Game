@@ -25,10 +25,10 @@ namespace WGenerator
 
 	private:
 
-		std::vector<std::shared_ptr<Rectangle> > getRooms();
-		std::vector<std::shared_ptr<Rectangle> > getRandomSquares();
-		std::vector<std::shared_ptr<Rectangle> > getHalls();
-		std::vector<std::vector<byte>> render(std::vector<std::pair<std::vector<std::shared_ptr<Rectangle>>, byte>> data);
+		std::vector<std::shared_ptr<Rect> > getRooms();
+		std::vector<std::shared_ptr<Rect> > getRandomSquares();
+		std::vector<std::shared_ptr<Rect> > getHalls();
+		std::vector<std::vector<byte>> render(std::vector<std::pair<std::vector<std::shared_ptr<Rect>>, byte>> data);
 
 		sf::Vector2<uint> placePlayer(uint roomId);
 

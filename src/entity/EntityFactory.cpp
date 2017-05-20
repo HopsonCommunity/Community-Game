@@ -71,6 +71,8 @@ namespace Entity
 				entity->addComponent<StatsComponent>(std::make_unique<StatsComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Hostile")
 				entity->addComponent<HostileComponent>(std::make_unique<HostileComponent>(componentJSON));
+			if (componentJSON["componentType"].get<std::string>() == "Light")
+				entity->addComponent<LightComponent>(std::make_unique<LightComponent>(componentJSON));
 		}
 
 		if (entity->getComponent<HostileComponent>())

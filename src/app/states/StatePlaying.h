@@ -21,6 +21,8 @@ namespace State
 		void render(sf::RenderWindow& window) override;
 		void tick() override;
 
+		bool isTilePassable(byte layer, uint x, uint y);
+
 		Level::Level& getLevel() { return m_level; }
 
 	private:

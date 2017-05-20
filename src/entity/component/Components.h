@@ -11,3 +11,4 @@
 #include "PlayerComponent.h"
 #include "SpriteComponent.h"
 #include "StatsComponent.h"
+#include "LightComponent.h"

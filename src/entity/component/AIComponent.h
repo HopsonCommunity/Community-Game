@@ -19,10 +19,8 @@ namespace Entity
 	public:
 		Entity* target;
 		double trackingDistance;
-
-		std::function<std::vector<AStar::Location>(AStar::Location, AStar::Location)> findPath;
 	public:
-		FollowPlayer(double trackingDistance, std::function<std::vector<AStar::Location>(AStar::Location, AStar::Location)> func);
+		FollowPlayer(double trackingDistance, Entity* target);
 
 		void behave(Entity* entity) override;
 	};
@@ -40,6 +38,6 @@ namespace Entity
 			return std::make_unique<AIComponent>(*this);
 		}
 
-		static const int ID = 1;
+		static const uint ID = ComponentID::AI;
 	};
 }

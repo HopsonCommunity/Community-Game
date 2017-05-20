@@ -20,22 +20,16 @@ namespace Entity
 
 		if (c_physics)
 		{
-			auto colliding = Physics::tileCollision(c_physics->pos, c_physics->velocity, c_physics->aabb, ts.asSeconds());
+			auto colliding = Level::tileCollision(c_physics->pos, c_physics->velocity, c_physics->aabb, ts);
 					
 			if (!colliding.first)
-				c_physics->pos.x += round(c_physics->velocity.x * ts.asSeconds());
+				c_physics->pos.x += c_physics->velocity.x * ts.asSeconds();
 			if (!colliding.second)
-				c_physics->pos.y += round(c_physics->velocity.y * ts.asSeconds());
+				c_physics->pos.y += c_physics->velocity.y * ts.asSeconds();
 			
-			if (c_sprite)
-				if (c_sprite->flipOnVelocity)
-				{
-					if (c_physics->velocity.x > 0)
-						c_sprite->flipX = false;
-					else if (c_physics->velocity.x < 0)
-						c_sprite->flipX = true;
-				}
-
+			if (c_sprite && c_sprite->flipOnVelocity)
+				c_sprite->flipX = c_physics->velocity.x != 0 ? (c_physics->velocity.x > 0 ? false : true) : c_sprite->flipX;
+				
 			c_physics->velocity.x = 0;
 			c_physics->velocity.y = 0;
 		}
@@ -69,6 +63,27 @@ namespace Entity
 		}
 	}
 
+	void LightingSystem::update(const Timestep& ts, Entity* entity)
+	{
+		PhysicsComponent* c_physics = entity->getComponent<PhysicsComponent>();
+		LightComponent* c_light = entity->getComponent<LightComponent>();
+
+		if (c_physics && c_light)
+		{
+			sf::Vector2<uint> old = { c_light->light.x, c_light->light.y };
+			c_light->light.x = c_physics->pos.x / TILE_SIZE;
+			c_light->light.y = c_physics->pos.y / TILE_SIZE;
+			if (old.x != c_light->light.x || old.y != c_light->light.y)
+				State::Playing::instance->getLevel().getTiles().requestRebuild(0);
+
+			if (!c_light->added)
+			{
+				State::Playing::instance->getLevel().getTiles().addStaticLight(0, &c_light->light);
+				c_light->added = true;
+			}
+		}
+	}
+
 	void RenderSystem::update(const Timestep& ts, Entity* entity)
 	{
 		PhysicsComponent* c_physics = entity->getComponent<PhysicsComponent>();
@@ -82,14 +97,14 @@ namespace Entity
 			sf::RenderStates states;
 			states.transform.translate(c_physics->pos);
 			
-			// Draws AABB outline (for debugging purposes)
+			/* Draws AABB outline (for debugging purposes)
 			auto rs = sf::RectangleShape(c_physics->aabb.max);
 			rs.setPosition(c_physics->aabb.min);
 			rs.setFillColor({ 0, 0, 0, 0 });
 			rs.setOutlineColor({ 255, 0, 0, 255 });
 			rs.setOutlineThickness(1);
 			Application::instance->getWindow().draw(rs, states);
-			//
+			*/
 
 			Application::instance->getWindow().draw(c_sprite->sprite, states);
 		}
@@ -98,8 +113,7 @@ namespace Entity
 	void AISystem::update(const Timestep& ts, Entity* entity)
 	{
 		AIComponent* c_ai = entity->getComponent<AIComponent>();
-		PhysicsComponent* c_physics = entity->getComponent<PhysicsComponent>();
-		if (c_ai && c_physics)
+		if (c_ai)
 			c_ai->behaviour->behave(entity);
 	}
 
@@ -127,7 +141,7 @@ namespace Entity
 			else
 				c_physics->moving = false;
 
-			c_sprite->flipX = (int32)Application::instance->mousePosition().x < (int32)Application::instance->getWindow().getSize().x / 2;
+			c_sprite->flipX = static_cast<int32>(Application::instance->mousePosition().x) < static_cast<int32>(Application::instance->getWindow().getSize().x) / 2;
 		}
 	}
 
@@ -138,9 +152,7 @@ namespace Entity
 		if (c_life)
 		{
 			if (c_life->done)
-				///@TODO: Remove from level
-			{
-			}
+				State::Playing::instance->getLevel().removeEntity(entity);
 			c_life->life -= ts.asSeconds();
 			if (c_life->life <= 0)
 				c_life->done = 1;
