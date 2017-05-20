@@ -8,10 +8,13 @@ namespace Entity
 
 	StatsComponent::StatsComponent(nlohmann::json json)
 	{
-		active_effects.push_back(std::make_shared<HealthBoost>(-1, json["base"]["max_health"], json["base"]["health_regen"]));
-		active_effects.push_back(std::make_shared<Defense>(-1, json["base"]["armor"], json["base"]["magic_resist"]));
-
-		stats.health = json["base"]["max_health"];
+		if (json.find("base") != json.end())
+		{
+			active_effects.push_back(std::make_shared<HealthBoost>(-1, json["base"]["max_health"], json["base"]["health_regen"]));
+			active_effects.push_back(std::make_shared<Defense>(-1, json["base"]["armor"], json["base"]["magic_resist"]));
+			
+			stats.health = json["base"]["max_health"];
+		}
 	};
 
 #pragma region STATUS_EFFECT

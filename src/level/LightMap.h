@@ -14,7 +14,7 @@ namespace Level
 	// Each tile has one of these
 	struct LightData
 	{
-		sf::Color color;
+		Color color;
 		byte intensity, absorb;
 	};
 
@@ -22,7 +22,7 @@ namespace Level
 	struct StaticLight
 	{
 		uint x, y;
-		sf::Color color;
+		Color color;
 		byte intensity;
 	};
 
@@ -54,13 +54,13 @@ namespace Level
 		void checkNeighbours(LightData* tile, uint x, uint y) const;
 		
 		// Add intensities to tiles
-		void addIntensity(uint x, uint y, sf::Color color, byte intensity) const;
-		static void setIntensity(LightData* tile, sf::Color color, byte intensity);
+		void addIntensity(uint x, uint y, Color color, byte intensity) const;
+		static void setIntensity(LightData* tile, Color color, byte intensity);
 		
 		// Returns the middle of the tile at x, y
 		static Vec2 getTileCenter(int32 x, int32 y) { return Vec2(x * TILE_SIZE + TILE_SIZE * .5f, y * TILE_SIZE + TILE_SIZE * .5f); }
 		// Returns the color of the tile at x, y
-		sf::Color getTileLight(int32 x, int32 y) const;
+		Color getTileLight(int32 x, int32 y) const;
 
 		// Used for rendering
 		std::vector<sf::Vertex> m_lightMask;

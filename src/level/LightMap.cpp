@@ -43,12 +43,12 @@ namespace Level
 		for (uint x = 0; x < width; x++)
 			for (uint y = 0; y < height; y++)
 			{
-				(*m_tiles)[x][y]->light.color = sf::Color::Black;
+				(*m_tiles)[x][y]->light.color = Color::Black;
 				(*m_tiles)[x][y]->light.intensity = 0;
 			}
 	}
 
-	void LightMap::setIntensity(LightData* tile, sf::Color color, byte intensity)
+	void LightMap::setIntensity(LightData* tile, Color color, byte intensity)
 	{
 		if (intensity > tile->intensity || canMixColors(tile->color, color))
 		{
@@ -65,13 +65,11 @@ namespace Level
 	void LightMap::removeStaticLight(StaticLight* light)
 	{
 		for (uint i = 0; i < m_staticLights.size(); i++)
-		{
 			if (m_staticLights[i] == light)
 			{
 				m_staticLights.erase(m_staticLights.begin() + i);
 				break;
 			}
-		}
 	}
 
 	void LightMap::checkNeighbours(LightData* tile, uint x, uint y) const
@@ -82,7 +80,7 @@ namespace Level
 		char intensity = tile->intensity - tile->absorb;
 		if (intensity < 0) 
 			return;
-		sf::Color color = reapplyIntensity(tile->color, tile->intensity, intensity);
+		Color color = reapplyIntensity(tile->color, tile->intensity, intensity);
 
 		if (x > 0) setIntensity(&(*m_tiles)[x - 1][y]->light, color, intensity);
 		if (x < width - 1) setIntensity(&(*m_tiles)[x + 1][y]->light, color, intensity);
@@ -99,19 +97,19 @@ namespace Level
 		if (y < height - 1 && x < width - 1) setIntensity(&(*m_tiles)[x + 1][y + 1]->light, color, intensity);
 	}
 
-	void LightMap::addIntensity(uint x, uint y, sf::Color color, byte intensity) const
+	void LightMap::addIntensity(uint x, uint y, Color color, byte intensity) const
 	{
 		if (x >= width || y >= height)
 			return;
 
 		color = applyIntensity(color, intensity);
-		(*m_tiles)[x][y]->light.color = color; // mixColors((*m_tiles)[x][y]->light.color, color);
+		(*m_tiles)[x][y]->light.color = color;
 
 		if ((*m_tiles)[x][y]->light.intensity < intensity)
 			(*m_tiles)[x][y]->light.intensity = intensity;
 	}
 
-	sf::Color LightMap::getTileLight(int32 x, int32 y) const
+	Color LightMap::getTileLight(int32 x, int32 y) const
 	{
 		if (x < 0) x = 0;
 		if (y < 0) y = 0;

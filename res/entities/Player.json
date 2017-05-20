@@ -30,11 +30,6 @@
 			"movespeed": 150
 		},
 		{
-			"componentType": "Light",
-			"intensity": 60,
-			"color": [ 255, 255, 0 ]
-		},
-		{
 			"componentType": "Stats",
 			"base": {
 				"max_health": 150,
@@ -43,26 +38,26 @@
 				"magic_resist": 0
 			}
 		},
-		{
-			"componentType": "Animator",
-			"animations": [
-				{
-					"name": "idle",
-					"positionX": 0,
-					"positionY": 0,
-					"stride": 32,
-					"length": 8,
-					"fps": 7
-				},
-				{
-					"name": "run",
-					"positionX": 0,
-					"positionY": 64,
-					"stride": 32,
-					"length": 8,
-					"fps": 14
-				}
-			]
-		}
+			{
+				"componentType": "Animator",
+				"animations": [
+					{
+						"name": "idle",
+						"positionX": 0,
+						"positionY": 0,
+						"stride": 32,
+						"length": 8,
+						"fps": 7
+					},
+					{
+						"name": "run",
+						"positionX": 0,
+						"positionY": 64,
+						"stride": 32,
+						"length": 8,
+						"fps": 14
+					}
+				]
+			}
 	]
 }

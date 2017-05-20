@@ -28,7 +28,7 @@ namespace Level
 	
 	void TileMap::addLayer() 
 	{
-		auto layer = new TileLayer();
+		TileLayer* layer = new TileLayer();
 		
 		layer->lightMap = new LightMap(&layer->tiles, width, height);
 		for (uint i = 0; i < width; i++)
