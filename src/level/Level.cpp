@@ -24,8 +24,10 @@ namespace Level
 				auto n = data.tiles[x][y];
 				if (n == 1)
 					addList.push_back(std::make_tuple(x, y, byte(TileID::Dungeon_BrickFloor), 0 ));
-				else
+				else if (n == 0)
 					addList.push_back(std::make_tuple( x, y, byte(TileID::Dungeon_BrickWall), 0 ));
+				else
+					addList.push_back(std::make_tuple( x, y, byte(TileID::Void), 0));
 			}
 
 		m_tiles.addTiles(0, addList);
@@ -71,7 +73,7 @@ namespace Level
 		Vec2 offset = (Vec2(Application::instance->mousePosition()) - Vec2(Application::instance->getWindow().getSize()) / 2.f) * .1f;
 		m_view.setCenter(c_pos->pos.x + offset.x, c_pos->pos.y + offset.y);
 
-		/*
+
 		TileMap::AddList x3;
 		for (int i = -1; i <= 1; i++)
 			for (int j = -1; j <= 1; j++)
@@ -84,7 +86,7 @@ namespace Level
 			}
 		m_tiles.addTiles(0, x3);
 		x3.clear();
-		*/
+
 	}
 
 	void Level::windowResize(Vec2 size)

@@ -29,6 +29,7 @@ namespace WGenerator
 		std::vector<std::shared_ptr<Rect> > getRandomSquares();
 		std::vector<std::shared_ptr<Rect> > getHalls();
 		std::vector<std::vector<byte>> render(std::vector<std::pair<std::vector<std::shared_ptr<Rect>>, byte>> data);
+		std::vector<std::vector<byte >> generateWalls(std::vector<std::vector<byte >> map, byte wallID, byte wallSideID);
 
 		sf::Vector2<uint> placePlayer(uint roomId);
 
