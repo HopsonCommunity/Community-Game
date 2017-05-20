@@ -1,3 +1,0 @@
-﻿Player.json
-Projectile.json
-enemy/Zombie.json

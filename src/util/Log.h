@@ -3,6 +3,9 @@
 #include "../Common.h"
 
 #include "../app/WindowSettings.h"
+#include "../maths/Color.h"
+#include "../maths/AABB.h"
+
 #include <SFML/Window/Keyboard.hpp>
 
 #ifdef _WIN32
@@ -41,7 +44,7 @@ namespace Log
 	{
 		template<class U> static char(&test(typename U::iterator const*))[1];
 		template<class U> static char(&test(...))[2];
-		static const bool value = (sizeof(test<T>(0)) == 1);
+		static const bool value = (sizeof(test<T>(nullptr)) == 1);
 	};
 	
 	template <typename T>
@@ -79,7 +82,7 @@ namespace Log
 	template <>
 	inline const char* to_string<unsigned char const*>(unsigned char const* const& t)
 	{
-		return (const char*)t;
+		return reinterpret_cast<const char*>(t);
 	}
 
 	template <>
@@ -145,7 +148,8 @@ namespace Log
 			break; 
 		case LEVEL_FATAL:
 			SetConsoleTextAttribute(hConsole, BACKGROUND_RED | BACKGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-			break;	
+			break;
+		default: ;
 		}
 #endif // __WIN32
 		printf("%s", buffer);
@@ -163,10 +167,27 @@ namespace Log
 	template<>
 	inline const char* to_string<WindowSettings>(const WindowSettings& v)
 	{
-		std::string string = std::string("WindowSettings: (") + to_string(v.width) + " x " + to_string(v.height) + ", Fullscreen: "
-			+ to_string(v.fullscreen) + ", VSync: " + to_string(v.vsync) + ")";
-		char* result = new char[string.length()];
-		strcpy(result, &string[0]);
+		sprintf(sprintf_buffer, "WindowSettings: (%u x %u, Fullscreen: %s, VSync: %s)", v.width, v.height, to_string(v.fullscreen), to_string(v.vsync));
+		char* result = new char[strlen(sprintf_buffer)];
+		strcpy(result, &sprintf_buffer[0]);
+		return result;
+	}
+
+	template<>
+	inline const char* to_string<Color>(const Color& v)
+	{
+		sprintf(sprintf_buffer, "Color: (r: %hhu, g: %hhu, b: %hhu, a: %hhu)", v.r, v.g, v.b, v.a);
+		char* result = new char[strlen(sprintf_buffer)];
+		strcpy(result, &sprintf_buffer[0]);
+		return result;
+	}
+
+	template<>
+	inline const char* to_string<AABB>(const AABB& v)
+	{
+		sprintf(sprintf_buffer, "AABB: (min: { x: %f, y: %f }, max: { x: %f, y: %f })", v.min.x, v.min.y, v.max.x, v.max.y);
+		char* result = new char[strlen(sprintf_buffer)];
+		strcpy(result, &sprintf_buffer[0]);
 		return result;
 	}
 

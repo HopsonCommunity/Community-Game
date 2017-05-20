@@ -97,13 +97,14 @@ namespace Entity
 			sf::RenderStates states;
 			states.transform.translate(c_physics->pos);
 			
-			/* Draws AABB outline (for debugging purposes)
-			auto rs = sf::RectangleShape(c_physics->aabb.max);
-			rs.setPosition(c_physics->aabb.min);
-			rs.setFillColor({ 0, 0, 0, 0 });
-			rs.setOutlineColor({ 255, 0, 0, 255 });
-			rs.setOutlineThickness(1);
-			Application::instance->getWindow().draw(rs, states);
+			/* 
+			    Draws AABB outline (for debugging purposes)
+				auto rs = sf::RectangleShape(c_physics->aabb.max);
+				rs.setPosition(c_physics->aabb.min);
+				rs.setFillColor({ 0, 0, 0, 0 });
+				rs.setOutlineColor({ 255, 0, 0, 255 });
+				rs.setOutlineThickness(1);
+				Application::instance->getWindow().draw(rs, states);
 			*/
 
 			Application::instance->getWindow().draw(c_sprite->sprite, states);
@@ -114,7 +115,8 @@ namespace Entity
 	{
 		AIComponent* c_ai = entity->getComponent<AIComponent>();
 		if (c_ai)
-			c_ai->behaviour->behave(entity);
+			if (c_ai->behaviour)
+				c_ai->behaviour->behave(entity);
 	}
 
 	void PlayerInputSystem::update(const Timestep& ts, Entity* entity)
@@ -155,7 +157,7 @@ namespace Entity
 				State::Playing::instance->getLevel().removeEntity(entity);
 			c_life->life -= ts.asSeconds();
 			if (c_life->life <= 0)
-				c_life->done = 1;
+				c_life->done = true;
 		}
 	}
 }
