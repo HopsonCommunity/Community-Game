@@ -29,7 +29,9 @@ namespace Level
 
 			~TileLayer()
 			{
-				tiles.clear();
+				for (uint i = 0; i < tiles.size(); i++)
+					tiles[i].clear();
+
 				delete lightMap;
 			}
         };

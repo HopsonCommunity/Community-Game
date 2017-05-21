@@ -15,17 +15,6 @@ namespace Entity
 	EntityFactory::EntityFactory()
 		: m_lastID(0)
 	{
-		/*
-		std::string source = getFileContents("res/entities/Entities.txt");
-		std::istringstream sstream(source);
-		std::string line;
-
-		while (std::getline(sstream, line))
-		{
-			line.pop_back();
-			createTemplate(line);
-		}
-		*/
 	}
 
 	std::unique_ptr<Entity> EntityFactory::createEntity(std::string name)
