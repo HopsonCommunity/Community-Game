@@ -1,5 +1,5 @@
 #include "InventoryComponent.h"
-#include "../../item/ItemFactory.h"
+
 
 namespace Entity
 {

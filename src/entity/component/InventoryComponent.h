@@ -5,7 +5,6 @@
 #include "../../item/Item.h"
 #include "../../util/json.hpp"
 #include "Component.h"
-
 namespace Entity {
     class InventoryComponent : public Component {
     public:
