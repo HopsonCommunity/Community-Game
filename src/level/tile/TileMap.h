@@ -49,7 +49,9 @@ namespace Level
 		void requestRebuild(uint layer);
 
 		void light();
+
 		void render(sf::RenderWindow& window);
+		void renderLight(sf::RenderWindow& window);
 		
 		TileNode* getTile(uint layer, uint x, uint y);
 

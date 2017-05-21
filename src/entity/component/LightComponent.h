@@ -3,7 +3,6 @@
 #include "Component.h"
 
 #include "../../maths/Color.h"
-#include "../../util/json.hpp"
 #include "../../level/LightMap.h"
 
 namespace Entity

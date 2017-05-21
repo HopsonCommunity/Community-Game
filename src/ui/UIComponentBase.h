@@ -12,7 +12,8 @@ namespace UI
 	class UIComponent
 	{
 	public:
-		UIComponent(sf::Rect<int> transform) : m_transform(transform) { }
+		virtual ~UIComponent() = default;
+		explicit UIComponent(sf::Rect<int> transform) : m_transform(transform) { }
 
 		virtual void hover(int x, int y) = 0;
 		virtual void click(int x, int y) = 0;
@@ -21,7 +22,7 @@ namespace UI
 
 		virtual void render(sf::RenderWindow& window) = 0;
 
-		const sf::Rect<int>& getTransform() { return m_transform; }
+		const sf::Rect<int>& getTransform() const { return m_transform; }
 	protected:
 		sf::Rect<int> m_transform;
 	};

@@ -2,11 +2,9 @@
 
 #include "Component.h"
 
-#include "../../util/json.hpp"
-
 namespace Entity
 {
-	// Marks the entitey as hostile
+	// Marks the entity as hostile
 	class HostileComponent : public Component
 	{
 	public:
