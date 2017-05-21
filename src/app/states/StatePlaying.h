@@ -3,6 +3,7 @@
 #include "../../level/Level.h"
 #include "../../entity/EntityFactory.h"
 #include "StateBase.h"
+#include "../../item/ItemFactory.h"
 
 namespace State
 {
@@ -11,6 +12,7 @@ namespace State
 	public:
 		static Playing* instance;
 		static Entity::EntityFactory* entityFactory;
+		static Item::ItemFactory* itemFactory;
 		
 	public:
 		Playing(Application* app, sf::RenderWindow* window);

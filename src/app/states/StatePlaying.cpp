@@ -15,6 +15,7 @@ namespace State
 {
 	Playing* Playing::instance;
 	Entity::EntityFactory* Playing::entityFactory;
+	Item::ItemFactory* Playing::itemFactory;
 
 	Playing::Playing(Application* app, sf::RenderWindow* window)
 		: Base(app)

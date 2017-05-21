@@ -20,7 +20,8 @@ namespace Entity
 			Physics = 1 << 6,
 			Player = 1 << 7,
 			Sprite = 1 << 8,
-			Stats = 1 << 9
+			Stats = 1 << 9,
+			Inventory = 1 << 10
 		};
 	}
 	
