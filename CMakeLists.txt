@@ -28,9 +28,14 @@ set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 set(CMAKE_BUILD_TYPE Debug)
 add_subdirectory(deps/SFML)
 
-# Copy static files
-# Tired of manually copying it
-file(COPY res/ DESTINATION Debug/res/)
+# Copy game resources to the right destination
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+  # using Visual Studio C++
+  file(COPY res/ DESTINATION Debug/res/)
+  file(COPY res/ DESTINATION Release/res/)
+else ()
+  file (COPY res/ DESTINATION res/)
+endif()
 
 target_link_libraries(${PROJECT_NAME} sfml-network sfml-graphics sfml-window sfml-system sfml-audio)
 
