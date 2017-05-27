@@ -16,7 +16,7 @@ namespace UI
 		};
 
 	public:
-		Label(sf::Text text, Alignment alignment = Alignment::LEFT);
+		explicit Label(sf::Text text, Alignment alignment = Alignment::LEFT);
 
 		void render(sf::RenderWindow& m_window);
 
@@ -25,8 +25,8 @@ namespace UI
 
 		void setPosition(Vec2 position);
 
-		inline sf::Text& getText() { return m_text; }
-		inline Alignment getAlignment() const { return m_alignment; }
+		sf::Text& getText() { return m_text; }
+		Alignment getAlignment() const { return m_alignment; }
 
 	private:
 		Vec2 m_position;

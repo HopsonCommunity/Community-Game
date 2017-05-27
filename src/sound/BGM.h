@@ -13,8 +13,8 @@ namespace Sound
 
 		void loadMusic();
 
-		void play(sf::Music &music);
+		static void play(sf::Music &music);
 
-		void pause(sf::Music &music);
+		static void pause(sf::Music &music);
 	};
 }

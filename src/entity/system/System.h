@@ -11,10 +11,18 @@ namespace Entity
 	class System
 	{
 	public:
+		virtual ~System() = default;
+		
 		virtual void update(const Timestep& ts, Entity* entity) {};
 	};
 
 	class MoveSystem : public System
+	{
+	public:
+		void update(const Timestep& ts, Entity* entity) override;
+	};
+
+	class ScriptSystem : public System
 	{
 	public:
 		void update(const Timestep& ts, Entity* entity) override;
@@ -34,6 +42,7 @@ namespace Entity
 
 	class AnimatorSystem : public System
 	{
+	public:
 		void update(const Timestep& ts, Entity* entity) override;
 	};
 
@@ -44,18 +53,6 @@ namespace Entity
 	};
 
 	class RenderSystem : public System
-	{
-	public:
-		void update(const Timestep& ts, Entity* entity) override;
-	};
-
-	class AISystem : public System
-	{
-	public:
-		void update(const Timestep& ts, Entity* entity) override;
-	};
-
-	class PlayerInputSystem : public System
 	{
 	public:
 		void update(const Timestep& ts, Entity* entity) override;

@@ -102,10 +102,13 @@ namespace Level
 	void TileMap::render(sf::RenderWindow& window)
 	{
 		for (auto layer : m_layers)
-		{
 			window.draw(layer->vertexArray.data(), layer->vertexArray.size(), sf::PrimitiveType::Quads, m_renderState);
+	}
+
+	void TileMap::renderLight(sf::RenderWindow& window)
+	{
+		for (auto layer : m_layers)
 			layer->lightMap->renderLight(window);
-		}
 	}
 
 	void TileMap::generateVertexArray(byte layer)

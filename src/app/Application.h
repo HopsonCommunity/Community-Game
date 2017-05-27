@@ -33,16 +33,22 @@ public:
 	const WindowSettings& getSettings() const;
 	ResourceHolder& getResources();
 
-	const uint getFPS() { return m_framesPerSecond; }
-	const uint getUPS() { return m_updatesPerSecond; }
-	const float getFrameTime() { return m_frameTime; }
+	uint getFPS() const { return m_framesPerSecond; }
+	uint getUPS() const { return m_updatesPerSecond; }
+	float getFrameTime() const { return m_frameTime; }
 
-	Input::Input getInputManager() { return m_inputManager; }
+	Input::Input getInputManager() const { return m_inputManager; }
 
 	void setVSync(bool enabled);
 
 	bool inputPressed(std::string action);
 	sf::Vector2i mousePosition();
+
+	float mouseX() { return static_cast<float>(mousePosition().x); }
+	float mouseY() { return static_cast<float>(mousePosition().y); }
+
+	float screenWidth() { return static_cast<float>(getWindow().getSize().x); }
+	float screenHeight() { return static_cast<float>(getWindow().getSize().y); }
 
 	sf::RenderWindow& getWindow();
 	Sound::BGM BGM;

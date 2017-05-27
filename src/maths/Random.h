@@ -40,7 +40,7 @@ namespace Random
 
 		char getRandomChar()
 		{
-			return (char)('A' + intInRange(0, 23));
+			return char('A' + intInRange(0, 23));
 		}
 	
 	private:

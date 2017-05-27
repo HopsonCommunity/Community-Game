@@ -2,7 +2,8 @@
 	"name": "Player",
 	"components": [
 		{
-			"componentType": "Player"
+			"componentType": "Script",
+			"src": "player.lua"
 		},
 		{
 			"componentType": "Sprite",
@@ -17,7 +18,25 @@
 				"top": 0,
 				"width": 32,
 				"height": 64
-			}
+			},
+			"animations": [
+				{
+					"name": "idle",
+					"positionX": 0,
+					"positionY": 0,
+					"stride": 32,
+					"length": 8,
+					"fps": 7
+				},
+				{
+					"name": "run",
+					"positionX": 0,
+					"positionY": 64,
+					"stride": 32,
+					"length": 8,
+					"fps": 14
+				}
+			]
 		},
 		{
 			"componentType": "Physics",
@@ -37,27 +56,6 @@
 				"armor": 0,
 				"magic_resist": 0
 			}
-		},
-			{
-				"componentType": "Animator",
-				"animations": [
-					{
-						"name": "idle",
-						"positionX": 0,
-						"positionY": 0,
-						"stride": 32,
-						"length": 8,
-						"fps": 7
-					},
-					{
-						"name": "run",
-						"positionX": 0,
-						"positionY": 64,
-						"stride": 32,
-						"length": 8,
-						"fps": 14
-					}
-				]
-			}
+		}
 	]
 }

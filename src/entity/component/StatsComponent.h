@@ -2,11 +2,6 @@
 
 #include "Component.h"
 
-#include "../../util/json.hpp"
-
-#include <vector>
-#include <memory>
-
 namespace Entity
 {
 #pragma region STATS
@@ -23,6 +18,7 @@ namespace Entity
 	{
 	public:
 		StatusEffect(int32 duration);
+		virtual ~StatusEffect() = default;
 
 		bool active = 1;
 

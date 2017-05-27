@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include <SFML/Graphics/Color.hpp>
-
 #include "../Common.h"
+
+#include <SFML/Graphics/Color.hpp>
 
 typedef sf::Color Color;
 

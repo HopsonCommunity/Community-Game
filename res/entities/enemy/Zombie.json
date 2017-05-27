@@ -2,11 +2,8 @@
 	"name": "Zombie",
 	"components": [
 		{
-			"componentType": "AI",
-			"behaviour": {
-				"type": "FollowPlayer",
-				"trackingDistance": 7
-			}
+			"componentType": "Script",
+			"src": "zombie.lua"
 		},
 		{
 			"componentType": "Hostile"
@@ -24,29 +21,7 @@
 				"top": 0,
 				"width": 64,
 				"height": 64
-			}
-		},
-		{
-			"componentType": "Physics",
-					"aabb": {
-						"xMin": -16,
-						"yMin": -16,
-						"xMax": 32,
-						"yMax": 32
-					},
-			"movespeed": 90
-		},
-		{
-			"componentType": "Stats",
-			"base": {
-				"max_health": 50,
-				"health_regen": 0,
-				"armor": 10,
-				"magic_resist": 0
-			}
-		},
-		{
-			"componentType": "Animator",
+			},
 			"animations": [
 				{
 					"name": "idle",
@@ -65,6 +40,25 @@
 					"fps": 14
 				}
 			]
+		},
+		{
+			"componentType": "Physics",
+			"aabb": {
+				"xMin": -16,
+				"yMin": -16,
+				"xMax": 32,
+				"yMax": 32
+			},
+			"movespeed": 90
+		},
+		{
+			"componentType": "Stats",
+			"base": {
+				"max_health": 50,
+				"health_regen": 0,
+				"armor": 10,
+				"magic_resist": 0
+			}
 		}
 	]
 }
