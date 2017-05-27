@@ -100,24 +100,6 @@ namespace WGenerator
 		return map;
 	}
 
-	std::vector<std::vector<byte >> WorldGenerator::generateWalls(std::vector<std::vector<byte >> map, byte wallID, byte wallSideID)
-	{
-		for (unsigned int i = 0; i < map.size(); i++)
-		{
-			for (unsigned int j = 0; j < map[i].size(); j++)
-			{
-				if (0 < j < map[i].size() - 1)
-				{
-					if (map[i][j] == wallID && map[i][j + 1] == 1) {
-						map[i][j + 1] = wallSideID;
-						std::cout<<"done!";
-					}
-				}
-			}
-		}
-		return map;
-	}
-
 	Map WorldGenerator::getMap()
 	{
 		Map map;
@@ -126,7 +108,6 @@ namespace WGenerator
 		data.push_back(std::make_pair<std::vector<std::shared_ptr<Rect>>, byte>(getRandomSquares(), 1));
 		data.push_back(std::make_pair<std::vector<std::shared_ptr<Rect>>, byte>(getHalls(), 1));
 		map.tiles = render(data);
-		map.tiles = generateWalls(map.tiles, 0, 2);
 		uint numberOfRooms = getRooms().size();
 		map.playerPosition = placePlayer(static_cast<uint>(m_generator.uint64InRange(0, numberOfRooms)));
 		return map;
