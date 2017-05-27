@@ -3,7 +3,6 @@
 #include "Component.h"
 
 #include "../../maths/AABB.h"
-#include "../../util/json.hpp"
 
 namespace Entity
 {

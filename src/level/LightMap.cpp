@@ -40,8 +40,8 @@ namespace Level
 
 	void LightMap::resetLight() const
 	{
-		for (uint x = 0; x < width; x++)
-			for (uint y = 0; y < height; y++)
+		for (int32 x = 0; x < width; x++)
+			for (int32 y = 0; y < height; y++)
 			{
 				(*m_tiles)[x][y]->light.color = Color::Black;
 				(*m_tiles)[x][y]->light.intensity = 0;
@@ -72,9 +72,9 @@ namespace Level
 			}
 	}
 
-	void LightMap::checkNeighbours(LightData* tile, uint x, uint y) const
+	void LightMap::checkNeighbours(LightData* tile, int32 x, int32 y) const
 	{
-		if (x >= width || y >= height)
+		if (x < 0 || y < 0 || x >= width || y >= height)
 			return;
 
 		char intensity = tile->intensity - tile->absorb;
@@ -87,9 +87,9 @@ namespace Level
 		if (y > 0) setIntensity(&(*m_tiles)[x][y - 1]->light, color, intensity);
 		if (y < height - 1) setIntensity(&(*m_tiles)[x][y + 1]->light, color, intensity);
 
-		color.r *= 0.9f;
-		color.g *= 0.9f;
-		color.b *= 0.9f;
+		color.r = byte(color.r * 0.9f);
+		color.g = byte(color.g * 0.9f);
+		color.b = byte(color.b * 0.9f);
 
 		if (x > 0 && y < height - 1) setIntensity(&(*m_tiles)[x - 1][y + 1]->light, color, intensity);
 		if (x < width - 1 && y > 0) setIntensity(&(*m_tiles)[x + 1][y - 1]->light, color, intensity);
@@ -97,9 +97,9 @@ namespace Level
 		if (y < height - 1 && x < width - 1) setIntensity(&(*m_tiles)[x + 1][y + 1]->light, color, intensity);
 	}
 
-	void LightMap::addIntensity(uint x, uint y, Color color, byte intensity) const
+	void LightMap::addIntensity(int32 x, int32 y, Color color, byte intensity) const
 	{
-		if (x >= width || y >= height)
+		if (x < 0 || y < 0 || x >= width || y >= height)
 			return;
 
 		color = applyIntensity(color, intensity);
@@ -111,10 +111,10 @@ namespace Level
 
 	Color LightMap::getTileLight(int32 x, int32 y) const
 	{
-		if (x < 0) x = 0;
-		if (y < 0) y = 0;
-		if (x >= width) x = width - 1;
-		if (y >= height) y = height - 1;
+		x = x < 0 ? 0 : x;
+		y = y < 0 ? 0 : y;
+		x = x >= width ? width - 1 : x;
+		y = y >= height ? height - 1 : y;
 
 		return (*m_tiles)[x][y]->light.color;
 	}

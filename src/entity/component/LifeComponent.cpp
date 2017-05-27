@@ -1,4 +1,5 @@
 ﻿#include "LifeComponent.h"
+
 #include "../../util/Log.h"
 
 namespace Entity

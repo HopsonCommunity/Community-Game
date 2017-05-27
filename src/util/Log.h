@@ -48,21 +48,21 @@ namespace Log
 	};
 	
 	template <typename T>
-	inline const char* to_string_internal(const T& v, const std::true_type& ignored)
+	const char* to_string_internal(const T& v, const std::true_type& ignored)
 	{
 		sprintf(to_string_buffer, "Container of size: %d, contents: %s", v.size(), format_iterators(v.begin(), v.end()).c_str());
 		return to_string_buffer;
 	}
 
 	template <typename T>
-	inline const char* to_string_internal(const T& t, const std::false_type& ignored)
+	const char* to_string_internal(const T& t, const std::false_type& ignored)
 	{
 		auto x = std::to_string(t);
 		return strcpy(to_string_buffer, x.c_str());
 	}
-
+ 
 	template <typename T>
-	inline const char* to_string(const T& t)
+	const char* to_string(const T& t)
 	{
 		return to_string_internal<T>(t, std::integral_constant<bool, has_iterator<T>::value>());
 	}

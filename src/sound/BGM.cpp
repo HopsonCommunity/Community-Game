@@ -6,9 +6,9 @@ namespace Sound
 {
 	void BGM::loadMusic()
 	{
-		BGM::challenge.openFromFile("res/music/Challenge.ogg");
-		BGM::lunar_streams.openFromFile("res/music/LunarStreams.ogg");
-		BGM::menu.openFromFile("res/music/Menu.ogg");
+		challenge.openFromFile("res/music/Challenge.ogg");
+		lunar_streams.openFromFile("res/music/LunarStreams.ogg");
+		menu.openFromFile("res/music/Menu.ogg");
 
 		sf::Music music;
 	}
@@ -22,5 +22,4 @@ namespace Sound
 	{
 		music.pause();
 	}
-	
 }

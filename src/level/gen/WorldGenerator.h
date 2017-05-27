@@ -10,7 +10,8 @@
 
 namespace WGenerator
 {
-	struct Map {
+	struct Map 
+	{
 		std::vector<std::vector<byte>> tiles;
 		sf::Vector2<uint> playerPosition;
 	};
@@ -24,21 +25,17 @@ namespace WGenerator
 		Map getMap();
 
 	private:
-
-		std::vector<std::shared_ptr<Rect> > getRooms();
-		std::vector<std::shared_ptr<Rect> > getRandomSquares();
-		std::vector<std::shared_ptr<Rect> > getHalls();
-		std::vector<std::vector<byte>> render(std::vector<std::pair<std::vector<std::shared_ptr<Rect>>, byte>> data);
-		std::vector<std::vector<byte >> generateWalls(std::vector<std::vector<byte >> map, byte wallID, byte wallSideID);
+		std::vector<std::shared_ptr<Rect>> getRooms();
+		std::vector<std::shared_ptr<Rect>> getRandomSquares();
+		std::vector<std::shared_ptr<Rect>> getHalls();
+		std::vector<std::vector<byte>> render(std::vector<std::pair<std::vector<std::shared_ptr<Rect>>, byte>> data) const;
 
 		sf::Vector2<uint> placePlayer(uint roomId);
 
-		uint m_width;
-		uint m_height;
-		uint m_minSize;
-		uint m_maxSize;
+		uint m_width, m_height;
+		int32 m_minSize, m_maxSize;
 		uint m_seed;
 		Random::Generator<> m_generator;
-		std::vector<std::shared_ptr<Leaf> > m_leafs;
+		std::vector<std::shared_ptr<Leaf>> m_leafs;
 	};
 }

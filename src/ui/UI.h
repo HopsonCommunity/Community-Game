@@ -13,7 +13,7 @@ namespace UI
 	class UI
 	{
 	public:
-		UI(sf::RenderWindow* owningWindow);
+		explicit UI(sf::RenderWindow* owningWindow);
 		~UI();
 
 		void addComponent(UIComponent& component);

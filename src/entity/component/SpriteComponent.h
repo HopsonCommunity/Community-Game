@@ -1,8 +1,7 @@
 ﻿#pragma once
 
 #include "Component.h"
-
-#include "../../util/json.hpp"
+#include "../animation/Animator.h"
 
 #include <SFML/Graphics/Sprite.hpp>
 
@@ -11,10 +10,11 @@ namespace Entity
 	class SpriteComponent : public Component
 	{
 	public:
-		Vec2 origin;
 		sf::Sprite sprite;
 		bool flipOnVelocity; // flipX based on +- velocity
 		bool flipX;
+		bool animated;
+		Animator animator;
 
 		SpriteComponent(const sf::Sprite& sprite);
 		SpriteComponent(nlohmann::json json);

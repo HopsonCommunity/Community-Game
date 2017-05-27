@@ -17,14 +17,22 @@ Application::Application(std::string&& name, const WindowSettings& settings)
 
 	LOG_WARN("Launching window");
 	LOG_WARN("------------------------------------");
-	LOG_WARN("  Resolution: ", settings.width, " x ", settings.height);
+	if (!settings.fullscreen)
+		LOG_WARN("  Resolution: ", settings.width, " x ", settings.height);
 	LOG_WARN("  Fullscreen: ", settings.fullscreen);
 	LOG_WARN("  VSync: ", settings.vsync);
 	LOG_WARN("------------------------------------");
 
 	auto style = settings.fullscreen ? sf::Style::Fullscreen : sf::Style::Default;
 
-	m_window.create({ settings.width, settings.height }, m_title, style);
+	if (settings.fullscreen)
+	{
+		sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
+		m_window.create({ desktop.width, desktop.height }, m_title, style);
+	}
+	else
+		m_window.create({ settings.width, settings.height }, m_title, style);
+
 	m_window.setVerticalSyncEnabled(settings.vsync);
 
 	m_labelView = sf::View(Vec2(static_cast<float>(m_window.getSize().x / 2), static_cast<float>(m_window.getSize().y / 2)), Vec2(static_cast<float>(m_window.getSize().x), static_cast<float>(m_window.getSize().y)));

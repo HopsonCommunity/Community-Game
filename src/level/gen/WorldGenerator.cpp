@@ -14,7 +14,7 @@ namespace WGenerator
 
 	void WorldGenerator::generateMap()
 	{
-		std::shared_ptr<Leaf> root = std::make_shared<Leaf>(Rect(0, 0, m_width, m_height), std::make_shared<Random::Generator<> >(m_generator),
+		std::shared_ptr<Leaf> root = std::make_shared<Leaf>(Rect(0, 0, m_width, m_height), std::make_shared<Random::Generator<>>(m_generator),
 			m_minSize);
 		m_leafs.push_back(root);
 		bool didSplit = true;
@@ -23,7 +23,7 @@ namespace WGenerator
 			didSplit = false;
 			for (uint i = 0; i < m_leafs.size(); i++)
 			{
-				if (!(m_leafs[i]->leftChild) && !(m_leafs[i]->rightChild))
+				if (!m_leafs[i]->leftChild && !m_leafs[i]->rightChild)
 				{
 					int randomizedValue = m_generator.intInRange(0, 100);
 					if (m_leafs[i]->block.width > m_maxSize || m_leafs[i]->block.height > m_maxSize ||
@@ -42,82 +42,61 @@ namespace WGenerator
 		root->createRooms();
 	}
 
-	std::vector<std::shared_ptr<Rect> > WorldGenerator::getRooms()
+	std::vector<std::shared_ptr<Rect>> WorldGenerator::getRooms()
 	{
-		std::vector<std::shared_ptr<Rect> > Rects;
-		for (unsigned int i = 0; i < m_leafs.size(); i++)
-		{
+		std::vector<std::shared_ptr<Rect>> Rects;
+		for (uint i = 0; i < m_leafs.size(); i++)
 			if (m_leafs[i]->room)
-			{
 				Rects.push_back(m_leafs[i]->room);
-			}
-		}
 		return Rects;
 	}
 
-	std::vector<std::shared_ptr<Rect> >  WorldGenerator::getRandomSquares()
+	std::vector<std::shared_ptr<Rect>>  WorldGenerator::getRandomSquares()
 	{
 		std::vector<std::shared_ptr<Rect> > rooms;
-		for (unsigned int i = 0; i < m_leafs.size(); i++)
-		{
+		for (uint i = 0; i < m_leafs.size(); i++)
 			if (m_leafs[i]->room)
-			{
 				rooms.push_back(m_leafs[i]->room);
-			}
-		}
-		std::vector<std::shared_ptr<Rect> > Rects;
-		for (unsigned int i = 0; i < rooms.size(); i++)
+		
+		std::vector<std::shared_ptr<Rect>> Rects;
+		for (uint i = 0; i < rooms.size(); i++)
 		{
 			for (int j = 0; j < 10; j++)
 			{
 				std::shared_ptr<Rect>  rect = std::make_shared<Rect>(Rect());
-				rect->width = (uint)m_generator.uint64InRange(2, 5);
-				rect->height = (uint)m_generator.uint64InRange(2, 5);
-				rect->x = (uint)m_generator.uint64InRange(rooms[i]->x,
-					rooms[i]->x + rooms[i]->width - (int)(rect->width / 2));
-				rect->y = (uint)m_generator.uint64InRange(rooms[i]->y,
-					rooms[i]->y + rooms[i]->height - (int)(rect->height / 2));
+				rect->width = static_cast<int32>(m_generator.uint64InRange(2, 5));
+				rect->height = static_cast<int32>(m_generator.uint64InRange(2, 5));
+				rect->x = static_cast<int32>(m_generator.uint64InRange(rooms[i]->x,
+				                                                       rooms[i]->x + rooms[i]->width - static_cast<int32>(rect->width / 2)));
+				rect->y = static_cast<int32>(m_generator.uint64InRange(rooms[i]->y,
+				                                                       rooms[i]->y + rooms[i]->height - static_cast<int32>(rect->height / 2)));
 				Rects.push_back(rect);
 			}
 		}
 		return Rects;
 	}
 
-	std::vector<std::shared_ptr<Rect> > WorldGenerator::getHalls()
+	std::vector<std::shared_ptr<Rect>> WorldGenerator::getHalls()
 	{
-		std::vector<std::shared_ptr<Rect> > Rects;
-		for (unsigned int i = 0; i < m_leafs.size(); i++)
-		{
-			for (unsigned int j = 0; j < m_leafs[i]->halls.size(); j++)
-			{
+		std::vector<std::shared_ptr<Rect>> Rects;
+		for (uint i = 0; i < m_leafs.size(); i++)
+			for (uint j = 0; j < m_leafs[i]->halls.size(); j++)
 				Rects.push_back(std::make_shared<Rect>(m_leafs[i]->halls[j]));
-			}
-		}
+	
 		return Rects;
 	}
 
-	std::vector<std::vector<byte >> WorldGenerator::render(std::vector<std::pair<std::vector<std::shared_ptr<Rect> >, byte > > data)
+	std::vector<std::vector<byte>> WorldGenerator::render(std::vector<std::pair<std::vector<std::shared_ptr<Rect>>, byte>> data) const
 	{
-		std::vector<std::vector<byte> > map(m_width, std::vector<byte>(m_height, 0));
-		for (unsigned int i = 0; i < data.size(); i++)
-		{
-			for (unsigned int j = 0; j < data[i].first.size(); j++)
-			{
-				for (unsigned int k = 0; k < data[i].first[j]->width; k++)
-				{
-					for (unsigned int l = 0; l < data[i].first[j]->height; l++)
-					{
-						if (map.size() > data[i].first[j]->x + k)
-						{
-							if (map[data[i].first[j]->x + k].size() > data[i].first[j]->y + l)
-							{
+		std::vector<std::vector<byte>> map(m_width, std::vector<byte>(m_height, 0));
+		for (uint i = 0; i < data.size(); i++)
+			for (uint j = 0; j < data[i].first.size(); j++)
+				for (int32 k = 0; k < data[i].first[j]->width; k++)
+					for (int32 l = 0; l < data[i].first[j]->height; l++)
+						if (map.size() > static_cast<uint>(data[i].first[j]->x + k))
+							if (map[data[i].first[j]->x + k].size() > static_cast<uint>(data[i].first[j]->y + l))
 								map[k + data[i].first[j]->x][l + data[i].first[j]->y] = data[i].second;
-							}
-						}
-					}
-				}
-			}
-		}
+		
 		return map;
 	}
 
@@ -142,20 +121,20 @@ namespace WGenerator
 	Map WorldGenerator::getMap()
 	{
 		Map map;
-		std::vector<std::pair<std::vector<std::shared_ptr<Rect> >, byte > > data;
-		data.push_back(std::make_pair<std::vector<std::shared_ptr<Rect> >, byte >(getRooms(), 1));
-		data.push_back(std::make_pair<std::vector<std::shared_ptr<Rect> >, byte >(getRandomSquares(), 1));
-		data.push_back(std::make_pair<std::vector<std::shared_ptr<Rect> >, byte >(getHalls(), 1));
+		std::vector<std::pair<std::vector<std::shared_ptr<Rect>>, byte>> data;
+		data.push_back(std::make_pair<std::vector<std::shared_ptr<Rect>>, byte>(getRooms(), 1));
+		data.push_back(std::make_pair<std::vector<std::shared_ptr<Rect>>, byte>(getRandomSquares(), 1));
+		data.push_back(std::make_pair<std::vector<std::shared_ptr<Rect>>, byte>(getHalls(), 1));
 		map.tiles = render(data);
 		map.tiles = generateWalls(map.tiles, 0, 2);
 		uint numberOfRooms = getRooms().size();
-		map.playerPosition = placePlayer(static_cast<unsigned int>(m_generator.uint64InRange(0, numberOfRooms)));
+		map.playerPosition = placePlayer(static_cast<uint>(m_generator.uint64InRange(0, numberOfRooms)));
 		return map;
 	}
 
 	sf::Vector2<uint> WorldGenerator::placePlayer(uint roomId)
 	{
-		std::vector<std::shared_ptr<Rect> > rooms = getRooms();
-		return sf::Vector2<uint>(((rooms[roomId]->x * 2) + rooms[roomId]->width) / 2, ((rooms[roomId]->y * 2) + rooms[roomId]->height) / 2);
+		std::vector<std::shared_ptr<Rect>> rooms = getRooms();
+		return sf::Vector2<uint>((rooms[roomId]->x * 2 + rooms[roomId]->width) / 2, (rooms[roomId]->y * 2 + rooms[roomId]->height) / 2);
 	}
 }

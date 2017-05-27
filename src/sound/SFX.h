@@ -7,6 +7,7 @@ namespace Sound
 	class SFX // Sound effects
 	{
 	public:
+		virtual ~SFX() = default;
 		static const sf::SoundBuffer* explosion;
 
 		static void loadSounds();
@@ -15,7 +16,7 @@ namespace Sound
 		sf::Sound m_sound;
 
 	public:
-		SFX(sf::Sound sound);
+		explicit SFX(sf::Sound sound);
 
 		virtual void play(const sf::SoundBuffer& buffer);
 		virtual void setVolume(const int volume);

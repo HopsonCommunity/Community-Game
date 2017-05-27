@@ -5,6 +5,7 @@ namespace UI
 	UI::UI(sf::RenderWindow* owningWindow)
 		: m_owningWindow(owningWindow)
 		, m_uiView(Vec2(static_cast<float>(owningWindow->getSize().x / 2), static_cast<float>(owningWindow->getSize().y / 2)), Vec2(static_cast<float>(owningWindow->getSize().x), static_cast<float>(owningWindow->getSize().y)))
+		, m_mousePressed(false)
 	{
 	}
 

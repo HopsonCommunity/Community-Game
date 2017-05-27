@@ -36,8 +36,7 @@ namespace Level
 		m_renderSystem = std::move(std::make_unique<Entity::RenderSystem>());
 
 		m_updateSystems.push_back(std::move(std::make_unique<Entity::LightingSystem>()));
-		m_updateSystems.push_back(std::move(std::make_unique<Entity::PlayerInputSystem>()));
-		m_updateSystems.push_back(std::move(std::make_unique<Entity::AISystem>()));
+		m_updateSystems.push_back(std::move(std::make_unique<Entity::ScriptSystem>()));
 		m_updateSystems.push_back(std::move(std::make_unique<Entity::MoveSystem>()));
 		m_updateSystems.push_back(std::move(std::make_unique<Entity::StatsSystem>()));
 		m_updateSystems.push_back(std::move(std::make_unique<Entity::AnimatorSystem>()));
@@ -53,10 +52,13 @@ namespace Level
 	void Level::render(sf::RenderWindow& window)
 	{
 		window.setView(m_view);
+
 		m_tiles.render(window);
 
 		for (auto& entity : m_entities)
 			m_renderSystem->update(Timestep(0), entity.get());
+	
+		m_tiles.renderLight(window);
 	}
 
 	void Level::update(const Timestep& ts)

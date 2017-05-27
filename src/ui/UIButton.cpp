@@ -44,7 +44,7 @@ namespace UI
 	void UIButton::render(sf::RenderWindow& window)
 	{
 		window.draw(m_sprite);
-		m_label.setPosition({ (float)m_rectangle.left + m_rectangle.width / 2, (float)m_rectangle.top + m_rectangle.height / 4 });
+		m_label.setPosition({ static_cast<float>(m_rectangle.left) + m_rectangle.width / 2, static_cast<float>(m_rectangle.top) + m_rectangle.height / 4 });
 		m_label.render(window);
 	}
 
@@ -52,7 +52,7 @@ namespace UI
 	{
 		m_sprite.setTexture(textures[mode]);
 		m_sprite.setPosition(static_cast<float>(m_rectangle.left), static_cast<float>(m_rectangle.top));
-		m_sprite.setScale((float)m_rectangle.width / 56.0f, (float)m_rectangle.height / 14.0f);
+		m_sprite.setScale(static_cast<float>(m_rectangle.width) / 56.0f, static_cast<float>(m_rectangle.height) / 14.0f);
 		m_currentMode = mode;
 	}
 }

@@ -21,7 +21,7 @@ namespace Level
 	// Light emitter
 	struct StaticLight
 	{
-		uint x, y;
+		int32 x, y;
 		Color color;
 		byte intensity;
 	};
@@ -51,10 +51,10 @@ namespace Level
 		void buildLight();
 
 		// Flood tile neighbours with light
-		void checkNeighbours(LightData* tile, uint x, uint y) const;
+		void checkNeighbours(LightData* tile, int32 x, int32 y) const;
 		
 		// Add intensities to tiles
-		void addIntensity(uint x, uint y, Color color, byte intensity) const;
+		void addIntensity(int32 x, int32 y, Color color, byte intensity) const;
 		static void setIntensity(LightData* tile, Color color, byte intensity);
 		
 		// Returns the middle of the tile at x, y

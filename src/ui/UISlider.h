@@ -15,11 +15,11 @@ namespace UI
 	public:
 		UISlider(Label label, sf::Rect<int> rect, std::function<void(float)> callback);
 
-		void click(int x, int y);
-		void hover(int x, int y);
-		void clickAndHold(int x, int y);
-		void none();
-		void render(sf::RenderWindow& window);
+		void click(int x, int y) override;
+		void hover(int x, int y) override;
+		void clickAndHold(int x, int y) override;
+		void none() override;
+		void render(sf::RenderWindow& window) override;
 
 	private:
 		std::function<void(float)> m_callback;

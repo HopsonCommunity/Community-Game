@@ -36,15 +36,14 @@ namespace State
 		lantern->getComponent<Entity::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f + 170, m_level.player_spawn.y * 32.0f + 170 };
 
 		m_level.addEntity(std::move(lantern));
-
+		
 		std::unique_ptr<Entity::Entity> lantern2 = entityFactory->createEntity("Lantern.json");
 		lantern2->getComponent<Entity::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f + 140, m_level.player_spawn.y * 32.0f + 170 };
 
 		m_level.addEntity(std::move(lantern2));
 
 		std::unique_ptr<Entity::Entity> zombie = entityFactory->createEntity("enemy/Zombie.json");
-		zombie->getComponent<Entity::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f + 140, m_level.player_spawn.y * 32.0f + 170 };
-
+		zombie->getComponent<Entity::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f, m_level.player_spawn.y * 32.0f };
 		m_level.addEntity(std::move(zombie));
 	}
 
