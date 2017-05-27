@@ -18,7 +18,7 @@ namespace UI
 		for (UIComponent* comp : m_components)
 		{
 			auto transform = comp->getTransform();
-			auto mousePos = input.mousePosition(*m_owningWindow);
+			auto mousePos = Vec2i(m_owningWindow->mapPixelToCoords(input.mousePosition(*m_owningWindow), m_uiView));
 			if (transform.contains(mousePos))
 			{
 				auto relativeMP = mousePos - sf::Vector2i(transform.left, transform.top);
