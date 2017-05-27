@@ -18,7 +18,8 @@ namespace Entity
 			Physics = 1 << 4,
 			Sprite = 1 << 5,
 			Stats = 1 << 6,
-			Script = 1 << 7
+			Script = 1 << 7,
+      Inventory = 1 << 8
 		};
 	}
 	
