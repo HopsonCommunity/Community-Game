@@ -10,7 +10,7 @@ struct ResourceHolder
 	ResourceHolder()
 		: textures("res/textures/", ".png")
 		, fonts("res/fonts/", ".ttf")
-		, soundBuffers("res/sfx/", ".ogg")
+		, soundBuffers("res/sound/sfx/", ".ogg")
 	{}
 
 	ResourceManager<sf::Texture>       textures;

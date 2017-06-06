@@ -2,7 +2,7 @@
 
 namespace WGenerator
 {
-	Leaf::Leaf(Rect t_block, std::shared_ptr<Random::Generator<> > t_generator, uint t_minSize)
+	Leaf::Leaf(maths::IntRectangle t_block, std::shared_ptr<Random::Generator<> > t_generator, uint t_minSize)
 		: block(t_block)
 		, generator(t_generator)
 		, m_minSize(t_minSize)
@@ -25,13 +25,13 @@ namespace WGenerator
 
 		if (splitOrientation)
 		{
-			leftChild = std::make_shared<Leaf>(Rect(block.x, block.y, block.width, splitPosition), generator, m_minSize);
-			rightChild = std::make_shared<Leaf>(Rect(block.x, block.y + splitPosition, block.width, block.height - splitPosition), generator, m_minSize);
+			leftChild = std::make_shared<Leaf>(maths::IntRectangle(block.x, block.y, block.width, splitPosition), generator, m_minSize);
+			rightChild = std::make_shared<Leaf>(maths::IntRectangle(block.x, block.y + splitPosition, block.width, block.height - splitPosition), generator, m_minSize);
 		}
 		else
 		{
-			leftChild = std::make_shared<Leaf>(Rect(block.x, block.y, splitPosition, block.height), generator, m_minSize);
-			rightChild = std::make_shared<Leaf>(Rect(block.x + splitPosition, block.y, block.width - splitPosition, block.height), generator, m_minSize);
+			leftChild = std::make_shared<Leaf>(maths::IntRectangle(block.x, block.y, splitPosition, block.height), generator, m_minSize);
+			rightChild = std::make_shared<Leaf>(maths::IntRectangle(block.x + splitPosition, block.y, block.width - splitPosition, block.height), generator, m_minSize);
 		}
 		return true;
 	}
@@ -55,16 +55,16 @@ namespace WGenerator
 		}
 		else
 		{
-			Rect rect = Rect();
+			maths::IntRectangle rect = maths::IntRectangle();
 			rect.width = (uint)generator->uint64InRange(3, block.width - 2);
 			rect.height = (uint)generator->uint64InRange(3, block.height - 2);
 			rect.x = (uint)generator->uint64InRange(1, block.width - rect.width - 1) + block.x;
 			rect.y = (uint)generator->uint64InRange(1, block.height - rect.height - 1) + block.y;
-			room = std::make_shared<Rect>(rect);
+			room = std::make_shared<maths::IntRectangle>(rect);
 		}
 	}
 
-	void Leaf::createHall(std::shared_ptr<Rect> left, std::shared_ptr<Rect> right)
+	void Leaf::createHall(std::shared_ptr<maths::IntRectangle> left, std::shared_ptr<maths::IntRectangle> right)
 	{
 		std::pair<uint, uint> point1;
 		std::pair<uint, uint> point2;
@@ -81,31 +81,31 @@ namespace WGenerator
 			{
 				if (generator->uint64InRange(0, 100) < 50)
 				{
-					halls.push_back(Rect(point2.first, point1.second, (uint)std::abs(w), 3));
-					halls.push_back(Rect(point2.first, point2.second, 3, (uint)std::abs(h)));
+					halls.push_back(maths::IntRectangle(point2.first, point1.second, (uint)std::abs(w), 3));
+					halls.push_back(maths::IntRectangle(point2.first, point2.second, 3, (uint)std::abs(h)));
 				}
 				else
 				{
-					halls.push_back(Rect(point2.first, point2.second, (uint)std::abs(w), 3));
-					halls.push_back(Rect(point1.first, point2.second, 3, (uint)std::abs(h)));
+					halls.push_back(maths::IntRectangle(point2.first, point2.second, (uint)std::abs(w), 3));
+					halls.push_back(maths::IntRectangle(point1.first, point2.second, 3, (uint)std::abs(h)));
 				}
 			}
 			else if (h > 0)
 			{
 				if (generator->uint64InRange(0, 100) < 50)
 				{
-					halls.push_back(Rect(point2.first, point1.second, (uint)std::abs(w), 3));
-					halls.push_back(Rect(point2.first, point1.second, 3, (uint)std::abs(h)));
+					halls.push_back(maths::IntRectangle(point2.first, point1.second, (uint)std::abs(w), 3));
+					halls.push_back(maths::IntRectangle(point2.first, point1.second, 3, (uint)std::abs(h)));
 				}
 				else
 				{
-					halls.push_back(Rect(point2.first, point2.second, (uint)std::abs(w), 3));
-					halls.push_back(Rect(point1.first, point1.second, 3, (uint)std::abs(h)));
+					halls.push_back(maths::IntRectangle(point2.first, point2.second, (uint)std::abs(w), 3));
+					halls.push_back(maths::IntRectangle(point1.first, point1.second, 3, (uint)std::abs(h)));
 				}
 			}
 			else
 			{
-				halls.push_back(Rect(point2.first, point2.second, (uint)std::abs(w), 3));
+				halls.push_back(maths::IntRectangle(point2.first, point2.second, (uint)std::abs(w), 3));
 			}
 		}
 		else if (w > 0)
@@ -114,55 +114,55 @@ namespace WGenerator
 			{
 				if (generator->uint64InRange(0, 100) < 50)
 				{
-					halls.push_back(Rect(point1.first, point2.second, (uint)std::abs(w), 3));
-					halls.push_back(Rect(point1.first, point2.second, 3, (uint)std::abs(h)));
+					halls.push_back(maths::IntRectangle(point1.first, point2.second, (uint)std::abs(w), 3));
+					halls.push_back(maths::IntRectangle(point1.first, point2.second, 3, (uint)std::abs(h)));
 				}
 				else
 				{
-					halls.push_back(Rect(point1.first, point1.second, (uint)std::abs(w) + 3, 3));
-					halls.push_back(Rect(point2.first, point2.second, 3, (uint)std::abs(h)));
+					halls.push_back(maths::IntRectangle(point1.first, point1.second, (uint)std::abs(w) + 3, 3));
+					halls.push_back(maths::IntRectangle(point2.first, point2.second, 3, (uint)std::abs(h)));
 				}
 			}
 			else if (h > 0)
 			{
 				if (generator->uint64InRange(0, 100) < 50)
 				{
-					halls.push_back(Rect(point1.first, point1.second, (uint)std::abs(w), 3));
-					halls.push_back(Rect(point2.first, point1.second, 3, (uint)std::abs(h)));
+					halls.push_back(maths::IntRectangle(point1.first, point1.second, (uint)std::abs(w), 3));
+					halls.push_back(maths::IntRectangle(point2.first, point1.second, 3, (uint)std::abs(h)));
 				}
 				else
 				{
-					halls.push_back(Rect(point1.first, point2.second, (uint)std::abs(w), 3));
-					halls.push_back(Rect(point1.first, point1.second, 3, (uint)std::abs(h)));
+					halls.push_back(maths::IntRectangle(point1.first, point2.second, (uint)std::abs(w), 3));
+					halls.push_back(maths::IntRectangle(point1.first, point1.second, 3, (uint)std::abs(h)));
 				}
 			}
 			else
 			{
-				halls.push_back(Rect(point1.first, point1.second, (uint)std::abs(w), 3));
+				halls.push_back(maths::IntRectangle(point1.first, point1.second, (uint)std::abs(w), 3));
 			}
 		}
 		else
 		{
 			if (h < 0)
 			{
-				halls.push_back(Rect(point2.first, point2.second, 3, (uint)std::abs(h)));
+				halls.push_back(maths::IntRectangle(point2.first, point2.second, 3, (uint)std::abs(h)));
 			}
 			else if (h > 0)
 			{
-				halls.push_back(Rect(point1.first, point1.second, 3, (uint)std::abs(h)));
+				halls.push_back(maths::IntRectangle(point1.first, point1.second, 3, (uint)std::abs(h)));
 			}
 		}
 	}
 
-	std::shared_ptr<Rect> Leaf::getRoom()
+	std::shared_ptr<maths::IntRectangle> Leaf::getRoom()
 	{
 		if (room) {
 			return room;
 		}
 		else
 		{
-			std::shared_ptr<Rect> lRoom;
-			std::shared_ptr<Rect> rRoom;
+			std::shared_ptr<maths::IntRectangle> lRoom;
+			std::shared_ptr<maths::IntRectangle> rRoom;
 
 			if (leftChild)
 			{
@@ -176,10 +176,10 @@ namespace WGenerator
 			{
 				return nullptr;
 			}
-			else if (!rRoom) return std::shared_ptr<Rect>(lRoom);
-			else if (!lRoom) return std::shared_ptr<Rect>(rRoom);
-			else if (generator->uint64InRange(0, 100) > 50) return std::shared_ptr<Rect>(rRoom);
-			else return std::shared_ptr<Rect>(lRoom);
+			else if (!rRoom) return std::shared_ptr<maths::IntRectangle>(lRoom);
+			else if (!lRoom) return std::shared_ptr<maths::IntRectangle>(rRoom);
+			else if (generator->uint64InRange(0, 100) > 50) return std::shared_ptr<maths::IntRectangle>(rRoom);
+			else return std::shared_ptr<maths::IntRectangle>(lRoom);
 		}
 	}
 }

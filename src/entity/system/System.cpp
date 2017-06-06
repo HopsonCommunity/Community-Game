@@ -2,7 +2,7 @@
 
 #include "../Entity.h"
 #include "../EntityFactory.h"
-#include "../component/Components.h"
+#include "../../components/Components.h"
 #include "../../level/tile/TileCollision.h"
 
 #include "../../maths/Maths.h"
@@ -15,7 +15,6 @@ namespace Entity
 {
 	void MoveSystem::update(const Timestep& ts, Entity* entity)
 	{
-		SpriteComponent* c_sprite = entity->getComponent<SpriteComponent>();
 		PhysicsComponent* c_physics = entity->getComponent<PhysicsComponent>();
 
 		if (c_physics)
@@ -23,12 +22,9 @@ namespace Entity
 			auto colliding = Level::tileCollision(c_physics->pos, c_physics->velocity, c_physics->aabb, ts);
 					
 			if (!colliding.first)
-				c_physics->pos.x += round(c_physics->velocity.x * ts.asSeconds());
+				c_physics->pos.x += c_physics->velocity.x * ts.asSeconds();
 			if (!colliding.second)
-				c_physics->pos.y += round(c_physics->velocity.y * ts.asSeconds());
-			
-			if (c_sprite && c_sprite->flipOnVelocity)
-				c_sprite->flipX = c_physics->velocity.x != 0 ? (c_physics->velocity.x > 0 ? false : true) : c_sprite->flipX;
+				c_physics->pos.y += c_physics->velocity.y * ts.asSeconds();
 				
 			c_physics->velocity.x = 0;
 			c_physics->velocity.y = 0;
@@ -44,7 +40,7 @@ namespace Entity
 			try 
 			{
 				LuaEntityHandle&& ll = LuaEntityHandle(entity);
-				update(ll, Application::instance);
+				update(ll, &Application::get());
 			}
 			catch (luabridge::LuaException const& e) 
 			{
@@ -105,19 +101,19 @@ namespace Entity
 			c_sprite->sprite.setScale(c_sprite->flipX ? -1.0f : 1.0f, 1.0f);
 			
 			sf::RenderStates states;
-			states.transform.translate(c_physics->pos);
+			states.transform.translate(Vec2(c_physics->pos));
 			
 			/* 
 			    Draws AABB outline (for debugging purposes)
-				auto rs = sf::RectangleShape(c_physics->aabb.max);
-				rs.setPosition(c_physics->aabb.min);
-				rs.setFillColor({ 0, 0, 0, 0 });
-				rs.setOutlineColor({ 255, 0, 0, 255 });
-				rs.setOutlineThickness(1);
-				Application::instance->getWindow().draw(rs, states);
-			*/
+				*/
+			auto rs = sf::RectangleShape(c_physics->aabb.max);
+			rs.setPosition(c_physics->aabb.min);
+			rs.setFillColor({ 0, 0, 0, 0 });
+			rs.setOutlineColor({ 255, 0, 0, 255 });
+			rs.setOutlineThickness(1);
+			Application::get().getWindow().draw(rs, states);
 
-			Application::instance->getWindow().draw(c_sprite->sprite, states);
+			Application::get().getWindow().draw(c_sprite->sprite, states);
 		}
 	}
 

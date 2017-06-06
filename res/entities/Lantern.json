@@ -6,8 +6,8 @@
 			"src": "entity/dinolantern",
 			"flipOnVelocity": false,
 			"origin": {
-				"x": 0,
-				"y": 0
+				"x": 16,
+				"y": 48
 			},
 			"rect": {
 				"left": 0,

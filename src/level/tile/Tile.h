@@ -21,6 +21,7 @@ namespace Level
 		Void = 0,
 		Dungeon_BrickWall = 1,
 		Dungeon_BrickFloor = 2,
+		Dungeon_BrickWallSide = 3,
 
 		End
 	};

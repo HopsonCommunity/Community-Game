@@ -1,0 +1,10 @@
+The copyright for the following textures (even the modified versions) belong to RagingRabbit.
+You are not allowed to use or redistribute them in any way other than with this project.
+
+Copyrighted textures:
+player_modelDefault.png
+zombie.png
+rose.png
+tile_atlas.png
+
+For more info write an e-mail to ragingrab@gmail.com

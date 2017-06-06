@@ -1,11 +1,8 @@
 ﻿#pragma once
 
-#include "component/Component.h"
+#include "../components/Component.h"
 
 #include "../maths/Maths.h"
-
-#include <memory>
-#include <unordered_map>
 
 struct Timestep;
 

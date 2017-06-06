@@ -4,7 +4,6 @@
 		{
 			"componentType": "Sprite",
 			"src": "entity/temp/k1",
-			"flipOnVelocity": false,
 			"origin": {
 				"x": 8,
 				"y": 8

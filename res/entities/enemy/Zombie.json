@@ -11,7 +11,6 @@
 		{
 			"componentType": "Sprite",
 			"src": "entity/enemy/zombie",
-			"flipOnVelocity": true,
 			"origin": {
 				"x": 16,
 				"y": 48
@@ -37,19 +36,20 @@
 					"positionY": 64,
 					"stride": 64,
 					"length": 4,
-					"fps": 14
+					"fps": 10
 				}
 			]
 		},
 		{
 			"componentType": "Physics",
+			"sortOffset": 16, 
 			"aabb": {
 				"xMin": -16,
 				"yMin": -16,
 				"xMax": 32,
 				"yMax": 32
 			},
-			"movespeed": 90
+			"movespeed": 45
 		},
 		{
 			"componentType": "Stats",

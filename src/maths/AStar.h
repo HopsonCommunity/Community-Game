@@ -12,10 +12,14 @@ namespace AStar
 {
 	typedef std::tuple<int32, int32> Location;
 
-	static std::array<Location, 4> directions
+	static std::array<Location, 8> directions
 	{ 
 		Location{ 1, 0 }, 
-		Location{ 0, -1 }, 
+		Location{ 1, -1 },
+		Location{ -1, 1 },
+		Location{ 1, 1 },
+		Location{ -1, -1 },
+		Location{ 0, -1 },
 		Location{ -1, 0 }, 
 		Location{ 0, 1 } 
 	};

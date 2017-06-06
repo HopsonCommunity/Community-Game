@@ -7,7 +7,7 @@
 #include "../../resources/ResourceHolder.h"
 #include "../../app/Application.h"
 #include "../../app/states/StatePlaying.h"
-#include "../../entity/component/PhysicsComponent.h"
+#include "../../components/PhysicsComponent.h"
 
 namespace Level 
 {
@@ -18,7 +18,7 @@ namespace Level
 		addLayer();
 		generateVertexArray(0);
 	
-		m_renderState.texture = &Application::instance->getResources().textures.get("/tiles/atlas");
+		m_renderState.texture = &Application::get().getTexture("/tile_atlas");
 	}
 
 	TileMap::~TileMap()

@@ -3,6 +3,7 @@
 #include "../../level/Level.h"
 #include "../../entity/EntityFactory.h"
 #include "StateBase.h"
+#include "../../item/ItemFactory.h"
 
 namespace State
 {
@@ -11,12 +12,12 @@ namespace State
 	public:
 		static Playing* instance;
 		static Entity::EntityFactory* entityFactory;
+		static Item::ItemFactory* itemFactory;
 		
 	public:
 		Playing(Application* app, sf::RenderWindow* window);
 		
-		void event(sf::Event& event) override;
-		void input() override;
+		void onEvent(Events::Event& event) override;
 		void update(const Timestep& ts) override;
 		void render(sf::RenderWindow& window) override;
 		void tick() override;

@@ -5,6 +5,7 @@
 #include "tile/TileMap.h"
 #include "../entity/Entity.h"
 #include "../entity/system/System.h"
+#include "../item/system/DrawingSystems.h"
 
 #define WORLD_SIZE 100
 
@@ -33,6 +34,8 @@ namespace Level
 		std::vector<std::unique_ptr<Entity::Entity>> m_entities;
 		std::vector<std::unique_ptr<Entity::System>> m_updateSystems;
 	public:
+		std::vector<Vec2i> m_visualPath;
+
 		Entity::Entity* player;
 		Vec2i player_spawn;
 	};

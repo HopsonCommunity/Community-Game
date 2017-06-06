@@ -8,13 +8,14 @@
 #include "../../maths/Random.h"
 #include "../../util/Log.h"
 #include "../../entity/EntityFactory.h"
-#include "../../entity/component/PhysicsComponent.h"
-#include "../../entity/component/LightComponent.h"
+#include "../../components/PhysicsComponent.h"
+#include "../../components/LightComponent.h"
 
 namespace State
 {
 	Playing* Playing::instance;
 	Entity::EntityFactory* Playing::entityFactory;
+	Item::ItemFactory* Playing::itemFactory;
 
 	Playing::Playing(Application* app, sf::RenderWindow* window)
 		: Base(app)
@@ -37,7 +38,7 @@ namespace State
 		m_level.addEntity(std::move(lantern));
 		
 		std::unique_ptr<Entity::Entity> lantern2 = entityFactory->createEntity("Lantern.json");
-		lantern2->getComponent<Entity::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f + 140, m_level.player_spawn.y * 32.0f + 170 };
+		lantern2->getComponent<Entity::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f - 20, m_level.player_spawn.y * 32.0f - 50 };
 
 		m_level.addEntity(std::move(lantern2));
 
@@ -47,14 +48,10 @@ namespace State
 		m_level.addEntity(std::move(zombie));
 	}
 
-	void Playing::event(sf::Event& event)
+	void Playing::onEvent(Events::Event& event)
 	{
-		if (event.type == sf::Event::Resized)
-			m_level.windowResize({ static_cast<float>(event.size.width), static_cast<float>(event.size.height) });
-	}
-
-	void Playing::input()
-	{
+		//if (event.type == sf::Event::Resized)
+		//	m_level.windowResize({ static_cast<float>(event.size.width), static_cast<float>(event.size.height) });
 	}
 
 	void Playing::update(const Timestep& ts)

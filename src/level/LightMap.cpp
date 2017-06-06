@@ -24,7 +24,7 @@ namespace Level
 		if (!m_requestedRebuild)
 			return;
 
-		LOG_INFO("Rebuilding light..");
+		LOG_WARN("Rebuilding light..");
 		m_requestedRebuild = false;
 
 		resetLight();

@@ -15,6 +15,7 @@
 #include <list>
 #include <map>
 #include <unordered_map>
+#include <memory>
 
 #include <cstddef>
 #include <stdio.h>
@@ -28,6 +29,8 @@ constexpr int32 LIGHT_MAX_LIGHTLEVEL = 25;
 constexpr float LIGHT_ABSOLUTE = 80.f;
 
 /// Macros
+
+#define BIT(x) (1 << x)
 
 #define METHOD(x) std::bind(x, this)
 #define _METHOD(x) std::bind(x, this, std::placeholders::_1)

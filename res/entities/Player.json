@@ -8,10 +8,9 @@
 		{
 			"componentType": "Sprite",
 			"src": "entity/player_modelDefault",
-			"flipOnVelocity": true,
 			"origin": {
 				"x": 15,
-				"y": 48
+				"y": 32
 			},
 			"rect": {
 				"left": 0,
@@ -40,9 +39,10 @@
 		},
 		{
 			"componentType": "Physics",
+			"sortOffset": 32,
 			"aabb": {
 				"xMin": -16,
-				"yMin": -16,
+				"yMin": 0,
 				"xMax": 32,
 				"yMax": 32
 			},
