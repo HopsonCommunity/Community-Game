@@ -2,7 +2,7 @@
 
 This document shows how you can get started with contributing to this community project.
 First we will setup our local repository with the project.
-Then we are going to set up your favourite IDE usign the CMake project generator.
+Then we are going to set up your favourite IDE using the CMake project generator.
 
 If you want to get your code into the project, you should join our Discord server.
 We are constantly talking about ideas and things to do, so just come up, ask
@@ -13,7 +13,7 @@ a Developer/Artist/Music team manager what to do and he will give you a task.
 First, install Git on your computer. You can use the GitHub App installer, but
 we wont use the GitHub App for our git stuff. The GitHub App Installer installs
 some command line tools we need to use. But please DONT BE AFRAID!!! Once you
-get the hang of it everything will make sense, I(kaizi99) promise!
+get the hang of it everything will make sense, Promise!
 
 Fork the project. The development team has
 decided to use forks to keep everything clean. You can fork the project by
