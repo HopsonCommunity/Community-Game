@@ -1,104 +1,103 @@
 # Overview
 
 This document shows how you can get started with contributing to this community project.
-First we will setup our local repository with the project.
-Then we are going to set up your favourite IDE using the CMake project generator.
+First we will setup our local repository with the project after which we
+are going to set up your favourite IDE using the CMake project generator.
 
-If you want to get your code into the project, you should join our Discord server.
-We are constantly talking about ideas and things to do, so just come up, ask
-a Developer/Artist/Music team manager what to do and he will give you a task.
+If you want to merge your code into the project, you should join our Discord server.
+We continuously discuss ideas and things to do -- so just come up, ask
+a (Team-Manager for help, and they will give you a task.
 
 # Getting started
 
 First, install Git on your computer. You can use the GitHub App installer, but
 we wont use the GitHub App for our git stuff. The GitHub App Installer installs
-some command line tools we need to use. But please DONT BE AFRAID!!! Once you
-get the hang of it everything will make sense, Promise!
+some command line tools we need to use. Don't be alarmed about the complexity of these! 
+Once you get the hang of it, things will make sense. Pinky promise!
 
-Fork the project. The development team has
+As a second step: Fork the project. The development team has
 decided to use forks to keep everything clean. You can fork the project by
 clicking the fork button on the upper right side of the github page.
 
-Then clone the fork. Open the Git Shell and navigate to the folder you want
-your project to be in. Then copy the clone URL from the address bar of the fork
-or look it up on the GitHub UI. In your shell, enter
+After that, clone the fork. Open the Git Shell and navigate to the folder you want
+the project to be in. Copy the clone URL from the address bar of the fork,
+or look it up on the GitHub UI. 
+
+Next, enter this in the shell:
 
 `git clone --recursive <fork-URL>`
 
-Git should now download the fork. After it downloaded, change the the current
+Git should now download the fork. When finished downloading, change the the current
 directory to the repository's root:
 
 `cd Community-Game`
 
 There is only a slight problem now: How can we update our fork if someone makes
-a change to the main repository?
+a change to the main repository? 
+The first step to this is to add another remote to our local repository. 
 
-First we want to add another remote to our local repository. In the shell,
-type
+Enter this in the shell:
 
 `git remote add upstream https://github.com/Hopson97/Community-Game`
 
-Now the original repository, where we forked from, is now being added as another
+Now the original repository where we forked from is now being added as another
 remote. That means we can pull all the changes from that remote into our own
-local repository, to keep it up-.to-date with the main development repository.
+local repository to keep it up-to-date with the main development repository.
 
 # Updating your code to the newest changes from the main repository
 
-Everytime when there is a Pull Request merged you shoul update your local copy to include the changes.
-Don't worry, if you sticked to this guide before your uncommited changes shouldn't be deleted.
-Git merges the changes when it pulls, and if it fails to merge because you and the commit affect for
-example the same line of on file, the repository is in a merge conflict state that you can resolve by
-editing the files. There are a ton of merge-conflict tutorials, so just google a little bit if git says
-that it cannot merge some files.
+Whenever a Pull Request is merged into Main, you should update your local copy to include the changes.
+Don't worry: if you stuck to this guide, your uncommited changes shouldn't be deleted.
+Git merges the changes when it pulls, and looks for any conflicts. If you were to edit a file on Master that was 
+edited by someone else, then Git will give you the opportunity to resolve this either automatically of manually. 
+There are a ton of merge-conflict tutorials, so we won't be explaining that.
+I suggest using Google and Git FAQ-pages if you're unable to find what you need.
 
 `git pull upstream master`
 
-The pull command downloads the changes from the main repo and merges stuff into your
+The pull command downloads the changes from the main repository and merges the changes into your
 currently active branch.
 
-Now you can do the changes you want to do, or go to compiling (explained on the
-  readme) and do have fun with the code!
+You can now make the changes you want to make, or compile the project and give it a test spin!
 
 # Getting your code into the project
 
-So you did your stuff? Make sure everything is in the right place and tested, so
-we don't have to search for your bugs, or at least call bugs you know in the
-Discord.
+If you followed the tutorial, this will be an easy step. Make sure everything is in the right place and tested, so
+we don't have to search for your bugs. If you have any issues here, feel free to inform yourself on our Discord server.
 
 There might be one last problem before pushing your changes: The main repo could
-have changed while you were editing your files. Just make sure you update your repo agian
-and if a merge conflict happens resolve it with the help of google, it shouldnt be a really big
-problem.
+have changed while you were editing your files. Don't forget to download the changes from the Main branch. 
+If in any case there is a Merge Conflict, refer to the sheet above. (Line47)
+
+As a reminder, this is how we pull changes from the Master branch:
 
 `git pull upstream master`
 
-Now run
+After that, run this to add your changed file to the Branch:
 
 `git add <file changed/added>`
 
-or if you want to untrack a file
+If you wish to undo this, you can run this command:
 
 `git rm <file changed/added>`
 
-Now finally make a commit:
+Finally, we can commit the changes using this:
 
 `git commit -m '<message>'`
 
-Replace the message placeholder with a
-short summary on what changes you made.
+Replace the message placeholder with a short summary on what changes you made.
 
-After that run
+The last step is to push your changes. Do this with the following command:
 
 `git push`
 
-It pushes the changes you made to your GitHub fork! Now you can go to the GitHub
-website again and right beneath the message "You are ... commits ahead" there is
-out destiny:
+You now successfully pushed your local changes to your fork on Git! On the github page,
+it might tell you: "You are ... commits ahead". This is fwhat we want.
 
 THE PULL REQUEST!!!
 
-Do the pull request, and give it a meaningful title. Thats it. Send it off and
-hope that a manager accepts it. If a manager didnt accept it, then ask them why,
-and they will give you an answer.
+Do the pull request, and give it a meaningful title. When completing the pull request, a manager will review your changes. 
+If for any reason your changes won't be accepted, then check the pull request's page. 
+We usually describe our request for changes clearly in the comments.
 
 HAVE FUN CODING - Because thats what we want here!
