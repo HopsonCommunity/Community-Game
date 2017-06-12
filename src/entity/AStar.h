@@ -1,12 +1,11 @@
 ﻿#pragma once
 
-#include "../maths/Maths.h"
+#include "../Common.h"
+
+#include "../maths/maths.h"
 #include "../util/PriorityQueue.h"
 
 #include <SFML/Graphics.hpp>
-
-#include <unordered_map>
-#include <array>
 
 namespace AStar
 {

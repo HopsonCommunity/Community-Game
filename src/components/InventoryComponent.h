@@ -4,15 +4,16 @@
 
 #include "../item/Item.h"
 
-namespace Entity 
+namespace Components 
 {
     class InventoryComponent : public Component 
 	{
+	public:
+		std::vector<std::unique_ptr<Item::Item>> items;
+
     public:
         InventoryComponent();
         InventoryComponent(nlohmann::json);
-
-        std::vector<std::unique_ptr<Item::Item>> items;
 
         static const uint ID = ComponentID::Inventory;
     };

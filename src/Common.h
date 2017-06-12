@@ -10,8 +10,8 @@
 #include <string>
 #include <sstream>
 
-#include <vector>
 #include <stack>
+#include <array>
 #include <list>
 #include <map>
 #include <unordered_map>

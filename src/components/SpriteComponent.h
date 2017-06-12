@@ -1,11 +1,11 @@
 ﻿#pragma once
 
 #include "Component.h"
-#include "../entity/animation/Animator.h"
+#include "../graphics/Animator.h"
 
 #include <SFML/Graphics/Sprite.hpp>
 
-namespace Entity
+namespace Components
 {
 	class SpriteComponent : public Component
 	{
@@ -13,15 +13,13 @@ namespace Entity
 		sf::Sprite sprite;
 		bool flipX;
 		bool animated;
-		Animator animator;
+		Graphics::Animator animator;
 
+	public:
 		SpriteComponent(const sf::Sprite& sprite);
 		SpriteComponent(nlohmann::json json);
 
-		std::unique_ptr<Component> clone() override
-		{
-			return std::make_unique<SpriteComponent>(*this);
-		}
+		std::unique_ptr<Component> clone() override { return std::make_unique<SpriteComponent>(*this); }
 
 		static const uint ID = ComponentID::Sprite;
 	};

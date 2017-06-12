@@ -3,7 +3,7 @@
 #include "Widget.h"
 #include "../Label.h"
 
-#include "../../util/Log.h"
+#include "../../maths/Rectangle.h"
 
 namespace GUI
 {
@@ -19,7 +19,7 @@ namespace GUI
 		};
 
 	private:
-		maths::Rectangle m_headBounds;
+		FloatRectangle m_headBounds;
 		float m_value;
 		float m_headOffset;
 		SliderState m_state;
@@ -34,8 +34,8 @@ namespace GUI
 		sf::RectangleShape* m_headSprite;
 
 	public:
-		Slider(const maths::Rectangle& bounds, bool vertical = false);
-		Slider(const maths::Rectangle& bounds, float value = 0.0f, const ValueChangedCallback& callback = &Slider::NoCallback, bool vertical = false);
+		Slider(const FloatRectangle& bounds, bool vertical = false);
+		Slider(const FloatRectangle& bounds, float value = 0.0f, const ValueChangedCallback& callback = &Slider::NoCallback, bool vertical = false);
 
 		bool mousePressed(Events::MousePressedEvent& e) override;
 		bool mouseReleased(Events::MouseReleasedEvent& e) override;

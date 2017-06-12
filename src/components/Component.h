@@ -2,10 +2,10 @@
 
 #include "../Common.h"
 
-#include "../maths/Maths.h"
+#include "../maths/maths.h"
 #include "../util/json.hpp"
 
-namespace Entity
+namespace Components
 {
 	namespace ComponentID
 	{

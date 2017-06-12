@@ -1,6 +1,6 @@
 ﻿#include "InventoryComponent.h"
 
-namespace Entity
+namespace Components
 {
 	InventoryComponent::InventoryComponent()
 	{

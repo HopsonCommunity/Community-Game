@@ -51,6 +51,8 @@ Application::Application(std::string&& name, const WindowSettings& settings)
 	m_backgroundMusic.play(m_backgroundMusic.menu);
 
 	pushState(std::make_unique<State::Menu>(this, &m_window));
+	
+	m_window.setActive(false);
 }
 
 void Application::start()
@@ -62,50 +64,26 @@ void Application::start()
 	float timer = 0.0f;
 	float upTimer = float(clock.getElapsedTime().asMilliseconds());
 
-	uint frames = 0;
 	uint updates = 0;
 
 	Timestep timestep(static_cast<float>(clock.getElapsedTime().asMilliseconds()));
 
 	while (m_window.isOpen())
 	{
-		m_window.clear();
 		m_inputManager->update();
 
-		///Runs 60 times a second
 		float now = float(clock.getElapsedTime().asMilliseconds());
 		if (now - upTimer > UP_TICK)
 		{
 			timestep.update(now);
 			updates++;
 			upTimer += UP_TICK;
-			// Updating
 			m_states.back()->update(timestep);
 			for (int32 i = m_panels.size() - 1; i >= 0; i--)
 				m_panels[i]->update();
-			//
 		}
 
-		///Runs as fast as possible
-		frames++;
-		sf::Clock frametime;
-
-		// Rendering
-		m_states.back()->render(m_window);
-
-		// UI
-		sf::View oldView = m_window.getView();
-		m_window.setView(m_uiView);
-		for (int32 i = m_panels.size() - 1; i >= 0; i--)
-			m_panels[i]->render(m_window);
-		m_fpsLabel->render(m_window);
-		// Rendering 
-
-		m_frameTime = float(frametime.getElapsedTime().asMilliseconds());
-		m_frameTimeLabel->setText(std::to_string((int)round(m_frameTime)) + " ms");
-		m_frameTimeLabel->render(m_window);
-		
-		m_window.setView(oldView);
+		render();
 		
 		/// Runs each second
 		if (clock.getElapsedTime().asSeconds() - timer > 1.0f)
@@ -123,8 +101,6 @@ void Application::start()
 			frames = 0;
 			updates = 0;
 		}
-
-		m_window.display();
 	}
 }
 
@@ -135,6 +111,30 @@ void Application::onEvent(Events::Event& event)
 	for (uint i = 0; i < m_panels.size(); i++)
 		if (!event.isHandled()) 
 			m_panels[i]->onEvent(event);
+}
+
+void Application::render()
+{
+	m_window.clear();
+	
+	frames++;
+	sf::Clock frametime;
+
+	m_states.back()->render(m_window);
+
+	sf::View oldView = m_window.getView();
+	m_window.setView(m_uiView);
+	for (int32 i = m_panels.size() - 1; i >= 0; i--)
+		m_panels[i]->render(m_window);
+	m_fpsLabel->render(m_window);
+
+	m_frameTime = float(frametime.getElapsedTime().asMilliseconds());
+	m_frameTimeLabel->setText(std::to_string((int)round(m_frameTime)) + " ms");
+	m_frameTimeLabel->render(m_window);
+
+	m_window.setView(oldView);
+
+	m_window.display();
 }
 
 void Application::pushState(std::unique_ptr<State::Base> state)

@@ -102,6 +102,9 @@ namespace Level
 		if (x < 0 || y < 0 || x >= width || y >= height)
 			return;
 
+		if ((*m_tiles)[x][y]->light.intensity > intensity)
+			return;
+
 		color = applyIntensity(color, intensity);
 		(*m_tiles)[x][y]->light.color = color;
 

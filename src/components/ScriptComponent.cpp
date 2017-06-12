@@ -3,8 +3,6 @@
 #include "Components.h"
 #include "../entity/Entity.h"
 
-#include "../util/Log.h"
-#include "../maths/AStar.h"
 #include "../app/Application.h"
 #include "../app/states/StatePlaying.h"
 
@@ -12,7 +10,7 @@
 #define ADD_LuaPathFind_FUNCTION(x) addFunction(#x, &LuaPathFind::x)
 #define ADD_LuaEntityHandle_FUNCTION(x) addFunction(#x, &LuaEntityHandle::x)
 
-namespace Entity
+namespace Components
 {
 	void LuaPathFind::updatePath(float x, float y, float tx, float ty)
 	{
@@ -84,7 +82,7 @@ namespace Entity
 
 	LuaEntityHandle LuaEntityHandle::getPlayer() const
 	{
-		return LuaEntityHandle(State::Playing::instance->getLevel().player);
+		return LuaEntityHandle(State::Playing::get().getLevel().player);
 	}
 
 	LuaPathFind LuaEntityHandle::getPathFind() const

@@ -4,7 +4,7 @@
 
 namespace GUI
 {
-	Slider::Slider(const maths::Rectangle& bounds, bool vertical)
+	Slider::Slider(const FloatRectangle& bounds, bool vertical)
 		: Widget(bounds)
 		, m_value(0.0f)
 		, m_state(SliderState::UNPRESSED)
@@ -15,7 +15,7 @@ namespace GUI
 		, m_bgSprite(new sf::RectangleShape(m_bounds.size))
 	{
 		float size = vertical ? bounds.width : bounds.height;
-		m_headBounds = maths::Rectangle(bounds.x, bounds.y, size, size);
+		m_headBounds = FloatRectangle(bounds.x, bounds.y, size, size);
 
 		m_headSprite = new sf::RectangleShape(m_headBounds.size);
 		m_headSprite->setTexture(m_atlas);
@@ -23,7 +23,7 @@ namespace GUI
 		m_bgSprite->setTextureRect({ 0, 0, 56, 14 });
 	}
 
-	Slider::Slider(const maths::Rectangle& bounds, float value, const ValueChangedCallback& callback, bool vertical)
+	Slider::Slider(const FloatRectangle& bounds, float value, const ValueChangedCallback& callback, bool vertical)
 		: Widget(bounds)
 		, m_value(value)
 		, m_state(SliderState::UNPRESSED)
@@ -34,7 +34,7 @@ namespace GUI
 		, m_bgSprite(new sf::RectangleShape(m_bounds.size))
 	{
 		float size = vertical ? bounds.width : bounds.height;
-		m_headBounds = maths::Rectangle(bounds.x, bounds.y, size, size);
+		m_headBounds = FloatRectangle(bounds.x, bounds.y, size, size);
 
 		m_headSprite = new sf::RectangleShape(m_headBounds.size);
 		m_headSprite->setTexture(m_atlas);

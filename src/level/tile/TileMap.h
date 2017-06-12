@@ -2,10 +2,12 @@
 
 #include "../../Common.h"
 
-#include "../../maths/Random.h"
+#include "../../util/Random.h"
 
 #include "Tile.h"
 #include "../LightMap.h"
+
+#include "../../graphics/Renderer2D.h"
 
 namespace Level
 {
@@ -25,7 +27,6 @@ namespace Level
         {
 			LightMap* lightMap;
             std::vector<std::vector<TileNode*>> tiles;
-			std::vector<sf::Vertex> vertexArray;
 
 			~TileLayer()
 			{
@@ -50,8 +51,11 @@ namespace Level
 
 		void light();
 
-		void render(sf::RenderWindow& window);
+		void render(sf::RenderWindow& window, const IntRectangle& renderRegion);
 		void renderLight(sf::RenderWindow& window);
+
+		void presentBefore(sf::RenderWindow& window);
+		void presentAfter(sf::RenderWindow& window);
 		
 		TileNode* getTile(uint layer, uint x, uint y);
 
@@ -61,9 +65,8 @@ namespace Level
 	private:
 		void qAddTile(uint layer, uint x, uint y, byte id, byte metadata);
 
-		void generateVertexArray(byte layer);
-	    static void addTileVertices(TileLayer* layer, uint x, uint y, TileNode* tile);
-
+		Graphics::Renderable2D m_renderTile;
+		Graphics::Renderer2D m_renderer;
 		sf::RenderStates m_renderState;
 		std::vector<TileLayer*> m_layers;
     };

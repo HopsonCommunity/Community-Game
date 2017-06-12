@@ -1,6 +1,6 @@
 ﻿#include "LightComponent.h"
 
-namespace Entity
+namespace Components
 {
 	LightComponent::LightComponent(nlohmann::json json)
 		: added(false)

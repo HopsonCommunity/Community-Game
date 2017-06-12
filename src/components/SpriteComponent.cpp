@@ -3,7 +3,7 @@
 #include "../app/Application.h"
 #include "../util/Log.h"
 
-namespace Entity
+namespace Components
 {
 	SpriteComponent::SpriteComponent(const sf::Sprite& sprite)
 		: sprite(sprite), flipX(false), animated(false)

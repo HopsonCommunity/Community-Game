@@ -2,7 +2,7 @@
 
 #include "../Common.h"
 
-#include "../maths/Random.h"
+#include "../util/Random.h"
 
 #include "tile/Tile.h"
 #include "../util/Log.h"
@@ -58,7 +58,7 @@ namespace Level
 		static void setIntensity(LightData* tile, Color color, byte intensity);
 		
 		// Returns the middle of the tile at x, y
-		static Vec2 getTileCenter(int32 x, int32 y) { return Vec2(x * TILE_SIZE + TILE_SIZE * .5f, y * TILE_SIZE + TILE_SIZE * .5f); }
+		static Vec2 getTileCenter(int32 x, int32 y) { return Vec2(x * TILE_SIZE, y * TILE_SIZE); }
 		// Returns the color of the tile at x, y
 		Color getTileLight(int32 x, int32 y) const;
 

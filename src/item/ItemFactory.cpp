@@ -6,12 +6,13 @@
 
 namespace Item
 {
-	ItemFactory::ItemFactory() : m_lastID(0)
+	ItemFactory::ItemFactory() 
+		: m_lastID(0)
 	{
-
 	}
 
-	std::unique_ptr<Item> ItemFactory::createItem(std::string name) {
+	std::unique_ptr<Item> ItemFactory::createItem(std::string name) 
+	{
 		if (m_templates.find(name) == m_templates.end())
 			createTemplate(name);
 
@@ -31,8 +32,10 @@ namespace Item
 		{
 			nlohmann::json componentJSON = componentsJSON[i];
 
+			using namespace Components;
+
 			if (componentJSON["componentType"].get<std::string>() == "Sprite")
-				item->addComponent<Entity::SpriteComponent>(std::make_unique<Entity::SpriteComponent>(componentJSON));
+				item->addComponent<SpriteComponent>(std::make_unique<SpriteComponent>(componentJSON));
 		}
 	}
 }

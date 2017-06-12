@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "../maths/Maths.h"
+#include "../maths/maths.h"
 
 #include <SFML/Graphics.hpp>
 

@@ -2,7 +2,7 @@
 
 #include "../util/Log.h"
 
-namespace Entity
+namespace Components
 {
 	LifeComponent::LifeComponent(float life)
 		: life(life)

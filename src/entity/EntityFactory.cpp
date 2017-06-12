@@ -32,6 +32,8 @@ namespace Entity
 		{
 			nlohmann::json componentJSON = componentsJSON[i];
 
+			using namespace Components;
+
 			if (componentJSON["componentType"].get<std::string>() == "Physics")
 				entity->addComponent<PhysicsComponent>(std::make_unique<PhysicsComponent>(componentJSON));
 			if (componentJSON["componentType"].get<std::string>() == "Sprite")

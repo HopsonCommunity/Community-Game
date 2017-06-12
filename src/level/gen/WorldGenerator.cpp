@@ -14,7 +14,7 @@ namespace WGenerator
 
 	void WorldGenerator::generateMap()
 	{
-		std::shared_ptr<Leaf> root = std::make_shared<Leaf>(maths::IntRectangle(0, 0, m_width, m_height), std::make_shared<Random::Generator<>>(m_generator),
+		std::shared_ptr<Leaf> root = std::make_shared<Leaf>(IntRectangle(0, 0, m_width, m_height), std::make_shared<Random::Generator<>>(m_generator),
 			m_minSize);
 		m_leafs.push_back(root);
 		bool didSplit = true;
@@ -42,28 +42,28 @@ namespace WGenerator
 		root->createRooms();
 	}
 
-	std::vector<std::shared_ptr<maths::IntRectangle>> WorldGenerator::getRooms()
+	std::vector<std::shared_ptr<IntRectangle>> WorldGenerator::getRooms()
 	{
-		std::vector<std::shared_ptr<maths::IntRectangle>> Rects;
+		std::vector<std::shared_ptr<IntRectangle>> Rects;
 		for (uint i = 0; i < m_leafs.size(); i++)
 			if (m_leafs[i]->room)
 				Rects.push_back(m_leafs[i]->room);
 		return Rects;
 	}
 
-	std::vector<std::shared_ptr<maths::IntRectangle>>  WorldGenerator::getRandomSquares()
+	std::vector<std::shared_ptr<IntRectangle>>  WorldGenerator::getRandomSquares()
 	{
-		std::vector<std::shared_ptr<maths::IntRectangle> > rooms;
+		std::vector<std::shared_ptr<IntRectangle> > rooms;
 		for (uint i = 0; i < m_leafs.size(); i++)
 			if (m_leafs[i]->room)
 				rooms.push_back(m_leafs[i]->room);
 		
-		std::vector<std::shared_ptr<maths::IntRectangle>> Rects;
+		std::vector<std::shared_ptr<IntRectangle>> Rects;
 		for (uint i = 0; i < rooms.size(); i++)
 		{
 			for (int j = 0; j < 10; j++)
 			{
-				std::shared_ptr<maths::IntRectangle>  rect = std::make_shared<maths::IntRectangle>(maths::IntRectangle());
+				std::shared_ptr<IntRectangle>  rect = std::make_shared<IntRectangle>(IntRectangle());
 				rect->width = static_cast<int32>(m_generator.uint64InRange(2, 5));
 				rect->height = static_cast<int32>(m_generator.uint64InRange(2, 5));
 				rect->x = static_cast<int32>(m_generator.uint64InRange(rooms[i]->x,
@@ -76,17 +76,17 @@ namespace WGenerator
 		return Rects;
 	}
 
-	std::vector<std::shared_ptr<maths::IntRectangle>> WorldGenerator::getHalls()
+	std::vector<std::shared_ptr<IntRectangle>> WorldGenerator::getHalls()
 	{
-		std::vector<std::shared_ptr<maths::IntRectangle>> Rects;
+		std::vector<std::shared_ptr<IntRectangle>> Rects;
 		for (uint i = 0; i < m_leafs.size(); i++)
 			for (uint j = 0; j < m_leafs[i]->halls.size(); j++)
-				Rects.push_back(std::make_shared<maths::IntRectangle>(m_leafs[i]->halls[j]));
+				Rects.push_back(std::make_shared<IntRectangle>(m_leafs[i]->halls[j]));
 	
 		return Rects;
 	}
 
-	std::vector<std::vector<byte>> WorldGenerator::render(std::vector<std::pair<std::vector<std::shared_ptr<maths::IntRectangle>>, byte>> data) const
+	std::vector<std::vector<byte>> WorldGenerator::render(std::vector<std::pair<std::vector<std::shared_ptr<IntRectangle>>, byte>> data) const
 	{
 		std::vector<std::vector<byte>> map(m_width, std::vector<byte>(m_height, 0));
 		for (uint i = 0; i < data.size(); i++)
@@ -103,10 +103,10 @@ namespace WGenerator
 	Map WorldGenerator::getMap()
 	{
 		Map map;
-		std::vector<std::pair<std::vector<std::shared_ptr<maths::IntRectangle>>, byte>> data;
-		data.push_back(std::make_pair<std::vector<std::shared_ptr<maths::IntRectangle>>, byte>(getRooms(), 1));
-		data.push_back(std::make_pair<std::vector<std::shared_ptr<maths::IntRectangle>>, byte>(getRandomSquares(), 1));
-		data.push_back(std::make_pair<std::vector<std::shared_ptr<maths::IntRectangle>>, byte>(getHalls(), 1));
+		std::vector<std::pair<std::vector<std::shared_ptr<IntRectangle>>, byte>> data;
+		data.push_back(std::make_pair<std::vector<std::shared_ptr<IntRectangle>>, byte>(getRooms(), 1));
+		data.push_back(std::make_pair<std::vector<std::shared_ptr<IntRectangle>>, byte>(getRandomSquares(), 1));
+		data.push_back(std::make_pair<std::vector<std::shared_ptr<IntRectangle>>, byte>(getHalls(), 1));
 		map.tiles = render(data);
 		uint numberOfRooms = getRooms().size();
 		map.playerPosition = placePlayer(static_cast<uint>(m_generator.uint64InRange(0, numberOfRooms)));
@@ -115,7 +115,7 @@ namespace WGenerator
 
 	sf::Vector2<uint> WorldGenerator::placePlayer(uint roomId)
 	{
-		std::vector<std::shared_ptr<maths::IntRectangle>> rooms = getRooms();
+		std::vector<std::shared_ptr<IntRectangle>> rooms = getRooms();
 		return sf::Vector2<uint>((rooms[roomId]->x * 2 + rooms[roomId]->width) / 2, (rooms[roomId]->y * 2 + rooms[roomId]->height) / 2);
 	}
 }

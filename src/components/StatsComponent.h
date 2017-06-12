@@ -2,7 +2,7 @@
 
 #include "Component.h"
 
-namespace Entity
+namespace Components
 {
 #pragma region STATS
 	struct Stats
@@ -14,11 +14,11 @@ namespace Entity
 #pragma region STATUS_EFFECT
 
 	// A status effect changes values in the stats component over time
-	class StatusEffect
+	class Buff
 	{
 	public:
-		StatusEffect(int32 duration);
-		virtual ~StatusEffect() = default;
+		Buff(int32 duration);
+		virtual ~Buff() = default;
 
 		bool active = 1;
 
@@ -29,7 +29,7 @@ namespace Entity
 		int32 m_duration;
 	};
 
-	class HealthBoost : public StatusEffect
+	class HealthBoost : public Buff
 	{
 	public:
 		int32 max_health;
@@ -40,7 +40,7 @@ namespace Entity
 		void effect(Stats& stats) override;
 	};
 
-	class Defense : public StatusEffect
+	class Defense : public Buff
 	{
 	public:
 		int32 armor;
@@ -57,15 +57,13 @@ namespace Entity
 	{
 	public:
 		Stats stats;
-		std::vector<std::shared_ptr<StatusEffect>> active_effects;
+		std::vector<std::shared_ptr<Buff>> active_buffs;
 
+	public:
 		StatsComponent();
 		StatsComponent(nlohmann::json json);
 
-		std::unique_ptr<Component> clone() override
-		{
-			return std::make_unique<StatsComponent>(*this);
-		}
+		std::unique_ptr<Component> clone() override { return std::make_unique<StatsComponent>(*this); }
 
 		static const uint ID = ComponentID::Stats;
 	};

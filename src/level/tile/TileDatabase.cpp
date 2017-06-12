@@ -4,18 +4,12 @@
 
 namespace Level
 {
-	TileDatabase& TileDatabase::get()
-	{
-		static TileDatabase td;
-		return td;
-	}
-
 	TileDatabase::TileDatabase()
 		: m_tiles((uint)TileID::End)
 	{
 		loadTile<TileDefault>(TileID::Void, "Void");
-		loadTile<TileDefault>(TileID::Dungeon_BrickWall, "dungeon/BrickWall");
 		loadTile<TileDefault>(TileID::Dungeon_BrickFloor, "dungeon/BrickFloor");
+		loadTile<TileWall>(TileID::Dungeon_BrickWall, "dungeon/BrickWall");
 		ASSERT(getTile((byte)TileID::Void), "Void");
 		ASSERT(getTile((byte)TileID::Dungeon_BrickWall), "BrickWall");
 		ASSERT(getTile((byte)TileID::Dungeon_BrickFloor), "BrickFloor");

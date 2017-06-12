@@ -7,6 +7,8 @@
 #include "../entity/system/System.h"
 #include "../item/system/DrawingSystems.h"
 
+#include "../graphics/Renderer2D.h"
+
 #define WORLD_SIZE 100
 
 namespace Level
@@ -28,11 +30,12 @@ namespace Level
 	private:
 		sf::View m_view;
 		TileMap m_tiles;
-
+		
 		std::unique_ptr<Entity::System> m_renderSystem;
 
 		std::vector<std::unique_ptr<Entity::Entity>> m_entities;
 		std::vector<std::unique_ptr<Entity::System>> m_updateSystems;
+
 	public:
 		std::vector<Vec2i> m_visualPath;
 

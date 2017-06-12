@@ -28,7 +28,7 @@ namespace GUI
 		bool m_hovered;
 
 	public:
-		Button(Graphics::Label* label, const maths::Rectangle& bounds, const ActionHandler& handler = &Button::NoAction);
+		Button(Graphics::Label* label, const FloatRectangle& bounds, const ActionHandler& handler = &Button::NoAction);
 		~Button();
 		
 		bool mousePressed(Events::MousePressedEvent& e) override;

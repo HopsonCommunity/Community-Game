@@ -2,28 +2,26 @@
 
 #include "Component.h"
 
-#include "../maths/AABB.h"
+#include "../maths/Rectangle.h"
 
-namespace Entity
+namespace Components
 {
 	class PhysicsComponent : public Component
 	{
 	public:
-		AABB aabb;
+		FloatRectangle bounds;
 		Vec2 pos, velocity;
 		bool moving;
 		float movespeed;
 		float sortOffset;
 
-		void setVelocity(float xa, float ya);
-
-		PhysicsComponent(const AABB& hitbox);
+	public:
+		PhysicsComponent(const FloatRectangle& hitbox);
 		PhysicsComponent(nlohmann::json json);
 
-		std::unique_ptr<Component> clone() override
-		{
-			return std::make_unique<PhysicsComponent>(*this);
-		}
+		void setVelocity(float xa, float ya);
+
+		std::unique_ptr<Component> clone() override { return std::make_unique<PhysicsComponent>(*this); }
 
 		static const uint ID = ComponentID::Physics;
 	};

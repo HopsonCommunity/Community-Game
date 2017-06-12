@@ -21,6 +21,4 @@ namespace Item
 
 		return cloned;
 	}
-
-
 }

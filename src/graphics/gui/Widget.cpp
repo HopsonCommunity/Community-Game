@@ -4,7 +4,7 @@
 
 namespace GUI
 {
-	Widget::Widget(const maths::Rectangle& bounds)
+	Widget::Widget(const FloatRectangle& bounds)
 		: m_bounds(bounds)
 		, m_active(true)
 		, m_focused(false)

@@ -2,7 +2,7 @@
 
 #include "../util/Log.h"
 
-namespace Entity
+namespace Components
 {
 	void PhysicsComponent::setVelocity(float xa, float ya)
 	{
@@ -16,22 +16,22 @@ namespace Entity
 		moving = true;
 	}
 
-	PhysicsComponent::PhysicsComponent(const AABB& obj)
-		: aabb(obj), moving(false), movespeed(0), sortOffset(0)
+	PhysicsComponent::PhysicsComponent(const FloatRectangle& obj)
+		: bounds(obj), moving(false), movespeed(0), sortOffset(0)
 	{
 	}
 
 	PhysicsComponent::PhysicsComponent(nlohmann::json json)
 		: moving(false), movespeed(0)
 	{
-		aabb = { {0, 0}, {0, 0} };
-		if (json.find("aabb") == json.end())
-			LOG_WARN("[JSON] Entity with PhysicsComponent but without aabb! Setting to ", aabb, " as default.");
+		bounds = { {0, 0}, {0, 0} };
+		if (json.find("collisionBox") == json.end())
+			LOG_WARN("[JSON] Entity with PhysicsComponent but without FloatRectangle! Setting to ", bounds, " as default.");
 		else
-			aabb = { { json["aabb"]["xMin"], json["aabb"]["yMin"] },{ json["aabb"]["xMax"], json["aabb"]["yMax"] } };
+			bounds = { { json["collisionBox"]["x"], json["collisionBox"]["y"] },{ json["collisionBox"]["width"], json["collisionBox"]["height"] } };
 
 		if (json.find("movespeed") == json.end())
-			LOG_WARN("[JSON] Entity with PhysicsComponent but without movespeed! Setting to \"", 0, "\" as default.");
+			LOG_WARN("[JSON] Entity with PhysicsComponent but without movespeed! Setting to \"", movespeed, "\" as default.");
 		else
 			movespeed = json["movespeed"];
 

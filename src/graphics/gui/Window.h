@@ -5,7 +5,7 @@
 #include "Widget.h"
 
 #include "../Label.h"
-#include "../../maths/Maths.h"
+#include "../../maths/maths.h"
 
 namespace GUI
 {
@@ -18,7 +18,7 @@ namespace GUI
 			Vec2 offset;
 		};
 	public:
-		Window(const std::string& title, const maths::Rectangle& bounds, const Vec2& minSize = Vec2(65, 65));
+		Window(const std::string& title, const FloatRectangle& bounds, const Vec2& minSize = Vec2(65, 65));
 
 		bool mousePressed(Events::MousePressedEvent& e) override;
 		bool mouseReleased(Events::MouseReleasedEvent& e) override;
@@ -44,8 +44,8 @@ namespace GUI
 		sf::RenderStates m_states;
 		std::vector<sf::Vertex> m_vao;
 
-		maths::Rectangle close_button;
-		maths::Rectangle resize_button;
-		maths::Rectangle move_section;
+		FloatRectangle close_button;
+		FloatRectangle resize_button;
+		FloatRectangle move_section;
 	};
 }

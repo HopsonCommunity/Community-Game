@@ -2,7 +2,6 @@
 
 #include "Widget.h"
 
-#include "../../util/Log.h"
 #include "../../app/Application.h"
 
 namespace GUI

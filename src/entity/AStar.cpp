@@ -14,7 +14,7 @@ namespace AStar
 		{
 			std::tie(dx, dy) = dir;
 			Location next(x + dx, y + dy);
-			if (State::Playing::instance->isTilePassable(0, x + dx, y + dy))
+			if (State::Playing::get().isTilePassable(0, x + dx, y + dy))
 				results.push_back(next);
 		}
 
@@ -67,11 +67,13 @@ namespace AStar
 			current = came_from[current];
 			path.push_back(current);
 		}
-		// std::reverse(path.begin(), path.end());
-	
-		State::Playing::instance->getLevel().m_visualPath.clear();
-		for (auto loc : path)
-			State::Playing::instance->getLevel().m_visualPath.push_back(Vec2i(std::get<0>(loc), std::get<1>(loc)));
+
+		State::Playing::get().getLevel().m_visualPath.clear();
+		for (uint i = 0; i < path.size(); i++)
+		{
+			Location& loc = path[i];
+			State::Playing::get().getLevel().m_visualPath.push_back(Vec2i(std::get<0>(loc), std::get<1>(loc)));
+		}
 
 		return path;
 	}

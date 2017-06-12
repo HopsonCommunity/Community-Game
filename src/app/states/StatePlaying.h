@@ -9,8 +9,10 @@ namespace State
 {
 	class Playing : public Base
 	{
+	private:
+		static Playing* s_instance;
+	
 	public:
-		static Playing* instance;
 		static Entity::EntityFactory* entityFactory;
 		static Item::ItemFactory* itemFactory;
 		
@@ -25,6 +27,8 @@ namespace State
 		bool isTilePassable(byte layer, uint x, uint y);
 
 		Level::Level& getLevel() { return m_level; }
+
+		static Playing& get() { return *s_instance; }
 
 	private:
 		Level::Level m_level;

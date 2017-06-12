@@ -18,12 +18,7 @@ public:
 		if (m_resourceMap.find(full) == m_resourceMap.end())
 			add(full);
 
-		return qGet(full);
-	}
-
-	const Resource& qGet(const std::string& name)
-	{
-		return m_resourceMap[name];
+		return m_resourceMap[full];
 	}
 
 	void add(const std::string& name)

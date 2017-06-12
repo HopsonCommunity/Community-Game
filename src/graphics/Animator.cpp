@@ -1,8 +1,6 @@
 ﻿#include "Animator.h"
 
-#include <iostream>
-
-namespace Entity
+namespace Graphics
 {
 	void Animator::setAnimation(std::string name)
 	{

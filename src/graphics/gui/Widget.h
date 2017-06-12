@@ -3,7 +3,7 @@
 #include "Panel.h"
 
 #include "../../events/Events.h"
-#include "../../maths/Maths.h"
+#include "../../maths/maths.h"
 
 namespace GUI
 {
@@ -14,13 +14,13 @@ namespace GUI
 		bool m_focused;
 
 		Panel* m_panel;
-		maths::Rectangle m_bounds;
+		FloatRectangle m_bounds;
 
 	private:
 		Widget() {}
 	
 	protected:
-		Widget(const maths::Rectangle& bounds);
+		Widget(const FloatRectangle& bounds);
 	
 	public:
 		virtual bool mousePressed(Events::MousePressedEvent& e);
@@ -30,9 +30,9 @@ namespace GUI
 		virtual void update();
 		virtual void render(sf::RenderWindow& renderer);
 
-		const maths::Rectangle& getBounds() const { return m_bounds; }
-		maths::Rectangle& getBounds() { return m_bounds; }
-		void setBounds(const maths::Rectangle& bounds) { m_bounds = bounds; }
+		const FloatRectangle& getBounds() const { return m_bounds; }
+		FloatRectangle& getBounds() { return m_bounds; }
+		void setBounds(const FloatRectangle& bounds) { m_bounds = bounds; }
 
 		bool isActive() const { return m_active; }
 		void setActive(bool active) { m_active = active; }

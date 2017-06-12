@@ -4,7 +4,7 @@
 #include "../Application.h"
 
 #include "../../Common.h"
-#include "../../maths/Random.h"
+#include "../../util/Random.h"
 
 namespace State
 {

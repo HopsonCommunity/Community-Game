@@ -40,11 +40,11 @@
 		{
 			"componentType": "Physics",
 			"sortOffset": 32,
-			"aabb": {
-				"xMin": -16,
-				"yMin": 0,
-				"xMax": 32,
-				"yMax": 32
+			"collisionBox": {
+				"x": -16,
+				"y": 0,
+				"width": 32,
+				"height": 32
 			},
 			"movespeed": 150
 		},

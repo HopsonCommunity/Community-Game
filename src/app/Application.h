@@ -32,6 +32,7 @@ public:
 	// Running
 	void start();
 	void onEvent(Events::Event& event) override;
+	void render();
 
 	// States
 	void pushState(std::unique_ptr<State::Base> state);
@@ -68,6 +69,7 @@ public:
 private:
 	std::string m_title;
 
+	uint frames = 0;
 	uint m_framesPerSecond, m_updatesPerSecond;
 	float m_frameTime;
 

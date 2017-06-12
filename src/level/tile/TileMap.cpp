@@ -14,11 +14,13 @@ namespace Level
 	TileMap::TileMap(uint width, uint height) 
 		: width(width)
 		, height(height)
+		, m_renderTile(Graphics::Renderable2D({ 0, 0 }, { TILE_SIZE, TILE_SIZE }, sf::Color::White))
 	{
 		addLayer();
-		generateVertexArray(0);
 	
 		m_renderState.texture = &Application::get().getTexture("/tile_atlas");
+	
+		m_renderer.m_states.texture = &Application::get().getTexture("/tile_atlas");
 	}
 
 	TileMap::~TileMap()
@@ -39,19 +41,14 @@ namespace Level
 			layer->tiles.push_back(col);
 		}
 
-		layer->vertexArray.reserve(width * height * 4);
 		m_layers.push_back(layer);
 	}
 
 	void TileMap::addTile(uint x, uint y, uint layer, byte id, byte metadata) 
 	{
 		addTiles(layer, { std::make_tuple(x, y, id, metadata) });
-		generateVertexArray(layer);
 	}
 
-	// If you want to change multiple tiles at once it's better to batch
-	// them so you generate the vertexarray after all have been added.
-	// Instead of using only addTile() and generating the VA for every tile.
 	void TileMap::addTiles(uint layer, const AddList& tiles)
 	{
 		if (tiles.empty())
@@ -61,12 +58,12 @@ namespace Level
 		{
 			uint x, y;
 			byte id, metadata;
-			
+
 			std::tie(x, y, id, metadata) = t;
 
 			qAddTile(layer, x, y, id, metadata);
 		}
-		generateVertexArray(layer);
+		requestRebuild(layer);
 	}
 
 	void TileMap::qAddTile(uint layer, uint x, uint y, byte id, byte metadata)
@@ -90,7 +87,7 @@ namespace Level
 			qAddTile(layer, x, y, id, metadata);
 		}
 	}
-	
+
 	TileNode* TileMap::getTile(uint layer, uint x, uint y)
 	{
 		if (x >= width || y >= height)
@@ -99,44 +96,51 @@ namespace Level
 		return m_layers[layer]->tiles[x][y];
 	}
 
-	void TileMap::render(sf::RenderWindow& window)
+	void TileMap::render(sf::RenderWindow& window, const IntRectangle& renderRegion)
 	{
+		TileDatabase& database = TileDatabase::get();
+
+		m_renderer.begin();
 		for (auto layer : m_layers)
-			window.draw(layer->vertexArray.data(), layer->vertexArray.size(), sf::PrimitiveType::Quads, m_renderState);
+			for (int32 x = renderRegion.getMinimumBound().x; x < renderRegion.getMaximumBound().x; x++)
+			{
+				if (x >= (int32)width || x <= 0)
+					continue;
+				
+				for (int32 y = renderRegion.getMinimumBound().y; y < renderRegion.getMaximumBound().y; y++)
+				{
+					if (y >= (int32)height || y <= 0)
+						continue;
+
+					// --
+					// Do not render tiles that can not be seen (dark)
+					int32 xa = x - 1 <= 0 ? 1 : x - 1, xb = x + 1 >= height ? height - 1 : x + 1;
+					int32 ya = y - 1 <= 0 ? 1 : y - 1, yb = y + 1 >= height ? height - 1 : y + 1;
+
+					if (layer->tiles[xa][ya]->light.color == Color::Black && layer->tiles[xb][yb]->light.color == Color::Black
+						&& layer->tiles[xa][yb]->light.color == Color::Black && layer->tiles[xb][ya]->light.color == Color::Black)
+						continue;
+					//--
+
+					database.getTile((byte)layer->tiles[x][y]->id)->render(x, y, database, m_renderer, layer->tiles);
+				}
+			} 
+	}
+
+	void TileMap::presentBefore(sf::RenderWindow& window)
+	{
+		m_renderer.present(window);
+	}
+
+	void TileMap::presentAfter(sf::RenderWindow& window)
+	{
+		m_renderer.present(window, Graphics::Renderer2D::RenderOrder::AFTER);
 	}
 
 	void TileMap::renderLight(sf::RenderWindow& window)
 	{
 		for (auto layer : m_layers)
 			layer->lightMap->renderLight(window);
-	}
-
-	void TileMap::generateVertexArray(byte layer)
-	{
-		auto l = m_layers[layer];
-		l->vertexArray.clear();
-
-		FOR_EACH_TILE(addTileVertices(l, uint(x * TILE_SIZE), uint(y * TILE_SIZE), m_layers[layer]->tiles[x][y]))
-
-		l->lightMap->requestRebuild();
-	}
-
-	void TileMap::addTileVertices(TileLayer* layer, uint xa, uint ya, TileNode* tile)
-	{
-		if (tile->id == TileID::Void)
-			return;
-
-		sf::IntRect uvs = TileDatabase::get().getTileData(byte(tile->id)).texture;
-
-		float tx = uvs.left * TILE_SIZE;
-		float ty = uvs.top * TILE_SIZE;
-
-		float x = static_cast<float>(xa), y = static_cast<float>(ya);
-		
-		layer->vertexArray.push_back({ { x, y },                         { tx, ty } });
-		layer->vertexArray.push_back({ {x + TILE_SIZE, y },              { tx + TILE_SIZE, ty } });
-		layer->vertexArray.push_back({ { x + TILE_SIZE, y + TILE_SIZE }, { tx + TILE_SIZE, ty + TILE_SIZE } });
-		layer->vertexArray.push_back({ { x, y + TILE_SIZE },             { tx, ty + TILE_SIZE } });
 	}
 
 	void TileMap::addStaticLight(uint layer, StaticLight* light)

@@ -3,12 +3,11 @@
 #include "../../app/Application.h"
 #include "../../app/Cursor.h"
 
-#include "../../util/Log.h"
 #include "../../util/FileUtil.h"
 
 namespace GUI
 {
-	Window::Window(const std::string& title, const maths::Rectangle& bounds, const Vec2& minSize)
+	Window::Window(const std::string& title, const FloatRectangle& bounds, const Vec2& minSize)
 		: Widget(bounds)
 		, m_title(Graphics::Label(title, Application::get().getFont("/Inconsolata-Bold"), 12))
 		, m_minSize(minSize)

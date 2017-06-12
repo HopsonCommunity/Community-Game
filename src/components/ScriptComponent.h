@@ -10,10 +10,15 @@ extern "C"
 #include "lualib.h"
 }
 
+#include "../entity/AStar.h"
+
 namespace Entity
 {
 	class Entity;
-	
+}
+
+namespace Components
+{
 	class LuaPathFind
 	{
 	public:
@@ -38,7 +43,7 @@ namespace Entity
 	class LuaEntityHandle 
 	{
 	public:
-		LuaEntityHandle(Entity* e)
+		LuaEntityHandle(Entity::Entity* e)
 			: e(e)
 		{}
 
@@ -54,7 +59,7 @@ namespace Entity
 		LuaPathFind getPathFind() const;
 
 	private:
-		Entity* e;
+		Entity::Entity* e;
 	};
 
 	class ScriptComponent : public Component
@@ -64,10 +69,7 @@ namespace Entity
 
 		ScriptComponent(nlohmann::json json);
 
-		std::unique_ptr<Component> clone() override
-		{
-			return std::make_unique<ScriptComponent>(*this);
-		}
+		std::unique_ptr<Component> clone() override { return std::make_unique<ScriptComponent>(*this); }
 
 		static const uint ID = ComponentID::Script;
 	};

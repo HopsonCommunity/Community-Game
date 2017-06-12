@@ -5,7 +5,7 @@
 
 #include "../Application.h"
 #include "../../Common.h"
-#include "../../maths/Random.h"
+#include "../../util/Random.h"
 #include "../../util/Log.h"
 #include "../../entity/EntityFactory.h"
 #include "../../components/PhysicsComponent.h"
@@ -13,7 +13,7 @@
 
 namespace State
 {
-	Playing* Playing::instance;
+	Playing* Playing::s_instance;
 	Entity::EntityFactory* Playing::entityFactory;
 	Item::ItemFactory* Playing::itemFactory;
 
@@ -21,7 +21,8 @@ namespace State
 		: Base(app)
 		, m_level(WORLD_SIZE, WORLD_SIZE)
 	{
-		instance = this;
+		s_instance = this;
+
 		entityFactory = new Entity::EntityFactory();
 
 		std::unique_ptr<Entity::Entity> player = entityFactory->createEntity("Player.json");
@@ -30,20 +31,15 @@ namespace State
 		m_level.player = player.get();
 		m_level.addEntity(std::move(player));
 
-		m_level.player->getComponent<Entity::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f, m_level.player_spawn.y * 32.0f };
+		m_level.player->getComponent<Components::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f, m_level.player_spawn.y * 32.0f };
 
-		std::unique_ptr<Entity::Entity> lantern = entityFactory->createEntity("Lantern.json");
-		lantern->getComponent<Entity::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f + 170, m_level.player_spawn.y * 32.0f + 170 };
-
-		m_level.addEntity(std::move(lantern));
-		
 		std::unique_ptr<Entity::Entity> lantern2 = entityFactory->createEntity("Lantern.json");
-		lantern2->getComponent<Entity::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f - 20, m_level.player_spawn.y * 32.0f - 50 };
+		lantern2->getComponent<Components::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f - 20, m_level.player_spawn.y * 32.0f - 50 };
 
 		m_level.addEntity(std::move(lantern2));
-
+		
 		std::unique_ptr<Entity::Entity> zombie = entityFactory->createEntity("enemy/Zombie.json");
-		zombie->getComponent<Entity::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f, m_level.player_spawn.y * 32.0f };
+		zombie->getComponent<Components::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f, m_level.player_spawn.y * 32.0f };
 		m_level.addEntity(std::move(zombie));
 	}
 

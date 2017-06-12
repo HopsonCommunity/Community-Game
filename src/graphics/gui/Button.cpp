@@ -4,7 +4,7 @@
 
 namespace GUI
 {
-	Button::Button(Graphics::Label* label, const maths::Rectangle& bounds, const ActionHandler& handler)
+	Button::Button(Graphics::Label* label, const FloatRectangle& bounds, const ActionHandler& handler)
 		: Widget(bounds)
 		, m_label(label)
 		, m_actionHandler(handler)
