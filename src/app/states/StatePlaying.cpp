@@ -44,7 +44,6 @@ namespace State
 
 		std::unique_ptr<Entity::Entity> zombie = entityFactory->createEntity("enemy/Zombie.json");
 		zombie->getComponent<Entity::PhysicsComponent>()->pos = { m_level.player_spawn.x * 32.0f, m_level.player_spawn.y * 32.0f };
-		
 		m_level.addEntity(std::move(zombie));
 	}
 
