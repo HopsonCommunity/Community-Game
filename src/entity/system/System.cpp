@@ -2,10 +2,10 @@
 
 #include "../Entity.h"
 #include "../EntityFactory.h"
-#include "../component/Components.h"
+#include "../../components/Components.h"
 #include "../../level/tile/TileCollision.h"
 
-#include "../../maths/Maths.h"
+#include "../../maths/maths.h"
 #include "../../util/Log.h"
 #include "../../util/Timestep.h"
 #include "../../level/tile/TileFlooding.h"
@@ -13,22 +13,20 @@
 
 namespace Entity
 {
+	using namespace Components;
+
 	void MoveSystem::update(const Timestep& ts, Entity* entity)
 	{
-		SpriteComponent* c_sprite = entity->getComponent<SpriteComponent>();
 		PhysicsComponent* c_physics = entity->getComponent<PhysicsComponent>();
 
 		if (c_physics)
 		{
-			auto colliding = Level::tileCollision(c_physics->pos, c_physics->velocity, c_physics->aabb, ts);
+			auto colliding = Level::tileCollision(c_physics->pos, c_physics->velocity, c_physics->bounds, ts);
 					
 			if (!colliding.first)
-				c_physics->pos.x += round(c_physics->velocity.x * ts.asSeconds());
+				c_physics->pos.x += c_physics->velocity.x * ts.asSeconds();
 			if (!colliding.second)
-				c_physics->pos.y += round(c_physics->velocity.y * ts.asSeconds());
-			
-			if (c_sprite && c_sprite->flipOnVelocity)
-				c_sprite->flipX = c_physics->velocity.x != 0 ? (c_physics->velocity.x > 0 ? false : true) : c_sprite->flipX;
+				c_physics->pos.y += c_physics->velocity.y * ts.asSeconds();
 				
 			c_physics->velocity.x = 0;
 			c_physics->velocity.y = 0;
@@ -44,7 +42,7 @@ namespace Entity
 			try 
 			{
 				LuaEntityHandle&& ll = LuaEntityHandle(entity);
-				update(ll, Application::instance);
+				update(ll, &Application::get());
 			}
 			catch (luabridge::LuaException const& e) 
 			{
@@ -58,7 +56,7 @@ namespace Entity
 		StatsComponent* c_stats = entity->getComponent<StatsComponent>();
 		if (c_stats)
 		{
-			for (auto effect : c_stats->active_effects)
+			for (auto effect : c_stats->active_buffs)
 			{
 				effect->manageDuration();
 				effect->effect(c_stats->stats);
@@ -85,11 +83,11 @@ namespace Entity
 			c_light->light.x = static_cast<int32>(c_physics->pos.x / TILE_SIZE);
 			c_light->light.y = static_cast<int32>(c_physics->pos.y / TILE_SIZE);
 			if (old.x != c_light->light.x || old.y != c_light->light.y)
-				State::Playing::instance->getLevel().getTiles().requestRebuild(0);
+				State::Playing::get().getLevel().getTiles().requestRebuild(0);
 
 			if (!c_light->added)
 			{
-				State::Playing::instance->getLevel().getTiles().addStaticLight(0, &c_light->light);
+				State::Playing::get().getLevel().getTiles().addStaticLight(0, &c_light->light);
 				c_light->added = true;
 			}
 		}
@@ -105,19 +103,21 @@ namespace Entity
 			c_sprite->sprite.setScale(c_sprite->flipX ? -1.0f : 1.0f, 1.0f);
 			
 			sf::RenderStates states;
-			states.transform.translate(c_physics->pos);
+			states.transform.translate(Vec2(c_physics->pos));
 			
 			/* 
-			    Draws AABB outline (for debugging purposes)
-				auto rs = sf::RectangleShape(c_physics->aabb.max);
-				rs.setPosition(c_physics->aabb.min);
-				rs.setFillColor({ 0, 0, 0, 0 });
-				rs.setOutlineColor({ 255, 0, 0, 255 });
-				rs.setOutlineThickness(1);
-				Application::instance->getWindow().draw(rs, states);
-			*/
-
-			Application::instance->getWindow().draw(c_sprite->sprite, states);
+			    Draws rectangle outline (for debugging purposes)
+				*/
+#define SHOW_BOUNDS 0
+#if SHOW_BOUNDS
+			auto rs = sf::RectangleShape(c_physics->bounds.size);
+			rs.setPosition(c_physics->bounds.position);
+			rs.setFillColor({ 0, 0, 0, 0 });
+			rs.setOutlineColor({ 255, 0, 0, 255 });
+			rs.setOutlineThickness(1);
+			Application::get().getWindow().draw(rs, states);
+#endif
+			Application::get().getWindow().draw(c_sprite->sprite, states);
 		}
 	}
 
@@ -128,7 +128,7 @@ namespace Entity
 		if (c_life)
 		{
 			if (c_life->done)
-				State::Playing::instance->getLevel().removeEntity(entity);
+				State::Playing::get().getLevel().removeEntity(entity);
 			c_life->life -= ts.asSeconds();
 			if (c_life->life <= 0)
 				c_life->done = true;

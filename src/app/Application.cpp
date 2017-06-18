@@ -5,15 +5,15 @@
 
 #include "../util/Log.h"
 
-Application* Application::instance = nullptr;
+Application* Application::s_instance = nullptr;
 
 Application::Application(std::string&& name, const WindowSettings& settings)
 	: m_title(std::move(name))
-	, m_inputScheme("Controls.json")
-	, m_inputManager(&m_inputScheme)
+	, m_resources(new ResourceHolder())
+	, m_inputManager(new Input::Input(new Input::InputScheme("Controls.json"), this, &m_window))
 	, m_windowSettings(settings)
 {
-	instance = this;
+	s_instance = this;
 
 	LOG_WARN("Launching window");
 	LOG_WARN("------------------------------------");
@@ -35,15 +35,24 @@ Application::Application(std::string&& name, const WindowSettings& settings)
 
 	m_window.setVerticalSyncEnabled(settings.vsync);
 
-	m_labelView = sf::View(Vec2(static_cast<float>(m_window.getSize().x / 2), static_cast<float>(m_window.getSize().y / 2)), Vec2(static_cast<float>(m_window.getSize().x), static_cast<float>(m_window.getSize().y)));
+	m_uiView = sf::View(Vec2(static_cast<float>(m_window.getSize().x / 2), static_cast<float>(m_window.getSize().y / 2)), Vec2(static_cast<float>(m_window.getSize().x), static_cast<float>(m_window.getSize().y)));
 
-	m_fpsLabel = new UI::Label(sf::Text("", getResources().fonts.get("SourceCodePro-Regular"), 22), UI::Label::Alignment::RIGHT);
-	m_frameTimeLabel = new UI::Label(sf::Text("", getResources().fonts.get("SourceCodePro-Regular"), 22), UI::Label::Alignment::RIGHT);
+	m_fpsLabel = new Graphics::Label("", getFont("SourceCodePro-Regular"), 22, Graphics::Label::Alignment::RIGHT);
+	m_frameTimeLabel = new Graphics::Label("", getFont("SourceCodePro-Regular"), 22, Graphics::Label::Alignment::RIGHT);
 	
-	m_fpsLabel->setPosition(Vec2(m_labelView.getCenter().x + m_labelView.getSize().x / 2 - 20, m_labelView.getCenter().y - m_labelView.getSize().y / 2 + 10));
-	m_frameTimeLabel->setPosition(Vec2(m_labelView.getCenter().x + m_labelView.getSize().x / 2 - 20, m_labelView.getCenter().y - m_labelView.getSize().y / 2 + 38));
+	m_fpsLabel->setPosition(Vec2(m_uiView.getCenter().x + m_uiView.getSize().x / 2 - 20, m_uiView.getCenter().y - m_uiView.getSize().y / 2 + 10));
+	m_frameTimeLabel->setPosition(Vec2(m_uiView.getCenter().x + m_uiView.getSize().x / 2 - 20, m_uiView.getCenter().y - m_uiView.getSize().y / 2 + 38));
+	
+	m_console = new Debug::Console();
+
+	m_backgroundMusic.loadMusic();
+	m_backgroundMusic.menu.setVolume(1.0f);
+	m_backgroundMusic.menu.setLoop(true);
+	m_backgroundMusic.play(m_backgroundMusic.menu);
 
 	pushState(std::make_unique<State::Menu>(this, &m_window));
+	
+	m_window.setActive(false);
 }
 
 void Application::start()
@@ -55,89 +64,77 @@ void Application::start()
 	float timer = 0.0f;
 	float upTimer = float(clock.getElapsedTime().asMilliseconds());
 
-	uint frames = 0;
 	uint updates = 0;
 
 	Timestep timestep(static_cast<float>(clock.getElapsedTime().asMilliseconds()));
-	BGM.loadMusic();
-	BGM.menu.setVolume(3.0f);
-	BGM.menu.setLoop(true);
-	BGM.play(BGM.menu);
 
 	while (m_window.isOpen())
 	{
-		m_window.clear();
-		sf::Event e;
-		while (m_window.pollEvent(e))
-		{
-			handleEvents(e);
-		}
-		//Runs 60 times a second
+		m_inputManager->update();
+
 		float now = float(clock.getElapsedTime().asMilliseconds());
 		if (now - upTimer > UP_TICK)
 		{
 			timestep.update(now);
 			updates++;
 			upTimer += UP_TICK;
-			m_states.back()->input();
 			m_states.back()->update(timestep);
+			for (int32 i = m_panels.size() - 1; i >= 0; i--)
+				m_panels[i]->update();
 		}
 
-		//Runs as fast as possible
-		frames++;
-		sf::Clock frametime;
-		m_states.back()->render(m_window);
-		m_frameTime = float(frametime.getElapsedTime().asMilliseconds());
-		m_frameTimeLabel->setText(std::to_string((int)round(m_frameTime)) + " ms");
-
-		sf::View oldView = m_window.getView();
-		m_window.setView(m_labelView);
-		m_fpsLabel->render(m_window);
-		m_frameTimeLabel->render(m_window);
-		m_window.setView(oldView);
+		render();
 		
-		// Runs each second
+		/// Runs each second
 		if (clock.getElapsedTime().asSeconds() - timer > 1.0f)
 		{
 			timer += 1.0f;
 			m_framesPerSecond = frames;
 			m_updatesPerSecond = updates;
+
+			// Ticking
 			m_states.back()->tick();
 			m_fpsLabel->setText(std::to_string(m_framesPerSecond)+ " fps");
 			LOG_INFO("FPS: ", m_framesPerSecond, ", UPS: ", m_updatesPerSecond);
+			//
+
 			frames = 0;
 			updates = 0;
 		}
-
-		m_window.display();
 	}
 }
 
-void Application::handleEvents(sf::Event& event)
+void Application::onEvent(Events::Event& event)
 {
-	switch (event.type)
-	{
-	case sf::Event::Closed:
-		m_window.close();
-		break;
+	m_states.back()->onEvent(event);
 
-	case sf::Event::KeyReleased:
-		switch (event.key.code)
-		{
-		case sf::Keyboard::E:
-			m_window.close();
-			break;
+	for (uint i = 0; i < m_panels.size(); i++)
+		if (!event.isHandled()) 
+			m_panels[i]->onEvent(event);
+}
 
-		default:
-			break;
-		}
-		break;
+void Application::render()
+{
+	m_window.clear();
+	
+	frames++;
+	sf::Clock frametime;
 
-	default:
-		break;
-	}
+	m_states.back()->render(m_window);
 
-	m_states.back()->event(event);
+	sf::View oldView = m_window.getView();
+	m_window.setView(m_uiView);
+	for (int32 i = m_panels.size() - 1; i >= 0; i--)
+		m_panels[i]->render(m_window);
+	m_fpsLabel->render(m_window);
+
+	m_frameTime = float(frametime.getElapsedTime().asMilliseconds());
+	m_frameTimeLabel->setText(std::to_string((int)round(m_frameTime)) + " ms");
+	m_frameTimeLabel->render(m_window);
+
+	m_window.setView(oldView);
+
+	m_window.display();
 }
 
 void Application::pushState(std::unique_ptr<State::Base> state)
@@ -150,33 +147,27 @@ void Application::popState()
 	m_states.pop_back();
 }
 
-const WindowSettings& Application::getSettings() const
+GUI::Panel* Application::pushPanel(GUI::Panel* panel)
 {
-	return m_windowSettings;
+	m_panels.push_back(panel);
+	return panel;
 }
 
-ResourceHolder& Application::getResources()
+void Application::popPanel(GUI::Panel* panel)
 {
-	return m_resources;
-}
-
-sf::RenderWindow& Application::getWindow()
-{
-	return m_window;
+	for (uint i = 0; i < m_panels.size(); i++)
+	{
+		if (m_panels[i] == panel)
+		{
+			m_panels.erase(m_panels.begin() + i);
+			delete panel;
+			break;
+		}
+	}
 }
 
 void Application::setVSync(bool enabled)
 {
 	m_windowSettings.vsync = enabled;
 	m_window.setVerticalSyncEnabled(enabled);
-}
-
-bool Application::inputPressed(std::string action)
-{
-	return m_inputManager.isInput(action) && m_window.hasFocus();
-}
-
-sf::Vector2i Application::mousePosition()
-{
-	return m_inputManager.mousePosition(m_window);
 }

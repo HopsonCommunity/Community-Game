@@ -10,6 +10,26 @@ typedef sf::Vector2f Vec2;
 typedef sf::Vector2i Vec2i;
 typedef sf::Vector2<uint> Vec2ui;
 
+inline bool operator<(const Vec2& v1, const Vec2& v2)
+{
+	return v1.x < v2.x && v1.y < v2.y;
+}
+
+inline bool operator>(const Vec2& v1, const Vec2& v2)
+{
+	return v1.x > v2.x && v1.y > v2.y;
+}
+
+inline bool operator<(const Vec2i& v1, const Vec2i& v2)
+{
+	return v1.x < v2.x && v1.y < v2.y;
+}
+
+inline bool operator>(const Vec2i& v1, const Vec2i& v2)
+{
+	return v1.x > v2.x && v1.y > v2.y;
+}
+
 inline float distance(const Vec2& v1, const Vec2& v2)
 {
 	double dx = v1.x - v2.x;

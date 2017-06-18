@@ -1,16 +1,18 @@
 ﻿#include "ItemFactory.h"
-#include "../util/json.hpp"
+
 #include "../util/FileUtil.h"
-#include "component/SpriteComponent.h"
+
+#include "../components/SpriteComponent.h"
 
 namespace Item
 {
-	ItemFactory::ItemFactory() : m_lastID(0)
+	ItemFactory::ItemFactory() 
+		: m_lastID(0)
 	{
-
 	}
 
-	std::unique_ptr<Item> ItemFactory::createItem(std::string name) {
+	std::unique_ptr<Item> ItemFactory::createItem(std::string name) 
+	{
 		if (m_templates.find(name) == m_templates.end())
 			createTemplate(name);
 
@@ -30,10 +32,10 @@ namespace Item
 		{
 			nlohmann::json componentJSON = componentsJSON[i];
 
+			using namespace Components;
+
 			if (componentJSON["componentType"].get<std::string>() == "Sprite")
 				item->addComponent<SpriteComponent>(std::make_unique<SpriteComponent>(componentJSON));
 		}
 	}
-
-
 }

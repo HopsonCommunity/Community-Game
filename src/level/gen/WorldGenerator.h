@@ -3,10 +3,9 @@
 #include "Leaf.h"
 
 #include "../../Types.h"
-#include "../../maths/Random.h"
-#include "../tile/TileMap.h"
+#include "../../util/Random.h"
 
-#include <SFML/System/Vector2.hpp>
+#include "../tile/TileMap.h"
 
 namespace WGenerator
 {
@@ -25,10 +24,10 @@ namespace WGenerator
 		Map getMap();
 
 	private:
-		std::vector<std::shared_ptr<Rect>> getRooms();
-		std::vector<std::shared_ptr<Rect>> getRandomSquares();
-		std::vector<std::shared_ptr<Rect>> getHalls();
-		std::vector<std::vector<byte>> render(std::vector<std::pair<std::vector<std::shared_ptr<Rect>>, byte>> data) const;
+		std::vector<std::shared_ptr<IntRectangle>> getRooms();
+		std::vector<std::shared_ptr<IntRectangle>> getRandomSquares();
+		std::vector<std::shared_ptr<IntRectangle>> getHalls();
+		std::vector<std::vector<byte>> render(std::vector<std::pair<std::vector<std::shared_ptr<IntRectangle>>, byte>> data) const;
 
 		sf::Vector2<uint> placePlayer(uint roomId);
 

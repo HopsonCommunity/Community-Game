@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Item.h"
+
 #include "../util/json.hpp"
 
 namespace Item

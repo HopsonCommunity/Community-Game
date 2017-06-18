@@ -2,29 +2,31 @@
 
 #include "InputScheme.h"
 
+#include "../../events/Events.h"
+
 #include <SFML/Graphics.hpp>
 
-#define MOVE_UP "MOVE_UP"
-#define MOVE_DOWN "MOVE_DOWN"
-#define MOVE_LEFT "MOVE_LEFT"
-#define MOVE_RIGHT "MOVE_RIGHT"
-
-///@TODO: Possible make this some sort of global/static singleton.
 namespace Input
 {
 	class Input
 	{
 	public:
-		static Input* instance;
-
-		Input() { instance = this; }
-
-		Input(InputScheme* inputScheme);
+		Input(InputScheme* inputScheme, Events::IEventListener* eventCallback, sf::RenderWindow* window);
 
 		bool isInput(std::string action);
 
-		sf::Vector2i mousePosition(sf::RenderWindow& window);
+		void update();
+
+		Vec2i getMouse();
+		Vec2i getMouse(const sf::View& view);
 	private:
 		InputScheme* m_inputScheme;
+
+		Vec2i m_mouse;
+		
+		std::array<bool, sf::Keyboard::KeyCount> m_keyState;
+
+		sf::RenderWindow* m_window;
+		Events::IEventListener* m_eventCallback;
 	};
 }

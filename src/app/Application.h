@@ -8,66 +8,84 @@
 #include "input/Input.h"
 
 #include "../util/Timestep.h"
-#include "../sound/BGM.h"
+#include "../sound/Music.h"
+
 #include "../resources/ResourceHolder.h"
-#include "../ui/UILabel.h"
+
+#include "../graphics/Label.h"
+#include "../graphics/gui/Panel.h"
+
+#include "../debug/DebugConsole.h"
+
+#include "../events/Events.h"
 
 constexpr bool VSYNC_ENABLED = true;
 constexpr bool VSYNC_DISABLED = false;
-const std::string consoleAppInfo = "+---------------------------------------------------------------------------------------------------------------------+\n|                                   This is the console window for Project Comonidy                                   |\n+---------------------------------------------------------------------------------------------------------------------+\n";
 
-class Application
+class Application : public Events::IEventListener
 {
+private:
+	static Application* s_instance;
 public:
-	static Application* instance;
-
 	Application(std::string&& name, const WindowSettings& settings);
 
+	// Running
 	void start();
+	void onEvent(Events::Event& event) override;
+	void render();
 
-	void handleEvents(sf::Event& event);
-
+	// States
 	void pushState(std::unique_ptr<State::Base> state);
 	void popState();
+	GUI::Panel* pushPanel(GUI::Panel* panel);
+	void popPanel(GUI::Panel* panel);
 
-	const WindowSettings& getSettings() const;
-	ResourceHolder& getResources();
+	// Input
+	Input::Input* getInputManager() const { return m_inputManager; }
+	float mouseX() { return (float)m_inputManager->getMouse().x; }
+	float mouseY() { return (float)m_inputManager->getMouse().y; }
 
+	// Getters
+	Vec2 uiMousePos() { return Vec2(m_inputManager->getMouse(m_uiView)); }
+	bool inputPressed(std::string action) { return m_inputManager->isInput(action) && m_window.hasFocus(); }
 	uint getFPS() const { return m_framesPerSecond; }
 	uint getUPS() const { return m_updatesPerSecond; }
 	float getFrameTime() const { return m_frameTime; }
+	float screenWidth() { return (float)getWindow().getSize().x; }
+	float screenHeight() { return (float)getWindow().getSize().y; }
+	const WindowSettings& getSettings() const { return m_windowSettings; }
+	ResourceHolder& getResources() { return *m_resources; }
+	sf::RenderWindow& getWindow() { return m_window; }
+	bool isConsoleActive() { return m_console->isActive(); }
+	const sf::Font& getFont(const std::string& name) { return m_resources->fonts.get(name); }
+	const sf::Texture& getTexture(const std::string& name) { return m_resources->textures.get(name); }
 
-	Input::Input getInputManager() const { return m_inputManager; }
-
+	//Setters
 	void setVSync(bool enabled);
+	void setConsoleActive(bool active) { m_console->setActive(active); }
 
-	bool inputPressed(std::string action);
-	sf::Vector2i mousePosition();
-
-	float mouseX() { return static_cast<float>(mousePosition().x); }
-	float mouseY() { return static_cast<float>(mousePosition().y); }
-
-	float screenWidth() { return static_cast<float>(getWindow().getSize().x); }
-	float screenHeight() { return static_cast<float>(getWindow().getSize().y); }
-
-	sf::RenderWindow& getWindow();
-	Sound::BGM BGM;
+	static Application& get() { return *s_instance; }
 
 private:
 	std::string m_title;
 
+	uint frames = 0;
 	uint m_framesPerSecond, m_updatesPerSecond;
 	float m_frameTime;
-	
-	sf::View m_labelView;
-	UI::Label* m_fpsLabel;
-	UI::Label* m_frameTimeLabel;
 
-	ResourceHolder m_resources;
-	Input::InputScheme m_inputScheme;
-	Input::Input m_inputManager;
+	sf::View m_uiView;
+	Graphics::Label* m_fpsLabel;
+	Graphics::Label* m_frameTimeLabel;
+
+	Debug::Console* m_console;
+
+	Input::Input* m_inputManager;
+
+	ResourceHolder* m_resources;
+	Sound::Music m_backgroundMusic;
 
 	WindowSettings m_windowSettings;
 	sf::RenderWindow m_window;
 	std::vector<std::unique_ptr<State::Base>> m_states;
+	std::vector<GUI::Panel*> m_panels;
 };

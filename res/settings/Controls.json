@@ -1,7 +1,7 @@
-{
+﻿{
   "MOVE_UP": "W",
   "MOVE_DOWN": "S",
   "MOVE_LEFT": "A",
-  "MOVE_RIGHT": "D",
-  "PRINT_TEST": "P"
+	"MOVE_RIGHT": "D",
+	"SHOW_CONSOLE": "F1"
 }

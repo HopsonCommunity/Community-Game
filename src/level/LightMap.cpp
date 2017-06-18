@@ -24,7 +24,7 @@ namespace Level
 		if (!m_requestedRebuild)
 			return;
 
-		LOG_INFO("Rebuilding light..");
+		LOG_WARN("Rebuilding light..");
 		m_requestedRebuild = false;
 
 		resetLight();
@@ -100,6 +100,9 @@ namespace Level
 	void LightMap::addIntensity(int32 x, int32 y, Color color, byte intensity) const
 	{
 		if (x < 0 || y < 0 || x >= width || y >= height)
+			return;
+
+		if ((*m_tiles)[x][y]->light.intensity > intensity)
 			return;
 
 		color = applyIntensity(color, intensity);

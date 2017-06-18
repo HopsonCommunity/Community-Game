@@ -4,7 +4,7 @@
 
 #include "../app/WindowSettings.h"
 #include "../maths/Color.h"
-#include "../maths/AABB.h"
+#include "../maths/Rectangle.h"
 
 #include <SFML/Window/Keyboard.hpp>
 
@@ -183,9 +183,9 @@ namespace Log
 	}
 
 	template<>
-	inline const char* to_string<AABB>(const AABB& v)
+	inline const char* to_string<FloatRectangle>(const FloatRectangle& v)
 	{
-		sprintf(sprintf_buffer, "AABB: (min: { x: %f, y: %f }, max: { x: %f, y: %f })", v.min.x, v.min.y, v.max.x, v.max.y);
+		sprintf(sprintf_buffer, "FloatRectangle: (position: { x: %f, y: %f }, size: { x: %f, y: %f })", v.x, v.y, v.width, v.height);
 		char* result = new char[strlen(sprintf_buffer)];
 		strcpy(result, &sprintf_buffer[0]);
 		return result;

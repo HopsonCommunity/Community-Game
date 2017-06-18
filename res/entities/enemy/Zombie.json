@@ -1,17 +1,13 @@
 ﻿{
 	"name": "Zombie",
 	"components": [
-		{
-			"componentType": "Script",
-			"src": "zombie.lua"
-		},
+		
 		{
 			"componentType": "Hostile"
 		},
 		{
 			"componentType": "Sprite",
 			"src": "entity/enemy/zombie",
-			"flipOnVelocity": true,
 			"origin": {
 				"x": 16,
 				"y": 48
@@ -37,19 +33,20 @@
 					"positionY": 64,
 					"stride": 64,
 					"length": 4,
-					"fps": 14
+					"fps": 10
 				}
 			]
 		},
 		{
 			"componentType": "Physics",
-			"aabb": {
-				"xMin": -16,
-				"yMin": -16,
-				"xMax": 32,
-				"yMax": 32
+			"sortOffset": 16,
+			"collisionBox": {
+				"x": -16,
+				"y": -16,
+				"width": 32,
+				"height": 32
 			},
-			"movespeed": 90
+			"movespeed": 45
 		},
 		{
 			"componentType": "Stats",

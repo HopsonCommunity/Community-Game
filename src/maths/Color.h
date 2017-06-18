@@ -27,14 +27,14 @@ inline Color mixColors(const Color& c1, const Color& c2)
 	return result;
 }
 
-inline Color applyIntensity(Color c, byte intensity)
+inline Color applyIntensity(const Color& c, byte intensity)
 {
 	float k = intensity >= LIGHT_ABSOLUTE ? 1.f : static_cast<float>(intensity) / LIGHT_ABSOLUTE;
 
 	return Color(static_cast<byte>(c.r * k), static_cast<byte>(c.g * k), static_cast<byte>(c.b * k), 255);
 }
 
-inline Color reapplyIntensity(Color c, byte intensityOld, byte intensityNew)
+inline Color reapplyIntensity(const Color& c, byte intensityOld, byte intensityNew)
 {
 	float k1 = intensityNew >= LIGHT_ABSOLUTE ? 1.f : static_cast<float>(intensityNew) / LIGHT_ABSOLUTE,
 		k2 = intensityOld >= LIGHT_ABSOLUTE ? 1.f : static_cast<float>(intensityOld) / LIGHT_ABSOLUTE;

@@ -1,11 +1,7 @@
 ﻿#pragma once
 
-#include "../Types.h"
-#include <memory>
-#include <unordered_map>
-
-#include "component/Component.h"
 #include "../entity/Entity.h"
+#include "../components/Component.h"
 
 namespace Item
 {
@@ -18,7 +14,7 @@ namespace Item
         uint64 getID() { return m_ID; }
 
         template<typename T>
-        void addComponent(std::unique_ptr<Component> component)
+        void addComponent(std::unique_ptr<Components::Component> component)
         {
             m_components[int(T::ID)] = std::move(component);
         }
@@ -48,7 +44,7 @@ namespace Item
 
     private:
         uint64 m_ID;
-        std::unordered_map<int, std::unique_ptr<Component>> m_components;
+        std::unordered_map<int, std::unique_ptr<Components::Component>> m_components;
         Entity::Entity* m_owningEntity;
     };
 }

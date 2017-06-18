@@ -4,64 +4,58 @@
 #include "../Application.h"
 
 #include "../../Common.h"
-#include "../../maths/Random.h"
+#include "../../util/Random.h"
 
 namespace State
 {
 	Menu::Menu(Application* app, sf::RenderWindow* window)
 		: Base(app)
-		, m_backGround(Vec2((float)app->getWindow().getSize().x, (float)app->getWindow().getSize().y))
-		, m_devBuildLabel(sf::Text("DEV BUILD", app->getResources().fonts.get("SourceCodePro-Regular"), 30), UI::Label::Alignment::LEFT)
-		, m_UI(window)
-		, m_singleplayer(UI::Label(sf::Text("Singleplayer", app->getResources().fonts.get("SourceCodePro-Regular"), 18)), sf::Rect<int>(app->getWindow().getSize().x / 2 - 75, app->getWindow().getSize().y / 2 - 30, 150, 50), METHOD(&Menu::singleplayerCallback))
-		, m_multiplayer(UI::Label(sf::Text("Multiplayer", app->getResources().fonts.get("SourceCodePro-Regular"), 18)), sf::Rect<int>(app->getWindow().getSize().x / 2 - 75, app->getWindow().getSize().y / 2 + 45, 150, 50), METHOD(&Menu::multiplayerCallback))
-		, m_credits(UI::Label(sf::Text("Credits", app->getResources().fonts.get("SourceCodePro-Regular"), 18)), sf::Rect<int>(app->getWindow().getSize().x / 2 - 75, app->getWindow().getSize().y / 2 + 120, 150, 50), METHOD(&Menu::creditsCallback))
+		, m_backGround(Vec2((float)app->screenWidth(), (float)app->screenHeight()))
+		, m_devBuildLabel("", app->getFont("SourceCodePro-Regular"), 30, Graphics::Label::Alignment::LEFT)
+		, m_singleplayerClicked(false)
 	{
-		m_backGround.setTexture(&app->getResources().textures.get("gui/menu/dev/background"));
+		using namespace Graphics;
+		using namespace GUI;
 
-		m_devBuildLabel.setPosition(Vec2(18.f, static_cast<float>(app->getWindow().getSize().y) - 40.f));
+		m_backGround.setTexture(&app->getTexture("gui/dev/menu_background"));
+
+		m_devBuildLabel.setPosition(Vec2(18.f, static_cast<float>(app->screenHeight()) - 40.f));
 		m_devBuildLabel.getText().setFillColor(sf::Color(255, 235, 0, 255));
 
-		m_UI.addComponent(m_singleplayer);
-		m_UI.addComponent(m_multiplayer);
-		m_UI.addComponent(m_credits);
+		Label* singleplayer = new Label("Singleplayer", app->getFont("SourceCodePro-Regular"), 18);
+		Label* multiplayer = new Label("Multiplayer", app->getFont("SourceCodePro-Regular"), 18);
+		Label* credits = new Label("Credits", app->getFont("SourceCodePro-Regular"), 18);
+
+		m_panel = new Panel();
+		m_panel->add(new Button(singleplayer, { app->screenWidth() / 2 - 75, app->screenHeight() / 2 - 30, 150, 50 }, [&]() { m_singleplayerClicked = true; }));
+		m_panel->add(new Button(multiplayer, { app->screenWidth() / 2 - 75, app->screenHeight() / 2 + 45, 150, 50 }, [&]() {}));
+		m_panel->add(new Button(credits, { app->screenWidth() / 2 - 75, app->screenHeight() / 2 + 120, 150, 50 }, [&]() {}));
 	}
 
-	void Menu::event(sf::Event & event)
-	{
-	}
-
-	void Menu::input()
+	void Menu::onEvent(Events::Event& event)
 	{
 	}
 
 	void Menu::update(const Timestep& ts)
 	{
-		// Fancy symbols flashing
-		std::string t;
-		t.push_back(Random::getRandomChar());
-		t += " DEV BUILD ";
-		t.push_back(Random::getRandomChar());
-		m_devBuildLabel.setText(t);
-
-		Input::Input input = Application::instance->getInputManager();
-		m_UI.update(input);
+		std::stringstream m;
+		m << Random::getRandomChar() << " DEV BUILD " << Random::getRandomChar();
+		m_devBuildLabel.setText(m.str());
+		
+		if (m_singleplayerClicked)
+		{
+			Application::get().popPanel(m_panel);
+			Application::get().pushState(std::make_unique<State::Playing>(&Application::get(), &Application::get().getWindow()));
+		}
 	}
 
 	void Menu::render(sf::RenderWindow& window)
 	{
 		window.draw(m_backGround);
 		m_devBuildLabel.render(window);
-
-		m_UI.render();
 	}
 
 	void Menu::tick()
 	{
-	}
-
-	void Menu::singleplayerCallback()
-	{
-		Application::instance->pushState(std::make_unique<State::Playing>(Application::instance, &Application::instance->getWindow()));
 	}
 }

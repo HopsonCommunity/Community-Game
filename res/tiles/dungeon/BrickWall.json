@@ -1,5 +1,14 @@
 ﻿{
 	"Passable": false,
 	"Breakable": false,
-	"Texture": [ 0, 4 ]
+	"Textures": [
+		[ 0, 6 ],
+		[ 0, 5 ]
+	],
+	"CollisionBox": {
+		"x": 0,
+		"y": 0,
+		"width": 32,
+		"height": 32
+	}
 }

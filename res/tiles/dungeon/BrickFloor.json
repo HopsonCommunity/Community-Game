@@ -1,5 +1,5 @@
 ﻿{
 	"Passable": true,
 	"Breakable": false,
-	"Texture": [ 0, 5 ]
+	"Textures": [ [ 1, 4 ] ]
 }

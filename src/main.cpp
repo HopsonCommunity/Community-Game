@@ -8,7 +8,7 @@
 #include "windows.h"
 #endif // __WIN32
 
-#include "maths/Random.h"
+#include "util/Random.h"
 
 namespace
 {

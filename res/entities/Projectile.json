@@ -4,7 +4,6 @@
 		{
 			"componentType": "Sprite",
 			"src": "entity/temp/k1",
-			"flipOnVelocity": false,
 			"origin": {
 				"x": 8,
 				"y": 8
@@ -22,11 +21,11 @@
 		},
 		{
 			"componentType": "Physics",
-			"aabb": {
-				"xMin": 0,
-				"yMin": 0,
-				"xMax": 0,
-				"yMax": 0
+			"collisionBox": {
+				"x": 0,
+				"y": 0,
+				"width": 0,
+				"height": 0
 			},
 			"movespeed": 0
 		}
