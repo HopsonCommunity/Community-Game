@@ -43,7 +43,7 @@ namespace Input
 			if (e.type == sf::Event::Closed)
 				m_window->close();
 			
-			if (e.type == sf::Event::KeyPressed)
+			if (e.type == sf::Event::KeyPressed && e.key.code > -1)
 			{
 				int32 repeat = m_keyState[e.key.code] ? 1 : 0;
 				int32 mods = 0;
@@ -63,7 +63,7 @@ namespace Input
 				m_keyState[e.key.code] = true;
 			}
 
-			if (e.type == sf::Event::KeyReleased)
+			if (e.type == sf::Event::KeyReleased && e.key.code > -1)
 			{
 				Events::Event&& event = Events::KeyReleasedEvent(e.key.code);
 				m_eventCallback->onEvent(event);
