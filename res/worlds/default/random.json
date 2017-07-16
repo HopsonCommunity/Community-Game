@@ -1,0 +1,21 @@
+[
+	{
+		"chance" : 20,
+		"wall" : 1,
+		"floor" : 2,
+		"entities" : [
+			{
+				"entity" : "Lantern",
+				"placement" : "center",
+				"min" : 2,
+				"max" : 3
+			}
+		]
+	},
+	{
+		"chance" : 100,
+		"wall" : 1,
+		"floor" : 2,
+		"entities" : []
+	}
+]

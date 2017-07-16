@@ -30,7 +30,7 @@ namespace Level
 	private:
 		sf::View m_view;
 		TileMap m_tiles;
-		
+
 		std::unique_ptr<Entity::System> m_renderSystem;
 
 		std::vector<std::unique_ptr<Entity::Entity>> m_entities;

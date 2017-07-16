@@ -86,18 +86,18 @@ namespace GUI
 
 		if (close_button.contains(mouse))
 		{
-			StandardCursor Cursor(StandardCursor::HAND);
-			Cursor.set(Application::get().getWindow().getSystemHandle());
+			//StandardCursor Cursor(StandardCursor::HAND);
+			//Cursor.set(Application::get().getWindow().getSystemHandle());
 		}
 		else if (resize_button.contains(mouse))
 		{
-			StandardCursor Cursor(StandardCursor::SIZENWSE);
-			Cursor.set(Application::get().getWindow().getSystemHandle());
+			//StandardCursor Cursor(StandardCursor::SIZENWSE);
+			//Cursor.set(Application::get().getWindow().getSystemHandle());
 		}
 		else
 		{
-			StandardCursor Cursor(StandardCursor::NORMAL);
-			Cursor.set(Application::get().getWindow().getSystemHandle());
+			//StandardCursor Cursor(StandardCursor::NORMAL);
+			//Cursor.set(Application::get().getWindow().getSystemHandle());
 		}
 
 		return false;

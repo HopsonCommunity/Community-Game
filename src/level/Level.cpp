@@ -11,24 +11,14 @@ namespace Level
 	Level::Level(uint width, uint height)
 		: m_tiles(TileMap(width, height)), player(nullptr)
 	{
-		WGenerator::WorldGenerator m_worldGen(WORLD_SIZE, WORLD_SIZE, 2355);
+		WGenerator::WorldGenerator m_worldGen("default");
 		m_worldGen.generateMap();
 
 		auto data = m_worldGen.getMap();
 
 		TileMap::AddList addList;
 
-		for (int x = 0; x < WORLD_SIZE; x++)
-			for (int y = 0; y < WORLD_SIZE; y++)
-			{
-				auto n = data.tiles[x][y];
-				if (n == 1)
-					addList.push_back(std::make_tuple(x, y, byte(TileID::Dungeon_BrickFloor), 0 ));
-				else if (n == 0)
-					addList.push_back(std::make_tuple( x, y, byte(TileID::Dungeon_BrickWall), 0 ));
-				else
-					addList.push_back(std::make_tuple( x, y, byte(TileID::Void), 0));
-			}
+		addList = data.addList;
 
 		m_tiles.addTiles(0, addList);
 
@@ -57,11 +47,11 @@ namespace Level
 		m_tiles.render(window, IntRectangle(Vec2i((m_view.getCenter() - m_view.getSize()) / TILE_SIZE), Vec2i((m_view.getSize() * 2.f) / TILE_SIZE)));
 
 		std::sort(m_entities.begin(), m_entities.end(),
-			[](const std::unique_ptr<Entity::Entity>& lhs, const std::unique_ptr<Entity::Entity>& rhs) {
-			Components::PhysicsComponent* c_lhs = lhs.get()->getComponent<Components::PhysicsComponent>();
-			Components::PhysicsComponent* c_rhs = rhs.get()->getComponent<Components::PhysicsComponent>();
-			return c_lhs->pos.y + c_lhs->sortOffset < c_rhs->pos.y + c_rhs->sortOffset;
-		});
+				  [](const std::unique_ptr<Entity::Entity>& lhs, const std::unique_ptr<Entity::Entity>& rhs) {
+					  Components::PhysicsComponent* c_lhs = lhs.get()->getComponent<Components::PhysicsComponent>();
+					  Components::PhysicsComponent* c_rhs = rhs.get()->getComponent<Components::PhysicsComponent>();
+					  return c_lhs->pos.y + c_lhs->sortOffset < c_rhs->pos.y + c_rhs->sortOffset;
+				  });
 
 		m_tiles.presentBefore(window);
 
@@ -84,7 +74,7 @@ namespace Level
 			Application::get().getWindow().draw(rs, states);
 		}
 #endif
-	
+
 		m_tiles.renderLight(window);
 	}
 
@@ -100,7 +90,7 @@ namespace Level
 
 		Vec2 offset = (Vec2(Application::get().getInputManager()->getMouse()) - Vec2(Application::get().getWindow().getSize()) / 2.f) * .1f;
 		m_view.setCenter(c_pos->pos + offset);
-	
+
 		/*
 			Remove tiles in 3x3 area around the player's position
 		*/
@@ -138,3 +128,4 @@ namespace Level
 		}
 	}
 }
+
