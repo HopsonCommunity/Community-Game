@@ -33,10 +33,13 @@ Otherwise look at the Contributing file to get a fork and your local repository
 configured right.
 
 ## Compiling in console
-### Preperation
+### Preparation
+
 #### Windows
 Make sure you have MINGW with a c++ compiler, make installed in your path.
 Install CMake from their official website and add it to the PATH.
+
+**Note:** for the game to be correctly executed on Windows you will need to install OpenAL, check OpenAL at https://openal.org/downloads/ and download the latest installer.
 
 #### Mac
 Install CMake from their site. Make sure you add the CMake executable to the
@@ -61,6 +64,8 @@ CMake creates the Makefile in the build directory. Now you can just run
 `make`
 
 and your files will be compiled.
+
+
 
 ## Compiling in CLion
 Compiling in CLion is simple, CLion uses CMake for building, so you only to download the main repository and open CLion.
