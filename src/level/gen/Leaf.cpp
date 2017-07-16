@@ -2,10 +2,13 @@
 
 namespace WGenerator
 {
-	Leaf::Leaf(IntRectangle t_block, std::shared_ptr<Random::Generator<>> t_generator, uint t_minSize)
+	Leaf::Leaf(IntRectangle t_block, std::shared_ptr<Random::Generator<> > t_generator, uint t_minSize, uint t_minHall, uint t_maxHall)
+
 		: block(t_block)
 		, generator(t_generator)
 		, m_minSize(t_minSize)
+		, m_minHall(t_minHall)
+		, m_maxHall(t_maxHall)
 	{
 	}
 
@@ -25,13 +28,13 @@ namespace WGenerator
 
 		if (splitOrientation)
 		{
-			leftChild = std::make_shared<Leaf>(IntRectangle(block.x, block.y, block.width, splitPosition), generator, m_minSize);
-			rightChild = std::make_shared<Leaf>(IntRectangle(block.x, block.y + splitPosition, block.width, block.height - splitPosition), generator, m_minSize);
+			leftChild = std::make_shared<Leaf>(IntRectangle(block.x, block.y, block.width, splitPosition), generator, m_minSize, m_minHall, m_maxHall);
+			rightChild = std::make_shared<Leaf>(IntRectangle(block.x, block.y + splitPosition, block.width, block.height - splitPosition), generator, m_minSize, m_minHall, m_maxHall);
 		}
 		else
 		{
-			leftChild = std::make_shared<Leaf>(IntRectangle(block.x, block.y, splitPosition, block.height), generator, m_minSize);
-			rightChild = std::make_shared<Leaf>(IntRectangle(block.x + splitPosition, block.y, block.width - splitPosition, block.height), generator, m_minSize);
+			leftChild = std::make_shared<Leaf>(IntRectangle(block.x, block.y, splitPosition, block.height), generator, m_minSize, m_minHall, m_maxHall);
+			rightChild = std::make_shared<Leaf>(IntRectangle(block.x + splitPosition, block.y, block.width - splitPosition, block.height), generator, m_minSize, m_minHall, m_maxHall);
 		}
 		return true;
 	}
@@ -75,37 +78,39 @@ namespace WGenerator
 		int w = point2.first - point1.first;
 		int h = point2.second - point1.second;
 
+		uint hall = (uint)generator->uint64InRange(m_minHall, m_maxHall);
+
 		if (w < 0)
 		{
 			if (h < 0)
 			{
 				if (generator->uint64InRange(0, 100) < 50)
 				{
-					halls.push_back(IntRectangle(point2.first, point1.second, (uint)std::abs(w), 3));
-					halls.push_back(IntRectangle(point2.first, point2.second, 3, (uint)std::abs(h)));
+					halls.push_back(IntRectangle(point2.first, point1.second, (uint)std::abs(w), hall));
+					halls.push_back(IntRectangle(point2.first, point2.second, hall, (uint)std::abs(h)));
 				}
 				else
 				{
-					halls.push_back(IntRectangle(point2.first, point2.second, (uint)std::abs(w), 3));
-					halls.push_back(IntRectangle(point1.first, point2.second, 3, (uint)std::abs(h)));
+					halls.push_back(IntRectangle(point2.first, point2.second, (uint)std::abs(w), hall));
+					halls.push_back(IntRectangle(point1.first, point2.second, hall, (uint)std::abs(h)));
 				}
 			}
 			else if (h > 0)
 			{
 				if (generator->uint64InRange(0, 100) < 50)
 				{
-					halls.push_back(IntRectangle(point2.first, point1.second, (uint)std::abs(w), 3));
-					halls.push_back(IntRectangle(point2.first, point1.second, 3, (uint)std::abs(h)));
+					halls.push_back(IntRectangle(point2.first, point1.second, (uint)std::abs(w), hall));
+					halls.push_back(IntRectangle(point2.first, point1.second, hall, (uint)std::abs(h)));
 				}
 				else
 				{
-					halls.push_back(IntRectangle(point2.first, point2.second, (uint)std::abs(w), 3));
-					halls.push_back(IntRectangle(point1.first, point1.second, 3, (uint)std::abs(h)));
+					halls.push_back(IntRectangle(point2.first, point2.second, (uint)std::abs(w), hall));
+					halls.push_back(IntRectangle(point1.first, point1.second, hall, (uint)std::abs(h)));
 				}
 			}
 			else
 			{
-				halls.push_back(IntRectangle(point2.first, point2.second, (uint)std::abs(w), 3));
+				halls.push_back(IntRectangle(point2.first, point2.second, (uint)std::abs(w), hall));
 			}
 		}
 		else if (w > 0)
@@ -114,42 +119,42 @@ namespace WGenerator
 			{
 				if (generator->uint64InRange(0, 100) < 50)
 				{
-					halls.push_back(IntRectangle(point1.first, point2.second, (uint)std::abs(w), 3));
-					halls.push_back(IntRectangle(point1.first, point2.second, 3, (uint)std::abs(h)));
+					halls.push_back(IntRectangle(point1.first, point2.second, (uint)std::abs(w), hall));
+					halls.push_back(IntRectangle(point1.first, point2.second, hall, (uint)std::abs(h)));
 				}
 				else
 				{
-					halls.push_back(IntRectangle(point1.first, point1.second, (uint)std::abs(w) + 3, 3));
-					halls.push_back(IntRectangle(point2.first, point2.second, 3, (uint)std::abs(h)));
+					halls.push_back(IntRectangle(point1.first, point1.second, (uint)std::abs(w) + hall, hall));
+					halls.push_back(IntRectangle(point2.first, point2.second, hall, (uint)std::abs(h)));
 				}
 			}
 			else if (h > 0)
 			{
 				if (generator->uint64InRange(0, 100) < 50)
 				{
-					halls.push_back(IntRectangle(point1.first, point1.second, (uint)std::abs(w), 3));
-					halls.push_back(IntRectangle(point2.first, point1.second, 3, (uint)std::abs(h)));
+					halls.push_back(IntRectangle(point1.first, point1.second, (uint)std::abs(w), hall));
+					halls.push_back(IntRectangle(point2.first, point1.second, hall, (uint)std::abs(h)));
 				}
 				else
 				{
-					halls.push_back(IntRectangle(point1.first, point2.second, (uint)std::abs(w), 3));
-					halls.push_back(IntRectangle(point1.first, point1.second, 3, (uint)std::abs(h)));
+					halls.push_back(IntRectangle(point1.first, point2.second, (uint)std::abs(w), hall));
+					halls.push_back(IntRectangle(point1.first, point1.second, hall, (uint)std::abs(h)));
 				}
 			}
 			else
 			{
-				halls.push_back(IntRectangle(point1.first, point1.second, (uint)std::abs(w), 3));
+				halls.push_back(IntRectangle(point1.first, point1.second, (uint)std::abs(w), hall));
 			}
 		}
 		else
 		{
 			if (h < 0)
 			{
-				halls.push_back(IntRectangle(point2.first, point2.second, 3, (uint)std::abs(h)));
+				halls.push_back(IntRectangle(point2.first, point2.second, hall, (uint)std::abs(h)));
 			}
 			else if (h > 0)
 			{
-				halls.push_back(IntRectangle(point1.first, point1.second, 3, (uint)std::abs(h)));
+				halls.push_back(IntRectangle(point1.first, point1.second, hall, (uint)std::abs(h)));
 			}
 		}
 	}

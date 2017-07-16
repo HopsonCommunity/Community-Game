@@ -1,0 +1,11 @@
+{
+	"seed" : "random",
+	"width" : 100,
+	"height" : 100,
+	"minLeafSize": 15,
+	"maxLeafSize" : 30,
+	"minHallWidth" : 2,
+	"maxHallWidth" : 2,
+	"defaultFloor" : 2,
+	"defaultWall" : 1
+}
