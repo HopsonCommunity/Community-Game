@@ -114,3 +114,5 @@ If there are still error, go to our Discord and ask `kaizi99` for help, there
 could be still bugs in our `CMakeLists.txt` so just tell him.
 
 HAVE FUN CODING!
+
+TEST
