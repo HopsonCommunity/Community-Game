@@ -25,8 +25,8 @@ namespace Level
 		renderTilePos.x = x * TILE_SIZE;
 		renderTilePos.y = y * TILE_SIZE;
 
-		float tx = m_texture.x * TILE_SIZE;
-		float ty = m_texture.y * TILE_SIZE;
+		const float tx = m_texture.x * TILE_SIZE;
+		const float ty = m_texture.y * TILE_SIZE;
 
 		// Pointer arithmetic is faster than [] operator
 		Vec2* uvPtr = const_cast<Vec2*>(&renderable->getUVs()[0]);
@@ -55,8 +55,8 @@ namespace Level
 		{
 			renderTilePos.y = y * TILE_SIZE;
 
-			float tx = m_sideTexture.x * TILE_SIZE;
-			float ty = m_sideTexture.y * TILE_SIZE;
+			const float tx = m_sideTexture.x * TILE_SIZE;
+			const float ty = m_sideTexture.y * TILE_SIZE;
 
 			// Pointer arithmetic is faster than [] operator
 			Vec2* uvPtr = const_cast<Vec2*>(&renderable->getUVs()[0]);
@@ -71,8 +71,8 @@ namespace Level
 		/// Render top
 		renderTilePos.y = y * TILE_SIZE - 32;
 
-		float tx = m_topTexture.x * TILE_SIZE;
-		float ty = m_topTexture.y * TILE_SIZE;
+		const float tx = m_topTexture.x * TILE_SIZE;
+		const float ty = m_topTexture.y * TILE_SIZE;
 
 		// Pointer arithmetic is faster than [] operator
 		Vec2* uvPtr = const_cast<Vec2*>(&renderable->getUVs()[0]);
