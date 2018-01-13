@@ -16,9 +16,7 @@ namespace Level
 
 		auto data = m_worldGen.getMap();
 
-		TileMap::AddList addList;
-
-		addList = data.addList;
+		TileMap::AddList addList = data.addList;
 
 		m_tiles.addTiles(0, addList);
 
@@ -48,8 +46,8 @@ namespace Level
 
 		std::sort(m_entities.begin(), m_entities.end(),
 				  [](const std::unique_ptr<Entity::Entity>& lhs, const std::unique_ptr<Entity::Entity>& rhs) {
-					  Components::PhysicsComponent* c_lhs = lhs.get()->getComponent<Components::PhysicsComponent>();
-					  Components::PhysicsComponent* c_rhs = rhs.get()->getComponent<Components::PhysicsComponent>();
+					  const auto* c_lhs = lhs.get()->getComponent<Components::PhysicsComponent>();
+					  const auto* c_rhs = rhs.get()->getComponent<Components::PhysicsComponent>();
 					  return c_lhs->pos.y + c_lhs->sortOffset < c_rhs->pos.y + c_rhs->sortOffset;
 				  });
 
@@ -86,9 +84,9 @@ namespace Level
 
 		m_tiles.light();
 
-		Components::PhysicsComponent* c_pos = player->getComponent<Components::PhysicsComponent>();
+		const Components::PhysicsComponent* const c_pos = player->getComponent<Components::PhysicsComponent>();
 
-		Vec2 offset = (Vec2(Application::get().getInputManager()->getMouse()) - Vec2(Application::get().getWindow().getSize()) / 2.f) * .1f;
+		const Vec2 offset = (Vec2(Application::get().getInputManager()->getMouse()) - Vec2(Application::get().getWindow().getSize()) / 2.f) * .1f;
 		m_view.setCenter(c_pos->pos + offset);
 
 		/*
@@ -100,8 +98,8 @@ namespace Level
 		for (int i = -1; i <= 1; i++)
 			for (int j = -1; j <= 1; j++)
 			{
-				int x = int(c_pos->pos.x) / 32 + i;
-				int y = int(c_pos->pos.y + 16) / 32 + j;
+				const int x = int(c_pos->pos.x) / 32 + i;
+				const int y = int(c_pos->pos.y + 16) / 32 + j;
 
 				if (m_tiles.getTile(0, x, y)->id != TileID::Dungeon_BrickFloor)
 					x3.push_back({x, y, byte(TileID::Dungeon_BrickFloor), 0 });
