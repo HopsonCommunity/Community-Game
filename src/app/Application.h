@@ -20,7 +20,7 @@
 #include "../events/Events.h"
 
 constexpr bool VSYNC_ENABLED = true;
-constexpr bool VSYNC_DISABLED = false;
+constexpr bool VSYNC_DISABLED = !VSYNC_DISABLED;
 
 class Application : public Events::IEventListener
 {
