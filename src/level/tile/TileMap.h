@@ -21,7 +21,7 @@ namespace Level
     class TileMap
     {
 	public:
-		typedef std::vector<std::tuple<uint, uint, byte, byte>> AddList;
+		using AddList = std::vector<std::tuple<uint, uint, byte, byte>>;
 	private:
         struct TileLayer
         {
@@ -30,8 +30,8 @@ namespace Level
 
 			~TileLayer()
 			{
-				for (uint i = 0; i < tiles.size(); i++)
-					tiles[i].clear();
+				for (auto& tile : tiles)
+					tile.clear();
 
 				delete lightMap;
 			}
