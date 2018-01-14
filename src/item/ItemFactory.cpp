@@ -21,17 +21,15 @@ namespace Item
 
 	void ItemFactory::createTemplate(std::string filePath)
 	{
-		std::string source = getFileContents("res/items" + filePath);
+		const std::string source = getFileContents("res/items" + filePath);
 		nlohmann::json json = nlohmann::json::parse(source.c_str());
 
 		std::unique_ptr<Item> item = std::make_unique<Item>();
 
-		std::vector<nlohmann::json> componentsJSON = json["components"];
+		const std::vector<nlohmann::json> componentsJSON = json["components"];
 
-		for (unsigned int i=0; i < componentsJSON.size(); i++)
+		for (const auto& componentJSON : componentsJSON)
 		{
-			nlohmann::json componentJSON = componentsJSON[i];
-
 			using namespace Components;
 
 			if (componentJSON["componentType"].get<std::string>() == "Sprite")

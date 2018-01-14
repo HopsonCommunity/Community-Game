@@ -2,13 +2,13 @@
 
 #include "../Types.h"
 
-#include <math.h>
+#include <cmath>
 
 #include <SFML/System/Vector2.hpp>
 
-typedef sf::Vector2f Vec2;
-typedef sf::Vector2i Vec2i;
-typedef sf::Vector2<uint> Vec2ui;
+using Vec2   = sf::Vector2f;
+using Vec2i  = sf::Vector2i;
+using Vec2ui = sf::Vector2<uint>;
 
 inline bool operator<(const Vec2& v1, const Vec2& v2)
 {

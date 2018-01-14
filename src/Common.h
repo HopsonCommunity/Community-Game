@@ -18,8 +18,8 @@
 #include <memory>
 
 #include <cstddef>
-#include <stdio.h>
-#include <math.h>
+#include <cstdio>
+#include <cmath>
 
 /// Constants
 

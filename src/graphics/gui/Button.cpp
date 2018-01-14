@@ -53,7 +53,7 @@ namespace GUI
 
 	bool Button::mouseMoved(Events::MouseMovedEvent& e)
 	{
-		Vec2 mouse = Application::get().uiMousePos();
+		const Vec2 mouse = Application::get().uiMousePos();
 		if (!m_bounds.contains(mouse))
 			m_state = ButtonState::UNPRESSED;
 
@@ -62,7 +62,7 @@ namespace GUI
 
 	void Button::update()
 	{
-		Vec2 mouse = Application::get().uiMousePos();
+		const Vec2 mouse = Application::get().uiMousePos();
 		m_hovered = m_bounds.contains(mouse);
 		updateTexture();
 	}

@@ -32,8 +32,8 @@ namespace Graphics
 
 	void Label::updateBounds()
 	{
-		sf::FloatRect rect = m_text.getLocalBounds();
-		Vec2 size(rect.width, rect.height);
+		const sf::FloatRect rect = m_text.getLocalBounds();
+		const Vec2 size(rect.width, rect.height);
 		switch (m_alignment)
 		{
 		case Alignment::LEFT:

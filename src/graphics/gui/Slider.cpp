@@ -33,7 +33,7 @@ namespace GUI
 		, m_atlas((sf::Texture*)&Application::get().getTexture("/gui/slider"))
 		, m_bgSprite(new sf::RectangleShape(m_bounds.size))
 	{
-		float size = vertical ? bounds.width : bounds.height;
+		const float size = vertical ? bounds.width : bounds.height;
 		m_headBounds = FloatRectangle(bounds.x, bounds.y, size, size);
 
 		m_headSprite = new sf::RectangleShape(m_headBounds.size);
@@ -44,7 +44,7 @@ namespace GUI
 	
 	bool Slider::mousePressed(Events::MousePressedEvent& e)
 	{
-		Vec2 mouse = Application::get().uiMousePos();
+		const Vec2 mouse = Application::get().uiMousePos();
 		if (m_hovered)
 		{
 			m_state = SliderState::PRESSEDHEAD;
@@ -62,7 +62,7 @@ namespace GUI
 
 	bool Slider::mouseMoved(Events::MouseMovedEvent& e)
 	{
-		Vec2 mouse = Application::get().uiMousePos();
+		const Vec2 mouse = Application::get().uiMousePos();
 		if (m_state == SliderState::PRESSEDHEAD)
 		{
 			if (m_vertical)
@@ -79,7 +79,7 @@ namespace GUI
 		if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			m_state = SliderState::UNPRESSED;
 
-		Vec2 mouse = Application::get().uiMousePos();
+		const Vec2 mouse = Application::get().uiMousePos();
 		m_hovered = m_headBounds.contains(mouse);
 		updateTexture();
 

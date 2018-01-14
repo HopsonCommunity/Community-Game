@@ -57,10 +57,9 @@ namespace GUI
 
 	bool Panel::mousePressed(Events::MousePressedEvent& e)
 	{
-		Vec2 mouse = Application::get().uiMousePos();
-		for (uint i = 0; i < m_widgets.size(); i++)
+		const Vec2 mouse = Application::get().uiMousePos();
+		for (Widget* const widget : m_widgets)
 		{
-			Widget* widget = m_widgets[i];
 			if (widget->getBounds().contains(mouse))
 			{
 				if (widget->isActive())
@@ -73,10 +72,9 @@ namespace GUI
 
 	bool Panel::mouseReleased(Events::MouseReleasedEvent& e)
 	{
-		Vec2 mouse = Application::get().uiMousePos();
-		for (uint i = 0; i < m_widgets.size(); i++)
+		const Vec2 mouse = Application::get().uiMousePos();
+		for (Widget* const widget : m_widgets)
 		{
-			Widget* widget = m_widgets[i];
 			if (widget->getBounds().contains(mouse))
 			{
 				if (widget->isActive())
@@ -91,7 +89,7 @@ namespace GUI
 	{
 		for (uint i = 0; i < m_widgets.size(); i++)
 		{
-			Widget* widget = m_widgets[i];
+			Widget* const widget = m_widgets[i];
 			if (widget->isActive())
 				if (widget->mouseMoved(e))
 					return true;
@@ -101,7 +99,7 @@ namespace GUI
 
 	void Panel::update()
 	{
-		for (Widget* widget : m_widgets)
+		for (Widget* const widget : m_widgets)
 		{
 			if (widget->isActive())
 				widget->update();
@@ -110,7 +108,7 @@ namespace GUI
 
 	void Panel::render(sf::RenderWindow& window)
 	{
-		for (Widget* widget : m_widgets)
+		for (Widget* const widget : m_widgets)
 		{
 			if (widget->isActive())
 				widget->render(window);

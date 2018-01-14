@@ -14,11 +14,11 @@ namespace Util
 		{
 			for (const auto& val : tiles)
 			{
-				Vec2i pos = val.first;
-				Vec2i up = pos + Vec2i(0, 32);
-				Vec2i down = pos + Vec2i(0, -32);
-				Vec2i left = pos + Vec2i(-32, 0);
-				Vec2i right = pos + Vec2i(32, 0);
+				const Vec2i pos = val.first;
+				const Vec2i up = pos + Vec2i(0, 32);
+				const Vec2i down = pos + Vec2i(0, -32);
+				const Vec2i left = pos + Vec2i(-32, 0);
+				const Vec2i right = pos + Vec2i(32, 0);
 
 				if (!hasCoord(tiles, up))
 					temp.push_back(std::make_pair(up, currentCost - 1));

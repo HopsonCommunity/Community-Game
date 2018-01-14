@@ -114,8 +114,8 @@ namespace Level
 
 					// --
 					// Do not render tiles that can not be seen (dark)
-					int32 xa = x - 1 <= 0 ? 1 : x - 1, xb = x + 1 >= height ? height - 1 : x + 1;
-					int32 ya = y - 1 <= 0 ? 1 : y - 1, yb = y + 1 >= height ? height - 1 : y + 1;
+					const int32 xa = x - 1 <= 0 ? 1 : x - 1, xb = x + 1 >= height ? height - 1 : x + 1;
+					const int32 ya = y - 1 <= 0 ? 1 : y - 1, yb = y + 1 >= height ? height - 1 : y + 1;
 
 					if (layer->tiles[xa][ya]->light.color == Color::Black && layer->tiles[xb][yb]->light.color == Color::Black
 						&& layer->tiles[xa][yb]->light.color == Color::Black && layer->tiles[xb][ya]->light.color == Color::Black)
