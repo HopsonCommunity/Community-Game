@@ -21,10 +21,10 @@ namespace WGenerator
 		if (block.width > block.height && block.width / block.height >= 1.25) splitOrientation = false;
 		else if (block.height > block.width && block.height / block.width >= 1.25) splitOrientation = true;
 
-		uint max = (splitOrientation ? block.height : block.width) - m_minSize;
+		const uint max = (splitOrientation ? block.height : block.width) - m_minSize;
 		if (max <= m_minSize) return false;
 
-		uint splitPosition = (uint)generator->uint64InRange(m_minSize, max);
+		const uint splitPosition = (uint)generator->uint64InRange(m_minSize, max);
 
 		if (splitOrientation)
 		{
@@ -75,8 +75,8 @@ namespace WGenerator
 		point1 = std::make_pair((uint)(left->x + (left->width / 2)), (uint)(left->y + (left->height / 2)));
 		point2 = std::make_pair((uint)(right->x + (right->width / 2)), (uint)(right->y + (right->height) / 2));
 
-		int w = point2.first - point1.first;
-		int h = point2.second - point1.second;
+		const int w = point2.first - point1.first;
+		const int h = point2.second - point1.second;
 
 		uint hall = (uint)generator->uint64InRange(m_minHall, m_maxHall);
 
