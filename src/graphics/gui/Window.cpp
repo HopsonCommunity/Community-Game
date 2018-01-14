@@ -18,7 +18,7 @@ namespace GUI
 		updateButtons();
 
 		// Setup shader and texture
-		sf::Shader* transparency = new sf::Shader();
+		sf::Shader* const transparency = new sf::Shader();
 		transparency->loadFromMemory(getFileContents("res/shaders/transparency.frag"), sf::Shader::Fragment);
 		transparency->setUniform("u_Opacity", .9f);
 		transparency->setUniform("u_Texture", sf::Shader::CurrentTexture);
@@ -32,7 +32,7 @@ namespace GUI
 	
 	bool Window::mousePressed(Events::MousePressedEvent& e)
 	{
-		Vec2 mouse = Application::get().uiMousePos();
+		const Vec2 mouse = Application::get().uiMousePos();
 
 		if (close_button.contains(mouse))
 		{
@@ -64,7 +64,7 @@ namespace GUI
 
 	bool Window::mouseMoved(Events::MouseMovedEvent& e)
 	{
-		Vec2 mouse = Application::get().uiMousePos();
+		const Vec2 mouse = Application::get().uiMousePos();
 
 		if (m_resizing.active)
 		{
@@ -123,8 +123,8 @@ namespace GUI
 	{
 		m_vao.clear();
 
-		float width = m_bounds.width;
-		float height = m_bounds.height;
+		const float width = m_bounds.width;
+		const float height = m_bounds.height;
 
 		///@TODO: Get rid of these hardcoded values
 		// Top left corner
