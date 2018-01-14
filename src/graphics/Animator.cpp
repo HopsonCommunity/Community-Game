@@ -38,12 +38,12 @@ namespace Graphics
 		if (!animFound)
 			return;
 
-		float animLength = anim->length / (float)anim->fps;
+		const float animLength = anim->length / (float)anim->fps;
 		if (m_timer >= animLength)
 			m_timer -= animLength;
-		uint frameIndex = static_cast<uint>((m_timer / animLength) * anim->length);
-		uint textureX = anim->xpos + frameIndex * anim->stride;
-		uint textureY = anim->ypos;
+		const uint frameIndex = static_cast<uint>((m_timer / animLength) * anim->length);
+		const uint textureX = anim->xpos + frameIndex * anim->stride;
+		const uint textureY = anim->ypos;
 		destsprite.setTextureRect(sf::IntRect(textureX, textureY, destsprite.getTextureRect().width, destsprite.getTextureRect().height));
 	}
 }
