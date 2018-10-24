@@ -1,4 +1,4 @@
-﻿#include "WorldGenerator.h"
+#include "WorldGenerator.h"
 #include "../../util/FileUtil.h"
 
 namespace WGenerator
@@ -11,8 +11,8 @@ namespace WGenerator
 
 		if (! (mainJSON["seed"] == "random")) m_generator.setSeed(mainJSON["seed"]);
 
-		for (int i=0; i < mainJSON["width"]; i++) {
-			for (int j=0; j<mainJSON["height"]; j++) {
+		for (int i=0; i < static_cast<int>(mainJSON["width"]); i++) {
+			for (int j=0; j < static_cast<int>(mainJSON["height"]); j++) {
 				addList.push_back({i, j, mainJSON["defaultWall"], 0});
 			}
 		}
@@ -32,7 +32,7 @@ namespace WGenerator
 				if (!m_leafs[i]->leftChild && !m_leafs[i]->rightChild)
 				{
 					int randomizedValue = m_generator.intInRange(0, 100);
-					if (m_leafs[i]->block.width > mainJSON["maxLeafSize"] || m_leafs[i]->block.height > mainJSON["maxLeafSize"] ||
+					if (m_leafs[i]->block.width > static_cast<int32>(mainJSON["maxLeafSize"]) || m_leafs[i]->block.height > static_cast<int32>(mainJSON["maxLeafSize"]) ||
 						randomizedValue > 25)
 					{
 						if (m_leafs[i]->split())
@@ -113,7 +113,7 @@ namespace WGenerator
 		data.push_back(std::make_pair<std::vector<std::shared_ptr<IntRectangle>>, byte>(getHalls(), mainJSON["defaultFloor"]));
 		renderRooms();
 		render(data);
-		uint numberOfRooms = getRooms().size();
+		uint numberOfRooms = static_cast<uint>(getRooms().size());
 		map.addList = addList;
 		map.playerPosition = placePlayer(static_cast<uint>(m_generator.uint64InRange(0, numberOfRooms)));
 		return map;
@@ -147,7 +147,7 @@ namespace WGenerator
 			uint i=0;
 			while (true){
 				if (i >= random.size()) break;
-				if (random.at(i)["chance"] > x) {
+				if (static_cast<uint>(random.at(i)["chance"]) > x) {
 					renderRoom(*rooms[roomIterator], random[i]);
 					break;
 				}
