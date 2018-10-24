@@ -1,4 +1,4 @@
-﻿#include "Application.h"
+#include "Application.h"
 
 #include "states/StateMenu.h"
 #include "states/StatePlaying.h"
@@ -79,7 +79,7 @@ void Application::start()
 			updates++;
 			upTimer += UP_TICK;
 			m_states.back()->update(timestep);
-			for (int32 i = m_panels.size() - 1; i >= 0; i--)
+			for (int32 i = static_cast<int32>(m_panels.size()) - 1; i >= 0; i--)
 				m_panels[i]->update();
 		}
 
@@ -124,7 +124,7 @@ void Application::render()
 
 	sf::View oldView = m_window.getView();
 	m_window.setView(m_uiView);
-	for (int32 i = m_panels.size() - 1; i >= 0; i--)
+	for (int32 i = static_cast<int32>(m_panels.size()) - 1; i >= 0; i--)
 		m_panels[i]->render(m_window);
 	m_fpsLabel->render(m_window);
 

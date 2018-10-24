@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "../Common.h"
 
@@ -107,7 +107,7 @@ namespace Log
 	inline void print_log_internal(char* buffer, int32& position, First&& first)
 	{
 		const char* formatted = Log::to_string<First>(first);
-		int32 length = strlen(formatted);
+		int32 length = static_cast<int32>(strlen(formatted));
 		memcpy(&buffer[position], formatted, length);
 		position += length;
 	}
@@ -116,7 +116,7 @@ namespace Log
 	inline void print_log_internal(char* buffer, int32& position, First&& first, Args&&... args)
 	{
 		const char* formatted = Log::to_string<First>(first);
-		int32 length = strlen(formatted);
+		int32 length = static_cast<int32>(strlen(formatted));
 		memcpy(&buffer[position], formatted, length);
 		position += length;
 		if (sizeof...(Args))

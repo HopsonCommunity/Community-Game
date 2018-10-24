@@ -1,4 +1,4 @@
-﻿#include "Renderer2D.h"
+#include "Renderer2D.h"
 
 #include "../maths/maths.h"
 #include "../maths/Color.h"
@@ -8,7 +8,10 @@ namespace Graphics
 	Renderer2D::Renderer2D()
 	{
 		m_before.buffer = new sf::Vertex[MAX_VERTICES];
+		m_before.vertexCount = 0;
+
 		m_after.buffer = new sf::Vertex[MAX_VERTICES];
+		m_after.vertexCount = 0;
 	}
 
 	Renderer2D::~Renderer2D()

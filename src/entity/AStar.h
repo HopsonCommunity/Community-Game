@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "../Common.h"
 
@@ -63,7 +63,7 @@ namespace std
 			auto h1 = hasher(std::get<0>(pos));
 			auto h2 = hasher(std::get<1>(pos));
 
-			return std::hash<int>{}((h1 ^ h2) >> 2);
+			return std::hash<int>{}((static_cast<int>(h1 ^ h2)) >> 2);
 		}
 	};
 }
